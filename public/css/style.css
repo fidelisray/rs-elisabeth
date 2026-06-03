@@ -1,0 +1,43 @@
+:root {
+    --primary-color: #2F9DFE;
+    --secondary-color: #2389F0;
+    --secondary-darker-color: #124f8c;
+
+    --background-color: #a3c3e3;
+    --accent-color: #F8F804;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+section#quick-access {
+    background: var(--secondary-darker-color);
+}
+
+section#quick-access div.container div.cards {
+    height: 200px;
+}
+
+section#about-us {
+    background: var(--background-color);
+}
+
+section#our-speciality .carousel-item {
+    min-height: 325px;
+}
+
+section#our-speciality .carousel-item .row {
+    min-height: 325px;
+}
+
+.section-title {
+    color: var(--secondary-darker-color)
+}
+
+.btn-learn {
+    color: var(--secondary-color);
+    text-transform: uppercase;
+}
