@@ -77,15 +77,15 @@
             </div>
         </div>
     </section>
-    <section id="quick-access" class="py-4">
+    <section id="quick-access" class="pb-5">
         <div class="container">
             <div class="row g-0 cards">
                 <div class="col-md-3">
                     <a href="#" class="text-decoration-none">
                         <div class="card h-100 border-0 rounded-0">
-                            <div class="card-body text-center">
+                            <div class="card-body d-flex text-center align-items-center justify-content-center">
                                 <i class="fa-solid fa-user-doctor doctor-icon"></i>
-                                <p>Find a Doctor</p>
+                                <p class="mt-2">Find a Doctor</p>
                             </div>
                         </div>
                     </a>
@@ -93,9 +93,9 @@
                 <div class="col-md-3">
                     <a href="#" class="text-decoration-none">
                         <div class="card h-100 border-0 rounded-0">
-                            <div class="card-body text-center">
+                            <div class="card-body d-flex text-center align-items-center justify-content-center">
                                 <i class="fa-regular fa-calendar appointment-icon"></i>
-                                <p>Make Appointment</p>
+                                <p class="mt-2">Make Appointment</p>
                             </div>
                         </div>
                     </a>
@@ -103,9 +103,9 @@
                 <div class="col-md-3">
                     <a href="#" class="text-decoration-none">
                         <div class="card h-100 border-0 rounded-0">
-                            <div class="card-body text-center">
+                            <div class="card-body d-flex text-center align-items-center justify-content-center">
                                 <i class="fa-solid fa-comment-medical medical-icon"></i>
-                                <p>Send an Inquiry</p>
+                                <p class="mt-2">Send an Inquiry</p>
                             </div>
                         </div>
                     </a>
@@ -113,10 +113,12 @@
                 <div class="col-md-3">
                     <a href="#" class="text-decoration-none">
                         <div class="card h-100 border-0 rounded-0">
-                            <div class="card-body text-center">
+                            <div class="card-body d-flex text-center align-items-center justify-content-center">
                                 <i class="fa-solid fa-briefcase-medical emergency-call"></i>
-                                <p class="my-1">Emergency Call</p>
-                                <p class="my-1">(024) 850-22-44</p>
+                                <div class="mt-1">
+                                    <p class="my-0">Emergency Call</p>
+                                    <p class="my-0">(024) 850-22-44</p>
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -145,7 +147,7 @@
                     </div>
                 </div>
                 <div class="jumbotron-image col-md-7 text-center">
-                    <img src="{{ asset('images/feature.jpg') }}" alt="" srcset="">
+                    <img src="{{ asset('images/feature.jpg') }}" class="img-fluid rounded shadow" alt="" srcset="">
                 </div>
             </div>
         </div>
