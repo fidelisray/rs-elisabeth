@@ -26,11 +26,33 @@ section#about-us {
 }
 
 section#our-speciality .carousel-item {
-    min-height: 325px;
+    /* min-height: 325px; */
+    min-height: 265px;
 }
 
 section#our-speciality .carousel-item .row {
-    min-height: 325px;
+    /* min-height: 325px; */
+    min-height: 265px;
+}
+
+/* section#our-speciality .carousel-control-prev-icon {
+    color: var(--secondary-darker-color)
+} */
+
+.carousel {
+    /* Mengubah warna panah navigasi */
+    --bs-carousel-control-color: var(--secondary-darker-color); 
+    
+    /* Mengubah warna indikator (garis bawah) saat tidak aktif */
+    --bs-carousel-indicator-opacity: 0.5;
+    
+    /* Mengubah warna indikator saat aktif */
+    --bs-carousel-indicator-active-bg: var(--secondary-darker-color);
+}
+
+span.carousel-control-prev-icon,
+span.carousel-control-next-icon {
+    filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(202deg) brightness(118%) contrast(119%);
 }
 
 .section-title {

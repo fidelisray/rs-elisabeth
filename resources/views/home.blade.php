@@ -156,11 +156,14 @@
             <h2 class="display-8 fw-bold section-title">Our Speciality</h2>
         </div>
         <div class="container-fluid py-5">
-            <div id="carouselExampleCaptions" class="carousel slide">
+            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
                     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="5" aria-label="Slide 6"></button>
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
@@ -172,10 +175,131 @@
                                 <div class="col-md-6">
                                     <!-- <span class="badge bg-primary mb-3"> -->
                                     <span class="mb-3">Featured</span>
-                                    <h4 class="fw-bold">Excellence in Healthcare</h4>
+                                    <h4 class="fw-bold">Pelayanan Stroke Terpadu</h4>
                                     <p class="text-muted">
                                         Comprehensive medical services
-                                        for international patients.
+                                        for Stroke patients.
+                                    </p>
+                                    <div class="mt-4">
+                                        <a href="#" class="btn-learn">Learn More ></a>
+                                        <!-- <a href="#"
+                                        class="btn btn-outline-primary">
+                                            Contact Us
+                                        </a> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="container">
+                            <div class="row align-items-center gy-4">
+                                <div class="col-md-6">
+                                    <img src="{{ asset('images/F1670914854.jpg') }}" class="img-fluid rounded shadow" alt="...">
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- <span class="badge bg-primary mb-3"> -->
+                                    <span class="mb-3">Featured</span>
+                                    <h4 class="fw-bold">Klinik Nyeri</h4>
+                                    <p class="text-muted">
+                                        Comprehensive medical services
+                                        for Stroke patients. Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis praesentium velit atque dolore, reprehenderit tempore. Illo itaque dolores assumenda quia?
+                                    </p>
+                                    <div class="mt-4">
+                                        <a href="#" class="btn-learn">Learn More ></a>
+                                        <!-- <a href="#"
+                                        class="btn btn-outline-primary">
+                                            Contact Us
+                                        </a> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="container">
+                            <div class="row align-items-center gy-4">
+                                <div class="col-md-6">
+                                    <img src="{{ asset('images/F1670914872.jpg') }}" class="img-fluid rounded shadow" alt="...">
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- <span class="badge bg-primary mb-3"> -->
+                                    <span class="mb-3">Featured</span>
+                                    <h4 class="fw-bold">Pelayanan Neurofisiologi</h4>
+                                    <p class="text-muted">
+                                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis deserunt consectetur quos neque eius dicta possimus numquam autem beatae nam.
+                                    </p>
+                                    <div class="mt-4">
+                                        <a href="#" class="btn-learn">Learn More ></a>
+                                        <!-- <a href="#"
+                                        class="btn btn-outline-primary">
+                                            Contact Us
+                                        </a> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="container">
+                            <div class="row align-items-center gy-4">
+                                <div class="col-md-6">
+                                    <img src="{{ asset('images/F1671680565.jpg') }}" class="img-fluid rounded shadow" alt="...">
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- <span class="badge bg-primary mb-3"> -->
+                                    <span class="mb-3">Featured</span>
+                                    <h4 class="fw-bold">Pelayanan Gawat Darurat</h4>
+                                    <p class="text-muted">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste eius illum excepturi pariatur, dicta maiores, voluptas veniam quisquam, cupiditate hic consectetur adipisci ducimus repellendus officiis. Aliquid iure magnam atque iusto?
+                                    </p>
+                                    <div class="mt-4">
+                                        <a href="#" class="btn-learn">Learn More ></a>
+                                        <!-- <a href="#"
+                                        class="btn btn-outline-primary">
+                                            Contact Us
+                                        </a> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="container">
+                            <div class="row align-items-center gy-4">
+                                <div class="col-md-6">
+                                    <img src="{{ asset('images/F1671680579.jpg') }}" class="img-fluid rounded shadow" alt="...">
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- <span class="badge bg-primary mb-3"> -->
+                                    <span class="mb-3">Featured</span>
+                                    <h4 class="fw-bold">Ruang Rawat Intensif</h4>
+                                    <p class="text-muted">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum distinctio iste, aut, magnam inventore dolorem labore ducimus, unde saepe ratione a aliquid error atque magni! Ratione maiores sequi vitae aspernatur aliquam ullam dignissimos accusamus fuga.
+                                    </p>
+                                    <div class="mt-4">
+                                        <a href="#" class="btn-learn">Learn More ></a>
+                                        <!-- <a href="#"
+                                        class="btn btn-outline-primary">
+                                            Contact Us
+                                        </a> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="container">
+                            <div class="row align-items-center gy-4">
+                                <div class="col-md-6">
+                                    <img src="{{ asset('images/F1671680659.jpg') }}" class="img-fluid rounded shadow" alt="...">
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- <span class="badge bg-primary mb-3"> -->
+                                    <span class="mb-3">Featured</span>
+                                    <h4 class="fw-bold">Klinik Spesialis dan Gigi</h4>
+                                    <p class="text-muted">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum eos quaerat debitis odit? Qui, architecto?
                                     </p>
                                     <div class="mt-4">
                                         <a href="#" class="btn-learn">Learn More ></a>
@@ -190,11 +314,11 @@
                     </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="carousel-control-prev-icon bg-rse" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
                 <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="carousel-control-next-icon bg-rse" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
