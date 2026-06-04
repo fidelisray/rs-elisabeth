@@ -3,7 +3,7 @@
   <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Bootstrap demo</title>
+      <title>RS St. Elisabeth</title>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
       <link rel="stylesheet" href="{{ asset('css/style.css') }}">
   </head>
@@ -127,7 +127,7 @@
         </div>
     </section>
     <section class="about-us">
-        <div class="p-2 mb-4 bg-light rounded-3">
+        <div class="container-fluid p-2 mb-4 rounded-3">
             <div class="title text-center section-title">
                 <h2 class="display-8 fw-bold">Why People Choose Us?</h2>
             </div>
@@ -323,6 +323,63 @@
                     <span class="carousel-control-next-icon bg-rse" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
+            </div>
+        </div>
+    </section>
+    <section id="promotions">
+        <div class="title text-center">
+            <h2 class="display-8 fw-bold section-title">Paket dan Promo</h2>
+        </div>
+        <div class="container py-5">
+            <div class="row cards">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100" style="width: 22rem;">
+                        <img src="{{ asset('images/ADS1749518930.jpg') }}" class="card-img-top card-img-fixed" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                        </div>
+                    </div>
+                </div>    
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100" style="width: 22rem;">
+                        <img src="{{ asset('images/ADS1749518080.jpeg') }}" class="card-img-top card-img-fixed" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                        </div>
+                    </div>
+                </div>    
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100" style="width: 22rem;">
+                        <img src="{{ asset('images/ADS1758074522.jpeg') }}" class="card-img-top card-img-fixed" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                        </div>
+                    </div>
+                </div>    
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100" style="width: 22rem;">
+                        <img src="{{ asset('images/ADS1758075145.jpeg') }}" class="card-img-top card-img-fixed" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100" style="width: 22rem;">
+                        <img src="{{ asset('images/ADS1761805772.jpeg') }}" class="card-img-top card-img-fixed" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100" style="width: 22rem;">
+                        <img src="{{ asset('images/ADS1761805889.jpeg') }}" class="card-img-top card-img-fixed" alt="...">
+                        <div class="card-body">
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

@@ -54,6 +54,9 @@ section#quick-access div.container div.cards {
     background-color: rgb(246, 37, 22);
 }
 
+section#about-us div.container-fluid {
+    background-color: #124f8c;
+}
 
 section#our-speciality .carousel-item {
     min-height: 325px;
