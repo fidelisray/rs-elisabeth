@@ -42,10 +42,10 @@
             </div>
             <div class="col-lg-6 mx-auto">
                 <p class="lead mb-4">Tim Dokter Berpengalaman kami akan selalu siap sedia untuk memberikan pelayanan kesehatan terbaik dan professional untuk anda dan keluarga</p>
-                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <!-- <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
                     <button type="button" class="btn btn-primary btn-lg px-4 gap-3">Primary button</button>
                     <button type="button" class="btn btn-outline-secondary btn-lg px-4">Secondary</button>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
@@ -95,6 +95,7 @@
                         class="btn btn-outline-secondary dropdown-toggle sort-dropdown"
                         type="button"
                         data-bs-toggle="dropdown">
+                        <i class="fa-solid fa-sliders"></i>
                         Urutkan
                     </button>
                     <ul class="dropdown-menu">
@@ -190,6 +191,390 @@
 
     <section class="container">
         <div class="card shadow-sm border-0 mb-3">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <!-- Kolom Foto + Informasi Dokter -->
+                    <div class="col-md-3 border-end">
+                        <div class="p-4 text-center">
+                            <img
+                                src="https://via.placeholder.com/120"
+                                class="rounded-circle img-fluid mb-3"
+                                style="width:120px;height:120px;object-fit:cover;"
+                                alt="Foto Dokter">
+                            <h5 class="fw-bold mb-1">Dr. Budi Santoso, Sp.KJ</h5>
+                            <span class="badge bg-primary mb-3">
+                                Spesialis Jantung
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Kolom Jadwal -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">
+                            Jadwal Dokter
+                        </label>
+                        <!-- <select class="form-select">
+                            <option selected>
+                                Pilih Jadwal
+                            </option>
+                            <option>
+                                Senin, 09 Juni 2026 - 09:00
+                            </option>
+                            <option>
+                                Senin, 09 Juni 2026 - 13:00
+                            </option>
+                            <option>
+                                Selasa, 10 Juni 2026 - 08:00
+                            </option>
+                        </select> -->
+                        <div class="col align-items-center">
+
+                            <div class="row">
+
+                                <div class="d-flex flex-wrap gap-3">
+                                    <div class="schedule">
+                                        <h5 class="schedule-title">Senin</h5>
+                                        <small>14:00 - 16:00</small>
+                                    </div>
+                                    <div class="schedule">
+                                        <h5 class="schedule-title">Selasa</h5>
+                                        <small>08:00 - 10:00</small>
+                                    </div>
+                                    <div class="schedule">
+                                        <h5 class="schedule-title">Rabu</h5>
+                                        <small>09:00 - 11:00</small>
+                                    </div>
+                                    <div class="schedule off-day">
+                                        <h5 class="schedule-title">Kamis</h5>
+                                        <small>-</small>
+                                    </div>
+                                    <div class="schedule">
+                                        <h5 class="schedule-title">Jumat</h5>
+                                        <small>12:00 - 14:00</small>
+                                    </div>
+                                    <div class="schedule">
+                                        <h5 class="schedule-title">Sabtu</h5>
+                                        <small>08:00 - 10:00</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="row mt-4">
+                                <div class="d-flex align-items-center gap-3">
+                                    <span class="text-muted">
+                                        Jadwal dipilih:
+                                    </span>
+                                    <div
+                                        id="selectedSchedule"
+                                        class="selected-schedule">
+                                        Belum memilih jadwal
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <!-- Tombol -->
+                    <!-- <div class="col-md-3">
+
+                        <div class="d-grid gap-2">
+
+                            <button
+                                class="btn btn-outline-primary">
+                                Detail
+                            </button>
+                            <button
+                                class="btn btn-primary">
+                                Buat Janji
+                            </button>
+                        </div>
+                    </div> -->
+                    <div class="col-md-3">
+
+                        <div class="d-grid gap-2">
+
+                            <!-- <button
+                                class="btn btn-outline-primary">
+                                Detail
+                            </button>
+                            <button
+                                id="bookBtn"
+                                class="btn btn-primary">
+                                Buat Janji
+                            </button> -->
+                            <a 
+                                href="#" 
+                                class="btn btn-outline-primary"
+                                data-bs-toggle="modal"
+                                data-bs-target="#detailDokter">Cek Profil</a>
+                            <a href="https://regonline.rs-elisabeth.com/" class="btn btn-success" target="_blank">Buat Janji</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================================================= -->
+        <!-- Detail Dokter Modal -->
+        <!-- ================================================= -->
+
+        <div class="modal fade" id="detailDokter" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0 bg-transparent">
+                    <!-- <div class="modal-header">
+                        <h5 class="modal-title">Dr. Budi Santoso, Sp.KJ.</h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Definisikan kategori sendiri
+                        
+                        
+                    </div>
+                    <div class="modal-footer">
+                        
+                    </div> -->
+                    <div class="doctor-card">
+                        <!-- HEADER -->
+                        <div class="profile-header">
+                            <button 
+                                type="button"
+                                class="btn-close mb-2 float-end"
+                                data-bs-dismiss="modal">
+                            </button>
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="doctor-photo">
+                                    <img src="https://via.placeholder.com/120x120" alt="Doctor">
+                                </div>
+                                <div>
+                                    <h5 class="mb-1 fw-bold">
+                                        Dr. Nama Dokter, M.Psi, Psikolog
+                                    </h5>
+                                    <span class="speciality-badge">
+                                        Psikolog
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="stats">
+                                <div class="stat-pill">
+                                    ⭐ 5
+                                </div>
+
+                                <div class="stat-pill">
+                                    <i class="bi bi-people"></i> 3,792
+                                </div>
+                            </div>
+                        </div>
+                        <!-- TABS -->
+                        <ul class="nav nav-tabs justify-content-center mt-2">
+                            <!-- <li class="nav-item">
+                                <button
+                                    type="button" 
+                                    class="nav-link active">
+                                    Tentang
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button 
+                                    type="button"
+                                    class="nav-link">
+                                    Jadwal
+                                </button>
+                            </li> -->
+                            <ul class="nav nav-tabs justify-content-center mt-2" id="doctorTabs" role="tablist">
+                                <li class="nav-item flex-fill text-center">
+                                    <button
+                                        class="nav-link active w-100"
+                                        id="tentang-tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#tentang-pane"
+                                        type="button">
+                                        Tentang
+                                    </button>
+                                </li>
+
+                                <li class="nav-item flex-fill text-center">
+                                    <button
+                                        class="nav-link w-100"
+                                        id="jadwal-tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#jadwal-pane"
+                                        type="button">
+                                        Jadwal
+                                    </button>
+                                </li>
+                            </ul>
+                        </ul>
+                        <!-- CONTENT -->
+                        <!-- <div class="content-section">
+                            <div class="section-tentang">
+                                
+                            </div>
+                        </div> -->
+                        <div class="content-section">
+                            <div class="tab-content">
+
+                                <div
+                                    class="tab-pane fade show active"
+                                    id="tentang-pane">
+
+                                    <div class="section-tentang">
+                                        <div class="section-title">
+                                            <i class="bi bi-stethoscope me-2"></i>
+                                            Tentang Dokter
+                                        </div>
+                                        <p class="text-secondary">
+                                            Dokter berpengalaman yang siap memberikan pelayanan
+                                            kesehatan terbaik.
+                                        </p>
+                                        <!-- Location -->
+                                        <div class="info-box">
+                                            <div class="info-icon">
+                                                <i class="bi bi-geo-alt"></i>
+                                            </div>
+                                            <div>
+                                                <div class="info-label">Lokasi</div>
+                                                <div>Jakarta, Indonesia</div>
+                                            </div>
+                                        </div>
+                                        <!-- Experience -->
+                                        <div class="info-box">
+                                            <div class="info-icon">
+                                                <i class="bi bi-briefcase"></i>
+                                            </div>
+                                            <div>
+                                                <div class="info-label">Pengalaman</div>
+                                                <strong>5+ Tahun</strong>
+                                            </div>
+                                        </div>
+                                        <!-- Education -->
+                                        <div class="info-box">
+                                            <div class="info-icon">
+                                                <i class="bi bi-mortarboard"></i>
+                                            </div>
+                                            <div>
+                                                <div class="info-label">Pendidikan</div>
+                                                <strong>Universitas Terkemuka</strong>
+                                            </div>
+                                        </div>
+                                        <!-- CTA -->
+                                        <button type="button" class="cta-btn mt-4">
+                                            <i class="bi bi-telephone me-2"></i>
+                                            Hubungi untuk Informasi
+                                            <i class="bi bi-chevron-right float-end"></i>
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- SECTION JADWAL -->
+                                <div
+                                    class="tab-pane fade"
+                                    id="jadwal-pane">
+
+                                    <!-- isi jadwal di bawah -->
+                                    <div class="section-jadwal">
+
+                                        <div class="section-title">
+                                            <i class="bi bi-clock me-2"></i>
+                                            Jadwal Praktik
+                                        </div>
+
+                                        <div class="schedule-card">
+                                            <div class="day-badge">SEN</div>
+
+                                            <div>
+                                                <div class="schedule-day">Senin</div>
+                                                <span class="schedule-time">
+                                                    14:00 - 16:00
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="schedule-card">
+                                            <div class="day-badge">SEL</div>
+
+                                            <div>
+                                                <div class="schedule-day">Selasa</div>
+                                                <span class="schedule-time">
+                                                    08:00 - 10:00
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="schedule-card">
+                                            <div class="day-badge">RAB</div>
+
+                                            <div>
+                                                <div class="schedule-day">Rabu</div>
+                                                <span class="schedule-time">
+                                                    14:00 - 16:00
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="schedule-card day-off">
+                                            <div class="day-badge">KAM</div>
+
+                                            <div>
+                                                <div class="schedule-day">Kamis</div>
+                                                <span class="schedule-time">
+                                                    08:30 - 10:00
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="schedule-card">
+                                            <div class="day-badge">JUM</div>
+
+                                            <div>
+                                                <div class="schedule-day">Jumat</div>
+                                                <span class="schedule-time">
+                                                    08:30 - 10:00
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="schedule-card">
+                                            <div class="day-badge">SAB</div>
+
+                                            <div>
+                                                <div class="schedule-day">Sabtu</div>
+                                                <span class="schedule-time">
+                                                    08:30 - 10:00
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <button type="button" class="cta-btn mt-4">
+                                            <i class="bi bi-telephone me-2"></i>
+                                            Hubungi untuk Informasi
+                                            <i class="bi bi-chevron-right float-end"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="card shadow-sm border-0 mb-3" style="display: none;">
             <div class="card-body">
                 <div class="row align-items-center">
                     <!-- Kolom Foto + Informasi Dokter -->
@@ -331,7 +716,7 @@
             </div>
         </div>
         
-        <div class="card shadow-sm border-0 mb-3">
+        <div class="card shadow-sm border-0 mb-3" style="display: none;">
             <div class="card-body">
                 <div class="row align-items-center">
                     <!-- Kolom Foto + Informasi Dokter -->
