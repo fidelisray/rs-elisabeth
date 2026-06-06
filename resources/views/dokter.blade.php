@@ -87,6 +87,7 @@
                     data-bs-target="#filterModal">
                     <!-- <i class="bi bi-funnel"></i> -->
                     <i class="fa-solid fa-filter"></i>
+                    Cari Poli
                 </button>
 
                 <!-- Sort Dropdown -->
@@ -99,8 +100,6 @@
                         Urutkan
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Terbaru</a></li>
-                        <li><a class="dropdown-item" href="#">Terlama</a></li>
                         <li><a class="dropdown-item" href="#">A - Z</a></li>
                         <li><a class="dropdown-item" href="#">Z - A</a></li>
                     </ul>
@@ -117,7 +116,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Filter Data</h5>
+                    <h5 class="modal-title">Cari Berdasarkan Poli</h5>
                     <button
                         type="button"
                         class="btn-close"
@@ -126,33 +125,122 @@
                 </div>
                 <div class="modal-body">
                     <!-- Definisikan kategori sendiri -->
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" id="cat1">
-                        <label class="form-check-label" for="cat1">
-                            Kategori 1
-                        </label>
-                    </div>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" id="cat2">
-                        <label class="form-check-label" for="cat2">
-                            Kategori 2
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="cat3">
-                        <label class="form-check-label" for="cat3">
-                            Kategori 3
-                        </label>
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingOne">
+                                <button class="accordion-button collapsed" 
+                                        type="button" 
+                                        data-bs-toggle="collapse" 
+                                        data-bs-target="#flush-collapseOne" 
+                                        aria-expanded="false" 
+                                        aria-controls="flush-collapseOne">
+                                    Poli Executive
+                                </button>
+                            </h2>
+                            <div id="flush-collapseOne" 
+                                 class="accordion-collapse collapse" 
+                                 aria-labelledby="flush-headingOne" 
+                                 data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <!-- START <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" id="cat1">
+                                        <label class="form-check-label" for="cat1">
+                                            Poli Umum
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" id="cat2">
+                                        <label class="form-check-label" for="cat2">
+                                            Poli Eksekutif
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="cat3">
+                                        <label class="form-check-label" for="cat3">
+                                            Kategori 3
+                                        </label>
+                                    </div> END --> 
+                                    <div class="d-grid gap-2" role="group" aria-label="Basic radio toggle button group">
+                                        <input type="radio" class="btn-check poli-radio" name="btnradio" id="btnradio1" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btnradio1">Poli Executive 1</label>
+
+                                        <input type="radio" class="btn-check poli-radio" name="btnradio" id="btnradio2" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btnradio2">Poli Executive 2</label>
+
+                                        <input type="radio" class="btn-check poli-radio" name="btnradio" id="btnradio3" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btnradio3">Poli Executive 3</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingTwo">
+                                <button class="accordion-button collapsed" 
+                                        type="button" 
+                                        data-bs-toggle="collapse" 
+                                        data-bs-target="#flush-collapseTwo" 
+                                        aria-expanded="false" 
+                                        aria-controls="flush-collapseTwo">
+                                    Poli Specialist
+                                </button>
+                            </h2>
+                            <div id="flush-collapseTwo" 
+                                 class="accordion-collapse collapse" 
+                                 aria-labelledby="flush-headingTwo" 
+                                 data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <div class="d-grid gap-2" role="group" aria-label="Basic radio toggle button group">
+                                        <input type="radio" class="btn-check poli-radio" name="btnradio" id="btnradio4" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btnradio4">Poli Specialist 1</label>
+
+                                        <input type="radio" class="btn-check poli-radio" name="btnradio" id="btnradio5" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btnradio5">Poli Specialist 2</label>
+
+                                        <input type="radio" class="btn-check poli-radio" name="btnradio" id="btnradio6" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btnradio6">Poli Specialist 3</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingThree">
+                                <button class="accordion-button collapsed" 
+                                        type="button" 
+                                        data-bs-toggle="collapse" 
+                                        data-bs-target="#flush-collapseThree" 
+                                        aria-expanded="false" 
+                                        aria-controls="flush-collapseThree">
+                                    Poli Regular
+                                </button>
+                            </h2>
+                            <div id="flush-collapseThree" 
+                                 class="accordion-collapse collapse" 
+                                 aria-labelledby="flush-headingThree" 
+                                 data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <div class="d-grid gap-2" role="group" aria-label="Basic radio toggle button group">
+                                        <input type="radio" class="btn-check poli-radio" name="btnradio" id="btnradio7" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btnradio7">Poli Regular 1</label>
+
+                                        <input type="radio" class="btn-check poli-radio" name="btnradio" id="btnradio8" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btnradio8">Poli Regular 2</label>
+
+                                        <input type="radio" class="btn-check poli-radio" name="btnradio" id="btnradio9" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btnradio9">Poli Regular 3</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="modal-footer">
+                <!-- <div class="modal-footer">
                     <button class="btn btn-secondary" data-bs-dismiss="modal">
                         Batal
                     </button>
                     <button class="btn btn-primary">
                         Terapkan Filter
                     </button>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -238,6 +326,8 @@
                                     <div class="schedule">
                                         <h5 class="schedule-title">Selasa</h5>
                                         <small>08:00 - 10:00</small>
+                                        <small>12:00 - 14:00</small>
+                                        <small>15:00 - 16:00</small>
                                     </div>
                                     <div class="schedule">
                                         <h5 class="schedule-title">Rabu</h5>
@@ -254,6 +344,9 @@
                                     <div class="schedule">
                                         <h5 class="schedule-title">Sabtu</h5>
                                         <small>08:00 - 10:00</small>
+                                        <small>11:00 - 12:00</small>
+                                        <small>15:00 - 16:00</small>
+                                        <small>18:00 - 19:00</small>
                                     </div>
                                 </div>
                             </div>
@@ -1264,8 +1357,42 @@
             );
 
         });
-        console.log(bookBtn);
+        // console.log(bookBtn);
         
+
+        
+
+
+        const radios = document.querySelectorAll('.poli-radio');
+
+        
+        radios.forEach(radio => {
+
+            radio.addEventListener('change', () => {
+
+                radios.forEach(r => {
+                    if (r !== radio) {
+                        r.dataset.checked = 'false';
+                    }
+                });
+
+                radio.dataset.checked = 'true';
+            });
+
+            const label = document.querySelector(`label[for="${radio.id}"]`);
+
+            label.addEventListener('click', e => {
+
+                if (radio.checked && radio.dataset.checked === 'true') {
+                    e.preventDefault();
+
+                    radio.checked = false;
+                    radio.dataset.checked = 'false';
+                }
+            });
+
+        });
+
     </script>
 </body>
 </html>

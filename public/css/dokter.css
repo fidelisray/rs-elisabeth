@@ -43,7 +43,7 @@ section#hero div div.hero-img .stethoscope-icon {
 }
 
 .toolbar-btn {
-    width: 52px;
+    min-width: 1rem;
     height: 2.8rem;
 }
 
