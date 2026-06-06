@@ -11,7 +11,7 @@
     <header>
         <nav class="navbar bg-body-tertiary">
             <div class="container-fluid row">
-                <a class="navbar-brand col-2" href="#">
+                <a class="navbar-brand col-2" href="/">
                     <img src="{{ asset('images/logo.png') }}" alt="Logo" width="auto" height="80" class="d-inline-block align-text-top">
                 </a>
                 <form class="d-flex col-6" role="search">
@@ -81,11 +81,11 @@
         <div class="container">
             <div class="row g-0 cards">
                 <div class="col-md-3">
-                    <a href="#" class="text-decoration-none">
+                    <a href="/dokter" class="text-decoration-none">
                         <div class="card h-100 border-0 rounded-0">
                             <div class="card-body d-flex text-center align-items-center justify-content-center">
                                 <i class="fa-solid fa-user-doctor doctor-icon"></i>
-                                <p class="mt-2">Find a Doctor</p>
+                                <p class="mt-2">Cari Dokter</p>
                             </div>
                         </div>
                     </a>
@@ -95,7 +95,7 @@
                         <div class="card h-100 border-0 rounded-0">
                             <div class="card-body d-flex text-center align-items-center justify-content-center">
                                 <i class="fa-regular fa-calendar appointment-icon"></i>
-                                <p class="mt-2">Make Appointment</p>
+                                <p class="mt-2">Buat Janji Temu</p>
                             </div>
                         </div>
                     </a>
@@ -104,8 +104,8 @@
                     <a href="#" class="text-decoration-none">
                         <div class="card h-100 border-0 rounded-0">
                             <div class="card-body d-flex text-center align-items-center justify-content-center">
-                                <i class="fa-solid fa-comment-medical medical-icon"></i>
-                                <p class="mt-2">Send an Inquiry</p>
+                                <i class="fa-brands fa-whatsapp whatsapp-icon"></i>
+                                <p class="mt-2">Hubungi Kami</p>
                             </div>
                         </div>
                     </a>
