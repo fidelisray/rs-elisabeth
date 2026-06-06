@@ -11,7 +11,7 @@
     <header>
         <nav class="navbar bg-body-tertiary">
             <div class="container-fluid row">
-                <a class="navbar-brand col-2" href="#">
+                <a class="navbar-brand col-2" href="/">
                     <img src="{{ asset('images/logo.png') }}" alt="Logo" width="auto" height="80" class="d-inline-block align-text-top">
                 </a>
                 <form class="d-flex col-6" role="search">
