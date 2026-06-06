@@ -9,6 +9,8 @@
     --background-color: #91b5d8;
     --accent-color: #F8F804;
 
+    --secondary-bg-color: #b7e4e5;
+
     --inactive-bg-color: #d2d2d2;
     --inactive-fg-color: #aaaaaa;
 }
@@ -23,7 +25,8 @@
 section#hero {
     padding-top: 4rem;
     padding-bottom: 4rem;
-    background: #ccc;
+    /* background: #ccc; */
+    background: var(--secondary-bg-color);
 }
 
 /* section#hero > div {
@@ -32,7 +35,7 @@ section#hero {
 } */
 
 section#hero div div.hero-img .stethoscope-icon {
-    color: #ccc;
+    color: var(--secondary-bg-color);
     font-size: 2rem;
     background: var(--secondary-darker-color);
     border-radius: 0.5rem;
@@ -78,7 +81,9 @@ section#hero div div.hero-img .stethoscope-icon {
 }
 
 
-
+.main-content {
+    background: #e6e5e5;
+}
 
 div.schedule{
     min-width:140px;
