@@ -171,3 +171,8 @@ section#promotions .card {
     border-radius: 0.7rem;
     overflow: hidden;
 }
+
+.footer-copyright {
+    width: 85vw;
+    margin: 0 auto;
+}

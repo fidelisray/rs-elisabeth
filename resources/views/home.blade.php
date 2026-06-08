@@ -427,6 +427,48 @@
             </div>
         </div>
     </section>
+    <section id="footer">
+        <div class="container-fluid col">
+            <div class="row footer-body">
+                <div class="col">
+                    <ul>
+                        <li><a href="#">RS St. Elisabeth Semarang</a></li>
+                        <li><a href="#">Pancaran cintanya menyembuhkan derita sesama</a></li>
+                        <li><a href="#">Tentang Kami</a></li>
+                        <li><a href="#">Profil</a></li>
+                        <li><a href="#">Hubungi Kami</a></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <ul>
+                        <li><a href="#">RS St. Elisabeth Semarang</a></li>
+                        <li><a href="#">Pancaran cintanya menyembuhkan derita sesama</a></li>
+                        <li><a href="#">Tentang Kami</a></li>
+                        <li><a href="#">Profil</a></li>
+                        <li><a href="#">Hubungi Kami</a></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <ul>
+                        <li><a href="#">RS St. Elisabeth Semarang</a></li>
+                        <li><a href="#">Pancaran cintanya menyembuhkan derita sesama</a></li>
+                        <li><a href="#">Tentang Kami</a></li>
+                        <li><a href="#">Profil</a></li>
+                        <li><a href="#">Hubungi Kami</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row footer-copyright">
+                <div class="col">
+                    <p class="copyright"><i class="fa-solid fa-copyright"></i> 2026 Rumah Sakit Santa Elisabeth Semarang</p>
+                </div>
+                <div class="col d-flex justify-content-center gap-3">
+                    <p class="d-inline-block">Designed By Lorem, ipsum dolor.</p>
+                    <p class="d-inline-block">Developed By Lorem, ipsum.</p>
+                </div>
+            </div>
+        </div>
+    </section>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/726e331ad1.js" crossorigin="anonymous"></script>
   </body>
