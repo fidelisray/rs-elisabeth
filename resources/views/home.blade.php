@@ -10,15 +10,20 @@
   <body>
     <header>
         <nav class="navbar bg-body-tertiary">
-            <div class="container-fluid row">
-                <a class="navbar-brand col-2" href="/">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo" width="auto" height="80" class="d-inline-block align-text-top">
+            <div class="container d-flex">
+                <a class="navbar-brand" href="/">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo" width="auto" height="70" class="d-inline-block align-text-top">
+                    <img src="{{ asset('images/akreditasi.png') }}" alt="Logo" width="auto" height="70" class="d-inline-block align-text-top">
                 </a>
-                <form class="d-flex col-6" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                <form class="d-flex nav-form-search" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Temukan dokter, klinik, jadwal.." aria-label="Search"/>
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
-                <div class="dropdown col-2">
+                <a href="#" class="navbar-brand ambulance-call">
+                    <i class="fa-solid fa-truck-medical"></i>
+                    <span class="">IGD 24</span>
+                </a>
+                <div class="dropdown">
                     <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-user"></i>
                     </a>
@@ -26,6 +31,45 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">Log In</a></li>
                         <li><a class="dropdown-item" href="#">Create Account</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <nav class="navbar navbar-expand-lg second-nav">
+            <div class="container second-nav-body">
+                <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+                    <ul class="navbar-nav nav-content gap-2">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Beranda</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Tentang Kami
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Tentang Kami</a></li>
+                                <li><a class="dropdown-item" href="#">Profil</a></li>
+                                <li><a class="dropdown-item" href="#">Direksi</a></li>
+                                <li><a class="dropdown-item" href="#">Visi & Misi</a></li>
+                                <li><a class="dropdown-item" href="#">Akreditasi</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Cari Dokter</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Ruang Perawatan</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Fasilitas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Paket dan Promo</a>
+                        </li>
                     </ul>
                 </div>
             </div>
