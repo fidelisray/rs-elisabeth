@@ -1,15 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root {
-    --primary-color: #2F9DFE;
-    --secondary-color: #2389F0;
+    /* --primary-color: #2F9DFE; */
+    /* --secondary-color: #2389F0; */
+    --primary-color: #008fd7;
+    --secondary-color: #026199;
     --secondary-darker-color: #124f8c;
+    --accent-color: #fff000;
+    --primary-lighter-color: #b7e4e5;
 
     /* --background-color: #a3c3e3; */
     --background-color: #91b5d8;
-    --accent-color: #F8F804;
-
-    --secondary-bg-color: #b7e4e5;
+    /* --accent-color: #F8F804; */
 
     --inactive-bg-color: #d2d2d2;
     --inactive-fg-color: #aaaaaa;
@@ -22,11 +24,29 @@
     font-family: "Outfit", sans-serif;
 }
 
+
+/* main.nav {
+    width: 100vw;
+}
+
+main.nav .navbar {
+    width: 80vw;
+    margin: 0 auto;
+}
+
+ */
+
+
+.nav-form-search {
+    width: 100%;
+    max-width: 30rem;
+}
+
 section#hero {
     padding-top: 4rem;
     padding-bottom: 4rem;
     /* background: #ccc; */
-    background: var(--secondary-bg-color);
+    background: var(--primary-color);
 }
 
 /* section#hero > div {
@@ -35,9 +55,9 @@ section#hero {
 } */
 
 section#hero div div.hero-img .stethoscope-icon {
-    color: var(--secondary-bg-color);
+    color: var(--primary-lighter-color);
     font-size: 2rem;
-    background: var(--secondary-darker-color);
+    background: var(--secondary-color);
     border-radius: 0.5rem;
     padding: 1rem;
 }

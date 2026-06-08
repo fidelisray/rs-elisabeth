@@ -11,15 +11,16 @@
 <body>
     <header>
         <nav class="navbar bg-body-tertiary">
-            <div class="container-fluid row">
-                <a class="navbar-brand col-2" href="/">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo" width="auto" height="80" class="d-inline-block align-text-top">
+            <div class="container d-flex">
+                <a class="navbar-brand" href="/">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo" width="auto" height="70" class="d-inline-block align-text-top">
+                    <img src="{{ asset('images/akreditasi.png') }}" alt="Logo" width="auto" height="70" class="d-inline-block align-text-top">
                 </a>
-                <form class="d-flex col-6" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                <form class="d-flex nav-form-search" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Temukan dokter, klinik, jadwal.." aria-label="Search"/>
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
-                <div class="dropdown col-2">
+                <div class="dropdown">
                     <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-user"></i>
                     </a>
