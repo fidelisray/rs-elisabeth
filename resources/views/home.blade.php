@@ -179,15 +179,15 @@
                 <div class="jumbotron-content px-5 col-md-5">
                     <div class="about-1">
                         <h4>Terakreditasi Paripurna</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, tenetur? Culpa qui consequatur modi, magnam eum distinctio nulla voluptatum iste.</p>
+                        <p>Kami mendapat predikat PARIPURNA dari Komisi Akreditasi Rumah Sakit (KARS), yang merupakan predikat dengan hasil penilaian tertinggi berdasarkan penilaian terhadap manajemen mutu dan keselamatan pasien yang diterapkan di Rumah Sakit.</p>
                     </div>
                     <div class="about-2">
-                        <h4>Terakreditasi Paripurna</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati quis omnis animi ullam, ipsam laboriosam dicta adipisci fugit perferendis voluptatibus ea tempore ipsum quod asperiores?</p>
+                        <h4>Layanan 24 Jam</h4>
+                        <p>Kami menyediakan layanan 24 jam untuk memenuhi kebutuhan Kesehatan anda, khususnya bagi anda yang membutuhkan penanganan emergency.</p>
                     </div>
                     <div class="about-3">
-                        <h4>Terakreditasi Paripurna</h4>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores sed, assumenda corrupti at earum odit porro, quae amet error officia expedita. Cumque inventore porro illum maiores error eius dicta incidunt, cupiditate molestiae, itaque expedita recusandae?</p>
+                        <h4>Service Excellent</h4>
+                        <p>Berpusat kepada pasien sebagai “Tamu Ilahi”, Kami senantiasa memberikan kualitas pelayanan yang bermutu tinggi dan profesional, dengan tetap memperhatikan aspek keselamatan pasien.</p>
                     </div>
                 </div>
                 <div class="jumbotron-image col-md-7 text-center">
@@ -378,7 +378,7 @@
             <div class="row cards">
                 <div class="col-md-4 mb-4">
                     <div class="card h-100" style="width: 22rem;">
-                        <img src="{{ asset('images/ADS1749518930.jpg') }}" class="card-img-top card-img-fixed" alt="...">
+                        <img src="{{ asset('images/ADS1749518930.jpg') }}" class="card-img" alt="...">
                         <div class="card-body">
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
                         </div>
@@ -386,7 +386,7 @@
                 </div>    
                 <div class="col-md-4 mb-4">
                     <div class="card h-100" style="width: 22rem;">
-                        <img src="{{ asset('images/ADS1749518080.jpeg') }}" class="card-img-top card-img-fixed" alt="...">
+                        <img src="{{ asset('images/ADS1749518080.jpeg') }}" class="card-img" alt="...">
                         <div class="card-body">
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
                         </div>
@@ -394,7 +394,7 @@
                 </div>    
                 <div class="col-md-4 mb-4">
                     <div class="card h-100" style="width: 22rem;">
-                        <img src="{{ asset('images/ADS1758074522.jpeg') }}" class="card-img-top card-img-fixed" alt="...">
+                        <img src="{{ asset('images/ADS1758074522.jpeg') }}" class="card-img" alt="...">
                         <div class="card-body">
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
                         </div>
@@ -402,7 +402,7 @@
                 </div>    
                 <div class="col-md-4 mb-4">
                     <div class="card h-100" style="width: 22rem;">
-                        <img src="{{ asset('images/ADS1758075145.jpeg') }}" class="card-img-top card-img-fixed" alt="...">
+                        <img src="{{ asset('images/ADS1758075145.jpeg') }}" class="card-img" alt="...">
                         <div class="card-body">
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
                         </div>
@@ -410,7 +410,7 @@
                 </div>
                 <div class="col-md-4 mb-4">
                     <div class="card h-100" style="width: 22rem;">
-                        <img src="{{ asset('images/ADS1761805772.jpeg') }}" class="card-img-top card-img-fixed" alt="...">
+                        <img src="{{ asset('images/ADS1761805772.jpeg') }}" class="card-img" alt="...">
                         <div class="card-body">
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
                         </div>
@@ -418,7 +418,7 @@
                 </div>
                 <div class="col-md-4 mb-4">
                     <div class="card h-100" style="width: 22rem;">
-                        <img src="{{ asset('images/ADS1761805889.jpeg') }}" class="card-img-top card-img-fixed" alt="...">
+                        <img src="{{ asset('images/ADS1761805889.jpeg') }}" class="card-img" alt="...">
                         <div class="card-body">
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
                         </div>
