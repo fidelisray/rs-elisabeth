@@ -432,8 +432,8 @@
             <div class="row footer-body">
                 <div class="col">
                     <ul>
-                        <li><a href="#">RS St. Elisabeth Semarang</a></li>
-                        <li><a href="#">Pancaran cintanya menyembuhkan derita sesama</a></li>
+                        <li><a href="#" class="">RS St. Elisabeth Semarang</a></li>
+                        <li><p>Pancaran cintanya menyembuhkan derita sesama</p></li>
                         <li><a href="#">Tentang Kami</a></li>
                         <li><a href="#">Profil</a></li>
                         <li><a href="#">Hubungi Kami</a></li>

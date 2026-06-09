@@ -172,7 +172,21 @@ section#promotions .card {
     overflow: hidden;
 }
 
-.footer-copyright {
+
+/* ************* */
+/* ---- Footer ---- */
+/* ************* */
+
+section#footer {
+    height: 20rem;
+    background: var(--secondary-color);
+}
+
+section#footer .footer-body div ul li {
+    text-decoration: none;
+}
+
+section#footer .footer-copyright {
     width: 85vw;
     margin: 0 auto;
 }
