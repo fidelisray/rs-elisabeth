@@ -12,6 +12,9 @@ class HospitalApiService
     protected string $apiKey;
     protected int $timeout;
 
+    protected const TOKEN_CACHE_KEY = null;
+    // protected const TOKEN_CACHE_KEY = 'hospital_api_token';
+
     public function __construct()
     {
         $this->baseUrl = config('rsapi.base_url');
@@ -19,11 +22,115 @@ class HospitalApiService
         $this->timeout = config('rsapi.timeout');
     }
 
-    protected function apiRequest(): \Illuminate\Http\Client\PendingRequest
+    /**
+     * Ambil token yang valid.
+     * Jika token di cache masih ada → pakai itu.
+     * Jika tidak ada / expired → generate baru dari API.
+     */
+    protected function getValidToken(): string
     {
+        // Coba ambil dari cache dulu
+        $cachedToken = Cache::get(self::TOKEN_CACHE_KEY);
+
+        if ($cachedToken != null) {
+            return $cachedToken;
+        } else {
+            // Tidak ada di cache → generate baru
+            return $this->generateNewToken();
+        }
+
+    }
+
+    /**
+     * Hit endpoint auth untuk mendapatkan token baru,
+     * lalu simpan ke cache.
+     */
+    protected function generateNewToken(): string
+    {
+        $authEndpoint = config('rsapi.auth.endpoint');
+        $buffer       = config('rsapi.token_ttl_buffer', 60);
+
+        try {
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+            ])
+            ->timeout($this->timeout)
+            ->post($this->baseUrl . $authEndpoint, [
+                'username' => config('rsapi.auth.username'),
+                'password' => config('rsapi.auth.password'),
+            ]);
+
+            // cek token yang berhasil di-generate
+            // dd($response->json());
+
+            if ($response->successful()) {
+                $data = $response->json();
+
+                
+                // Sesuaikan key ini dengan response auth API kamu
+                // Setelah dd($response->json()) kamu tahu struktur pastinya
+                // $token     = $data['token']      ?? $data['access_token'] ?? null;
+                $token = $data['X-Token'] ?? null;
+                
+                // dd($token);
+                
+                if (!$token) {
+                    Log::error('X-Token tidak ditemukan di response', [
+                        'response' => $data
+                    ]);
+                    return $this->apiKey;
+                }
+                        
+                // if (!$token) {
+                //     Log::error('Token tidak ditemukan di response auth', [
+                //         'response' => $data
+                //     ]);
+                //     // Fallback ke api_key statis dari .env
+                //     return $this->apiKey;
+                // }
+                                
+                // Simpan ke cache dengan TTL dikurangi buffer
+                // Contoh: expires_in = 300 detik, buffer = 60 detik
+                // Maka cache selama 240 detik → token pasti masih valid saat dipakai
+                $expiresIn = 300; // default 5 menit
+                $cacheTtl = max(1, $expiresIn - $buffer);
+
+                Cache::put(self::TOKEN_CACHE_KEY, $token, $cacheTtl);
+
+                Log::info('Token baru berhasil di-generate', [
+                    'expires_in' => $expiresIn,
+                    'cached_for' => $cacheTtl . ' detik',
+                ]);
+
+                return $token;
+            }
+
+            Log::error('Gagal generate token baru', [
+                'status'   => $response->status(),
+                'response' => $response->body(),
+            ]);
+
+            // Fallback ke api_key statis
+            return $this->apiKey;
+
+        } catch (\Exception $e) {
+            Log::error('Exception saat generate token', [
+                'error' => $e->getMessage()
+            ]);
+
+            return $this->apiKey;
+        }
+    }
+
+    protected function apiRequest(): \Illuminate\Http\Client\PendingRequest
+    {   
+        $token = $this->getValidToken();
+
+        // dd($token);
+
         return Http::withHeaders([
             // 'Authorization' => 'Bearer ' . $this->apiKey,
-            'x-token' => $this->apiKey,
+            'X-Token' => $token,
             'Accept'  => 'application/json',
         ])->timeout($this->timeout);
     }
@@ -71,12 +178,14 @@ class HospitalApiService
             try {
                 $response = $this->apiRequest()
                     ->get("{$this->baseUrl}/hr/employee/list");
+                // $response = $this->apiRequest()
+                //     ->get("{$this->baseUrl}/hr/employee/list", $filters);
 
                 // Dump struktur response, lalu stop eksekusi
-                dd($response->json());
+                // dd($response->json());
 
                 if ($response->successful()) {
-                    return $response->json('data', []);
+                    return $response->json('Data', []);
                 }
 
                 Log::warning('API Staff gagal', [

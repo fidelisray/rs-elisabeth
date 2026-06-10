@@ -27,3 +27,11 @@ Route::prefix('dokter')->name('dokter.')->group(function () {
 
 // Halmaan Staff
 Route::get('/staff', [StaffController::class, 'index'])->name('staff');
+
+
+
+
+
+Route::get('/halaman-jadwal', function() {
+    return view('halamanjadwal');
+});

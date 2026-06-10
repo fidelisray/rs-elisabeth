@@ -21,7 +21,7 @@ class StaffController extends Controller
 
         $daftarStaff = $this->apiService->getDaftarStaff();
 
-        // dd($daftarStaff);
+        dd($daftarStaff);
 
         return view('staff.index', compact('daftarStaff'));
     }
