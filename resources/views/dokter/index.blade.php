@@ -4,9 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dokter Kami</title>
+    @vite([
+        'resources/css/style.css',
+        'resources/css/dokter.css',
+        'resources/js/dokter/script.js'
+    ])
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="{{ asset('css/dokter.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('css/dokter.css') }}"> -->
 </head>
 <body>
     <header>
@@ -105,6 +110,117 @@
                         <li><a class="dropdown-item" href="#">A - Z</a></li>
                         <li><a class="dropdown-item" href="#">Z - A</a></li>
                     </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container py-4">
+            <div class="row align-items-start g-4">
+                <!-- Dropdown Klinik -->
+                <div class="col-lg-4">
+                    <label class="form-label fw-semibold mb-3">
+                        <i class="bi bi-hospital me-2"></i>
+                        Klinik
+                    </label>
+                    <div class="dropdown w-100">
+                        <button
+                            class="btn btn-outline-secondary dropdown-toggle w-100 text-start d-flex justify-content-between align-items-center"
+                            type="button"
+                            id="clinicDropdown"
+                            data-bs-toggle="dropdown"
+                            data-selected="">
+                            Pilih Klinik
+                        </button>
+                        <div class="dropdown-menu p-0 w-100">
+                            <!-- Search Klinik -->
+                            <div class="p-2 border-bottom">
+                                <input
+                                    type="text"
+                                    id="clinicSearch"
+                                    class="form-control"
+                                    placeholder="Cari Klinik...">
+                            </div>
+                            <!-- List Klinik -->
+                            <div
+                                id="clinicList"
+                                class="clinic-list">
+                                @foreach ($units as $unit)
+                                    @if (str_contains(strtolower($unit->Name), 'klinik'))
+                                <button
+                                    type="button"
+                                    class="dropdown-item clinic-option"
+                                    data-value="{{ ucwords(strtolower(str_replace(['|OUTPATIENT','|DIAGNOSTIC'],'', $unit->Name))) }}"
+                                    data-code="{{ $unit->Code }}">
+                                    {{ ucwords(strtolower(str_replace(['|OUTPATIENT','|DIAGNOSTIC'],'', $unit->Name))) }}
+                                </button>
+                                    @endif
+                                @endforeach
+                                <!-- <button
+                                    type="button"
+                                    class="dropdown-item clinic-option"
+                                    data-value="Klinik Gigi">
+                                    Klinik Gigi
+                                </button>
+                                <button
+                                    type="button"
+                                    class="dropdown-item clinic-option"
+                                    data-value="Klinik Anak">
+                                    Klinik Anak
+                                </button>
+                                <button
+                                    type="button"
+                                    class="dropdown-item clinic-option"
+                                    data-value="Klinik Penyakit Dalam">
+                                    Klinik Penyakit Dalam
+                                </button>
+                                <button
+                                    type="button"
+                                    class="dropdown-item clinic-option"
+                                    data-value="Klinik Saraf">
+                                    Klinik Saraf
+                                </button>
+                                <button
+                                    type="button"
+                                    class="dropdown-item clinic-option"
+                                    data-value="Klinik Jantung">
+                                    Klinik Jantung
+                                </button> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Search -->
+                <div class="col-lg-4">
+                    <label class="form-label fw-semibold mb-3">
+                        <i class="bi bi-search me-2"></i>
+                        Cari
+                    </label>
+                    <input
+                        type="text"
+                        id="searchKeyword"
+                        class="form-control"
+                        placeholder="Cari dokter, spesialis, atau klinik">
+
+                </div>
+                <!-- Button -->
+                <div class="col-lg-4">
+                    <label class="form-label opacity-0">
+                        Action
+                    </label>
+                    <div class="d-flex gap-3">
+                        <button
+                            type="button"
+                            id="btnCari"
+                            class="btn btn-info text-white px-4">
+                            Cari
+                        </button>
+                        <button
+                            type="button"
+                            id="btnReset"
+                            class="btn btn-outline-info px-4">
+                            Reset
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1334,87 +1450,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/726e331ad1.js" crossorigin="anonymous"></script>
-
-    <script>
-        const scheduleButtons =
-        document.querySelectorAll('.schedule-btn:not(:disabled)');
-
-        const selectedSchedule =
-            document.getElementById('selectedSchedule');
-
-        const bookBtn =
-            document.getElementById('bookBtn');
-
-        let selectedDay = '';
-        let selectedTime = '';
-
-        scheduleButtons.forEach(button => {
-
-            button.addEventListener('click', function() {
-
-                scheduleButtons.forEach(btn => {
-                    btn.classList.remove('selected');
-                });
-
-                this.classList.add('selected');
-
-                selectedDay = this.dataset.day;
-                selectedTime = this.dataset.time;
-
-                selectedSchedule.innerHTML =
-                    `${selectedDay}<br>${selectedTime}`;
-
-                bookBtn.disabled = false;
-
-            });
-
-        });
-
-        bookBtn.addEventListener('click', () => {
-
-            if(!selectedDay) return;
-
-            alert(
-                `Booking Appointment\n\n${selectedDay}\n${selectedTime}`
-            );
-
-        });
-        // console.log(bookBtn);
-        
-
-        
-
-
-        const radios = document.querySelectorAll('.poli-radio');
-
-        
-        radios.forEach(radio => {
-
-            radio.addEventListener('change', () => {
-
-                radios.forEach(r => {
-                    if (r !== radio) {
-                        r.dataset.checked = 'false';
-                    }
-                });
-
-                radio.dataset.checked = 'true';
-            });
-
-            const label = document.querySelector(`label[for="${radio.id}"]`);
-
-            label.addEventListener('click', e => {
-
-                if (radio.checked && radio.dataset.checked === 'true') {
-                    e.preventDefault();
-
-                    radio.checked = false;
-                    radio.dataset.checked = 'false';
-                }
-            });
-
-        });
-
-    </script>
 </body>
 </html>
