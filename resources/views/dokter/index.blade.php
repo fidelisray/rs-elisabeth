@@ -395,7 +395,7 @@
     </div>
 
     <div class="container-fluid main-content py-3">
-        <section class="container">
+        <section class="container d-none">
             <div class="card shadow-sm border-0 mb-3">
                 <div class="card-body">
                     <div class="row align-items-center">
@@ -1444,6 +1444,86 @@
                 </div>
             </div>
         </section>
+
+        <section class="container">
+            
+            <div class="card shadow-sm border-0 mb-3">
+
+                <!-- CARD DOKTER -->
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <!-- Kolom Foto + Informasi Dokter -->
+                        <div class="col-md-3 border-end">
+                            <div class="p-4 text-center">
+                                <img
+                                    src="https://placehold.co/120"
+                                    class="rounded-circle img-fluid mb-3"
+                                    style="width:120px;height:120px;object-fit:cover;"
+                                    alt="Foto Dokter">
+                                <h5 class="fw-bold mb-1">Dr. Budi Santoso, Sp.KJ</h5>
+                                <span class="badge bg-primary mb-3">
+                                    Spesialis Jantung
+                                </span>
+                            </div>
+                        </div>
+                        <!-- Kolom Jadwal -->
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">
+                                Jadwal Dokter
+                            </label>
+                            <div class="col align-items-center">
+    
+                                <div class="row">
+    
+                                    <div class="d-flex flex-wrap gap-3">
+                                        <div class="schedule">
+                                            <h5 class="schedule-title">Senin</h5>
+                                            <small>14:00 - 16:00</small>
+                                        </div>
+                                        <div class="schedule">
+                                            <h5 class="schedule-title">Selasa</h5>
+                                            <small>08:00 - 10:00</small>
+                                            <small>12:00 - 14:00</small>
+                                            <small>15:00 - 16:00</small>
+                                        </div>
+                                        <div class="schedule">
+                                            <h5 class="schedule-title">Rabu</h5>
+                                            <small>09:00 - 11:00</small>
+                                        </div>
+                                        <div class="schedule off-day">
+                                            <h5 class="schedule-title">Kamis</h5>
+                                            <small>-</small>
+                                        </div>
+                                        <div class="schedule">
+                                            <h5 class="schedule-title">Jumat</h5>
+                                            <small>12:00 - 14:00</small>
+                                        </div>
+                                        <div class="schedule">
+                                            <h5 class="schedule-title">Sabtu</h5>
+                                            <small>08:00 - 10:00</small>
+                                            <small>11:00 - 12:00</small>
+                                            <small>15:00 - 16:00</small>
+                                            <small>18:00 - 19:00</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tombol -->
+                        <div class="col-md-3">
+                            <div class="d-grid gap-2">
+                                <a 
+                                    href="#" 
+                                    class="btn btn-outline-primary"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#detailDokter">Cek Profil</a>
+                                <a href="https://regonline.rs-elisabeth.com/" class="btn btn-success" target="_blank">Buat Janji</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 
 
@@ -1452,3 +1532,7 @@
     <script src="https://kit.fontawesome.com/726e331ad1.js" crossorigin="anonymous"></script>
 </body>
 </html>
+
+<?php
+    dd($doctors);
+?>

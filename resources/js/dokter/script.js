@@ -151,4 +151,5 @@ document.getElementById('btnCari').addEventListener('click', () => {
 
     console.log({clinic_name, clinic_code, keyword});
 
+    window.location.href = `/dokter/${clinic_code}`;
 });

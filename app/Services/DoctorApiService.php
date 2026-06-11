@@ -185,7 +185,37 @@ class DoctorApiService
         });
     }
 
-    public function getDaftarDokter(array $filters = []): array
+    // public function getDaftarDokter(array $filters = []): array
+    // {
+    //     $cacheKey = 'dokter_' . md5(serialize($filters));
+    //     $ttl      = config('rsapi.cache_ttl.dokter');
+
+    //     return Cache::remember($cacheKey, $ttl, function () use ($filters) {
+    //         try {
+    //             $response = $this->apiRequest()
+    //                 ->get("{$this->baseUrl}{$this->medinEndpoint}/api/physician/list/doctor-schedule/PL-02");
+
+    //             // Dump struktur response, lalu stop eksekusi
+    //             // dd($response->json());
+
+    //             if ($response->successful()) {
+    //                 return $response->json('Data', []);
+    //             }
+
+    //             Log::warning('API dokter gagal', [
+    //                 'status' => $response->status(),
+    //                 'body'   => $response->body(),
+    //             ]);
+    //             return [];
+
+    //         } catch (\Exception $e) {
+    //             Log::error('Gagal connect ke API RS', ['error' => $e->getMessage()]);
+    //             return [];
+    //         }
+    //     });
+    // }
+    
+    public function getDaftarDokterByUnitId(string $id, array $filters = []): array
     {
         $cacheKey = 'dokter_' . md5(serialize($filters));
         $ttl      = config('rsapi.cache_ttl.dokter');
@@ -193,13 +223,13 @@ class DoctorApiService
         return Cache::remember($cacheKey, $ttl, function () use ($filters) {
             try {
                 $response = $this->apiRequest()
-                    ->get("{$this->baseUrl}{$this->medinEndpoint}/api/physician/list/doctor-schedule/PL-02", $filters);
+                    ->get("{$this->baseUrl}{$this->medinEndpoint}/api/physician/list/doctor-schedule/{$id}");
 
                 // Dump struktur response, lalu stop eksekusi
                 dd($response->json());
 
                 if ($response->successful()) {
-                    return $response->json('data', []);
+                    return $response->json('Data', []);
                 }
 
                 Log::warning('API dokter gagal', [
