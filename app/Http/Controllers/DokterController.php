@@ -15,11 +15,12 @@ class DokterController extends Controller
     public function index(Request $request)
     {
         // $filters = $request->only(['spesialisasi', 'nama', 'page']);
-        $dokter  = $this->apiService->getDaftarDokter();
-
+        $units = $this->apiService->getDaftarUnits();
+        
+        // $dokter  = $this->apiService->getDaftarDokter();
         // return view('dokter.index', compact('dokter', 'filters'));
 
-        return view('dokter.index');
+        return view('dokter.index', compact('units'));
     }
 
     // public function detail(int $id)
