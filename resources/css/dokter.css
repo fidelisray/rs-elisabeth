@@ -469,3 +469,24 @@ div.schedule.off-day h5.schedule-title {
         box-shadow: 0 10px 20px rgba(0,0,0,0.15);
     }
 }
+
+
+
+
+
+.clinic-list{
+    max-height:250px;
+    overflow-y:auto;
+}
+
+.dropdown-menu{
+    min-width:100%;
+}
+
+.dropdown-item{
+    padding:.75rem 1rem;
+}
+
+.dropdown-item:hover{
+    background:#f5f8ff;
+}
