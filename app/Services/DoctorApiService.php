@@ -153,6 +153,38 @@ class DoctorApiService
      * Ambil daftar dokter, 
      * setup cache 
      */
+    public function getDaftarUnits(array $filters = []): array
+    {
+        $cacheKey = 'units_' . md5(serialize($filters));
+        $ttl      = config('rsapi.cache_ttl.units');
+
+        return Cache::remember($cacheKey, $ttl, function () use ($filters) {
+            try {
+                $response = $this->apiRequest()
+                    ->get("{$this->baseUrl}{$this->medinEndpoint}/api/reference/master/lst_hsu");
+
+                // Dump struktur response, lalu stop eksekusi
+                
+                if ($response->successful()) {
+                    // echo gettype(json_decode($response->json('Data')));
+                    // dd(json_decode($response->json('Data')));
+                    
+                    return json_decode($response->json('Data', []));
+                }
+
+                Log::warning('API dokter gagal', [
+                    'status' => $response->status(),
+                    'body'   => $response->body(),
+                ]);
+                return [];
+
+            } catch (\Exception $e) {
+                Log::error('Gagal connect ke API RS', ['error' => $e->getMessage()]);
+                return [];
+            }
+        });
+    }
+
     public function getDaftarDokter(array $filters = []): array
     {
         $cacheKey = 'dokter_' . md5(serialize($filters));
