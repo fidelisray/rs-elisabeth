@@ -23,5 +23,5 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
-/views/halamanjadwal.blade.php
-/views/carijadwal.blade.php
+/resources/views/halamanjadwal.blade.php
+/resources/views/carijadwal.blade.php
