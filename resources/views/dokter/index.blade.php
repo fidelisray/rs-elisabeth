@@ -775,7 +775,7 @@
             <!-- Detail Dokter Modal -->
             <!-- ================================================= -->
     
-            <div class="modal fade" id="detailDokter" tabindex="-1">
+            <div class="modal fade" id="detailDokter-2" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content border-0 bg-transparent">
                         <!-- <div class="modal-header">
@@ -847,7 +847,7 @@
                                             class="nav-link active w-100"
                                             id="tentang-tab"
                                             data-bs-toggle="tab"
-                                            data-bs-target="#tentang-pane"
+                                            data-bs-target="#tentang-pane-2"
                                             type="button">
                                             Tentang
                                         </button>
@@ -858,7 +858,7 @@
                                             class="nav-link w-100"
                                             id="jadwal-tab"
                                             data-bs-toggle="tab"
-                                            data-bs-target="#jadwal-pane"
+                                            data-bs-target="#jadwal-pane-2"
                                             type="button">
                                             Jadwal
                                         </button>
@@ -876,7 +876,7 @@
     
                                     <div
                                         class="tab-pane fade show active"
-                                        id="tentang-pane">
+                                        id="tentang-pane-2">
     
                                         <div class="section-tentang">
                                             <div class="section-title">
@@ -931,7 +931,7 @@
                                     <!-- SECTION JADWAL -->
                                     <div
                                         class="tab-pane fade"
-                                        id="jadwal-pane">
+                                        id="jadwal-pane-2">
     
                                         <!-- isi jadwal di bawah -->
                                         <div class="section-jadwal">
@@ -1036,16 +1036,6 @@
                 </div>
             </div>
         
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -1447,9 +1437,10 @@
 
         <section class="container">
             
+            <!-- CARD DOKTER -->
+            @foreach ($doctors as $doctor)
             <div class="card shadow-sm border-0 mb-3">
 
-                <!-- CARD DOKTER -->
                 <div class="card-body">
                     <div class="row align-items-center">
                         <!-- Kolom Foto + Informasi Dokter -->
@@ -1460,8 +1451,8 @@
                                     class="rounded-circle img-fluid mb-3"
                                     style="width:120px;height:120px;object-fit:cover;"
                                     alt="Foto Dokter">
-                                <h5 class="fw-bold mb-1">Dr. Budi Santoso, Sp.KJ</h5>
-                                <span class="badge bg-primary mb-3">
+                                <h5 class="fw-bold mb-1">{{ $doctor['ParamedicName']}}</h5>
+                                <span class="badge bg-primary mb-3 d-none">
                                     Spesialis Jantung
                                 </span>
                             </div>
@@ -1476,35 +1467,26 @@
                                 <div class="row">
     
                                     <div class="d-flex flex-wrap gap-3">
-                                        <div class="schedule">
-                                            <h5 class="schedule-title">Senin</h5>
-                                            <small>14:00 - 16:00</small>
-                                        </div>
-                                        <div class="schedule">
-                                            <h5 class="schedule-title">Selasa</h5>
-                                            <small>08:00 - 10:00</small>
-                                            <small>12:00 - 14:00</small>
-                                            <small>15:00 - 16:00</small>
-                                        </div>
-                                        <div class="schedule">
-                                            <h5 class="schedule-title">Rabu</h5>
-                                            <small>09:00 - 11:00</small>
-                                        </div>
-                                        <div class="schedule off-day">
-                                            <h5 class="schedule-title">Kamis</h5>
-                                            <small>-</small>
-                                        </div>
-                                        <div class="schedule">
-                                            <h5 class="schedule-title">Jumat</h5>
-                                            <small>12:00 - 14:00</small>
-                                        </div>
-                                        <div class="schedule">
-                                            <h5 class="schedule-title">Sabtu</h5>
-                                            <small>08:00 - 10:00</small>
-                                            <small>11:00 - 12:00</small>
-                                            <small>15:00 - 16:00</small>
-                                            <small>18:00 - 19:00</small>
-                                        </div>
+                                        @php
+                                            $listJadwal = [];
+                                        @endphp
+                                        @foreach ($doctor['Schedules'] as $jadwal)
+                                            @php
+                                                $jadwalHariIni = collect(explode('|', $jadwal['OperationalTimeName']))
+                                                        ->map(fn ($item) => trim($item))
+                                                        ->toArray();
+                                                $listJadwal[] = [
+                                                    'hari' => $jadwal['Day'],
+                                                    'jam' => $jadwalHariIni
+                                                ];
+                                            @endphp
+                                            <div class="schedule">
+                                                <h5 class="schedule-title">{{ $jadwal['Day']}}</h5>
+                                                @foreach ($jadwalHariIni as $jam)
+                                                    <small>{{ $jam }}</small>
+                                                @endforeach
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -1513,16 +1495,183 @@
                         <div class="col-md-3">
                             <div class="d-grid gap-2">
                                 <a 
-                                    href="#" 
-                                    class="btn btn-outline-primary"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#detailDokter">Cek Profil</a>
+                                    href='#' 
+                                    class='btn btn-outline-primary'
+                                    data-bs-toggle='modal'
+                                    data-bs-target='#detailDokter'
+
+                                    data-nama='{{ $doctor["ParamedicName"] }}'
+                                    data-jadwal='@json($listJadwal)'>Cek Profil</a>
                                 <a href="https://regonline.rs-elisabeth.com/" class="btn btn-success" target="_blank">Buat Janji</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            @endforeach
+
+
+            <!-- ================================================= -->
+            <!-- ---------------Detail Dokter Modal--------------- -->
+            <!-- ================================================= -->
+    
+            <div class="modal fade" id="detailDokter" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content border-0 bg-transparent">
+                        <div class="doctor-card">
+                            <!-- HEADER -->
+                            <div class="profile-header">
+                                <button 
+                                    type="button"
+                                    class="btn-close mb-2 float-end"
+                                    data-bs-dismiss="modal">
+                                </button>
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="doctor-photo">
+                                        <img src="https://via.placeholder.com/120x120" alt="Doctor">
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-1 fw-bold" id="namaDokter">
+                                        </h5>
+                                        <span class="speciality-badge d-none">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="stats">
+                                    <div class="stat-pill">
+                                        ⭐ 5
+                                    </div>
+    
+                                    <div class="stat-pill">
+                                        <i class="bi bi-people"></i> 3,792
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- TABS -->
+                            <ul class="nav nav-tabs justify-content-center mt-2">
+                                <ul class="nav nav-tabs justify-content-center mt-2" id="doctorTabs" role="tablist">
+                                    <li class="nav-item flex-fill text-center">
+                                        <button
+                                            class="nav-link active w-100"
+                                            id="tentang-tab"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#tentang-pane"
+                                            type="button">
+                                            Tentang
+                                        </button>
+                                    </li>
+    
+                                    <li class="nav-item flex-fill text-center">
+                                        <button
+                                            class="nav-link w-100"
+                                            id="jadwal-tab"
+                                            data-bs-toggle="tab"
+                                            data-bs-target="#jadwal-pane"
+                                            type="button">
+                                            Jadwal
+                                        </button>
+                                    </li>
+                                </ul>
+                            </ul>
+                            <!-- CONTENT -->
+                            <div class="content-section">
+                                <div class="tab-content">
+    
+                                    <div
+                                        class="tab-pane fade show active"
+                                        id="tentang-pane">
+    
+                                        <div class="section-tentang">
+                                            <div class="section-title">
+                                                <i class="bi bi-stethoscope me-2"></i>
+                                                Tentang Dokter
+                                            </div>
+                                            <p class="text-secondary">
+                                                Dokter berpengalaman yang siap memberikan pelayanan
+                                                kesehatan terbaik.
+                                            </p>
+                                            <!-- Location -->
+                                            <div class="info-box">
+                                                <div class="info-icon">
+                                                    <i class="bi bi-geo-alt"></i>
+                                                </div>
+                                                <div>
+                                                    <div class="info-label">Lokasi</div>
+                                                    <div>Semarang, Indonesia</div>
+                                                </div>
+                                            </div>
+                                            <!-- Experience -->
+                                            <div class="info-box">
+                                                <div class="info-icon">
+                                                    <i class="bi bi-briefcase"></i>
+                                                </div>
+                                                <div>
+                                                    <div class="info-label">Pengalaman</div>
+                                                    <strong>Lebih Dari 5 Tahun</strong>
+                                                </div>
+                                            </div>
+                                            <!-- Education -->
+                                            <div class="info-box">
+                                                <div class="info-icon">
+                                                    <i class="bi bi-mortarboard"></i>
+                                                </div>
+                                                <div>
+                                                    <div class="info-label">Pendidikan</div>
+                                                    <strong>Universitas Terkemuka</strong>
+                                                </div>
+                                            </div>
+                                            <!-- CTA -->
+                                            <button type="button" class="cta-btn mt-4">
+                                                <i class="fa-brands fa-whatsapp"></i>
+                                                Informasi Lebih Lanjut
+                                                <i class="bi bi-chevron-right float-end"></i>
+                                            </button>
+    
+                                        </div>
+    
+                                    </div>
+    
+                                    <!-- SECTION JADWAL -->
+                                    <div
+                                        class="tab-pane fade"
+                                        id="jadwal-pane">
+    
+                                        <!-- isi jadwal di bawah -->
+                                        <div class="section-jadwal">
+    
+                                            <div class="section-title">
+                                                <i class="bi bi-clock me-2"></i>
+                                                Jadwal Praktik
+                                            </div>
+
+                                            <div id="schedule-cards" class="schedule-cards">
+
+                                            </div>
+
+                                            <div class="schedule-card d-none">
+                                                <div class="day-badge"></div>
+    
+                                                <div>
+                                                    <div class="schedule-day"></div>
+                                                    <span class="schedule-time">
+                                                    </span>
+                                                </div>
+                                            </div>
+    
+                                            <button type="button" class="cta-btn mt-4">
+                                                <i class="fa-brands fa-whatsapp"></i>
+                                                Informasi Lebih Lanjut
+                                                <i class="bi bi-chevron-right float-end"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </section>
     </div>
 
@@ -1532,7 +1681,3 @@
     <script src="https://kit.fontawesome.com/726e331ad1.js" crossorigin="anonymous"></script>
 </body>
 </html>
-
-<?php
-    dd($doctors);
-?>

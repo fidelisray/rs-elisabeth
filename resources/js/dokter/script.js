@@ -153,3 +153,42 @@ document.getElementById('btnCari').addEventListener('click', () => {
 
     window.location.href = `/dokter/${clinic_code}`;
 });
+
+
+
+// modal dokter
+const detailDokter = document.getElementById('detailDokter');
+
+detailDokter.addEventListener('show.bs.modal', (event) => {
+
+    const button = event.relatedTarget;
+
+    const namaDokter = button.dataset.nama;
+    const jadwalDokter = JSON.parse(button.dataset.jadwal);
+
+    document.getElementById('namaDokter').textContent = namaDokter;
+    
+    let scheduleCard = '';
+    
+    jadwalDokter.forEach(jadwal => {
+        let scheduleTime = '';
+        jadwal.jam.map(waktu => {
+            scheduleTime += `
+                <span class="schedule-time">${waktu}</span>
+            `
+        });
+        scheduleCard += `
+            <div class="schedule-card">
+                <div class="day-badge">${jadwal.hari}</div>
+
+                <div>
+                    <div class="schedule-day">${jadwal.hari}</div>
+                    ${scheduleTime}
+                </div>
+            </div>
+        `
+    });
+    
+    document.getElementById('schedule-cards').innerHTML = scheduleCard;
+
+})
