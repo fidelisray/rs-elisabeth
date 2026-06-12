@@ -176,11 +176,11 @@ class DoctorApiService
                     'status' => $response->status(),
                     'body'   => $response->body(),
                 ]);
-                return [];
+                return [$response->status(), $response->body()];
 
             } catch (\Exception $e) {
                 Log::error('Gagal connect ke API RS', ['error' => $e->getMessage()]);
-                return [];
+                return ["Gagal conncect ke API RS -request DaftarUnits"];
             }
         });
     }
@@ -215,18 +215,18 @@ class DoctorApiService
     //     });
     // }
     
-    public function getDaftarDokterByUnitId(string $id, array $filters = []): array
+    public function getDaftarDokterByUnitId(string $id): array
     {
-        $cacheKey = 'dokter_' . md5(serialize($filters));
+        $cacheKey = 'dokterUnitId_'.$id;
         $ttl      = config('rsapi.cache_ttl.dokter');
 
-        return Cache::remember($cacheKey, $ttl, function () use ($filters) {
+        return Cache::remember($cacheKey, $ttl, function () use ($id) {
             try {
                 $response = $this->apiRequest()
                     ->get("{$this->baseUrl}{$this->medinEndpoint}/api/physician/list/doctor-schedule/{$id}");
 
                 // Dump struktur response, lalu stop eksekusi
-                dd($response->json());
+                // dd($response->json());
 
                 if ($response->successful()) {
                     return $response->json('Data', []);
@@ -236,11 +236,11 @@ class DoctorApiService
                     'status' => $response->status(),
                     'body'   => $response->body(),
                 ]);
-                return [];
+                return [$response->status(), $response->body()];
 
             } catch (\Exception $e) {
                 Log::error('Gagal connect ke API RS', ['error' => $e->getMessage()]);
-                return [];
+                return ["Gagal conncect ke API RS -request DaftarDokterByUnitId"];
             }
         });
     }

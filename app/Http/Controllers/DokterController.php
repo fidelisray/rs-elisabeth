@@ -32,10 +32,8 @@ class DokterController extends Controller
 
     public function dokterByUnitId(string $id) {
 
+        $units = $this->apiService->GetDaftarUnits();
         $doctors = $this->apiService->GetDaftarDokterByUnitId($id);
-        $units = null;
-            
-        dd($doctors);
 
         return view('dokter.index', [
             'units' => $units,
