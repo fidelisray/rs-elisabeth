@@ -1435,7 +1435,7 @@
             </div>
         </section>
 
-        <section class="container">
+        <section class="container" id="daftar-dokter">
             
             <!-- CARD DOKTER -->
             @foreach ($doctors as $doctor)
@@ -1679,5 +1679,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/726e331ad1.js" crossorigin="anonymous"></script>
+    @vite(['resources/js/dokter/dokter.js'])
 </body>
 </html>
