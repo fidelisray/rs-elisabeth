@@ -13,6 +13,7 @@ class DoctorApiService
      */
     protected string $baseUrl;
     protected string $medinEndpoint;
+    protected string $apiKey;
     protected int $timeout;
 
     protected const TOKEN_CACHE_KEY = null;
@@ -22,6 +23,7 @@ class DoctorApiService
     {
         $this->baseUrl = config('rsapi.base_url');
         $this->medinEndpoint = config('rsapi.medin_endpoint');
+        $this->apiKey = config('rsapi.api_key');
         $this->timeout = config('rsapi.timeout');
     }
 
