@@ -63,9 +63,17 @@ section#hero div div.hero-img .stethoscope-icon {
 }
 
 
-.toolbar-container {
-    max-width: 900px;
-    margin: auto;
+.toolbar-panel {
+    position: sticky;
+    z-index: 100;
+    top: 0;
+    background: #fff;
+}
+
+
+.toolbar {
+    width: 90vw;
+    margin: 0 auto;
 }
 
 .toolbar-btn {

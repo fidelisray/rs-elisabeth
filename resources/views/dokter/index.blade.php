@@ -65,9 +65,9 @@
             </div>
         </div>
     </section> -->
-    <section class="container navigation-panel py-3">
+    <section class="container-fluid toolbar-panel py-3">
         <!-- Toolbar -->
-        <div class="toolbar-container">
+        <div class="d-none">
             <div class="d-flex justify-content-center align-items-center gap-2">
 
                 <!-- Desktop Search -->
@@ -113,8 +113,8 @@
             </div>
         </div>
 
-        <div class="container py-4">
-            <div class="row align-items-start g-4">
+        <div class="toolbar">
+            <div class="row align-items-start justify-content-center">
                 <!-- Dropdown Klinik -->
                 <div class="col-lg-4">
                     <label class="form-label fw-semibold mb-3">
@@ -154,42 +154,12 @@
                                 </button>
                                     @endif
                                 @endforeach
-                                <!-- <button
-                                    type="button"
-                                    class="dropdown-item clinic-option"
-                                    data-value="Klinik Gigi">
-                                    Klinik Gigi
-                                </button>
-                                <button
-                                    type="button"
-                                    class="dropdown-item clinic-option"
-                                    data-value="Klinik Anak">
-                                    Klinik Anak
-                                </button>
-                                <button
-                                    type="button"
-                                    class="dropdown-item clinic-option"
-                                    data-value="Klinik Penyakit Dalam">
-                                    Klinik Penyakit Dalam
-                                </button>
-                                <button
-                                    type="button"
-                                    class="dropdown-item clinic-option"
-                                    data-value="Klinik Saraf">
-                                    Klinik Saraf
-                                </button>
-                                <button
-                                    type="button"
-                                    class="dropdown-item clinic-option"
-                                    data-value="Klinik Jantung">
-                                    Klinik Jantung
-                                </button> -->
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Search -->
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                     <label class="form-label fw-semibold mb-3">
                         <i class="bi bi-search me-2"></i>
                         Cari
@@ -199,18 +169,17 @@
                         id="searchKeyword"
                         class="form-control"
                         placeholder="Cari dokter, spesialis, atau klinik">
-
                 </div>
                 <!-- Button -->
-                <div class="col-lg-4">
-                    <label class="form-label opacity-0">
+                <div class="action col-lg-2">
+                    <label class="form-label opacity-0 mb-3">
                         Action
                     </label>
-                    <div class="d-flex gap-3">
+                    <div class="action-button d-flex gap-3">
                         <button
                             type="button"
                             id="btnCari"
-                            class="btn btn-info text-white px-4">
+                            class="btn btn-info px-4">
                             Cari
                         </button>
                         <button
