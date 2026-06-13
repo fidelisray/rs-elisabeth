@@ -21,19 +21,26 @@ class DokterController extends Controller
         // ];
 
         $units = $this->apiService->GetDaftarUnits();
-        $doctors = $this->apiService->GetDaftarDokterByUnitId('PL-01');
+
+        return view('dokter.index', compact('units'));
 
         // return view('dokter.index', compact('dokter', 'filters'));
 
-        return view('dokter.index', [
-            'units' => $units,
-            'doctors' => $doctors
-        ]);
+        // return view('dokter.index', [
+        //     'units' => $units,
+        //     'doctors' => $doctors
+        // ]);
     }
 
     public function dokterByUnitId(string $id) {
 
         $doctors = $this->apiService->GetDaftarDokterByUnitId($id);
+
+        return response()->json($doctors);
+    }
+
+    public function dokterInit() {
+        $doctors = $this->apiService->GetDaftarDokterByUnitId('PL-01');
 
         return response()->json($doctors);
     }
