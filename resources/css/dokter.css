@@ -180,18 +180,31 @@ div.schedule.off-day h5.schedule-title {
 } */
 
 
-
-
-
+div#detailDokter .modal-dokter {
+    width: 90vw;
+    max-width: 1400px;
+    /* margin: auto; */
+}
 
 .doctor-card{
-    max-width:480px;
     width:100%;
+    max-width: none;
+    max-height:90vh;
     border-radius:28px;
-    overflow:hidden;
+    overflow-y:auto;
     background:#fff;
     box-shadow:0 10px 30px rgba(0,0,0,.12);
 }
+
+
+/* div#detailDokter div.modal-content {
+    max-height: 90vh;
+}
+
+div#detailDokter div.modal-body,
+div#detailDokter div.content-section {
+    overflow-y: auto;
+} */
 
 .profile-header{
     background:#0f2f97;
@@ -283,7 +296,7 @@ div.schedule.off-day h5.schedule-title {
     display:flex;
     align-items:center;
     gap:15px;
-    margin-bottom:16px;
+    /* margin-bottom:16px; */
 }
 
 .info-icon{
@@ -344,9 +357,6 @@ div.schedule.off-day h5.schedule-title {
     transform:translateY(0);
 }
 
-
-
-
 /* ===================================
    JADWAL
 =================================== */
@@ -364,7 +374,7 @@ div.schedule.off-day h5.schedule-title {
     align-items:center;
     gap:14px;
 
-    margin-bottom:14px;
+    /* margin-bottom:14px; */
 
     transition:.3s;
 }
@@ -478,6 +488,27 @@ div.schedule.off-day h5.schedule-title {
     }
 }
 
+@media (max-width:768px){
+
+    .doctor-modal{
+        width:95vw;
+        margin:.5rem auto;
+    }
+
+    .doctor-card{
+        max-height:95vh;
+    }
+
+    .section-tentang .info {
+        overflow-y: scroll;
+    }
+
+    /* .section-tentang .info .info-box {
+        width: 100%;
+        margin: .5rem;
+    } */
+
+}
 
 
 

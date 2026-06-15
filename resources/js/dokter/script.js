@@ -178,15 +178,17 @@ detailDokter.addEventListener('show.bs.modal', (event) => {
             `
         });
         scheduleCard += `
-            <div class="schedule-card">
-                <div class="day-badge">${jadwal.hari}</div>
+            <div class="col-12 col-lg-4">    
+                <div class="schedule-card">
+                    <div class="day-badge">${jadwal.hari}</div>
 
-                <div>
-                    <div class="schedule-day">${jadwal.hari}</div>
-                    ${scheduleTime}
+                    <div>
+                        <div class="schedule-day">${jadwal.hari}</div>
+                        ${scheduleTime}
+                    </div>
                 </div>
             </div>
-        `
+        `;
     });
     
     document.getElementById('schedule-cards').innerHTML = scheduleCard;

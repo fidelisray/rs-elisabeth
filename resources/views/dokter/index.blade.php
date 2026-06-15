@@ -1420,7 +1420,7 @@
             <!-- ================================================= -->
     
             <div class="modal fade" id="detailDokter" tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-dialog modal-dialog-centered modal-dokter">
                     <div class="modal-content border-0 bg-transparent">
                         <div class="doctor-card">
                             <!-- HEADER -->
@@ -1439,15 +1439,6 @@
                                         </h5>
                                         <span class="speciality-badge d-none">
                                         </span>
-                                    </div>
-                                </div>
-                                <div class="stats">
-                                    <div class="stat-pill">
-                                        ⭐ 5
-                                    </div>
-    
-                                    <div class="stat-pill">
-                                        <i class="bi bi-people"></i> 3,792
                                     </div>
                                 </div>
                             </div>
@@ -1485,51 +1476,67 @@
                                         class="tab-pane fade show active"
                                         id="tentang-pane">
     
-                                        <div class="section-tentang">
-                                            <div class="section-title">
-                                                <i class="bi bi-stethoscope me-2"></i>
-                                                Tentang Dokter
-                                            </div>
-                                            <p class="text-secondary">
-                                                Dokter berpengalaman yang siap memberikan pelayanan
-                                                kesehatan terbaik.
-                                            </p>
-                                            <!-- Location -->
-                                            <div class="info-box">
-                                                <div class="info-icon">
-                                                    <i class="bi bi-geo-alt"></i>
-                                                </div>
-                                                <div>
-                                                    <div class="info-label">Lokasi</div>
-                                                    <div>Semarang, Indonesia</div>
+                                        <div class="section-tentang col-lg">
+                                            <div class="section-header row">
+                                                <div class="col-12">
+                                                    <div class="section-title">
+                                                        <i class="bi bi-stethoscope me-2"></i>
+                                                        Tentang Dokter
+                                                    </div>
+                                                    <p class="text-secondary">
+                                                        Dokter berpengalaman yang siap memberikan pelayanan
+                                                        kesehatan terbaik.
+                                                    </p>
                                                 </div>
                                             </div>
-                                            <!-- Experience -->
-                                            <div class="info-box">
-                                                <div class="info-icon">
-                                                    <i class="bi bi-briefcase"></i>
+                                            <div class="dokter-info row gx-3 gy-3">
+                                                <!-- Location -->
+                                                <div class="col-12 col-lg-4">
+                                                    <div class="info-box">
+                                                        <div class="info-icon">
+                                                            <i class="bi bi-geo-alt"></i>
+                                                        </div>
+                                                        <div>
+                                                            <div class="info-label">Lokasi</div>
+                                                            <div>Semarang, Indonesia</div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div>
-                                                    <div class="info-label">Pengalaman</div>
-                                                    <strong>Lebih Dari 5 Tahun</strong>
+                                                <!-- Experience -->
+                                                <div class="col-12 col-lg-4">
+                                                    <div class="info-box">
+                                                        <div class="info-icon">
+                                                            <i class="bi bi-briefcase"></i>
+                                                        </div>
+                                                        <div>
+                                                            <div class="info-label">Pengalaman</div>
+                                                            <strong>Lebih Dari 5 Tahun</strong>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <!-- Education -->
-                                            <div class="info-box">
-                                                <div class="info-icon">
-                                                    <i class="bi bi-mortarboard"></i>
-                                                </div>
-                                                <div>
-                                                    <div class="info-label">Pendidikan</div>
-                                                    <strong>Universitas Terkemuka</strong>
+                                                <!-- Education -->
+                                                <div class="col-12 col-lg-4">
+                                                    <div class="info-box">
+                                                        <div class="info-icon">
+                                                            <i class="bi bi-mortarboard"></i>
+                                                        </div>
+                                                        <div>
+                                                            <div class="info-label">Pendidikan</div>
+                                                            <strong>Universitas Terkemuka</strong>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!-- CTA -->
-                                            <button type="button" class="cta-btn mt-4">
-                                                <i class="fa-brands fa-whatsapp"></i>
-                                                Informasi Lebih Lanjut
-                                                <i class="bi bi-chevron-right float-end"></i>
-                                            </button>
+                                            <div class="info-button row">
+                                                <div class="button-group col-lg-12">
+                                                    <button type="button" class="cta-btn mt-4">
+                                                        <i class="fa-brands fa-whatsapp"></i>
+                                                        Informasi Lebih Lanjut
+                                                        <i class="bi bi-chevron-right float-end"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
     
                                         </div>
     
@@ -1541,18 +1548,24 @@
                                         id="jadwal-pane">
     
                                         <!-- isi jadwal di bawah -->
-                                        <div class="section-jadwal">
-    
-                                            <div class="section-title">
-                                                <i class="bi bi-clock me-2"></i>
-                                                Jadwal Praktik
+                                        <div class="section-jadwal col-lg">
+                                            
+                                            <div class="section-header row">
+                                                <div class="col-12">
+                                                    <div class="section-title">
+                                                        <i class="bi bi-clock me-2"></i>
+                                                        Jadwal Praktik
+                                                    </div>
+                                                </div>
                                             </div>
 
-                                            <div id="schedule-cards" class="schedule-cards">
+                                            <div class="schedule-cards">
+                                                <div id="schedule-cards" class="row gx-3 gy-3">
 
+                                                </div>
                                             </div>
 
-                                            <div class="schedule-card d-none">
+                                            {{-- <div class="schedule-card d-none">
                                                 <div class="day-badge"></div>
     
                                                 <div>
@@ -1560,13 +1573,17 @@
                                                     <span class="schedule-time">
                                                     </span>
                                                 </div>
+                                            </div> --}}
+                                            
+                                            <div class="info-button row">
+                                                <div class="button-group col-lg-12">
+                                                    <button type="button" class="cta-btn mt-4">
+                                                        <i class="fa-brands fa-whatsapp"></i>
+                                                        Informasi Lebih Lanjut
+                                                        <i class="bi bi-chevron-right float-end"></i>
+                                                    </button>
+                                                </div>
                                             </div>
-    
-                                            <button type="button" class="cta-btn mt-4">
-                                                <i class="fa-brands fa-whatsapp"></i>
-                                                Informasi Lebih Lanjut
-                                                <i class="bi bi-chevron-right float-end"></i>
-                                            </button>
                                         </div>
                                     </div>
                                 </div>
