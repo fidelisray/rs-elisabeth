@@ -114,7 +114,7 @@ function initDokter() {
     fetch(`/dokter/init`)
         .then((response) => response.json())
         .then((doctors) => {
-            console.log(doctors);
+            // console.log(doctors);
             const container = document.getElementById("default-card");
 
             if (doctors.length === 0) {
@@ -132,7 +132,7 @@ function initDokter() {
                 })),
             }));
 
-            console.log(dataDokter);
+            // console.log(dataDokter);
 
             const html = dataDokter
                 .map(

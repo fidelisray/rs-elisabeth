@@ -1,83 +1,3 @@
-const scheduleButtons =
-document.querySelectorAll('.schedule-btn:not(:disabled)');
-
-const selectedSchedule =
-    document.getElementById('selectedSchedule');
-
-const bookBtn =
-    document.getElementById('bookBtn');
-
-let selectedDay = '';
-let selectedTime = '';
-
-scheduleButtons.forEach(button => {
-
-    button.addEventListener('click', function() {
-
-        scheduleButtons.forEach(btn => {
-            btn.classList.remove('selected');
-        });
-
-        this.classList.add('selected');
-
-        selectedDay = this.dataset.day;
-        selectedTime = this.dataset.time;
-
-        selectedSchedule.innerHTML =
-            `${selectedDay}<br>${selectedTime}`;
-
-        bookBtn.disabled = false;
-
-    });
-
-});
-
-bookBtn.addEventListener('click', () => {
-
-    if(!selectedDay) return;
-
-    alert(
-        `Booking Appointment\n\n${selectedDay}\n${selectedTime}`
-    );
-
-});
-// console.log(bookBtn);
-
-
-
-
-
-const radios = document.querySelectorAll('.poli-radio');
-
-
-radios.forEach(radio => {
-
-    radio.addEventListener('change', () => {
-
-        radios.forEach(r => {
-            if (r !== radio) {
-                r.dataset.checked = 'false';
-            }
-        });
-
-        radio.dataset.checked = 'true';
-    });
-
-    const label = document.querySelector(`label[for="${radio.id}"]`);
-
-    label.addEventListener('click', e => {
-
-        if (radio.checked && radio.dataset.checked === 'true') {
-            e.preventDefault();
-
-            radio.checked = false;
-            radio.dataset.checked = 'false';
-        }
-    });
-
-});
-
-
 // *******************************
 // ---- Dropdown Pilih Klinik ----
 // *******************************
@@ -158,6 +78,7 @@ document.getElementById('btnCari').addEventListener('click', () => {
 
 // modal dokter
 const detailDokter = document.getElementById('detailDokter');
+console.log(detailDokter);
 
 detailDokter.addEventListener('show.bs.modal', (event) => {
 
