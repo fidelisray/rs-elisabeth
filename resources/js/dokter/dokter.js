@@ -38,7 +38,7 @@ function getDokterByUnit(unitId) {
                         <div class="col-md-3 border-end">
                             <div class="p-4 text-center">
                                 <img
-                                    src="https://placehold.co/120"
+                                    src="https://mobile.rs-elisabeth.com/paramedic/${dokter.nip}.png"
                                     class="rounded-circle img-fluid mb-3"
                                     style="width:120px;height:120px;object-fit:cover;"
                                     alt="Foto Dokter">
@@ -58,9 +58,10 @@ function getDokterByUnit(unitId) {
                                 <div class="row">
     
                                     <div class="d-flex flex-wrap gap-3">
-                                            ${dokter.jadwal.map(
-                                                (jadwal) =>
-                                                    `
+                                            ${dokter.jadwal
+                                                .map(
+                                                    (jadwal) =>
+                                                        `
                                                     <div class="schedule">
                                                         <h5 class="schedule-title">${jadwal.hari}</h5>
                                                         ${jadwal.jam
@@ -71,7 +72,8 @@ function getDokterByUnit(unitId) {
                                                             .join("")}
                                                     </div>
                                                     `,
-                                            ).join("")}
+                                                )
+                                                .join("")}
                                     </div>
                                 </div>
                             </div>
@@ -145,7 +147,7 @@ function initDokter() {
                         <div class="col-md-3 border-end">
                             <div class="p-4 text-center">
                                 <img
-                                    src="https://placehold.co/120"
+                                    src="https://mobile.rs-elisabeth.com/paramedic/${dokter.nip}.png"
                                     class="rounded-circle img-fluid mb-3"
                                     style="width:120px;height:120px;object-fit:cover;"
                                     alt="Foto Dokter">
