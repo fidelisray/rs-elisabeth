@@ -265,9 +265,9 @@
                                             <!-- CTA -->
                                             <div class="info-button row">
                                                 <div class="button-group col-lg-12">
-                                                    <button type="button" class="cta-btn mt-4">
+                                                    <button type="button" class="cta-btn mt-4 button-janji">
                                                         <i class="fa-brands fa-whatsapp"></i>
-                                                        Informasi Lebih Lanjut
+                                                        Buat Janji Dokter
                                                         <i class="bi bi-chevron-right float-end"></i>
                                                     </button>
                                                 </div>
@@ -312,9 +312,9 @@
                                             
                                             <div class="info-button row">
                                                 <div class="button-group col-lg-12">
-                                                    <button type="button" class="cta-btn mt-4">
+                                                    <button type="button" class="cta-btn mt-4 button-janji">
                                                         <i class="fa-brands fa-whatsapp"></i>
-                                                        Informasi Lebih Lanjut
+                                                        Buat Janji Dokter
                                                         <i class="bi bi-chevron-right float-end"></i>
                                                     </button>
                                                 </div>

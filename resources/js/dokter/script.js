@@ -103,3 +103,13 @@ detailDokter.addEventListener("show.bs.modal", (event) => {
 
     document.getElementById("schedule-cards").innerHTML = scheduleCard;
 });
+
+// button janji
+const buttonJanji = document.getElementsByClassName("button-janji");
+
+buttonJanji[0].addEventListener("click", () => {
+    window.open("https://regonline.rs-elisabeth.com/", "_blank");
+});
+buttonJanji[1].addEventListener("click", () => {
+    window.open("https://regonline.rs-elisabeth.com/", "_blank");
+});
