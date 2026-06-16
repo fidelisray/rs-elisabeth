@@ -14,18 +14,17 @@ function getDokterByUnit(unitId) {
                 return;
             }
 
-            let dataDokter = doctors.map(doctor => ({
-                'nama': doctor.ParamedicName,
-                'nip' : doctor.ParamedicCode,
-                'unit-code': doctor.ServiceUnitCode,
-                'jadwal': doctor.Schedules.map(schedule => ({
-                    'hari': schedule.Day,
-                    'jam': schedule.OperationalTimeName.split('|')
-                }))
+            let dataDokter = doctors.map((doctor) => ({
+                nama: doctor.ParamedicName,
+                nip: doctor.ParamedicCode,
+                "unit-code": doctor.ServiceUnitCode,
+                jadwal: doctor.Schedules.map((schedule) => ({
+                    hari: schedule.Day,
+                    jam: schedule.OperationalTimeName.split("|"),
+                })),
             }));
 
             console.log(dataDokter);
-            
 
             const html = dataDokter
                 .map(
@@ -88,6 +87,7 @@ function getDokterByUnit(unitId) {
                                     data-bs-target='#detailDokter'
 
                                     data-nama='${dokter.nama}'
+                                    data-id='${dokter.nip}'
                                     data-jadwal='${JSON.stringify(dokter.jadwal)}'>Cek Profil</a>
                                 <a href="https://regonline.rs-elisabeth.com/" class="btn btn-success" target="_blank">Buat Janji</a>
                             </div>
@@ -98,9 +98,9 @@ function getDokterByUnit(unitId) {
             `,
                 )
                 .join("");
-            
+
             container.innerHTML = html;
-            document.getElementById("default-card").classList.add('d-none');
+            document.getElementById("default-card").classList.add("d-none");
         })
         .catch((error) => {
             document.getElementById("daftar-dokter").innerHTML =
@@ -176,7 +176,7 @@ function initDokter() {
                                                         ${jadwal.jam
                                                             .map(
                                                                 (time) =>
-                                                                    `<small>${time}</small>`,
+                                                                    `<small class="schedule-time">${time}</small>`,
                                                             )
                                                             .join("")}
                                                     </div>
@@ -197,6 +197,7 @@ function initDokter() {
                                     data-bs-target='#detailDokter'
 
                                     data-nama='${dokter.nama}'
+                                    data-id='${dokter.nip}'
                                     data-jadwal='${JSON.stringify(dokter.jadwal)}'>Cek Profil</a>
                                 <a href="https://regonline.rs-elisabeth.com/" class="btn btn-success" target="_blank">Buat Janji</a>
                             </div>

@@ -1,102 +1,91 @@
 // *******************************
 // ---- Dropdown Pilih Klinik ----
 // *******************************
-const clinicSearch = document.getElementById('clinicSearch');
-const clinicOptions = document.querySelectorAll('.clinic-option');
-const dropdownButton = document.getElementById('clinicDropdown');
+const clinicSearch = document.getElementById("clinicSearch");
+const clinicOptions = document.querySelectorAll(".clinic-option");
+const dropdownButton = document.getElementById("clinicDropdown");
 
 // Filter Klinik
 
-clinicSearch.addEventListener('keyup', function () {
-
+clinicSearch.addEventListener("keyup", function () {
     const keyword = this.value.toLowerCase();
 
-    clinicOptions.forEach(option => {
+    clinicOptions.forEach((option) => {
         const clinicName = option.textContent.toLowerCase();
-        option.style.display = clinicName.includes(keyword) ? 'block' : 'none';
+        option.style.display = clinicName.includes(keyword) ? "block" : "none";
     });
-
 });
-
 
 // Pilih Klinik
 
-clinicOptions.forEach(option => {
-
-    option.addEventListener('click', function () {
-
+clinicOptions.forEach((option) => {
+    option.addEventListener("click", function () {
         const selected_name = this.dataset.value;
         const selected_code = this.dataset.code;
 
         dropdownButton.innerText = selected_name;
         dropdownButton.dataset.selected_name = selected_name;
         dropdownButton.dataset.selected_code = selected_code;
-
     });
-
 });
-
 
 // Reset
 
-document
-    .getElementById('btnReset').addEventListener('click', () => {
+document.getElementById("btnReset").addEventListener("click", () => {
+    dropdownButton.innerText = "Pilih Klinik";
 
-        dropdownButton.innerText = 'Pilih Klinik';
+    // dropdownButton.dataset.selected = '';
+    dropdownButton.dataset.selected_name = "";
+    dropdownButton.dataset.selected_code = "";
 
-        // dropdownButton.dataset.selected = '';
-        dropdownButton.dataset.selected_name = '';
-        dropdownButton.dataset.selected_code = '';
+    clinicSearch.value = "";
 
-        clinicSearch.value = '';
+    document.getElementById("searchKeyword").value = "";
 
-        document.getElementById('searchKeyword').value = '';
-
-        clinicOptions.forEach(option => {
-            option.style.display = 'block';
-        });
-
+    clinicOptions.forEach((option) => {
+        option.style.display = "block";
     });
-
+});
 
 // Cari
 
-document.getElementById('btnCari').addEventListener('click', () => {
-
+document.getElementById("btnCari").addEventListener("click", () => {
     const clinic_name = dropdownButton.dataset.selected_name;
     const clinic_code = dropdownButton.dataset.selected_code;
     // const clinic = dropdownButton.dataset.selected;
 
-    const keyword = document.getElementById('searchKeyword').value;
+    const keyword = document.getElementById("searchKeyword").value;
 
-    console.log({clinic_name, clinic_code, keyword});
+    console.log({ clinic_name, clinic_code, keyword });
 
     window.location.href = `/dokter/${clinic_code}`;
 });
 
-
-
 // modal dokter
-const detailDokter = document.getElementById('detailDokter');
+const detailDokter = document.getElementById("detailDokter");
 console.log(detailDokter);
 
-detailDokter.addEventListener('show.bs.modal', (event) => {
-
+detailDokter.addEventListener("show.bs.modal", (event) => {
     const button = event.relatedTarget;
 
     const namaDokter = button.dataset.nama;
     const jadwalDokter = JSON.parse(button.dataset.jadwal);
+    const fotoDokter = document.getElementById("foto-dokter");
 
-    document.getElementById('namaDokter').textContent = namaDokter;
-    
-    let scheduleCard = '';
-    
-    jadwalDokter.forEach(jadwal => {
-        let scheduleTime = '';
-        jadwal.jam.map(waktu => {
+    fotoDokter.innerHTML = `
+        <img src="https://mobile.rs-elisabeth.com/paramedic/${button.dataset.id}.png" alt="Doctor">
+    `;
+
+    document.getElementById("namaDokter").textContent = namaDokter;
+
+    let scheduleCard = "";
+
+    jadwalDokter.forEach((jadwal) => {
+        let scheduleTime = "";
+        jadwal.jam.map((waktu) => {
             scheduleTime += `
                 <span class="schedule-time">${waktu}</span>
-            `
+            `;
         });
         scheduleCard += `
             <div class="col-12 col-lg-4">    
@@ -111,7 +100,6 @@ detailDokter.addEventListener('show.bs.modal', (event) => {
             </div>
         `;
     });
-    
-    document.getElementById('schedule-cards').innerHTML = scheduleCard;
 
-})
+    document.getElementById("schedule-cards").innerHTML = scheduleCard;
+});

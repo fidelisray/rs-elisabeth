@@ -167,8 +167,8 @@
                                     data-bs-dismiss="modal">
                                 </button>
                                 <div class="d-flex align-items-center gap-3">
-                                    <div class="doctor-photo">
-                                        <img src="https://via.placeholder.com/120x120" alt="Doctor">
+                                    <div id="foto-dokter" class="doctor-photo">
+                                        
                                     </div>
                                     <div>
                                         <h5 class="mb-1 fw-bold" id="namaDokter">
