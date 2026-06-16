@@ -53,7 +53,7 @@
     <section class="container-fluid toolbar-panel py-3">
         <!-- Toolbar -->
 
-        <div class="toolbar">
+        <div class="toolbar container">
             <div class="row align-items-start justify-content-center">
                 <!-- Dropdown Klinik -->
                 <div class="col-lg-4">
