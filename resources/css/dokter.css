@@ -108,7 +108,8 @@ section#hero div div.hero-img .stethoscope-icon {
 }
 
 div.schedule {
-    min-width: 140px;
+    min-width: 160px;
+    max-width: 250px;
     min-height: 4rem;
     border-radius: 12px;
     border: 1px solid var(--secondary-darker-color);
@@ -418,7 +419,7 @@ div#detailDokter div.content-section {
     color: #3d4451;
 }
 
-.schedule-time {
+span.schedule-time {
     display: inline-block;
 
     background: #fff;
@@ -432,6 +433,22 @@ div#detailDokter div.content-section {
     padding: 3px 10px;
     margin-top: 4px;
     font-size: 0.9rem;
+}
+
+small.schedule-time {
+    background-color: #e2f3fe;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+p.unit-name {
+    margin-top: -6px;
+    margin-bottom: 10px;
+    font-weight: 700;
+    text-transform: capitalize;
+    text-align: center;
 }
 
 /* ===================================

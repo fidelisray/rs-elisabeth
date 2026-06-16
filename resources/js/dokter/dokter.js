@@ -17,7 +17,8 @@ function getDokterByUnit(unitId) {
             let dataDokter = doctors.map((doctor) => ({
                 nama: doctor.ParamedicName,
                 nip: doctor.ParamedicCode,
-                "unit-code": doctor.ServiceUnitCode,
+                unitCode: doctor.ServiceUnitCode,
+                unitName: doctor.ServiceUnitName,
                 jadwal: doctor.Schedules.map((schedule) => ({
                     hari: schedule.Day,
                     jam: schedule.OperationalTimeName.split("|"),
@@ -34,7 +35,7 @@ function getDokterByUnit(unitId) {
                 <div class="card-body">
                     <div class="row align-items-center">
                         <!-- Kolom Foto + Informasi Dokter -->
-                        <div class="col-md-3 border-end">
+                        <div class="col-12 col-md-3 border-end">
                             <div class="p-4 text-center">
                                 <img
                                     src="https://mobile.rs-elisabeth.com/paramedic/${dokter.nip}.png"
@@ -48,7 +49,7 @@ function getDokterByUnit(unitId) {
                             </div>
                         </div>
                         <!-- Kolom Jadwal -->
-                        <div class="col-md-6">
+                        <div class="col-12 col-md-6">
                             <label class="form-label fw-semibold">
                                 Jadwal Dokter
                             </label>
@@ -63,10 +64,11 @@ function getDokterByUnit(unitId) {
                                                         `
                                                     <div class="schedule">
                                                         <h5 class="schedule-title">${jadwal.hari}</h5>
+                                                        <p class="unit-name">${dokter.unitName.toLowerCase()}</p>
                                                         ${jadwal.jam
                                                             .map(
                                                                 (time) =>
-                                                                    `<small>${time}</small>`,
+                                                                    `<small class="schedule-time">${time}</small>`,
                                                             )
                                                             .join("")}
                                                     </div>
@@ -78,7 +80,7 @@ function getDokterByUnit(unitId) {
                             </div>
                         </div>
                         <!-- Tombol -->
-                        <div class="col-md-3">
+                        <div class="col-12 col-md-2">
                             <div class="d-grid gap-2">
                                 <a 
                                     href='#' 
@@ -127,7 +129,8 @@ function initDokter() {
             let dataDokter = doctors.map((doctor) => ({
                 nama: doctor.ParamedicName,
                 nip: doctor.ParamedicCode,
-                "unit-code": doctor.ServiceUnitCode,
+                unitCode: doctor.ServiceUnitCode,
+                unitName: doctor.ServiceUnitName,
                 jadwal: doctor.Schedules.map((schedule) => ({
                     hari: schedule.Day,
                     jam: schedule.OperationalTimeName.split("|"),
@@ -144,7 +147,7 @@ function initDokter() {
                 <div class="card-body">
                     <div class="row align-items-center">
                         <!-- Kolom Foto + Informasi Dokter -->
-                        <div class="col-md-3 border-end">
+                        <div class="col-12 col-md-3 border-end">
                             <div class="p-4 text-center">
                                 <img
                                     src="https://mobile.rs-elisabeth.com/paramedic/${dokter.nip}.png"
@@ -158,7 +161,7 @@ function initDokter() {
                             </div>
                         </div>
                         <!-- Kolom Jadwal -->
-                        <div class="col-md-6">
+                        <div class="col-12 col-md-6">
                             <label class="form-label fw-semibold">
                                 Jadwal Dokter
                             </label>
@@ -173,6 +176,7 @@ function initDokter() {
                                                         `
                                                     <div class="schedule">
                                                         <h5 class="schedule-title">${jadwal.hari}</h5>
+                                                        <p class="unit-name">${dokter.unitName.toLowerCase()}</p>
                                                         ${jadwal.jam
                                                             .map(
                                                                 (time) =>
@@ -188,7 +192,7 @@ function initDokter() {
                             </div>
                         </div>
                         <!-- Tombol -->
-                        <div class="col-md-3">
+                        <div class="col-12 col-md-2">
                             <div class="d-grid gap-2">
                                 <a 
                                     href='#' 
