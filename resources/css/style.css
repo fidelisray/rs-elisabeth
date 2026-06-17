@@ -161,14 +161,14 @@ span.carousel-control-next-icon {
 
 
 section#promotions {
-    background: #f9f9f9;
+    background: #fff;
     padding-top: 2rem;
 }
 
 section#promotions .card {
     /* filter: drop-shadow(13px 11px 1.5rem #00085e); */
-    box-shadow: 3px 3px 11px 0px #2c2c2cd1;
-    border-radius: 0.7rem;
+    /* box-shadow: 3px 3px 11px 0px #2c2c2cd1;
+    border-radius: 0.7rem; */
     overflow: hidden;
 }
 
