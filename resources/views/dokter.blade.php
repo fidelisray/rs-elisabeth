@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dokter Kami</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('css/dokter.css') }}">
+    @vite {
+        'resources/js/app.js',
+        'resources/js/bootstrap.js',
+        'resources/css/style.css',
+        'resources/css/dokter.css',
+      }
 </head>
 <body>
     <header>
