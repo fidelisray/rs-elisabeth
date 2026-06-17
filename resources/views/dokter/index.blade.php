@@ -63,7 +63,7 @@
                     </label>
                     <div class="dropdown w-100">
                         <button
-                            class="btn btn-outline-secondary dropdown-toggle w-100 text-start d-flex justify-content-between align-items-center"
+                            class="btn dropdown-toggle w-100 text-start d-flex justify-content-between align-items-center"
                             type="button"
                             id="clinicDropdown"
                             data-bs-toggle="dropdown"
@@ -119,13 +119,13 @@
                         <button
                             type="button"
                             id="btnCari"
-                            class="btn btn-info px-4">
+                            class="btn px-4">
                             Cari
                         </button>
                         <button
                             type="button"
                             id="btnReset"
-                            class="btn btn-outline-info px-4">
+                            class="btn px-4">
                             Reset
                         </button>
                     </div>
@@ -335,6 +335,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/726e331ad1.js" crossorigin="anonymous"></script>
-    @vite(['resources/js/dokter/dokter.js'])
+    @vite([
+        'resources/js/dokter/dokter.js',
+        'resources/js/dokter/script.js'
+    ])
 </body>
 </html>

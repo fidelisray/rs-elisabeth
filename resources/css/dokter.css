@@ -86,6 +86,43 @@ section#hero div div.hero-img .stethoscope-icon {
     min-width: 1rem;
 }
 
+button#clinicDropdown, 
+input#searchKeyword,
+button#btnCari,
+button#btnReset {
+    border: 1px solid var(--primary-color);
+}
+
+button#btnCari {
+    background-color: var(--primary-color);
+    color: #fff;
+
+    transition: all 0.1s ease-in;
+}
+
+button#btnCari:hover {
+    background-color: #0a5bb1;
+    color: #eee;
+}
+
+button#btnReset,
+button#clinicDropdown {
+    color: var(--primary-color);
+
+    transition: all 0.275s ease;
+}
+
+button#btnReset:hover,
+button#clinicDropdown:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+input#searchKeyword::placeholder {
+    color: #5fa8ec;
+    opacity: 60%;
+}
+
 /* cgpt */
 .doctor-card {
     border-radius: 20px;

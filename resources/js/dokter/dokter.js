@@ -8,7 +8,7 @@ function getDokterByUnit(unitId) {
     fetch(`/dokter/${unitId}`)
     .then((response) => response.json())
     .then((doctors) => {
-        console.log(doctors);
+        // console.log(doctors);
         const container = document.getElementById("daftar-dokter");
         
             if (doctors.length === 0) {
@@ -27,7 +27,7 @@ function getDokterByUnit(unitId) {
                 })),
             }));
 
-            console.log(dataDokter);
+            // console.log(dataDokter);
             
 
             const html = dataDokter
@@ -107,7 +107,9 @@ function getDokterByUnit(unitId) {
                 .join("");
 
             container.innerHTML = html;
-            document.getElementById("default-card").classList.add("d-none");
+            if (!document.getElementById("default-card").classList.contains("d-none")) {
+                document.getElementById("default-card").classList.add("d-none");
+            }
         })
         .catch((error) => {
             document.getElementById("daftar-dokter").innerHTML =
@@ -116,7 +118,7 @@ function getDokterByUnit(unitId) {
         });
 }
 
-function initDokter() {
+export function initDokter() {
     document.getElementById("daftar-dokter").innerHTML =
         "<p>Pilih Klinik...</p>";
 
@@ -125,6 +127,10 @@ function initDokter() {
         .then((doctors) => {
             // console.log(doctors);
             const container = document.getElementById("default-card");
+            
+            if (container.classList.contains('d-none')) {
+                container.classList.remove('d-none');
+            }
 
             if (doctors.length === 0) {
                 container.innerHTML = "<p>Tidak ada dokter di unit ini.</p>";
