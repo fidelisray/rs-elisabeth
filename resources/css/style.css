@@ -75,33 +75,58 @@ nav#second-navbar {
 }
 
 /* Class ini ditambahkan via JS saat navbar "menempel" di atas */
-  nav#second-navbar.is-stuck {
+nav#second-navbar.is-stuck {
     padding: 10px 0px;
     background-color: var(--secondary-color);
     backdrop-filter: blur(15px);
     box-shadow: var(--shadow-sticky);
-  }
+}
 
 
 /* .second-nav-body {
     width: 85vw;
 } */
 
-.second-nav-body ul.nav-content .nav-item .nav-link {
+nav#second-navbar .second-nav-body ul.nav-content .nav-item .nav-link {
     
     padding: 0.2rem 0.8rem;
+    border-radius: 1.5rem;
     color: #edfbff;
     font-weight: 500;
+    position: relative;
     
     transition: all 0.5s ease-out;
 }
 
-.second-nav-body ul.nav-content .nav-item .nav-link:hover {
-    border-radius: 1.5rem;
-    padding: 0.2rem 0.8rem;
+nav#second-navbar .second-nav-body ul.nav-content .nav-item .nav-link:hover {
     background-color: var(--secondary-color);
     color: var(--accent-color);
+    transform: scaleX(1);
 }
+
+nav#second-navbar.is-stuck .second-nav-body ul.nav-content .nav-item .nav-link::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent-color);
+    transform: scaleX(0);
+
+    transition: all 0.3s ease-out;
+}
+
+nav#second-navbar.is-stuck .second-nav-body ul.nav-content .nav-item .nav-link:hover::before {
+    /* width: 100%; */
+    transform: scaleX(1);
+}
+ 
+/* nav#second-navbar.is-stuck .second-nav-body ul.nav-content .nav-item .nav-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+    border-radius: 4px;
+} */
 
 section#quick-access div.container div.cards {
     height: 200px;
