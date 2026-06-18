@@ -172,22 +172,22 @@
             </div>
         </div>
     </section>
-    <section class="about-us">
-        <div class="container-fluid p-2 mb-4 rounded-3">
+    <section class="about-us container-fluid">
+        <div class="container p-2 mb-4 rounded-3">
             <div class="title text-center section-title">
                 <h2 class="display-8 fw-bold">Why People Choose Us?</h2>
             </div>
-            <div class="container-fluid py-5 row">
-                <div class="jumbotron-content px-5 col-md-5">
-                    <div class="about-1">
+            <div class="py-5 row">
+                <div class="about-content px-5 col-md-5">
+                    <div class="about-rs">
                         <h4>Terakreditasi Paripurna</h4>
                         <p>Kami mendapat predikat PARIPURNA dari Komisi Akreditasi Rumah Sakit (KARS), yang merupakan predikat dengan hasil penilaian tertinggi berdasarkan penilaian terhadap manajemen mutu dan keselamatan pasien yang diterapkan di Rumah Sakit.</p>
                     </div>
-                    <div class="about-2">
+                    <div class="about-rs">
                         <h4>Layanan 24 Jam</h4>
                         <p>Kami menyediakan layanan 24 jam untuk memenuhi kebutuhan Kesehatan anda, khususnya bagi anda yang membutuhkan penanganan emergency.</p>
                     </div>
-                    <div class="about-3">
+                    <div class="about-rs">
                         <h4>Service Excellent</h4>
                         <p>Berpusat kepada pasien sebagai “Tamu Ilahi”, Kami senantiasa memberikan kualitas pelayanan yang bermutu tinggi dan profesional, dengan tetap memperhatikan aspek keselamatan pasien.</p>
                     </div>
@@ -429,44 +429,59 @@
             </div>
         </div>
     </section>
-    <section id="footer">
-        <div class="container-fluid col">
-            <div class="row footer-body">
-                <div class="col">
-                    <ul>
-                        <li><a href="#" class="">RS St. Elisabeth Semarang</a></li>
-                        <li><p>Pancaran cintanya menyembuhkan derita sesama</p></li>
-                        <li><a href="#">Tentang Kami</a></li>
-                        <li><a href="#">Profil</a></li>
-                        <li><a href="#">Hubungi Kami</a></li>
-                    </ul>
+    <section id="footer" class="pt-5">
+        <div class="container-fluid col-12 col-md-12">
+            <div class="container">
+                <div class="row footer-body">
+                    <div class="col mb-5">
+                        <div class="footer-header mb-4">
+                            <ul>
+                                <li><h4 class="rs-name">RS St. Elisabeth Semarang</h4></li>
+                                <li><p class="moto">Pancaran cintanya menyembuhkan derita sesama</p></li>
+                            </ul>
+                        </div>
+                        <ul>
+                            <li><h4 class="footer-title">Hubungi Kami</h4></li>
+                            <li class="footer-list"><a href="#"><i class="fa-solid fa-location-dot"></i> Jl. Kawi No.1</a></li>
+                            <li class="footer-list"><a href="#"><i class="fa-solid fa-phone"></i> (024) 8502244</a></li>
+                            <li class="footer-list"><a href="#"><i class="fa-solid fa-phone"></i> (024) 8310076 / (024) 8310035</a></li>
+                            <li class="footer-list"><a href="#"><i class="fa-solid fa-envelope"></i> sekretariat@365.rs-elisabeth.com</a></li>
+                        </ul>
+                        <div class="social-media d-flex gap-2">
+                            <div class="insta"><i class="fa-brands fa-instagram"></i></div>
+                            <div class="facebook"><i class="fa-brands fa-facebook"></i></div>
+                            <div class="youtube"><i class="fa-brands fa-youtube"></i></div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <ul>
+                            <li><h4 class="footer-title">Tautan Cepat</h4></li>
+                            <li class="footer-list"><a href="#"><i class="fa-solid fa-caret-right"></i> Tentang Kami</a></li>
+                            <li class="footer-list"><a href="#"><i class="fa-solid fa-caret-right"></i> Elisanews</a></li>
+                            <li class="footer-list"><a href="#"><i class="fa-solid fa-caret-right"></i> Artikel</a></li>
+                            <li class="footer-list"><a href="#"><i class="fa-solid fa-caret-right"></i> Hubungi Kami</a></li>
+                            <li class="footer-list"><a href="#"><i class="fa-solid fa-caret-right"></i> Rekanan</a></li>
+                            <li class="footer-list"><a href="#"><i class="fa-solid fa-caret-right"></i> Perpustakaan Online</a></li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <ul>
+                            <li><h4 class="footer-title">Elisameds</h4></li>
+                            <li class="footer-list">
+                                <p class="elisameds-desc">Aplikasi Mobile Rumah Sakit St. Elisabeth Semarang untuk meningkatkan kualitas pelayanan kesehatan kepada pasien.</p>
+                            </li>
+                            <li><a href="https://play.google.com/store/apps/details?id=com.elisameds.app"><i class="fa-brands fa-google-play"></i></a></li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="col">
-                    <ul>
-                        <li><a href="#">RS St. Elisabeth Semarang</a></li>
-                        <li><a href="#">Pancaran cintanya menyembuhkan derita sesama</a></li>
-                        <li><a href="#">Tentang Kami</a></li>
-                        <li><a href="#">Profil</a></li>
-                        <li><a href="#">Hubungi Kami</a></li>
-                    </ul>
-                </div>
-                <div class="col">
-                    <ul>
-                        <li><a href="#">RS St. Elisabeth Semarang</a></li>
-                        <li><a href="#">Pancaran cintanya menyembuhkan derita sesama</a></li>
-                        <li><a href="#">Tentang Kami</a></li>
-                        <li><a href="#">Profil</a></li>
-                        <li><a href="#">Hubungi Kami</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row footer-copyright">
-                <div class="col">
-                    <p class="copyright"><i class="fa-solid fa-copyright"></i> 2026 Rumah Sakit Santa Elisabeth Semarang</p>
-                </div>
-                <div class="col d-flex justify-content-center gap-3">
-                    <p class="d-inline-block">Designed By Lorem, ipsum dolor.</p>
-                    <p class="d-inline-block">Developed By Lorem, ipsum.</p>
+                <div class="row footer-copyright">
+                    <div class="col">
+                        <p class="copyright"><i class="fa-solid fa-copyright"></i> 2026 Rumah Sakit Santa Elisabeth Semarang</p>
+                    </div>
+                    <div class="col d-flex justify-content-center gap-3">
+                        <p class="d-inline-block">Designed By Lorem, ipsum dolor.</p>
+                        <p class="d-inline-block">Developed By Lorem, ipsum.</p>
+                    </div>
                 </div>
             </div>
         </div>

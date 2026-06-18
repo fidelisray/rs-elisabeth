@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap');
 
 :root {
     /* --primary-color: #2F9DFE; */
@@ -114,8 +116,19 @@ section#quick-access div.container div.cards {
     background-color: rgb(246, 37, 22);
 }
 
-section#about-us div.container-fluid {
-    background-color: #124f8c;
+.about-content .about-rs h4 {
+    /* color: #124f8c; */
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.about-content .about-rs p {
+    font-size: 1.1rem;
+    margin-right: 8px;
+    font-family: 'Crimson Text', sans-serif;
+    font-weight: 600;
+    text-indent: 1.8ch;
+    text-align: justify;
 }
 
 section#our-speciality .carousel-item {
@@ -178,15 +191,90 @@ section#promotions .card {
 /* ************* */
 
 section#footer {
-    height: 20rem;
-    background: var(--secondary-color);
+    background: var(--primary-color);
 }
 
-section#footer .footer-body div ul li {
+/* section#footer .footer-body {
+    height: 12rem;
+} */
+
+
+section#footer .footer-body div ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+section#footer .footer-body div ul li.footer-list a {
     text-decoration: none;
+    color: #fff;
+    font-weight: 400;
 }
 
-section#footer .footer-copyright {
-    width: 85vw;
-    margin: 0 auto;
+section#footer div div div.footer-copyright {
+    padding: 1.1rem;
+}
+
+section#footer div div div.footer-copyright p {
+    color: rgb(1, 1, 88);
+}
+
+.footer-header .rs-name {
+    font-size: 1.8rem;
+    font-weight: 900;
+    font-family: 'Cormorant Garamond', sans-serif;
+    color: #fff;
+}
+
+.footer-header p.moto {
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-family: 'Crimson Text', sans-serif;
+    font-style: italic;
+    text-transform: capitalize;
+    color: rgb(208, 208, 16);
+}
+
+h4.footer-title {
+    font-weight: 700;
+    color: rgb(1, 1, 88);
+}
+
+.footer-list {
+    margin-bottom: 0.475rem;
+    margin-left: 0.5rem;
+}
+
+.social-media {
+    margin-top: 1.2rem;
+}
+
+.social-media > * {
+    font-size: 2rem;
+    color: #eee;
+    transition: all 0.1s ease;
+}
+
+.social-media div:nth-child(1):hover {
+    color: rgba(227, 20, 103, 1);
+}
+
+.social-media div:nth-child(2):hover {
+    color: rgb(5, 5, 201);
+}
+
+.social-media div:nth-child(3):hover {
+    color: rgb(232, 7, 7);
+}
+
+
+.fa-google-play {
+    font-size: 3rem;
+    color: #fff;
+}
+
+.elisameds-desc {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #eee;
 }
