@@ -1,14 +1,16 @@
 // fetch data dokter
+const klinikType = ["", "Eksekutif"];
 
 function getDokterByUnit(unitId) {
     document.getElementById("daftar-dokter").innerHTML = "<p>Loading...</p>";
 
+    
     fetch(`/dokter/${unitId}`)
-        .then((response) => response.json())
-        .then((doctors) => {
-            console.log(doctors);
-            const container = document.getElementById("daftar-dokter");
-
+    .then((response) => response.json())
+    .then((doctors) => {
+        // console.log(doctors);
+        const container = document.getElementById("daftar-dokter");
+        
             if (doctors.length === 0) {
                 container.innerHTML = "<p>Tidak ada dokter di unit ini.</p>";
                 return;
@@ -25,7 +27,8 @@ function getDokterByUnit(unitId) {
                 })),
             }));
 
-            console.log(dataDokter);
+            // console.log(dataDokter);
+            
 
             const html = dataDokter
                 .map(
@@ -49,7 +52,7 @@ function getDokterByUnit(unitId) {
                             </div>
                         </div>
                         <!-- Kolom Jadwal -->
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-6 mx-auto">
                             <label class="form-label fw-semibold">
                                 Jadwal Dokter
                             </label>
@@ -57,14 +60,15 @@ function getDokterByUnit(unitId) {
     
                                 <div class="row">
     
-                                    <div class="d-flex flex-wrap gap-3">
-                                            ${dokter.jadwal
-                                                .map(
-                                                    (jadwal) =>
-                                                        `
-                                                    <div class="schedule">
-                                                        <h5 class="schedule-title">${jadwal.hari}</h5>
-                                                        <p class="unit-name">${dokter.unitName.toLowerCase()}</p>
+                                ${dokter.jadwal
+                                        .map(
+                                            (jadwal) =>
+                                                `
+                                            <div class="col-12 col-md-4 g-3">
+                                                <div class="schedule shadow-sm h-100">
+                                                    <h5 class="schedule-title">${jadwal.hari}</h5>
+                                                    <p class="unit-name">${dokter.unitName.toLowerCase()} ${klinikType[Math.floor(Math.random() * klinikType.length)]}</p>
+                                                    <div class="d-flex flex-column">
                                                         ${jadwal.jam
                                                             .map(
                                                                 (time) =>
@@ -72,15 +76,16 @@ function getDokterByUnit(unitId) {
                                                             )
                                                             .join("")}
                                                     </div>
-                                                    `,
-                                                )
-                                                .join("")}
-                                    </div>
+                                                </div>
+                                            </div>
+                                            `,
+                                        )
+                                        .join("")}
                                 </div>
                             </div>
                         </div>
                         <!-- Tombol -->
-                        <div class="col-12 col-md-2">
+                        <div class="col-12 col-md-2 mx-4">
                             <div class="d-grid gap-2">
                                 <a 
                                     href='#' 
@@ -102,7 +107,9 @@ function getDokterByUnit(unitId) {
                 .join("");
 
             container.innerHTML = html;
-            document.getElementById("default-card").classList.add("d-none");
+            if (!document.getElementById("default-card").classList.contains("d-none")) {
+                document.getElementById("default-card").classList.add("d-none");
+            }
         })
         .catch((error) => {
             document.getElementById("daftar-dokter").innerHTML =
@@ -111,7 +118,7 @@ function getDokterByUnit(unitId) {
         });
 }
 
-function initDokter() {
+export function initDokter() {
     document.getElementById("daftar-dokter").innerHTML =
         "<p>Pilih Klinik...</p>";
 
@@ -120,6 +127,10 @@ function initDokter() {
         .then((doctors) => {
             // console.log(doctors);
             const container = document.getElementById("default-card");
+            
+            if (container.classList.contains('d-none')) {
+                container.classList.remove('d-none');
+            }
 
             if (doctors.length === 0) {
                 container.innerHTML = "<p>Tidak ada dokter di unit ini.</p>";
@@ -161,22 +172,23 @@ function initDokter() {
                             </div>
                         </div>
                         <!-- Kolom Jadwal -->
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-6 mx-auto">
                             <label class="form-label fw-semibold">
                                 Jadwal Dokter
                             </label>
                             <div class="col align-items-center">
     
                                 <div class="row">
-    
-                                    <div class="d-flex flex-wrap gap-3">
-                                            ${dokter.jadwal
-                                                .map(
-                                                    (jadwal) =>
-                                                        `
-                                                    <div class="schedule">
-                                                        <h5 class="schedule-title">${jadwal.hari}</h5>
-                                                        <p class="unit-name">${dokter.unitName.toLowerCase()}</p>
+                            
+                                ${dokter.jadwal
+                                    .map(
+                                        (jadwal) =>
+                                            `
+                                            <div class="col-12 col-md-4 g-3">
+                                                <div class="schedule shadow-sm h-100">
+                                                    <h5 class="schedule-title">${jadwal.hari}</h5>
+                                                    <p class="unit-name">${dokter.unitName.toLowerCase()} ${klinikType[Math.floor(Math.random() * klinikType.length)]}</p>
+                                                    <div class="d-flex flex-column">
                                                         ${jadwal.jam
                                                             .map(
                                                                 (time) =>
@@ -184,15 +196,16 @@ function initDokter() {
                                                             )
                                                             .join("")}
                                                     </div>
-                                                    `,
-                                                )
-                                                .join("")}
-                                    </div>
+                                                </div>
+                                            </div>
+                                            `,
+                                    )
+                                    .join("")}
                                 </div>
                             </div>
                         </div>
                         <!-- Tombol -->
-                        <div class="col-12 col-md-2">
+                        <div class="col-12 col-md-2 mx-4">
                             <div class="d-grid gap-2">
                                 <a 
                                     href='#' 

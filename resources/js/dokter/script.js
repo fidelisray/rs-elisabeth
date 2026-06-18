@@ -1,3 +1,5 @@
+import { initDokter } from "./dokter";
+
 // *******************************
 // ---- Dropdown Pilih Klinik ----
 // *******************************
@@ -45,6 +47,8 @@ document.getElementById("btnReset").addEventListener("click", () => {
     clinicOptions.forEach((option) => {
         option.style.display = "block";
     });
+
+    initDokter();
 });
 
 // Cari
@@ -63,7 +67,7 @@ document.getElementById("btnCari").addEventListener("click", () => {
 
 // modal dokter
 const detailDokter = document.getElementById("detailDokter");
-console.log(detailDokter);
+// console.log(detailDokter);
 
 detailDokter.addEventListener("show.bs.modal", (event) => {
     const button = event.relatedTarget;
