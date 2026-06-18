@@ -17,6 +17,8 @@
 
     --inactive-bg-color: #d2d2d2;
     --inactive-fg-color: #aaaaaa;
+
+    --shadow-sticky: 0 6px 24px rgba(15, 23, 42, 0.10);
 }
 
 * {
@@ -24,43 +26,6 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Outfit", sans-serif;
-}
-
-/* section#quick-access {
-    background: var(--secondary-darker-color);
-} */
-
-.nav-form-search {
-    width: 100%;
-    max-width: 30rem;
-}
-
-.second-nav {
-    background-color: var(--primary-color);
-}
-
-.second-nav-body {
-    width: 85vw;
-}
-
-.second-nav-body ul.nav-content .nav-item .nav-link {
-    
-    padding: 0.2rem 0.8rem;
-    color: #edfbff;
-    font-weight: 500;
-    
-    transition: all 0.5s ease-out;
-}
-
-.second-nav-body ul.nav-content .nav-item .nav-link:hover {
-    border-radius: 1.5rem;
-    padding: 0.2rem 0.8rem;
-    background-color: var(--secondary-color);
-    color: var(--accent-color);
-}
-
-section#quick-access div.container div.cards {
-    height: 200px;
 }
 
 .ambulance-call {
@@ -82,6 +47,64 @@ section#quick-access div.container div.cards {
     font-size: 1.2rem;
     font-weight: 600;
 
+}
+
+/* section#quick-access {
+    background: var(--secondary-darker-color);
+} */
+
+.nav-form-search {
+    width: 100%;
+    max-width: 30rem;
+}
+
+div#navbar-sentinel {
+    height: 1px;
+}
+
+nav#second-navbar {
+    padding: 20px 0px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--primary-color);
+    transition:
+      padding 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 0.35s ease,
+      background-color 0.35s ease;
+}
+
+/* Class ini ditambahkan via JS saat navbar "menempel" di atas */
+  nav#second-navbar.is-stuck {
+    padding: 10px 0px;
+    background-color: var(--secondary-color);
+    backdrop-filter: blur(15px);
+    box-shadow: var(--shadow-sticky);
+  }
+
+
+/* .second-nav-body {
+    width: 85vw;
+} */
+
+.second-nav-body ul.nav-content .nav-item .nav-link {
+    
+    padding: 0.2rem 0.8rem;
+    color: #edfbff;
+    font-weight: 500;
+    
+    transition: all 0.5s ease-out;
+}
+
+.second-nav-body ul.nav-content .nav-item .nav-link:hover {
+    border-radius: 1.5rem;
+    padding: 0.2rem 0.8rem;
+    background-color: var(--secondary-color);
+    color: var(--accent-color);
+}
+
+section#quick-access div.container div.cards {
+    height: 200px;
 }
 
 .doctor-icon,

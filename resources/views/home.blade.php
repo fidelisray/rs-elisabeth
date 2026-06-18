@@ -10,7 +10,7 @@
       ])
   </head>
   <body>
-    <header>
+    <header class="nav-group">
         <nav class="navbar bg-body-tertiary">
             <div class="container d-flex">
                 <a class="navbar-brand" href="/">
@@ -25,7 +25,7 @@
                     <i class="fa-solid fa-truck-medical"></i>
                     <span class="">IGD 24</span>
                 </a>
-                <div class="dropdown">
+                <div class="d-none">
                     <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-user"></i>
                     </a>
@@ -37,46 +37,47 @@
                 </div>
             </div>
         </nav>
-        <nav class="navbar navbar-expand-lg second-nav">
-            <div class="container second-nav-body">
-                <!-- <a class="navbar-brand" href="#">Navbar</a> -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
-                    <ul class="navbar-nav nav-content gap-2">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Beranda</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Tentang Kami
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Tentang Kami</a></li>
-                                <li><a class="dropdown-item" href="#">Profil</a></li>
-                                <li><a class="dropdown-item" href="#">Direksi</a></li>
-                                <li><a class="dropdown-item" href="#">Visi & Misi</a></li>
-                                <li><a class="dropdown-item" href="#">Akreditasi</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Cari Dokter</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Ruang Perawatan</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Fasilitas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Paket dan Promo</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
     </header>
+    <div id="navbar-sentinel" class="navbar-sentinel"></div>
+    <nav id="second-navbar" class="navbar navbar-expand-lg second-nav">
+        <div class="container second-nav-body">
+            <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+                <ul class="navbar-nav nav-content gap-2">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Beranda</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Tentang Kami
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Tentang Kami</a></li>
+                            <li><a class="dropdown-item" href="#">Profil</a></li>
+                            <li><a class="dropdown-item" href="#">Direksi</a></li>
+                            <li><a class="dropdown-item" href="#">Visi & Misi</a></li>
+                            <li><a class="dropdown-item" href="#">Akreditasi</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Cari Dokter</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Ruang Perawatan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Fasilitas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Paket dan Promo</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <section id="hero">
         <div class="carousel">
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
@@ -488,5 +489,8 @@
     </section>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/726e331ad1.js" crossorigin="anonymous"></script>
+    @vite([
+        'resources/js/navbar/navbar.js'
+    ])
   </body>
 </html>
