@@ -139,24 +139,27 @@ class HospitalApiService
      * Ambil daftar dokter, 
      * setup cache 
      */
-    public function getDaftarDokter(array $filters = []): array
+    public function getPromotionsList(string $category): array
     {
-        $cacheKey = 'dokter_' . md5(serialize($filters));
-        $ttl      = config('rsapi.cache_ttl.dokter');
+        $cacheKey = 'promotions_' . md5(serialize($category));
+        $ttl      = config('rsapi.cache_ttl.promotions');
 
-        return Cache::remember($cacheKey, $ttl, function () use ($filters) {
+        return Cache::remember($cacheKey, $ttl, function () use ($category) {
             try {
                 $response = $this->apiRequest()
-                    ->get("{$this->baseUrl}/api/v1/dokter", $filters);
+                    ->withBody(json_encode([
+                        "category" => $category
+                    ]), 'application/json')
+                    ->get("{$this->baseUrl}/ads");
 
                 // Dump struktur response, lalu stop eksekusi
-                dd($response->json());
+                // dd($response->json());
 
                 if ($response->successful()) {
-                    return $response->json('data', []);
+                    return $response->json('Data', []);
                 }
 
-                Log::warning('API dokter gagal', [
+                Log::warning('API promotions gagal', [
                     'status' => $response->status(),
                     'body'   => $response->body(),
                 ]);
@@ -169,62 +172,62 @@ class HospitalApiService
         });
     }
     
-    public function getDaftarStaff(array $filters = []): array
-    {
-        $cacheKey = 'staff_' . md5(serialize($filters));
-        $ttl      = config('rsapi.cache_ttl.staff');
+    // public function getDaftarStaff(array $filters = []): array
+    // {
+    //     $cacheKey = 'staff_' . md5(serialize($filters));
+    //     $ttl      = config('rsapi.cache_ttl.staff');
 
-        return Cache::remember($cacheKey, $ttl, function () use ($filters) {
-            try {
-                $response = $this->apiRequest()
-                    ->get("{$this->baseUrl}/hr/employee/list");
-                // $response = $this->apiRequest()
-                //     ->get("{$this->baseUrl}/hr/employee/list", $filters);
+    //     return Cache::remember($cacheKey, $ttl, function () use ($filters) {
+    //         try {
+    //             $response = $this->apiRequest()
+    //                 ->get("{$this->baseUrl}/hr/employee/list");
+    //             // $response = $this->apiRequest()
+    //             //     ->get("{$this->baseUrl}/hr/employee/list", $filters);
 
-                // Dump struktur response, lalu stop eksekusi
-                // dd($response->json());
+    //             // Dump struktur response, lalu stop eksekusi
+    //             // dd($response->json());
 
-                if ($response->successful()) {
-                    return $response->json('Data', []);
-                }
+    //             if ($response->successful()) {
+    //                 return $response->json('Data', []);
+    //             }
 
-                Log::warning('API Staff gagal', [
-                    'status' => $response->status(),
-                    'body'   => $response->body(),
-                ]);
-                return [];
+    //             Log::warning('API Staff gagal', [
+    //                 'status' => $response->status(),
+    //                 'body'   => $response->body(),
+    //             ]);
+    //             return [];
 
-            } catch (\Exception $e) {
-                Log::error('Gagal connect ke API RS', ['error' => $e->getMessage()]);
-                return [];
-            }
-        });
-    }
+    //         } catch (\Exception $e) {
+    //             Log::error('Gagal connect ke API RS', ['error' => $e->getMessage()]);
+    //             return [];
+    //         }
+    //     });
+    // }
 
     /**
      * Ambil jadwal praktek dokter
      */
-    public function getJadwalDokter(int $dokterId): array
-    {
-        $cacheKey = "jadwal_dokter_{$dokterId}";
-        $ttl      = config('rsapi.cache_ttl.jadwal');
+    // public function getJadwalDokter(int $dokterId): array
+    // {
+    //     $cacheKey = "jadwal_dokter_{$dokterId}";
+    //     $ttl      = config('rsapi.cache_ttl.jadwal');
 
-        return Cache::remember($cacheKey, $ttl, function () use ($dokterId) {
-            try {
-                $response = $this->apiRequest()
-                    ->get("{$this->baseUrl}/api/v1/dokter/{$dokterId}/jadwal");
+    //     return Cache::remember($cacheKey, $ttl, function () use ($dokterId) {
+    //         try {
+    //             $response = $this->apiRequest()
+    //                 ->get("{$this->baseUrl}/api/v1/dokter/{$dokterId}/jadwal");
 
-                return $response->successful()
-                    ? $response->json('data', [])
-                    : [];
+    //             return $response->successful()
+    //                 ? $response->json('data', [])
+    //                 : [];
 
-            } catch (\Exception $e) {
-                Log::error('Gagal ambil jadwal dokter', [
-                    'dokter_id' => $dokterId,
-                    'error'     => $e->getMessage(),
-                ]);
-                return [];
-            }
-        });
-    }
+    //         } catch (\Exception $e) {
+    //             Log::error('Gagal ambil jadwal dokter', [
+    //                 'dokter_id' => $dokterId,
+    //                 'error'     => $e->getMessage(),
+    //             ]);
+    //             return [];
+    //         }
+    //     });
+    // }
 }
