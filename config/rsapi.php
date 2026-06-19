@@ -15,9 +15,6 @@ return [
     'token_ttl_buffer' => env('RS_API_TOKEN_BUFFER', 60),
 
     'cache_ttl' => [
-        'dokter' => 3600,
-        'staff' => 3600,
-        'jadwal' => 1800,
-        'klinik' => 1800,
+        'promotions' => 1800,
     ],
 ];
