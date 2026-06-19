@@ -22,7 +22,14 @@ class HospitalController extends Controller
         // $request = response()->json($request);
 
         // dd($request);
-        $this->savePhoto($request[0]['gambar'], $request[0]['judul']);
+
+        $data_response = [];
+        foreach ($request as $data) {
+            $data_response .= [
+                "judul" => $data->judul,
+                "urlGambar" => $this->savePhoto($data['gambar'], $data['judul']), 
+            ]
+        }
 
         return response()->json($request);
     }
@@ -41,7 +48,9 @@ class HospitalController extends Controller
         $filename = "images/promotions/{$judul}.jpg";
         Storage::disk('public')->put($filename, $imageData);
 
-        dd(Storage::disk('public')->url($filename));
+        // dd(Storage::disk('public')->url($filename));
+
+        return $filename;
     }
     
 }
