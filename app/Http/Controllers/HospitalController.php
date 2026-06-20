@@ -15,7 +15,7 @@ class HospitalController extends Controller
 
     public function getPromotions(Request $request)
     {
-        $category = 'banner';
+        $category = 'promo';
 
         $request = $this->apiService->GetPromotionsList($category);
 
@@ -23,15 +23,16 @@ class HospitalController extends Controller
 
         // dd($request);
 
-        $data_response = [];
-        foreach ($request as $data) {
-            $data_response .= [
-                "judul" => $data->judul,
-                "urlGambar" => $this->savePhoto($data['gambar'], $data['judul']), 
-            ]
-        }
+        // $data_response = [];
+        // foreach ($request as $data) {
+        //     $data_response .= [
+        //         "judul" => $data->judul,
+        //         "urlGambar" => $this->savePhoto($data['gambar'], $data['judul']), 
+        //     ]
+        // }
 
-        return response()->json($request);
+        // return response()->json($request);
+        return view('pormotions', compact('request'));
     }
 
 
