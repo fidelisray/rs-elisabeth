@@ -32,7 +32,7 @@ class HospitalController extends Controller
         // }
 
         // return response()->json($request);
-        return view('pormotions', compact('request'));
+        return view('promotions', compact('request'));
     }
 
 
