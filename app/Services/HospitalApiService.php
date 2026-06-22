@@ -122,6 +122,20 @@ class HospitalApiService
         }
     }
 
+    /**
+     * Paksa invalidate token di cache dan generate baru.
+     * Dipanggil ketika response API mengembalikan 401 Unauthorized.
+     */
+    protected function refreshToken(): string
+    {
+        Cache::forget(self::TOKEN_CACHE_KEY);
+        return $this->generateNewToken();
+    }
+
+    // =========================================================
+    // HTTP CLIENT
+    // =========================================================
+
     protected function apiRequest(): \Illuminate\Http\Client\PendingRequest
     {   
         $token = $this->getValidToken();
@@ -133,6 +147,64 @@ class HospitalApiService
             'X-Token' => $token,
             'Accept'  => 'application/json',
         ])->timeout($this->timeout);
+    }
+
+    /**
+     * Wrapper request dengan auto-retry jika token expired (401).
+     * Mencoba maksimal 2 kali:
+     *   Percobaan 1 → pakai token dari cache
+     *   Percobaan 2 → generate token baru lalu coba lagi
+     */
+    protected function requestWithRetry(string $method, string $endpoint, array $params = []): array
+    {
+        $maxRetry = 2;
+
+        for ($attempt = 1; $attempt <= $maxRetry; $attempt++) {
+            try {
+                $request = $this->apiRequest();
+
+                $response = match(strtoupper($method)) {
+                    'GET'  => $request->get($this->baseUrl . $endpoint, $params),
+                    'POST' => $request->post($this->baseUrl . $endpoint, $params),
+                    default => $request->get($this->baseUrl . $endpoint, $params),
+                };
+
+                // dd($response);
+                // Sukses → kembalikan data
+                if ($response->successful()) {
+                    return $response->json() ?? [];
+                }
+
+                // 401 Unauthorized → token expired, refresh dan coba lagi
+                if ($response->status() === 401 && $attempt < $maxRetry) {
+                    Log::warning("Token expired (401), mencoba refresh token... [attempt {$attempt}]");
+                    $this->refreshToken();
+                    continue; // lanjut ke iterasi berikutnya (attempt 2)
+                }
+
+                // Error lain (404, 500, dll)
+                Log::warning('API request gagal', [
+                    'endpoint' => $endpoint,
+                    'status'   => $response->status(),
+                    'attempt'  => $attempt,
+                ]);
+
+                return [];
+
+            } catch (\Exception $e) {
+                Log::error('Exception pada API request', [
+                    'endpoint' => $endpoint,
+                    'attempt'  => $attempt,
+                    'error'    => $e->getMessage(),
+                ]);
+
+                if ($attempt >= $maxRetry) {
+                    return [];
+                }
+            }
+        }
+
+        return [];
     }
 
     /**
@@ -172,37 +244,70 @@ class HospitalApiService
         });
     }
     
-    // public function getDaftarStaff(array $filters = []): array
-    // {
-    //     $cacheKey = 'staff_' . md5(serialize($filters));
-    //     $ttl      = config('rsapi.cache_ttl.staff');
+    public function getGlosarium(array $filters = []): array
+    {
+        $cacheKey = 'glosarium_';
+        $ttl      = config('rsapi.cache_ttl.glosarium');
 
-    //     return Cache::remember($cacheKey, $ttl, function () use ($filters) {
-    //         try {
-    //             $response = $this->apiRequest()
-    //                 ->get("{$this->baseUrl}/hr/employee/list");
-    //             // $response = $this->apiRequest()
-    //             //     ->get("{$this->baseUrl}/hr/employee/list", $filters);
+        return Cache::remember($cacheKey, $ttl, function () use ($filters) {
+            $response = $this->requestWithRetry('GET', '/glossarium');
 
-    //             // Dump struktur response, lalu stop eksekusi
-    //             // dd($response->json());
+            $data = $response['Data'] ?? [];
 
-    //             if ($response->successful()) {
-    //                 return $response->json('Data', []);
-    //             }
+            usort($data, fn($a, $b) => strcasecmp($a['istilah'], $b['istilah']));
 
-    //             Log::warning('API Staff gagal', [
-    //                 'status' => $response->status(),
-    //                 'body'   => $response->body(),
-    //             ]);
-    //             return [];
+            return $data ?? [];
+        });
+    }
 
-    //         } catch (\Exception $e) {
-    //             Log::error('Gagal connect ke API RS', ['error' => $e->getMessage()]);
-    //             return [];
-    //         }
-    //     });
-    // }
+    /**
+     * Paksa refresh cache kamus medis (dipanggil manual / via Artisan).
+     */
+    public function refreshGlossaryCache(): array
+    {
+        Cache::forget('glosarium_');
+        Log::info('Glossary cache cleared — refreshing...');
+
+        return $this->getGlosarium();
+    }
+
+    /**
+     * Filter glossary berdasarkan huruf awal.
+     * Proses di PHP, tidak perlu request API lagi.
+     */
+    public function getGlossaryByLetter(string $letter): array
+    {
+        $all = $this->getGlosarium();
+
+        if ($letter === 'ALL') {
+            return $all;
+        }
+
+        return array_values(
+            array_filter($all, fn($item) =>
+                strtoupper(substr($item['istilah'], 0, 1)) === strtoupper($letter)
+            )
+        );
+    }
+
+    /**
+     * Ambil glossary dikelompokkan berdasarkan 2 huruf pertama.
+     * Memanfaatkan getGlossaryByLetter() yang sudah ada.
+     */
+    public function getGlossaryGrouped(string $letter = 'ALL'): array
+    {
+        $items   = $this->getGlossaryByLetter($letter); // pakai method lama
+        $grouped = [];
+
+        foreach ($items as $item) {
+            $prefix            = strtoupper(substr($item['istilah'], 0, 2));
+            $grouped[$prefix][] = $item;
+        }
+
+        ksort($grouped); // urutkan prefix-nya (Ba, Bi, Bu, dst)
+        return $grouped;
+    }
+
 
     /**
      * Ambil jadwal praktek dokter
