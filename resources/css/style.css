@@ -77,7 +77,7 @@ nav#second-navbar {
 /* Class ini ditambahkan via JS saat navbar "menempel" di atas */
 nav#second-navbar.is-stuck {
     padding: 10px 0px;
-    background-color: var(--secondary-color);
+    /* background-color: var(--secondary-color); */
     backdrop-filter: blur(15px);
     box-shadow: var(--shadow-sticky);
 }
@@ -99,7 +99,7 @@ nav#second-navbar .second-nav-body ul.nav-content .nav-item .nav-link {
 }
 
 nav#second-navbar .second-nav-body ul.nav-content .nav-item .nav-link:hover {
-    background-color: var(--secondary-color);
+    /* background-color: var(--secondary-color); */
     color: var(--accent-color);
     transform: scaleX(1);
 }
