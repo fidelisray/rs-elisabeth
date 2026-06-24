@@ -246,4 +246,75 @@ class DoctorApiService
             }
         });
     }
+
+    public function getDaftarSpesialisasi(): array
+    {
+        $cacheKey = 'specialty_';
+        $ttl      = config('rsapi.cache_ttl.specialty');
+
+        return Cache::remember($cacheKey, $ttl, function () {
+            try {
+                $response = $this->apiRequest()
+                    ->get("{$this->baseUrl}{$this->medinEndpoint}/api/reference/master/lst_spc");
+
+                // Dump struktur response, lalu stop eksekusi
+                // dd(json_decode($response->json('Data')));
+
+                if ($response->successful()) {
+                    return json_decode($response->json('Data', []));
+                }
+
+                Log::warning('API dokter gagal', [
+                    'status' => $response->status(),
+                    'body'   => $response->body(),
+                ]);
+                return [$response->status(), $response->body()];
+
+            } catch (\Exception $e) {
+                Log::error('Gagal connect ke API RS', ['error' => $e->getMessage()]);
+                return ["Gagal conncect ke API RS -request DaftarDokterByUnitId"];
+            }
+        });
+    }
+
+    public function getDokterBySpesialisasi(string $specialtyCode): array
+    {
+        $cacheKey = 'specialty_' . $specialtyCode;
+        $ttl      = config('rsapi.cache_ttl.specialty');
+
+        return Cache::remember($cacheKey, $ttl, function () use($specialtyCode) {
+            try {
+                $response = $this->apiRequest()
+                    ->get("{$this->baseUrl}{$this->medinEndpoint}/api/paramedicschedule/base/list/specialty/{$specialtyCode}");
+
+                // Dump struktur response, lalu stop eksekusi
+                // dd($response->json('Data'));
+                // dd(json_decode($response->json('Data')));
+
+                if ($response->successful()) {
+                    // dd(json_decode($response->json('Data', [])));
+
+                    $data = json_decode($response->json('Data'));
+
+                    $response_data = [
+                        "LeaveSchedule" => $data->LeaveSchedule,
+                        "ScheduleByDate" => $data->ScheduleByDate,
+                        "ScheduleRoutine" => $data->ScheduleRoutine,
+                    ];
+
+                    return $response_data;
+                }
+
+                Log::warning('API dokter gagal', [
+                    'status' => $response->status(),
+                    'body'   => $response->body(),
+                ]);
+                return [$response->status(), $response->body()];
+
+            } catch (\Exception $e) {
+                Log::error('Gagal connect ke API RS', ['error' => $e->getMessage()]);
+                return ["Gagal conncect ke API RS -request DaftarDokterByUnitId"];
+            }
+        });
+    }
 }

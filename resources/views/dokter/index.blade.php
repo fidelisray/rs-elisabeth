@@ -83,7 +83,7 @@
                             <div
                                 id="clinicList"
                                 class="clinic-list">
-                                @foreach ($units as $unit)
+                                {{-- @foreach ($units as $unit)
                                     @if (str_contains(strtolower($unit->Name), 'klinik'))
                                 <button
                                     type="button"
@@ -93,6 +93,17 @@
                                     {{ ucwords(strtolower(str_replace(['|OUTPATIENT','|DIAGNOSTIC'],'', $unit->Name))) }}
                                 </button>
                                     @endif
+                                @endforeach --}}
+                                @foreach ($spesialisasi as $spesialis)
+                                    {{-- @if (str_contains(strtolower($spesialis->Name), 'klinik')) --}}
+                                <button
+                                    type="button"
+                                    class="dropdown-item clinic-option"
+                                    data-value="{{ $spesialis->Name }}"
+                                    data-code="{{ $spesialis->Code }}">
+                                    {{ $spesialis->Name }}
+                                </button>
+                                    {{-- @endif --}}
                                 @endforeach
                             </div>
                         </div>
