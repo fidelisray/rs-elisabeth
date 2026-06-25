@@ -247,7 +247,7 @@ function getDokterBySpecialtyCode(specialtyCode) {
                                         `
                                             <div class="col-12 col-md-4">
                                                 <div class="schedule h-100 border shadow-sm">
-                                                    <div class="schedule-body">
+                                                    <div class="schedule-body h-100 w-100">
                                                         <h5 class="schedule-title">
                                                             <i class="fa-solid fa-calendar-day me-1 text-muted"></i>
                                                             ${jadwal.hari}
@@ -258,12 +258,16 @@ function getDokterBySpecialtyCode(specialtyCode) {
                                                             .map(
                                                                 (detail) =>
                                                                     `
-                                                                    <div class="p-2 rounded bg-light">
-                                                                        <p class="schedule-time">
-                                                                            <i class="fa-solid fa-clock"></i>
-                                                                            ${detail.jam}
-                                                                        </p>
-                                                                        <small class="unit-name">${detail.serviceUnitName}</small>
+                                                                    <div>
+                                                                        <div class="schedule-detail shadow-sm">
+                                                                            <p class="schedule-time">
+                                                                                <i class="fa-solid fa-clock"></i>
+                                                                                ${detail.jam}
+                                                                            </p>
+                                                                            <div class="unit-name-bg">
+                                                                                <p class="unit-name">${detail.serviceUnitName.toLowerCase()}</p>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                     
                                                                     `,

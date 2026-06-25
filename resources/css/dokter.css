@@ -461,35 +461,33 @@ div#detailDokter div.content-section {
     color: #3d4451;
 }
 
-span.schedule-time {
+.schedule-detail {
+    background-color: #fafafa;
+    box-sizing: border-box;
+    padding: 0.6rem;
+    border-radius: 0.5rem;
+}
+
+.schedule-time {
+    margin: 0;
+    margin-bottom: 5px;
     display: inline-block;
-
-    background: #fff;
-
-    border: 1px solid #e2e6ec;
-
-    color: #80889a;
-
-    border-radius: 10px;
-
-    padding: 3px 10px;
-    margin-top: 4px;
     font-size: 0.9rem;
+    font-weight: 550;
 }
 
-small.schedule-time {
-    background-color: #e2f3fe;
-    padding: 3px 20px;
-    border-radius: 15px;
-    font-weight: 600;
-    margin-bottom: 4px;
+.unit-name-bg {
+    /* width: fit-content; */
+    background-color: #0ca0ea;
+    border-radius: 0.8rem;
 }
 
-p.unit-name {
-    margin-top: -6px;
-    margin-bottom: 10px;
-    font-weight: 700;
+
+.unit-name {
+    color: var(--accent-color);
+    font-weight: 650;
     text-transform: capitalize;
+    margin-bottom: 0px;
     text-align: center;
 }
 
