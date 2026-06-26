@@ -7,6 +7,7 @@
     @vite([
         'resources/css/style.css',
         'resources/css/dokter.css',
+        'resources/css/jadwal_dokter.css',
         'resources/js/dokter/script.js'
     ])
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -59,7 +60,7 @@
                 <div class="col-lg-4">
                     <label class="form-label fw-semibold mb-3">
                         <i class="bi bi-hospital me-2"></i>
-                        Klinik
+                        Spesialisasi Dokter
                     </label>
                     <div class="dropdown w-100">
                         <button
@@ -68,7 +69,7 @@
                             id="clinicDropdown"
                             data-bs-toggle="dropdown"
                             data-selected="">
-                            Pilih Klinik
+                            Pilih Spesialisasi
                         </button>
                         <div class="dropdown-menu p-0 w-100">
                             <!-- Search Klinik -->
@@ -77,7 +78,7 @@
                                     type="text"
                                     id="clinicSearch"
                                     class="form-control"
-                                    placeholder="Cari Klinik...">
+                                    placeholder="Cari Spesialisasi...">
                             </div>
                             <!-- List Klinik -->
                             <div
@@ -160,6 +161,10 @@
             <!-- ================================================= -->
             <div id="default-card">
                 
+            </div>
+
+            <div id="coba-layout-baru">
+
             </div>
 
             <!-- ================================================= -->
