@@ -241,7 +241,7 @@ function getMaxSlot(schedule) {
 
 function renderHeader(grid) {
 
-		const today = new Date().getDay();
+    const today = new Date().getDay();
 
     const hariIndonesia = {
         1: "Senin",
@@ -312,9 +312,9 @@ function renderSchedule(dokter) {
         col.classList.add("slot-col");
 
         schedule[day].forEach((item) => {
-						item.jam.forEach((jam) => {
-							col.appendChild(createScheduleCard(jam, item.serviceUnitName, day));
-						});
+            item.jam.forEach((jam) => {
+                col.appendChild(createScheduleCard(jam, item.serviceUnitName, day));
+            });
         });
 
         const emptyCount = maxSlot - schedule[day].length;
@@ -330,122 +330,108 @@ function renderSchedule(dokter) {
 
 function getDoctorCard(doctor_list) {
     const html = doctor_list
-			.map((dokter) => `
-							<div class="card shadow-sm border-0 mb-3">
-								<div class="card-body">
-									<div class="row align-items-center">
-										<!-- Kolom Foto + Informasi Dokter -->
-										<div class="col-12 col-md-3 border-end">
-												<div class="p-4 text-center">
-														<img
-																src="https://mobile.rs-elisabeth.com/paramedic/${dokter.nip}.png"
-																class="rounded-circle img-fluid mb-3"
-																style="width:120px;height:120px;object-fit:cover;"
-																alt="Foto Dokter">
-														<h5 class="fw-bold mb-1">${dokter.nama}</h5>
-														<span class="badge bg-primary mb-3 d-none">
-																Spesialis Jantung
-														</span>
-												</div>
-										</div>
-										<!-- Kolom Jadwal -->
-										<div class="col-12 col-md-6 mx-auto">
-												<label class="form-label fw-semibold">
-														Jadwal Dokter
-												</label>
+        .map((dokter) => `
+            <div class="card shadow-sm border-0 mb-3">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <!-- Kolom Foto + Informasi Dokter -->
+                        <div class="col-12 col-md-3 border-end">
+                            <div class="p-4 text-center">
+                                <img
+                                    src="https://mobile.rs-elisabeth.com/paramedic/${dokter.nip}.png"
+                                    class="rounded-circle img-fluid mb-3"
+                                    style="width:120px;height:120px;object-fit:cover;"
+                                    alt="Foto Dokter">
+                                <h5 class="fw-bold mb-1">${dokter.nama}</h5>
+                                <span class="badge bg-primary mb-3 d-none">
+                                    Spesialis Jantung
+                                </span>
+                            </div>
+                        </div>
+                        <!-- Kolom Jadwal -->
+                        <div class="col-12 col-md-6 mx-auto">
+                            <label class="form-label fw-semibold">
+                                Jadwal Dokter
+                            </label>
 
-												<div class="row g-3">
-												${dokter.jadwal
-														.map(
-																(jadwal) =>
-																		`
-																				<div class="col-12 col-md-4">
-																						<div class="schedule h-100 border shadow-sm">
-																								<div class="schedule-body h-100 w-100">
-																										<h5 class="schedule-title">
-																												<i class="fa-solid fa-calendar-day me-1 text-muted"></i>
-																												${jadwal.hari}
-																										</h5>
-																										<div class="d-flex flex-column gap-2">
-																										
-																										${jadwal.detail
-																												.map(
-																														(detail) =>
-																																`
-																																<div>
-																																		<div class="schedule-detail shadow-sm">
-																																				<p class="schedule-time">
-																																						<i class="fa-solid fa-clock"></i>
-																																						${detail.jam}
-																																				</p>
-																																				<div class="unit-name-bg">
-																																						<p class="unit-name">${detail.serviceUnitName.toLowerCase()}</p>
-																																				</div>
-																																		</div>
-																																</div>
-																																
-																																`,
-																												)
-																												.join("")}
-																												
-																										</div>
-																								</div>
-																						</div>
-																				</div>
-																		
-																				`,
-														)
-														.join(" ")}
+                            <div class="row g-3">
+                            ${dokter.jadwal
+                                .map(
+                                    (jadwal) =>
+                                        `
+                                        <div class="col-12 col-md-4">
+                                            <div class="schedule h-100 border shadow-sm">
+                                                <div class="schedule-body h-100 w-100">
+                                                    <h5 class="schedule-title">
+                                                        <i class="fa-solid fa-calendar-day me-1 text-muted"></i>
+                                                        ${jadwal.hari}
+                                                    </h5>
+                                                    <div class="d-flex flex-column gap-2">
+                                                    
+                                                    ${jadwal.detail
+                                                        .map(
+                                                            (detail) =>
+                                                                `
+                                                                <div>
+                                                                    <div class="schedule-detail shadow-sm">
+                                                                        <p class="schedule-time">
+                                                                            <i class="fa-solid fa-clock"></i>
+                                                                            ${detail.jam}
+                                                                        </p>
+                                                                        <div class="unit-name-bg">
+                                                                            <p class="unit-name">${detail.serviceUnitName.toLowerCase()}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                `,
+                                                        )
+                                                        .join("")}
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                
+                                        `,
+                                )
+                                .join(" ")}
 
-												</div>
-										</div>
-										<!-- Tombol -->
-										<div class="col-12 col-md-2 mx-4">
-												<div class="d-grid gap-2">
-														<a 
-																href='#' 
-																class='btn btn-outline-primary'
-																data-bs-toggle='modal'
-																data-bs-target='#detailDokter'
+                            </div>
+                        </div>
+                        <!-- Tombol -->
+                        <div class="col-12 col-md-2 mx-4">
+                            <div class="d-grid gap-2">
+                                <a 
+                                    href='#' 
+                                    class='btn btn-outline-primary'
+                                    data-bs-toggle='modal'
+                                    data-bs-target='#detailDokter'
 
-																data-nama='${dokter.nama}'
-																data-id='${dokter.nip}'
-																data-jadwal='${JSON.stringify(dokter.jadwal)}'>Cek Profil</a>
-														<a href="https://regonline.rs-elisabeth.com/" class="btn btn-success" target="_blank">Buat Janji</a>
-												</div>
-										</div>
-									</div>
-								</div>
-							</div>
-					`,
-			)
-			.join("");
+                                    data-nama='${dokter.nama}'
+                                    data-id='${dokter.nip}'
+                                    data-jadwal='${JSON.stringify(dokter.jadwal)}'>Cek Profil</a>
+                                <a href="https://regonline.rs-elisabeth.com/" class="btn btn-success" target="_blank">Buat Janji</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    `,
+        )
+        .join("");
 
-		return html;
+    return html;
 }
+
 
 function getDokter(specialtyCode) {
     fetch(`/dokter/${specialtyCode}`)
         .then((response) => response.json())
         .then((data) => {
+            
 
             const dummy_layout = document.getElementById('coba-layout-baru');
-
-
-            // dummy_layout.innerHTML = `
-            //     <div class="container py-4">
-            //         <div class="jadwal-wrapper">
-            //             <h2 class="jadwal-title">Jadwal Dokter</h2>
-
-            //             <div class="jadwal-scroll">
-            //                 <div class="jadwal-grid" id="jadwalGrid">
-
-
-            //                 </div>{{-- end jadwal-grid --}}
-            //             </div>{{-- end jadwal-scroll --}}
-            //         </div>{{-- end jadwal-wrapper --}}
-            //     </div>
-            // `;
 
 
             const { LeaveSchedule, ScheduleByDay, ScheduleRoutine } = data;
@@ -456,50 +442,49 @@ function getDokter(specialtyCode) {
             const html = doctor_list
                 .map(
                     (dokter) => `
-								<div class="card shadow-sm border-0 mb-3">
-									<div class="card-body">
-										<div class="row align-items-center">
-											<!-- Kolom Foto + Informasi Dokter -->
-											<div class="col-12 col-md-3 border-end">
-												<div class="p-4 text-center">
-													<img
-															src="https://mobile.rs-elisabeth.com/paramedic/${dokter.paramedic_code}.png"
-															class="rounded-circle img-fluid mb-3"
-															style="width:120px;height:120px;object-fit:cover;"
-															alt="Foto Dokter">
-													<h5 class="fw-bold mb-1">${dokter.paramedic_name}</h5>
-													<span class="badge bg-primary mb-3 d-none">
-															Spesialis Jantung
-													</span>
-												</div>
-											</div>
-											<!-- Kolom Jadwal -->
-											<div class="col-12 col-md-9 mx-auto">
-												<div class="container py-4">
-													<div class="jadwal-wrapper">
-														<h2 class="jadwal-title">Jadwal Dokter</h2>
+                        <div class="card shadow-sm border-0 mb-3">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <!-- Kolom Foto + Informasi Dokter -->
+                                    <div class="col-12 col-md-3 border-end">
+                                        <div class="p-4 text-center">
+                                            <img
+                                                    src="https://mobile.rs-elisabeth.com/paramedic/${dokter.paramedic_code}.png"
+                                                    class="rounded-circle img-fluid mb-3"
+                                                    style="width:120px;height:120px;object-fit:cover;"
+                                                    alt="Foto Dokter">
+                                            <h5 class="fw-bold mb-1">${dokter.paramedic_name}</h5>
+                                            <span class="badge bg-primary mb-3 d-none">
+                                                    Spesialis Jantung
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!-- Kolom Jadwal -->
+                                    <div class="col-12 col-md-9 mx-auto">
+                                        <div class="container py-4">
+                                            <div class="jadwal-wrapper">
+                                                <h2 class="jadwal-title">Jadwal Dokter</h2>
 
-														<div class="jadwal-scroll">
-															<div class="jadwal-grid" id="jadwalGrid-${dokter.paramedic_code}">
+                                                <div class="jadwal-scroll">
+                                                    <div class="jadwal-grid" id="jadwalGrid-${dokter.paramedic_code}">
 
 
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-						
-						`,
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `,
                 )
                 .join("");
 
-					dummy_layout.innerHTML = html;
-					doctor_list.forEach((doctor) => {
-							renderSchedule(doctor);
-					});
+            dummy_layout.innerHTML = html;
+            doctor_list.forEach((doctor) => {
+                    renderSchedule(doctor);
+            });
 
         })
         .catch((error) => {
