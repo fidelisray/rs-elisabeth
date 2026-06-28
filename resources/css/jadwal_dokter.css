@@ -1,3 +1,11 @@
+:root {
+    --primary-color: #008fd7;
+    --secondary-color: #026199;
+    --secondary-darker-color: #124f8c;
+    --accent-color: #fff000;
+    --primary-lighter-color: #b7e4e5;
+}
+
 /* =====================
 Jadwal Dokter Styles
 ===================== */
@@ -33,9 +41,10 @@ Jadwal Dokter Styles
     border-radius: 8px;
     font-size: 0.8rem;
     font-weight: 600;
-    background-color: #f8f9fa;
-    color: #6c757d;
-    border: 1px solid #dee2e6;
+    /* background-color: #f8f9fa; */
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+    border: 1px solid #5fa8ec;
 }
 
 .day-header.today {
@@ -54,8 +63,10 @@ Jadwal Dokter Styles
 /* ---- Card jadwal ---- */
 .schedule-card {
     border-radius: 8px;
-    border: 1px solid #dee2e6;
+    border: 1px solid #5fa8ec;
     background-color: #fff;
+    /* border: 1px solid #dee2e6;
+    background-color: #fff; */
     padding: 10px 10px;
     font-size: 0.78rem;
     min-height: 78px;
