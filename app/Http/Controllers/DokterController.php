@@ -63,6 +63,22 @@ class DokterController extends Controller
         return response()->json($doctors);
     }
 
+    public function allDokter() {
+
+        $doctors = [];
+
+        $spesialisasi = $this->apiService->getDaftarSpesialisasi();
+
+        foreach ($spesialisasi as $item) {
+            $data = $this->apiService->getDokterBySpesialisasi($item->Code);
+
+            if($data[0] !== 500) {
+                dd($data);
+            }
+        }
+
+    }
+
     // public function detail(int $id)
     // {
     //     // Ambil detail + jadwal secara bersamaan (concurrent requests)

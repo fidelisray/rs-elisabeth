@@ -13,7 +13,9 @@ class DoctorApiService
      */
     protected string $baseUrl;
     protected string $medinEndpoint;
-    protected string $apiKey;
+    // protected string $apiKey;
+    protected string $consId;
+    protected string $secretKey;
     protected int $timeout;
 
     protected const TOKEN_CACHE_KEY = null;
@@ -23,108 +25,10 @@ class DoctorApiService
     {
         $this->baseUrl = config('rsapi.base_url');
         $this->medinEndpoint = config('rsapi.medin_endpoint');
-        $this->apiKey = config('rsapi.api_key');
+        // $this->apiKey = config('rsapi.api_key');
+        $this->consId = config('rsapi.medin_consid');
+        $this->secretKey = config('rsapi.medin_secretkey');
         $this->timeout = config('rsapi.timeout');
-    }
-
-    /**
-     * Ambil token yang valid.
-     * Jika token di cache masih ada → pakai itu.
-     * Jika tidak ada / expired → generate baru dari API.
-     */
-    protected function getValidToken(): string
-    {
-        // Coba ambil dari cache dulu
-        $cachedToken = Cache::get(self::TOKEN_CACHE_KEY);
-
-        if ($cachedToken != null) {
-            return $cachedToken;
-        } else {
-            // Tidak ada di cache → generate baru
-            return $this->generateNewToken();
-        }
-
-    }
-
-    /**
-     * Hit endpoint auth untuk mendapatkan token baru,
-     * lalu simpan ke cache.
-     */
-    protected function generateNewToken(): string
-    {
-        $authEndpoint = config('rsapi.auth.endpoint');
-        $buffer       = config('rsapi.token_ttl_buffer', 60);
-
-        try {
-            $response = Http::withHeaders([
-                'Accept' => 'application/json',
-            ])
-            ->timeout($this->timeout)
-            ->post($this->baseUrl . $authEndpoint, [
-                'username' => config('rsapi.auth.username'),
-                'password' => config('rsapi.auth.password'),
-            ]);
-
-            // cek token yang berhasil di-generate
-            // dd($response->json());
-
-            if ($response->successful()) {
-                $data = $response->json();
-
-                
-                // Sesuaikan key ini dengan response auth API kamu
-                // Setelah dd($response->json()) kamu tahu struktur pastinya
-                // $token     = $data['token']      ?? $data['access_token'] ?? null;
-                $token = $data['X-Token'] ?? null;
-                
-                // dd($token);
-                
-                if (!$token) {
-                    Log::error('X-Token tidak ditemukan di response', [
-                        'response' => $data
-                    ]);
-                    return $this->apiKey;
-                }
-                        
-                // if (!$token) {
-                //     Log::error('Token tidak ditemukan di response auth', [
-                //         'response' => $data
-                //     ]);
-                //     // Fallback ke api_key statis dari .env
-                //     return $this->apiKey;
-                // }
-                                
-                // Simpan ke cache dengan TTL dikurangi buffer
-                // Contoh: expires_in = 300 detik, buffer = 60 detik
-                // Maka cache selama 240 detik → token pasti masih valid saat dipakai
-                $expiresIn = 300; // default 5 menit
-                $cacheTtl = max(1, $expiresIn - $buffer);
-
-                Cache::put(self::TOKEN_CACHE_KEY, $token, $cacheTtl);
-
-                Log::info('Token baru berhasil di-generate', [
-                    'expires_in' => $expiresIn,
-                    'cached_for' => $cacheTtl . ' detik',
-                ]);
-
-                return $token;
-            }
-
-            Log::error('Gagal generate token baru', [
-                'status'   => $response->status(),
-                'response' => $response->body(),
-            ]);
-
-            // Fallback ke api_key statis
-            return $this->apiKey;
-
-        } catch (\Exception $e) {
-            Log::error('Exception saat generate token', [
-                'error' => $e->getMessage()
-            ]);
-
-            return $this->apiKey;
-        }
     }
 
     protected function apiRequest(): \Illuminate\Http\Client\PendingRequest
@@ -135,8 +39,8 @@ class DoctorApiService
 
         date_default_timezone_set('Asia/Jakarta');
 
-        $consid = "123456";
-        $secretKey = "0034T2";
+        $consid = $this->consId;
+        $secretKey = $this->secretKey;
 
         $tStamp = strval(time() - strtotime('1970-01-01 00:00:00'));
         $signature = hash_hmac('sha256', $tStamp . $consid, $secretKey, true);
@@ -317,4 +221,92 @@ class DoctorApiService
             }
         });
     }
+
+    // app/Services/HospitalApiService.php
+
+    /**
+     * Ambil semua dokter dari seluruh specialty code,
+     * hasil merge disimpan di cache terpisah.
+     */
+
+    public function fetchAndCacheAllDokter(): int
+    {
+    // Ambil specialty codes secara dinamis dari API
+    $spesialisasiList = $this->getDaftarSpesialisasi();
+
+    if (empty($spesialisasiList)) {
+        Log::error('Gagal fetch daftar spesialisasi, fetchAndCacheAllDokter dibatalkan.');
+        return 0;
+    }
+
+    $allDoctors = [];
+
+    foreach ($spesialisasiList as $spesialisasi) {
+        // Sesuaikan property name dengan struktur response API kamu
+        $code = $spesialisasi->SpecialityCode ?? null;
+
+        if (!$code) {
+            continue;
+        }
+
+        try {
+            $data = $this->getDokterBySpesialisasi($code);
+
+            if (!empty($data['ScheduleRoutine']) && is_array($data['ScheduleRoutine'])) {
+                foreach ($data['ScheduleRoutine'] as $item) {
+                    $itemArray = is_object($item) ? (array) $item : $item;
+                    $itemArray['SpecialtyCode'] = $code;
+                    $allDoctors[] = $itemArray;
+                }
+            }
+        } catch (\Exception $e) {
+            Log::warning("Gagal fetch specialty {$code}", ['error' => $e->getMessage()]);
+            continue;
+        }
+
+        sleep(1);
+    }
+
+    Cache::put('all_doctors_search', $allDoctors, now()->addHours(6));
+
+    return count($allDoctors);
+}
+
+
+
+    // public function getDokterBySpesialisasi(string $specialtyCode): array
+    // {
+    //     $cacheKey = 'specialty_' . $specialtyCode;
+    //     $ttl      = config('rsapi.cache_ttl.specialty');
+
+    //     return Cache::remember($cacheKey, $ttl, function () use($specialtyCode) {
+    //         try {
+    //             $response = $this->apiRequest()
+    //                 ->get("{$this->baseUrl}{$this->medinEndpoint}/api/paramedic/schedule/specialty/{$specialtyCode}");
+
+    //             if ($response->successful()) {
+
+    //                 $data = json_decode($response->json('Data'));
+
+    //                 $response_data = [
+    //                     "LeaveSchedule" => $data->LeaveSchedule,
+    //                     "ScheduleByDate" => $data->ScheduleByDate,
+    //                     "ScheduleRoutine" => $data->ScheduleRoutine,
+    //                 ];
+
+    //                 return $response_data;
+    //             }
+
+    //             Log::warning('API dokter gagal', [
+    //                 'status' => $response->status(),
+    //                 'body'   => $response->body(),
+    //             ]);
+    //             return [$response->status(), $response->body()];
+
+    //         } catch (\Exception $e) {
+    //             Log::error('Gagal connect ke API RS', ['error' => $e->getMessage()]);
+    //             return ["Gagal conncect ke API RS -request DaftarDokterByUnitId"];
+    //         }
+    //     });
+    // }
 }

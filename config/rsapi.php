@@ -5,6 +5,8 @@ return [
     'api_key' => env('RS_API_KEY'),
     'timeout' => env('RS_API_TIMEOUT'),
     'medin_endpoint' => env('RS_MEDIN_ENDPOINT'),
+    'medin_consid' => env('RS_MEDIN_API_CONSID'),
+    'medin_secretkey' => env('RS_MEDIN_API_SECRETKEY'),
 
     // Kredensial untuk generate token
     'auth' => [

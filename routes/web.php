@@ -24,6 +24,7 @@ Route::prefix('dokter')->name('dokter.')->group(function () {
     Route::get('/jadwal', function() {
         return view('dokter.jadwal-dokter');
     });
+    Route::get('/all-dokter', [DokterController::class, 'allDokter'])->name('allDokter');
     // Route::get('/{id}',   [DokterController::class, 'dokterByUnitId'])->name('dokterByUnitId')
     // ->where('id', '[A-Z]{2}-[0-9]{2}');
     // Route::get('/{id}',   [DokterController::class, 'detail'])->name('detail')
