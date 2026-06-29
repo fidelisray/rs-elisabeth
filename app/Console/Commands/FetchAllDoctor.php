@@ -12,7 +12,7 @@ class FetchAllDoctor extends Command
      *
      * @var string
      */
-    protected $signature = 'app:fetch-all-doctor';
+    protected $signature = 'dokter:fetch-all';
 
     /**
      * The console command description.
@@ -29,8 +29,9 @@ class FetchAllDoctor extends Command
         //
         $this->info('Memulai fetch data dokter...');
 
+        // dd($apiService->getDaftarSpesialisasi());
+
         $total = $apiService->fetchAndCacheAllDokter();
-        dd($total);
 
         $this->info("Selesai. Total {$total} entri jadwal dokter berhasil di-cache.");
 
