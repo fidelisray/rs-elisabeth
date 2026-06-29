@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use App\Services\DoctorApiService;
 
 class DokterController extends Controller
@@ -63,19 +64,30 @@ class DokterController extends Controller
         return response()->json($doctors);
     }
 
-    public function allDokter() {
+    public function allDokter(Request $request): \Illuminate\Http\JsonResponse
+    {
 
         $doctors = [];
 
-        $spesialisasi = $this->apiService->getDaftarSpesialisasi();
+        $data = Cache::get('all_doctors_grouped', []);
 
-        foreach ($spesialisasi as $item) {
-            $data = $this->apiService->getDokterBySpesialisasi($item->Code);
-
-            if($data[0] !== 500) {
-                dd($data);
-            }
+        if (empty($data)) { 
+            echo "<h1>Data Belum Tersedia</h1>";
         }
+
+        echo "<h1>Data Grouped</h1>";
+        dd($data);
+
+        // $this->apiService->fetchAndCacheAllDokter();
+        // $spesialisasi = $this->apiService->getDaftarSpesialisasi();
+
+        // foreach ($spesialisasi as $item) {
+        //     $data = $this->apiService->getDokterBySpesialisasi($item->Code);
+
+        //     if($data[0] !== 500) {
+        //         dd($data);
+        //     }
+        // }
 
     }
 
