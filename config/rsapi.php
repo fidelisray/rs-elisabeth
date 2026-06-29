@@ -21,6 +21,7 @@ return [
         'dokter' => 3600,
         'units' => 3600,
         'specialty' => 3600,
+        'dokter_by_speciality' => 3600,
         'staff' => 3600,
         'jadwal' => 1800,
         'klinik' => 1800,
