@@ -120,7 +120,6 @@ function getDokterByUnit(unitId) {
         });
 }
 
-
 const DAYS = [1, 2, 3, 4, 5, 6];
 
 function normalizeSchedule(jadwal) {
@@ -138,7 +137,6 @@ function normalizeSchedule(jadwal) {
 }
 
 function preprocessingApiData(doctor) {
-
     // const DAYS = [
     //     "senin",
     //     "selasa",
@@ -155,9 +153,8 @@ function preprocessingApiData(doctor) {
             const schedule = {};
 
             DAYS.forEach((day) => {
-                schedule[day] = []
+                schedule[day] = [];
             });
-            
 
             doctorMap.set(item.ParamedicCode, {
                 paramedic_code: item.ParamedicCode,
@@ -170,9 +167,9 @@ function preprocessingApiData(doctor) {
         const doc = doctorMap.get(item.ParamedicCode);
 
         doc.schedule[item.DayNumber].push({
-            jam: item.OperationalTimeName.split('|'),
+            jam: item.OperationalTimeName.split("|"),
             serviceUnitCode: item.ServiceUnitCode,
-            serviceUnitName: item.ServiceUnitName
+            serviceUnitName: item.ServiceUnitName,
         });
 
         /*
@@ -191,13 +188,11 @@ function preprocessingApiData(doctor) {
         */
     });
 
-
     // const result = [...doctorMap.values()].map((doc) => ({
     //     ...doc,
     //     schedule: [...doc.schedule.values()],
     // }));
     const result = [...doctorMap.values()];
-    
 
     /* =========================================
     const doctorMap = new Map();
@@ -230,17 +225,15 @@ function preprocessingApiData(doctor) {
     // console.log("Inside Function preprocessingApiData ------> ");
     // console.log(doctor);
     // console.log(result);
-    
+
     return result;
 }
-
 
 function getMaxSlot(schedule) {
     return Math.max(...Object.values(schedule).map((day) => day.length));
 }
 
 function renderHeader(grid) {
-
     const today = new Date().getDay();
 
     const hariIndonesia = {
@@ -250,15 +243,15 @@ function renderHeader(grid) {
         4: "Kamis",
         5: "Jumat",
         6: "Sabtu",
-      };
+    };
 
     DAYS.forEach((day) => {
         const header = document.createElement("div");
         header.classList.add("day-header");
 
-				if (day === today) {
-					header.classList.add('today');
-				}
+        if (day === today) {
+            header.classList.add("today");
+        }
 
         header.textContent = hariIndonesia[day];
 
@@ -266,14 +259,15 @@ function renderHeader(grid) {
     });
 }
 
-
 function createScheduleCard(jam, serviceUnitName, day) {
     const card = document.createElement("div");
     card.classList.add("schedule-card");
-    
-		const today = new Date().getDay();
 
-		if (day === today) { card.classList.add('today-card') }
+    const today = new Date().getDay();
+
+    if (day === today) {
+        card.classList.add("today-card");
+    }
 
     // item.jam.forEach((jam) => {
 
@@ -286,14 +280,12 @@ function createScheduleCard(jam, serviceUnitName, day) {
     return card;
 }
 
-
 function createEmptyCard() {
     const card = document.createElement("div");
     card.classList.add("schedule-card", "empty-card");
 
     return card;
 }
-
 
 function renderSchedule(dokter) {
     const grid = document.getElementById(`jadwalGrid-${dokter.paramedic_code}`);
@@ -313,7 +305,9 @@ function renderSchedule(dokter) {
 
         schedule[day].forEach((item) => {
             item.jam.forEach((jam) => {
-                col.appendChild(createScheduleCard(jam, item.serviceUnitName, day));
+                col.appendChild(
+                    createScheduleCard(jam, item.serviceUnitName, day),
+                );
             });
         });
 
@@ -327,10 +321,10 @@ function renderSchedule(dokter) {
     });
 }
 
-
 function getDoctorCard(doctor_list) {
     const html = doctor_list
-        .map((dokter) => `
+        .map(
+            (dokter) => `
             <div class="card shadow-sm border-0 mb-3">
                 <div class="card-body">
                     <div class="row align-items-center">
@@ -424,21 +418,17 @@ function getDoctorCard(doctor_list) {
     return html;
 }
 
-
 function getDokter(specialtyCode) {
     fetch(`/dokter/${specialtyCode}`)
         .then((response) => response.json())
         .then((data) => {
-            
-
-            const dummy_layout = document.getElementById('coba-layout-baru');
-
+            const dummy_layout = document.getElementById("coba-layout-baru");
 
             const { LeaveSchedule, ScheduleByDay, ScheduleRoutine } = data;
 
             const doctor_list = preprocessingApiData(ScheduleRoutine);
             console.log(doctor_list);
-            
+
             const html = doctor_list
                 .map(
                     (dokter) => `
@@ -483,9 +473,8 @@ function getDokter(specialtyCode) {
 
             dummy_layout.innerHTML = html;
             doctor_list.forEach((doctor) => {
-                    renderSchedule(doctor);
+                renderSchedule(doctor);
             });
-
         })
         .catch((error) => {
             // document.getElementById("daftar-dokter").innerHTML =
@@ -507,14 +496,7 @@ function getDokterBySpecialtyCode(specialtyCode) {
 
             console.log(data);
 
-            const days = [
-                "Senin",
-                "Selasa",
-                "Rabu",
-                "Kamis",
-                "Jumat",
-                "Sabtu",
-              ];
+            const days = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
 
             const { LeaveSchedule, ScheduleByDay, ScheduleRoutine } = data;
 
@@ -604,123 +586,212 @@ function getDokterBySpecialtyCode(specialtyCode) {
         });
 }
 
-export function initDokter() {
-    document.getElementById("daftar-dokter").innerHTML =
-        "<p>Pilih Klinik...</p>";
+async function initializeDoctor() {
+    const container = document.getElementById("daftar-dokter");
 
-    fetch(`/dokter/init`)
-        .then((response) => response.json())
-        .then((doctors) => {
-            // console.log(doctors);
-            const container = document.getElementById("default-card");
+    container.innerHTML = `
+        <div class="spinner-border text-primary" role="status"></div>
+    `;
 
-            if (container.classList.contains("d-none")) {
-                container.classList.remove("d-none");
-            }
+    try {
+        const response = await fetch(`/dokter/all-dokter`);
 
-            if (doctors.length === 0) {
-                container.innerHTML = "<p>Tidak ada dokter di unit ini.</p>";
-                return;
-            }
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-            let dataDokter = doctors.map((doctor) => ({
-                nama: doctor.ParamedicName,
-                nip: doctor.ParamedicCode,
-                unitCode: doctor.ServiceUnitCode,
-                unitName: doctor.ServiceUnitName,
-                jadwal: doctor.Schedules.map((schedule) => ({
-                    hari: schedule.Day,
-                    jam: schedule.OperationalTimeName.split("|"),
-                })),
-            }));
+        const data = await response.json();
 
-            console.log("initDokter => ");
+        // console.log(data.slice(0, 30));
 
-            console.log(dataDokter);
+        if (!data || data.length === 0) {
+            container.innerHTML = `
+                <p>Tidak ada dokter yang tersedia</p>
+            `;
+            return;
+        }
 
-            const html = dataDokter
-                .map(
-                    (dokter) => `
-                <div class="card shadow-sm border-0 mb-3">
+        const doctor_list = preprocessingApiData(data.slice(0, 30));
+        // console.log(doctor_list);
 
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <!-- Kolom Foto + Informasi Dokter -->
-                        <div class="col-12 col-md-3 border-end">
-                            <div class="p-4 text-center">
-                                <img
-                                    src="https://mobile.rs-elisabeth.com/paramedic/${dokter.nip}.png"
-                                    class="rounded-circle img-fluid mb-3"
-                                    style="width:120px;height:120px;object-fit:cover;"
-                                    alt="Foto Dokter">
-                                <h5 class="fw-bold mb-1">${dokter.nama}</h5>
-                                <span class="badge bg-primary mb-3 d-none">
-                                    Spesialis Jantung
-                                </span>
-                            </div>
-                        </div>
-                        <!-- Kolom Jadwal -->
-                        <div class="col-12 col-md-6 mx-auto">
-                            <label class="form-label fw-semibold">
-                                Jadwal Dokter
-                            </label>
-                            <div class="col align-items-center">
-    
-                                <div class="row">
-                            
-                                ${dokter.jadwal
-                                    .map(
-                                        (jadwal) =>
-                                            `
-                                            <div class="col-12 col-md-4 g-3">
-                                                <div class="schedule shadow-sm h-100">
-                                                    <h5 class="schedule-title">${jadwal.hari}</h5>
-                                                    <p class="unit-name">${dokter.unitName.toLowerCase()} ${klinikType[Math.floor(Math.random() * klinikType.length)]}</p>
-                                                    <div class="d-flex flex-column">
-                                                        ${jadwal.jam
-                                                            .map(
-                                                                (time) =>
-                                                                    `<small class="schedule-time">${time}</small>`,
-                                                            )
-                                                            .join("")}
-                                                    </div>
+        const html = doctor_list
+            .map(
+                (dokter) => `
+                    <div class="card shadow-sm border-0 mb-3">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <!-- Kolom Foto + Informasi Dokter -->
+                                <div class="col-12 col-md-3 border-end">
+                                    <div class="p-4 text-center">
+                                        <img
+                                                src="https://mobile.rs-elisabeth.com/paramedic/${dokter.paramedic_code}.png"
+                                                class="rounded-circle img-fluid mb-3"
+                                                style="width:120px;height:120px;object-fit:cover;"
+                                                alt="Foto Dokter">
+                                        <h5 class="fw-bold mb-1">${dokter.paramedic_name}</h5>
+                                        <span class="badge bg-primary mb-3 d-none">
+                                                Spesialis Jantung
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- Kolom Jadwal -->
+                                <div class="col-12 col-md-9 mx-auto">
+                                    <div class="container py-4">
+                                        <div class="jadwal-wrapper">
+                                            <h2 class="jadwal-title">Jadwal Dokter</h2>
+
+                                            <div class="jadwal-scroll">
+                                                <div class="jadwal-grid" id="jadwalGrid-${dokter.paramedic_code}">
+
+
                                                 </div>
                                             </div>
-                                            `,
-                                    )
-                                    .join("")}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- Tombol -->
-                        <div class="col-12 col-md-2 mx-4">
-                            <div class="d-grid gap-2">
-                                <a 
-                                    href='#' 
-                                    class='btn btn-outline-primary'
-                                    data-bs-toggle='modal'
-                                    data-bs-target='#detailDokter'
-
-                                    data-nama='${dokter.nama}'
-                                    data-id='${dokter.nip}'
-                                    data-jadwal='${JSON.stringify(dokter.jadwal)}'>Cek Profil</a>
-                                <a href="https://regonline.rs-elisabeth.com/" class="btn btn-success" target="_blank">Buat Janji</a>
-                            </div>
-                        </div>
                     </div>
-                </div>
-            </div>
-            `,
-                )
-                .join("");
+                `,
+            )
+            .join("");
 
-            container.innerHTML = html;
-        })
-        .catch((error) => {
-            document.getElementById("daftar-dokter").innerHTML =
-                "<p>Gagal mengambil data. Silakan coba lagi.</p>";
-            console.error("Error:", error);
+        // if (
+        //     !document
+        //         .getElementById("default-card")
+        //         .classList.contains("d-none")
+        // ) {
+        //     document.getElementById("default-card").classList.add("d-none");
+        // }
+
+        container.innerHTML = html;
+        doctor_list.forEach((doctor) => {
+            renderSchedule(doctor);
         });
+    } catch (error) {
+        container.innerHTML =
+            "<p>Gagal Mengambil data. Silahkan Coba Lagi..</p>";
+        console.log("Error", error);
+    }
+}
+
+export function initDokter() {
+    // document.getElementById("daftar-dokter").innerHTML =
+    //     "<p>Pilih Klinik...</p>";
+
+    // fetch(`/dokter/init`)
+    //     .then((response) => response.json())
+    //     .then((doctors) => {
+    //         // console.log(doctors);
+    //         const container = document.getElementById("default-card");
+
+    //         if (container.classList.contains("d-none")) {
+    //             container.classList.remove("d-none");
+    //         }
+
+    //         if (doctors.length === 0) {
+    //             container.innerHTML = "<p>Tidak ada dokter di unit ini.</p>";
+    //             return;
+    //         }
+
+    //         let dataDokter = doctors.map((doctor) => ({
+    //             nama: doctor.ParamedicName,
+    //             nip: doctor.ParamedicCode,
+    //             unitCode: doctor.ServiceUnitCode,
+    //             unitName: doctor.ServiceUnitName,
+    //             jadwal: doctor.Schedules.map((schedule) => ({
+    //                 hari: schedule.Day,
+    //                 jam: schedule.OperationalTimeName.split("|"),
+    //             })),
+    //         }));
+
+    //         console.log("initDokter => ");
+
+    //         console.log(dataDokter);
+
+    //         const html = dataDokter
+    //             .map(
+    //                 (dokter) => `
+    //             <div class="card shadow-sm border-0 mb-3">
+
+    //             <div class="card-body">
+    //                 <div class="row align-items-center">
+    //                     <!-- Kolom Foto + Informasi Dokter -->
+    //                     <div class="col-12 col-md-3 border-end">
+    //                         <div class="p-4 text-center">
+    //                             <img
+    //                                 src="https://mobile.rs-elisabeth.com/paramedic/${dokter.nip}.png"
+    //                                 class="rounded-circle img-fluid mb-3"
+    //                                 style="width:120px;height:120px;object-fit:cover;"
+    //                                 alt="Foto Dokter">
+    //                             <h5 class="fw-bold mb-1">${dokter.nama}</h5>
+    //                             <span class="badge bg-primary mb-3 d-none">
+    //                                 Spesialis Jantung
+    //                             </span>
+    //                         </div>
+    //                     </div>
+    //                     <!-- Kolom Jadwal -->
+    //                     <div class="col-12 col-md-6 mx-auto">
+    //                         <label class="form-label fw-semibold">
+    //                             Jadwal Dokter
+    //                         </label>
+    //                         <div class="col align-items-center">
+
+    //                             <div class="row">
+
+    //                             ${dokter.jadwal
+    //                                 .map(
+    //                                     (jadwal) =>
+    //                                         `
+    //                                         <div class="col-12 col-md-4 g-3">
+    //                                             <div class="schedule shadow-sm h-100">
+    //                                                 <h5 class="schedule-title">${jadwal.hari}</h5>
+    //                                                 <p class="unit-name">${dokter.unitName.toLowerCase()} ${klinikType[Math.floor(Math.random() * klinikType.length)]}</p>
+    //                                                 <div class="d-flex flex-column">
+    //                                                     ${jadwal.jam
+    //                                                         .map(
+    //                                                             (time) =>
+    //                                                                 `<small class="schedule-time">${time}</small>`,
+    //                                                         )
+    //                                                         .join("")}
+    //                                                 </div>
+    //                                             </div>
+    //                                         </div>
+    //                                         `,
+    //                                 )
+    //                                 .join("")}
+    //                             </div>
+    //                         </div>
+    //                     </div>
+    //                     <!-- Tombol -->
+    //                     <div class="col-12 col-md-2 mx-4">
+    //                         <div class="d-grid gap-2">
+    //                             <a
+    //                                 href='#'
+    //                                 class='btn btn-outline-primary'
+    //                                 data-bs-toggle='modal'
+    //                                 data-bs-target='#detailDokter'
+
+    //                                 data-nama='${dokter.nama}'
+    //                                 data-id='${dokter.nip}'
+    //                                 data-jadwal='${JSON.stringify(dokter.jadwal)}'>Cek Profil</a>
+    //                             <a href="https://regonline.rs-elisabeth.com/" class="btn btn-success" target="_blank">Buat Janji</a>
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //         `,
+    //             )
+    //             .join("");
+
+    //         container.innerHTML = html;
+    //     })
+    //     .catch((error) => {
+    //         document.getElementById("daftar-dokter").innerHTML =
+    //             "<p>Gagal mengambil data. Silakan coba lagi.</p>";
+    //         console.error("Error:", error);
+    //     });
+
+    initializeDoctor();
 
     document.addEventListener("click", function (event) {
         if (event.target.classList.contains("clinic-option")) {

@@ -67,28 +67,17 @@ class DokterController extends Controller
     public function allDokter(Request $request): \Illuminate\Http\JsonResponse
     {
 
-        $doctors = [];
+        $data = Cache::get('all_doctors_list', []);
 
-        $data = Cache::get('all_doctors_grouped', []);
-
-        if (empty($data)) { 
-            echo "<h1>Data Belum Tersedia</h1>";
+        if (empty($data)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data dokter belum tersedia.',
+                'data'    => [],
+            ], 503);
         }
-
-        echo "<h1>Data Grouped</h1>";
-        dd($data);
-
-        // $this->apiService->fetchAndCacheAllDokter();
-        // $spesialisasi = $this->apiService->getDaftarSpesialisasi();
-
-        // foreach ($spesialisasi as $item) {
-        //     $data = $this->apiService->getDokterBySpesialisasi($item->Code);
-
-        //     if($data[0] !== 500) {
-        //         dd($data);
-        //     }
-        // }
-
+        
+        return response()->json($data, 200);
     }
 
     // public function detail(int $id)

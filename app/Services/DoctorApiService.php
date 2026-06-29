@@ -278,7 +278,7 @@ class DoctorApiService
             if (!$data['Success']) {
                 // echo " [" . $i . "/" . $specialityLength . "]" . "Data => " . $code . " Gagal di ambil / kosong";
                 
-                echo "\t" . "-> Data Gagal diambil";
+                echo "\t" . "-> Data {$code} Gagal diambil";
                 echo "\n\n";
                 $i++;
                 continue;
