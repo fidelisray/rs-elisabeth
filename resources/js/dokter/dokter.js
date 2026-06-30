@@ -8,8 +8,6 @@ let FULL_DOCTOR_LIST = []; // hasil preprocessing, tidak berubah
 let FILTERED_DOCTOR_LIST = []; // hasil filter search, yang dipakai render
 let CURRENT_PAGE = 1;
 
-
-
 function randomString() {
     const chars = "0123456789abcdef";
     let result = "";
@@ -20,7 +18,6 @@ function randomString() {
 
     return result;
 }
-
 
 // fetch data dokter
 const klinikType = ["", "Eksekutif"];
@@ -444,7 +441,6 @@ function getDoctorCard(doctor_list) {
     return html;
 }
 
-
 // function getDokter(specialtyCode) {
 //     fetch(`/dokter/${specialtyCode}`)
 //         .then((response) => response.json())
@@ -488,7 +484,6 @@ function getDoctorCard(doctor_list) {
 //                                                 <div class="jadwal-scroll">
 //                                                     <div class="jadwal-grid" id="jadwalGrid-${dokter.paramedic_code}">
 
-
 //                                                     </div>
 //                                                 </div>
 //                                             </div>
@@ -517,7 +512,6 @@ function getDoctorCard(doctor_list) {
 //             console.error("Error:", error);
 //         });
 // }
-
 
 function getDokterBySpecialtyCode(specialtyCode) {
     fetch(`/dokter/${specialtyCode}`)
@@ -660,7 +654,6 @@ function getDokter(specialtyCode) {
 
             const doctor_list = preprocessingApiData(ScheduleRoutine);
             console.log(doctor_list);
-            
 
             setDoctorContext(doctor_list);
         })
@@ -698,10 +691,9 @@ export async function initializeDoctor() {
             return;
         }
 
-        
         const doctor_list = preprocessingApiData(data);
         console.log(doctor_list);
-        
+
         // console.log(doctor_list);
         // return;
 
@@ -1110,8 +1102,6 @@ export function initDokter() {
     });
 }
 
-
-
 // ====================================================
 // ====================Modal Dokter====================
 // ====================================================
@@ -1119,8 +1109,15 @@ const detailDokter = document.getElementById("detailDokter");
 // console.log(detailDokter);
 
 detailDokter.addEventListener("show.bs.modal", (event) => {
-
-    const hari = ["senin", "selasa", "rabu", "kamis", "jumat", "sabtu", "minggu"];
+    const hari = [
+        "senin",
+        "selasa",
+        "rabu",
+        "kamis",
+        "jumat",
+        "sabtu",
+        "minggu",
+    ];
     const button = event.relatedTarget;
 
     // const namaDokter = button.dataset.nama;
@@ -1128,22 +1125,22 @@ detailDokter.addEventListener("show.bs.modal", (event) => {
     const fotoDokter = document.getElementById("foto-dokter");
 
     const id = button.dataset.id;
-    
+
     // console.log(id);
     // console.log(FILTERED_DOCTOR_LIST.find(item => item.entry_id === id));
     // return;
 
     const doctor = FILTERED_DOCTOR_LIST.find((item) => item.entry_id === id);
-    
+
     const jadwalDokter = doctor.schedule;
-    
+
     console.log(doctor);
     console.log(typeof doctor);
-    
+
     // for (const day in jadwalDokter) {
     //     console.log(day);
     //     console.log(jadwalDokter[day]);
-        
+
     // }
 
     fotoDokter.innerHTML = `
@@ -1154,33 +1151,54 @@ detailDokter.addEventListener("show.bs.modal", (event) => {
 
     let scheduleCard = "";
 
+    for (const [day, detail] of Object.entries(jadwalDokter)) {
+        let scheduleTime = "";
+        detail.forEach((data) => {
+            console.log(data);
+
+            scheduleTime += `
+                <div>
+                    <span class="schedule-time">${data["jam"]}</span>
+                    <span class="">${data["serviceUnitName"]}</span>
+                </div>
+            `;
+        });
+        scheduleCard += `
+            <div class="col-12 col-lg-4">
+                <div class="schedule-card">
+                    <div class="day-badge">${hari[day - 1]}</div>
+
+                    ${scheduleTime}
+                </div>
+            </div>
+        `;
+    }
+
     // jadwalDokter.forEach((jadwal) => {
     //     console.log(jadwal);
-        
-        // let scheduleTime = "";
-        // jadwal.jam.map((waktu) => {
-        //     scheduleTime += `
-        //         <span class="schedule-time">${waktu}</span>
-        //     `;
-        // });
-        // scheduleCard += `
-        //     <div class="col-12 col-lg-4">    
-        //         <div class="schedule-card">
-        //             <div class="day-badge">${jadwal.hari}</div>
 
-        //             <div>
-        //                 <div class="schedule-day">${jadwal.hari}</div>
-        //                 ${scheduleTime}
-        //             </div>
-        //         </div>
-        //     </div>
-        // `;
+    // let scheduleTime = "";
+    // jadwal.jam.map((waktu) => {
+    //     scheduleTime += `
+    //         <span class="schedule-time">${waktu}</span>
+    //     `;
+    // });
+    // scheduleCard += `
+    //     <div class="col-12 col-lg-4">
+    //         <div class="schedule-card">
+    //             <div class="day-badge">${jadwal.hari}</div>
+
+    //             <div>
+    //                 <div class="schedule-day">${jadwal.hari}</div>
+    //                 ${scheduleTime}
+    //             </div>
+    //         </div>
+    //     </div>
+    // `;
     // });
 
-    // document.getElementById("schedule-cards").innerHTML = scheduleCard;
+    document.getElementById("modal-schedule-cards").innerHTML = scheduleCard;
 });
-
-
 
 // Jalankan setelah DOM siap
 document.addEventListener("DOMContentLoaded", initDokter);
@@ -1352,8 +1370,6 @@ document.addEventListener("DOMContentLoaded", initDokter);
 //     }
 // }
 
-
-
 // function getDokter(specialtyCode) {
 //     fetch(`/dokter/${specialtyCode}`)
 //         .then((response) => response.json())
@@ -1362,7 +1378,6 @@ document.addEventListener("DOMContentLoaded", initDokter);
 //             const { LeaveSchedule, ScheduleByDay, ScheduleRoutine } = data;
 
 //             const doctor_list = preprocessingApiData(ScheduleRoutine);
-
 
 //             FILTERED_DOCTOR_LIST = doctor_list;
 //             CURRENT_PAGE = 1;

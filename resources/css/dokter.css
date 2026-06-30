@@ -86,7 +86,7 @@ section#hero div div.hero-img .stethoscope-icon {
     min-width: 1rem;
 }
 
-button#clinicDropdown, 
+button#clinicDropdown,
 input#searchKeyword,
 button#btnCari,
 button#btnReset {
@@ -159,7 +159,6 @@ div.schedule {
 
     overflow: hidden;
 }
-
 
 div.schedule h5.schedule-title {
     color: var(--secondary-darker-color);
@@ -482,7 +481,6 @@ div#detailDokter div.content-section {
     border-radius: 0.8rem;
 }
 
-
 .unit-name {
     color: var(--accent-color);
     font-weight: 650;
@@ -572,4 +570,13 @@ div#detailDokter div.content-section {
 
 .dropdown-item:hover {
     background: #f5f8ff;
+}
+
+/*
+    ==============Modal Detail Dokter==============
+*/
+
+#modal-schedule-cards {
+    display: flex;
+    flex-wrap: wrap;
 }

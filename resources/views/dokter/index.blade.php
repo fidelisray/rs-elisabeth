@@ -310,8 +310,8 @@
                                                 </div>
                                             </div>
 
-                                            <div class="schedule-cards">
-                                                <div id="schedule-cards" class="row gx-3 gy-3">
+                                            <div class="modal-schedule-cards">
+                                                <div id="modal-schedule-cards">
 
                                                 </div>
                                             </div>
