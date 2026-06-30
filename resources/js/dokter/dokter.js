@@ -1,3 +1,27 @@
+// ============================================
+// STATE GLOBAL
+// ============================================
+
+const ITEMS_PER_PAGE = 8;
+
+let FULL_DOCTOR_LIST = []; // hasil preprocessing, tidak berubah
+let FILTERED_DOCTOR_LIST = []; // hasil filter search, yang dipakai render
+let CURRENT_PAGE = 1;
+
+
+
+function randomString() {
+    const chars = "0123456789abcdef";
+    let result = "";
+
+    for (let i = 0; i < 16; i++) {
+        result += chars[Math.floor(Math.random() * chars.length)];
+    }
+
+    return result;
+}
+
+
 // fetch data dokter
 const klinikType = ["", "Eksekutif"];
 
@@ -120,7 +144,7 @@ function getDokterByUnit(unitId) {
         });
 }
 
-const DAYS = [1, 2, 3, 4, 5, 6];
+const DAYS = [1, 2, 3, 4, 5, 6, 7];
 
 function normalizeSchedule(jadwal) {
     const result = {};
@@ -157,6 +181,7 @@ function preprocessingApiData(doctor) {
             });
 
             doctorMap.set(item.ParamedicCode, {
+                entry_id: `${item.ServiceUnitCode}0823${item.ParamedicCode}9373`,
                 paramedic_code: item.ParamedicCode,
                 paramedic_name: item.ParamedicName,
                 schedule,
@@ -243,6 +268,7 @@ function renderHeader(grid) {
         4: "Kamis",
         5: "Jumat",
         6: "Sabtu",
+        7: "Minggu",
     };
 
     DAYS.forEach((day) => {
@@ -418,70 +444,80 @@ function getDoctorCard(doctor_list) {
     return html;
 }
 
-function getDokter(specialtyCode) {
-    fetch(`/dokter/${specialtyCode}`)
-        .then((response) => response.json())
-        .then((data) => {
-            const dummy_layout = document.getElementById("coba-layout-baru");
 
-            const { LeaveSchedule, ScheduleByDay, ScheduleRoutine } = data;
+// function getDokter(specialtyCode) {
+//     fetch(`/dokter/${specialtyCode}`)
+//         .then((response) => response.json())
+//         .then((data) => {
+//             // const dummy_layout = document.getElementById("coba-layout-baru");
 
-            const doctor_list = preprocessingApiData(ScheduleRoutine);
-            console.log(doctor_list);
+//             const { LeaveSchedule, ScheduleByDay, ScheduleRoutine } = data;
 
-            const html = doctor_list
-                .map(
-                    (dokter) => `
-                        <div class="card shadow-sm border-0 mb-3">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <!-- Kolom Foto + Informasi Dokter -->
-                                    <div class="col-12 col-md-3 border-end">
-                                        <div class="p-4 text-center">
-                                            <img
-                                                    src="https://mobile.rs-elisabeth.com/paramedic/${dokter.paramedic_code}.png"
-                                                    class="rounded-circle img-fluid mb-3"
-                                                    style="width:120px;height:120px;object-fit:cover;"
-                                                    alt="Foto Dokter">
-                                            <h5 class="fw-bold mb-1">${dokter.paramedic_name}</h5>
-                                            <span class="badge bg-primary mb-3 d-none">
-                                                    Spesialis Jantung
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <!-- Kolom Jadwal -->
-                                    <div class="col-12 col-md-9 mx-auto">
-                                        <div class="container py-4">
-                                            <div class="jadwal-wrapper">
-                                                <h2 class="jadwal-title">Jadwal Dokter</h2>
+//             const doctor_list = preprocessingApiData(ScheduleRoutine);
+//             console.log("Function Get Dokter");
 
-                                                <div class="jadwal-scroll">
-                                                    <div class="jadwal-grid" id="jadwalGrid-${dokter.paramedic_code}">
+//             /*
+//             console.log(doctor_list);
+
+//             const html = doctor_list
+//                 .map(
+//                     (dokter) => `
+//                         <div class="card shadow-sm border-0 mb-3">
+//                             <div class="card-body">
+//                                 <div class="row align-items-center">
+//                                     <!-- Kolom Foto + Informasi Dokter -->
+//                                     <div class="col-12 col-md-3 border-end">
+//                                         <div class="p-4 text-center">
+//                                             <img
+//                                                     src="https://mobile.rs-elisabeth.com/paramedic/${dokter.paramedic_code}.png"
+//                                                     class="rounded-circle img-fluid mb-3"
+//                                                     style="width:120px;height:120px;object-fit:cover;"
+//                                                     alt="Foto Dokter">
+//                                             <h5 class="fw-bold mb-1">${dokter.paramedic_name}</h5>
+//                                             <span class="badge bg-primary mb-3 d-none">
+//                                                     Spesialis Jantung
+//                                             </span>
+//                                         </div>
+//                                     </div>
+//                                     <!-- Kolom Jadwal -->
+//                                     <div class="col-12 col-md-9 mx-auto">
+//                                         <div class="container py-4">
+//                                             <div class="jadwal-wrapper">
+//                                                 <h2 class="jadwal-title">Jadwal Dokter</h2>
+
+//                                                 <div class="jadwal-scroll">
+//                                                     <div class="jadwal-grid" id="jadwalGrid-${dokter.paramedic_code}">
 
 
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `,
-                )
-                .join("");
+//                                                     </div>
+//                                                 </div>
+//                                             </div>
+//                                         </div>
+//                                     </div>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     `,
+//                 )
+//                 .join("");
 
-            dummy_layout.innerHTML = html;
-            doctor_list.forEach((doctor) => {
-                renderSchedule(doctor);
-            });
-        })
-        .catch((error) => {
-            // document.getElementById("daftar-dokter").innerHTML =
-            //     "<p>Gagal mengambil data. Silakan coba lagi.</p>";
-            console.error("Error:", error);
-        });
-}
+//             dummy_layout.innerHTML = html;
+//             doctor_list.forEach((doctor) => {
+//                 renderSchedule(doctor);
+//             });
+//             */
+
+//             FILTERED_DOCTOR_LIST = doctor_list;
+//             CURRENT_PAGE = 1;
+//             renderDoctorPage();
+//         })
+//         .catch((error) => {
+//             // document.getElementById("daftar-dokter").innerHTML =
+//             //     "<p>Gagal mengambil data. Silakan coba lagi.</p>";
+//             console.error("Error:", error);
+//         });
+// }
+
 
 function getDokterBySpecialtyCode(specialtyCode) {
     fetch(`/dokter/${specialtyCode}`)
@@ -566,7 +602,7 @@ function getDokterBySpecialtyCode(specialtyCode) {
 
             console.log("getDokterBySpecialtyCode => ");
 
-            console.log(doctor_list);
+            // console.log(doctor_list);
 
             const html = getDoctorCard(doctor_list);
 
@@ -586,21 +622,287 @@ function getDokterBySpecialtyCode(specialtyCode) {
         });
 }
 
-async function initializeDoctor() {
+// ============================================
+// INITIALIZE — fetch sekali saat halaman load
+// ============================================
+function setDoctorContext(doctor_list) {
+    FULL_DOCTOR_LIST = doctor_list;
+    FILTERED_DOCTOR_LIST = doctor_list;
+    CURRENT_PAGE = 1;
+    document.getElementById("searchKeyword").value = "";
+    renderDoctorPage();
+}
+
+function getDokter(specialtyCode) {
     const container = document.getElementById("daftar-dokter");
 
     container.innerHTML = `
-        <div class="spinner-border text-primary" role="status"></div>
+        <div class="container text-center">
+            <div class="spinner-border text-primary" role="status"></div>
+        </div>
+    `;
+
+    fetch(`/dokter/${specialtyCode}`)
+        .then((response) => {
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            return response.json();
+        })
+        .then((data) => {
+            const { ScheduleRoutine } = data;
+
+            if (!ScheduleRoutine || ScheduleRoutine.length === 0) {
+                FULL_DOCTOR_LIST = [];
+                FILTERED_DOCTOR_LIST = [];
+                CURRENT_PAGE = 1;
+                renderDoctorPage();
+                return;
+            }
+
+            const doctor_list = preprocessingApiData(ScheduleRoutine);
+            console.log(doctor_list);
+            
+
+            setDoctorContext(doctor_list);
+        })
+        .catch((error) => {
+            container.innerHTML = `
+                <div class="container bg-info text-muted rounded shadow-sm text-center py-3 my-5">
+                    <h4>Gagal mengambil data dokter.</h4>
+                </div>`;
+            console.error("Error:", error);
+        });
+}
+
+export async function initializeDoctor() {
+    const container = document.getElementById("daftar-dokter");
+
+    container.innerHTML = `
+        <div class="container text-center">
+            <div class="spinner-border text-primary" role="status"></div>
+        </div>
     `;
 
     try {
         const response = await fetch(`/dokter/all-dokter`);
 
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        if (!response.ok)
+            throw new Error(`${response.status}: Data tidak tersedia`);
 
         const data = await response.json();
 
-        // console.log(data.slice(0, 30));
+        // console.log(data.slice(0, 2));
+        // return;
+
+        if (!data || data.length === 0) {
+            container.innerHTML = `<p>Tidak ada dokter yang tersedia</p>`;
+            return;
+        }
+
+        
+        const doctor_list = preprocessingApiData(data);
+        console.log(doctor_list);
+        
+        // console.log(doctor_list);
+        // return;
+
+        // Simpan ke state global, bukan langsung render
+        setDoctorContext(doctor_list);
+    } catch (error) {
+        container.innerHTML = `
+            <div class="container bg-info text-muted rounded shadow-sm text-center py-3 my-5">
+                <h4>Data dokter belum tersedia...</h4>
+            </div>`;
+        console.log("Error", error);
+    }
+}
+
+// ============================================
+// RENDER HALAMAN — dipanggil ulang setiap ganti page / search
+// ============================================
+function renderDoctorPage() {
+    const container = document.getElementById("daftar-dokter");
+
+    if (FILTERED_DOCTOR_LIST.length === 0) {
+        container.innerHTML = `
+            <div class="container bg-light text-muted rounded shadow-sm text-center py-3 my-3">
+                <h5>Dokter tidak ditemukan</h5>
+            </div>
+        `;
+        renderPagination(); // kosongkan pagination juga
+        return;
+    }
+
+    const totalPages = Math.ceil(FILTERED_DOCTOR_LIST.length / ITEMS_PER_PAGE);
+
+    // Guard jika CURRENT_PAGE keluar batas (misal habis search lalu data berkurang)
+    if (CURRENT_PAGE > totalPages) CURRENT_PAGE = totalPages;
+    if (CURRENT_PAGE < 1) CURRENT_PAGE = 1;
+
+    const startIndex = (CURRENT_PAGE - 1) * ITEMS_PER_PAGE;
+    const pageItems = FILTERED_DOCTOR_LIST.slice(
+        startIndex,
+        startIndex + ITEMS_PER_PAGE,
+    );
+
+    const html = pageItems
+        .map(
+            (dokter) => `
+                <div class="card shadow-sm border-0 mb-3">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-12 col-md-3 border-end">
+                                <div class="p-4 text-center">
+                                    <img
+                                            src="https://mobile.rs-elisabeth.com/paramedic/${dokter.paramedic_code}.png"
+                                            class="rounded-circle img-fluid mb-3"
+                                            style="width:120px;height:120px;object-fit:cover;"
+                                            alt="Foto Dokter">
+                                    <h5 class="fw-bold mb-1">${dokter.paramedic_name}</h5>
+                                    <span class="badge bg-primary mb-3 d-none">
+                                            Spesialis Jantung
+                                    </span>
+                                    <div class="container my-3">
+                                        <a 
+                                            href='#' 
+                                            class='text-muted'
+                                            data-bs-toggle='modal'
+                                            data-bs-target='#detailDokter'
+                                            data-id='${dokter.entry_id}'
+                                            data-jadwal=''>Cek Profil</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-9 mx-auto">
+                                <div class="container py-4">
+                                    <div class="jadwal-wrapper">
+                                        <h2 class="jadwal-title">Jadwal Dokter</h2>
+                                        <div class="jadwal-scroll">
+                                            <div class="jadwal-grid" id="jadwalGrid-${dokter.paramedic_code}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
+        )
+        .join("");
+
+    container.innerHTML = html;
+
+    pageItems.forEach((doctor) => {
+        renderSchedule(doctor);
+    });
+
+    renderPagination(totalPages);
+}
+
+// ============================================
+// RENDER PAGINATION
+// ============================================
+function renderPagination(totalPages = 0) {
+    let paginationContainer = document.getElementById("doctorPagination");
+
+    // Buat container pagination jika belum ada di DOM
+    if (!paginationContainer) {
+        paginationContainer = document.createElement("nav");
+        paginationContainer.id = "doctorPagination";
+        document
+            .getElementById("daftar-dokter")
+            .insertAdjacentElement("afterend", paginationContainer);
+    }
+
+    if (totalPages <= 1) {
+        paginationContainer.innerHTML = "";
+        return;
+    }
+
+    let pagesHtml = "";
+
+    for (let i = 1; i <= totalPages; i++) {
+        pagesHtml += `
+            <li class="page-item ${i === CURRENT_PAGE ? "active" : ""}">
+                <button class="page-link" data-page="${i}">${i}</button>
+            </li>
+        `;
+    }
+
+    paginationContainer.innerHTML = `
+        <ul class="pagination justify-content-center mt-3">
+            <li class="page-item ${CURRENT_PAGE === 1 ? "disabled" : ""}">
+                <button class="page-link" data-page="${CURRENT_PAGE - 1}">&laquo;</button>
+            </li>
+            ${pagesHtml}
+            <li class="page-item ${CURRENT_PAGE === totalPages ? "disabled" : ""}">
+                <button class="page-link" data-page="${CURRENT_PAGE + 1}">&raquo;</button>
+            </li>
+        </ul>
+    `;
+
+    // Event delegation untuk tombol pagination
+    paginationContainer.querySelectorAll(".page-link").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            const targetPage = parseInt(e.target.dataset.page);
+
+            if (!targetPage || targetPage < 1) return;
+
+            CURRENT_PAGE = targetPage;
+            renderDoctorPage();
+
+            // Scroll ke atas list agar user tidak bingung posisi
+            document
+                .getElementById("daftar-dokter")
+                .scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+    });
+}
+
+// ============================================
+// SEARCH — keyup dengan debounce
+// ============================================
+const searchInput = document.getElementById("searchKeyword");
+let searchDebounceTimer;
+
+searchInput.addEventListener("keyup", function () {
+    clearTimeout(searchDebounceTimer);
+
+    searchDebounceTimer = setTimeout(() => {
+        const keyword = this.value.trim().toLowerCase();
+
+        if (keyword === "") {
+            FILTERED_DOCTOR_LIST = FULL_DOCTOR_LIST;
+        } else {
+            FILTERED_DOCTOR_LIST = FULL_DOCTOR_LIST.filter((dokter) => {
+                const nama = dokter.paramedic_name?.toLowerCase() || "";
+                // Tambahkan field lain jika ada, misal nama klinik/spesialis
+                return nama.includes(keyword);
+            });
+        }
+
+        CURRENT_PAGE = 1; // reset ke halaman pertama tiap kali search berubah
+        renderDoctorPage();
+    }, 400); // debounce 400ms, mencegah render tiap ketikan huruf
+});
+
+/*
+async function initializeDoctor() {
+    const container = document.getElementById("daftar-dokter");
+
+    container.innerHTML = `
+        <div class="container text-center">
+            <div class="spinner-border text-primary" role="status"></div>
+        </div>
+    `;
+
+    try {
+        const response = await fetch(`/dokter/all-dokter`);
+
+        // if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        if (!response.ok) throw new Error(`${response.status}: Data tidak tersedia`);
+
+        const data = await response.json();
 
         if (!data || data.length === 0) {
             container.innerHTML = `
@@ -610,7 +912,7 @@ async function initializeDoctor() {
         }
 
         const doctor_list = preprocessingApiData(data.slice(0, 30));
-        // console.log(doctor_list);
+        console.log(doctor_list.slice(0, 2));
 
         const html = doctor_list
             .map(
@@ -668,10 +970,15 @@ async function initializeDoctor() {
         });
     } catch (error) {
         container.innerHTML =
-            "<p>Gagal Mengambil data. Silahkan Coba Lagi..</p>";
+            // "<p>Gagal Mengambil data. Silahkan Coba Lagi..</p>";
+            `<div class="container bg-info text-muted rounded shadow-sm text-center py-3 my-5">
+                <h4>Data dokter belum tersedia...</h4>
+            </div>`;
+
         console.log("Error", error);
     }
 }
+*/
 
 export function initDokter() {
     // document.getElementById("daftar-dokter").innerHTML =
@@ -797,11 +1104,83 @@ export function initDokter() {
         if (event.target.classList.contains("clinic-option")) {
             const unitId = event.target.getAttribute("data-code");
             // getDokterByUnit(unitId);
-            getDokterBySpecialtyCode(unitId);
+            // getDokterBySpecialtyCode(unitId);
             getDokter(unitId);
         }
     });
 }
+
+
+
+// ====================================================
+// ====================Modal Dokter====================
+// ====================================================
+const detailDokter = document.getElementById("detailDokter");
+// console.log(detailDokter);
+
+detailDokter.addEventListener("show.bs.modal", (event) => {
+
+    const hari = ["senin", "selasa", "rabu", "kamis", "jumat", "sabtu", "minggu"];
+    const button = event.relatedTarget;
+
+    // const namaDokter = button.dataset.nama;
+    // const jadwalDokter = JSON.parse(button.dataset.jadwal);
+    const fotoDokter = document.getElementById("foto-dokter");
+
+    const id = button.dataset.id;
+    
+    // console.log(id);
+    // console.log(FILTERED_DOCTOR_LIST.find(item => item.entry_id === id));
+    // return;
+
+    const doctor = FILTERED_DOCTOR_LIST.find((item) => item.entry_id === id);
+    
+    const jadwalDokter = doctor.schedule;
+    
+    console.log(doctor);
+    console.log(typeof doctor);
+    
+    // for (const day in jadwalDokter) {
+    //     console.log(day);
+    //     console.log(jadwalDokter[day]);
+        
+    // }
+
+    fotoDokter.innerHTML = `
+        <img src="https://mobile.rs-elisabeth.com/paramedic/${doctor.paramedic_code}.png" alt="Doctor">
+    `;
+
+    document.getElementById("namaDokter").textContent = doctor.paramedic_name;
+
+    let scheduleCard = "";
+
+    // jadwalDokter.forEach((jadwal) => {
+    //     console.log(jadwal);
+        
+        // let scheduleTime = "";
+        // jadwal.jam.map((waktu) => {
+        //     scheduleTime += `
+        //         <span class="schedule-time">${waktu}</span>
+        //     `;
+        // });
+        // scheduleCard += `
+        //     <div class="col-12 col-lg-4">    
+        //         <div class="schedule-card">
+        //             <div class="day-badge">${jadwal.hari}</div>
+
+        //             <div>
+        //                 <div class="schedule-day">${jadwal.hari}</div>
+        //                 ${scheduleTime}
+        //             </div>
+        //         </div>
+        //     </div>
+        // `;
+    // });
+
+    // document.getElementById("schedule-cards").innerHTML = scheduleCard;
+});
+
+
 
 // Jalankan setelah DOM siap
 document.addEventListener("DOMContentLoaded", initDokter);
@@ -842,3 +1221,154 @@ document.addEventListener("DOMContentLoaded", initDokter);
 //         ],
 //     },
 // ];
+
+// async function initializeDoctor() {
+//     const container = document.getElementById("daftar-dokter");
+
+//     container.innerHTML = `
+//         <div class="container text-center">
+//             <div class="spinner-border text-primary" role="status"></div>
+//         </div>
+//     `;
+
+//     try {
+//         const response = await fetch(`/dokter/all-dokter`);
+
+//         if (!response.success)
+//             throw new Error(`${response.status}: Data tidak tersedia`);
+
+//         const data = await response.json();
+
+//         // console.log(data.slice(0, 30));
+
+//         if (!data || data.length === 0) {
+//             container.innerHTML = `
+//                 <p>Tidak ada dokter yang tersedia</p>
+//             `;
+//             return;
+//         }
+
+//         const doctor_list = preprocessingApiData(data);
+//         /*
+//             Outuput nya :
+//             [{
+//                 paramedic_code: 'doc-01',
+//                 paramedic_name: 'Dr. Budi',
+//                 schedule: {
+//                     1: [
+//                         {
+//                             jam: ['07:00 - 09:00'],
+//                             serviceUnitCode: 'UN-001',
+//                             serviceUnitName: 'Klinik Anak',
+//                         },
+//                         {
+//                             jam: ['09:30 - 10:30'],
+//                             serviceUnitCode: 'UN-011',
+//                             serviceUnitName: 'Klinik Bedah Anak',
+//                         }
+//                     ],
+//                     2: [],
+//                     3: [
+//                         {
+//                             jam: ['08:00 - 10:00'],
+//                             serviceUnitCode: 'UN-001',
+//                             serviceUnitName: 'Klinik Anak',
+//                         }
+//                     ],
+//                     4: [],
+//                     5: [],
+//                     6: [
+//                         {
+//                             jam: ['07:00 - 08:00'],
+//                             serviceUnitCode: 'UN-001',
+//                             serviceUnitName: 'Klinik Anak',
+//                         },
+//                         {
+//                             jam: ['09:00 - 13:00'],
+//                             serviceUnitCode: 'UN-005',
+//                             serviceUnitName: 'Rawat Jalan',
+//                         }
+
+//                     ]
+//                 }
+//             }]
+//         */
+
+//         // console.log(doctor_list);
+
+//         const html = doctor_list
+//             .map(
+//                 (dokter) => `
+//                     <div class="card shadow-sm border-0 mb-3">
+//                         <div class="card-body">
+//                             <div class="row align-items-center">
+//                                 <!-- Kolom Foto + Informasi Dokter -->
+//                                 <div class="col-12 col-md-3 border-end">
+//                                     <div class="p-4 text-center">
+//                                         <img
+//                                                 src="image/paramedic/${dokter.paramedic_code}.png"
+//                                                 class="rounded-circle img-fluid mb-3"
+//                                                 style="width:120px;height:120px;object-fit:cover;"
+//                                                 alt="Foto Dokter">
+//                                         <h5 class="fw-bold mb-1">${dokter.paramedic_name}</h5>
+//                                         <span class="badge bg-primary mb-3 d-none">
+//                                                 Spesialis Jantung
+//                                         </span>
+//                                     </div>
+//                                 </div>
+//                                 <!-- Kolom Jadwal -->
+//                                 <div class="col-12 col-md-9 mx-auto">
+//                                     <div class="container py-4">
+//                                         <div class="jadwal-wrapper">
+//                                             <h2 class="jadwal-title">Jadwal Dokter</h2>
+
+//                                             <div class="jadwal-scroll">
+//                                                 <div class="jadwal-grid" id="jadwalGrid-${dokter.paramedic_code}">
+
+//                                                 </div>
+//                                             </div>
+//                                         </div>
+//                                     </div>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 `,
+//             )
+//             .join("");
+
+//         container.innerHTML = html;
+//         doctor_list.forEach((doctor) => {
+//             renderSchedule(doctor);
+//         });
+//     } catch (error) {
+//         container.innerHTML =
+//             // "<p>Gagal Mengambil data. Silahkan Coba Lagi..</p>";
+//             `<div class="container bg-info text-muted rounded shadow-sm text-center py-3 my-5">
+//                 <h4>Data dokter belum tersedia...</h4>
+//             </div>`;
+
+//         console.log("Error", error);
+//     }
+// }
+
+
+
+// function getDokter(specialtyCode) {
+//     fetch(`/dokter/${specialtyCode}`)
+//         .then((response) => response.json())
+//         .then((data) => {
+
+//             const { LeaveSchedule, ScheduleByDay, ScheduleRoutine } = data;
+
+//             const doctor_list = preprocessingApiData(ScheduleRoutine);
+
+
+//             FILTERED_DOCTOR_LIST = doctor_list;
+//             CURRENT_PAGE = 1;
+//             renderDoctorPage();
+//         })
+//         .catch((error) => {
+//             console.error("Error:", error);
+//         });
+// }

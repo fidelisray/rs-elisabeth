@@ -4,6 +4,8 @@
     --secondary-darker-color: #124f8c;
     --accent-color: #fff000;
     --primary-lighter-color: #b7e4e5;
+
+    --primary-darker-color: #03327a;
 }
 
 /* =====================
@@ -29,7 +31,7 @@ Jadwal Dokter Styles
 /* Grid 7 kolom: 1 per hari */
 .jadwal-grid {
     display: grid;
-    grid-template-columns: repeat(6, minmax(120px, 1fr));
+    grid-template-columns: repeat(7, minmax(120px, 1fr));
     gap: 8px;
     min-width: 860px;
 }
@@ -48,9 +50,11 @@ Jadwal Dokter Styles
 }
 
 .day-header.today {
-    background-color: #03327a;
-    color: #fff;
-    border-color: #03327a;
+    background-color: var(--primary-darker-color);
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    /* color: #fff; */
+    /* border-color: #03327a; */
 }
 
 /* ---- Kolom slot ---- */
@@ -93,17 +97,20 @@ Jadwal Dokter Styles
 
 /* Card hari ini — hijau */
 .schedule-card.today-card {
-    background-color: #03327a;
-    border-color: #03327a;
+    background-color: var(--primary-darker-color);
+    /* border-color: #03327a; */
+    border-color: var(--accent-color);
 }
 
 .schedule-card.today-card .sc-time {
-    color: #fff;
+    /* color: #fff; */
+    color: var(--accent-color);
 }
 
 .schedule-card.today-card .sc-room,
 .schedule-card.today-card .sc-klinik {
-    color: rgba(255, 255, 255, 0.85);
+    /* color: rgba(255, 255, 255, 0.85); */
+    color: var(--accent-color);
 }
 
 /* Slot kosong — tidak terlihat tapi tetap menjaga tinggi grid */

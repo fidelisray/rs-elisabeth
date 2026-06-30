@@ -120,7 +120,7 @@
                         type="text"
                         id="searchKeyword"
                         class="form-control"
-                        placeholder="Cari dokter, spesialis, atau klinik">
+                        placeholder="Cari nama dokter">
                 </div>
                 <!-- Button -->
                 <div class="action col-lg-2">

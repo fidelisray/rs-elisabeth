@@ -1,4 +1,4 @@
-import { initDokter } from "./dokter";
+import { initializeDoctor } from "./dokter";
 
 // *******************************
 // ---- Dropdown Pilih Klinik ----
@@ -48,7 +48,7 @@ document.getElementById("btnReset").addEventListener("click", () => {
         option.style.display = "block";
     });
 
-    initDokter();
+    initializeDoctor();
 });
 
 // Cari
@@ -63,49 +63,6 @@ document.getElementById("btnCari").addEventListener("click", () => {
     console.log({ clinic_name, clinic_code, keyword });
 
     window.location.href = `/dokter/${clinic_code}`;
-});
-
-// modal dokter
-const detailDokter = document.getElementById("detailDokter");
-// console.log(detailDokter);
-
-detailDokter.addEventListener("show.bs.modal", (event) => {
-    const button = event.relatedTarget;
-
-    const namaDokter = button.dataset.nama;
-    const jadwalDokter = JSON.parse(button.dataset.jadwal);
-    const fotoDokter = document.getElementById("foto-dokter");
-
-    fotoDokter.innerHTML = `
-        <img src="https://mobile.rs-elisabeth.com/paramedic/${button.dataset.id}.png" alt="Doctor">
-    `;
-
-    document.getElementById("namaDokter").textContent = namaDokter;
-
-    let scheduleCard = "";
-
-    jadwalDokter.forEach((jadwal) => {
-        let scheduleTime = "";
-        jadwal.jam.map((waktu) => {
-            scheduleTime += `
-                <span class="schedule-time">${waktu}</span>
-            `;
-        });
-        scheduleCard += `
-            <div class="col-12 col-lg-4">    
-                <div class="schedule-card">
-                    <div class="day-badge">${jadwal.hari}</div>
-
-                    <div>
-                        <div class="schedule-day">${jadwal.hari}</div>
-                        ${scheduleTime}
-                    </div>
-                </div>
-            </div>
-        `;
-    });
-
-    document.getElementById("schedule-cards").innerHTML = scheduleCard;
 });
 
 // button janji

@@ -306,7 +306,7 @@ class DoctorApiService
             continue;
         }
 
-        sleep(20);
+        sleep(2);
     }
 
     Cache::put('all_doctors_list', $allDoctors, now()->addHours(12));
