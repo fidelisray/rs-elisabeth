@@ -6,7 +6,7 @@
     --primary-color: #008fd7;
     --secondary-color: #026199;
     --secondary-darker-color: #124f8c;
-    --accent-color: #fff000;
+    --accent-color: #f8f804;
     --primary-lighter-color: #b7e4e5;
 
     /* --background-color: #a3c3e3; */
@@ -177,6 +177,51 @@ div.schedule.off-day h5.schedule-title {
     color: var(--inactive-fg-color);
 }
 
+
+/* 
+    =====================Button Buat Jadwal Dokter=====================
+*/
+.group-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.group-btn a {
+    font-weight: 550;
+    text-decoration: none;
+    transition: all 0.28s ease-in-out;
+}
+
+a.btn-cek-profil {
+    padding: 2px 1.8rem;
+    background-color: var(--accent-color);
+    color: #124f8c;
+    border-radius: 1.1rem;
+
+}
+
+a.btn-buat-janji {
+    margin-top: 8px;
+    padding: 2px 1.8rem;
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+    border-radius: 1.1rem;
+}
+
+a.btn-cek-profil:hover {
+    /* background-color: #f8c704; */
+    background-color: #123f8c;
+    color: var(--accent-color);
+}
+
+a.btn-buat-janji:hover {
+    /* background-color: #0c61ea; */
+    color: #edda0f;
+    background-color: #123f8c;
+}
+
 /* .schedule-btn{
     min-width:140px;
     height:70px;
@@ -305,16 +350,17 @@ div#detailDokter .stat-pill {
     font-weight: 600;
 }
 
-/* div#detailDokter .modal-schedule-card {
-    display: flex;
-} */
+div#detailDokter .modal-schedule-card {
+    text-align: center;
+}
+
 
 div#detailDokter .day-badge {
     /* width: 48px;
     height: 48px; */
-    width: 100%;
+    width: 80%;
     height: 24px;
-
+    margin: 0px auto;
     /* background: #7aa6e3; */
     
     /* border-radius: 14px; */
@@ -327,20 +373,60 @@ div#detailDokter .day-badge {
 }
 
 
-div#detailDokter .day-badge > p {
+div#detailDokter .day-badge p.day-name {
     font-size: 1rem;
     font-weight: 600;
     text-transform: capitalize;
     color: var(--secondary-darker-color);
+    /* background-color: rgb(255, 204, 74); */
+    border-radius: 12px;
 
 }
-div#detailDokter .day-badge::after {
-    content: "";
-    display: inline-block;
-    width: 20px;
-    height: 2px;
-    color: #5fa8ec;
-    border-radius: 1px;
+
+div#detailDokter .day-badge p.day-name::after {
+    content: " ";
+    display: block;
+    width: 100%;
+    height: 1.5px;
+    background-color: var(--secondary-darker-color);
+    margin-top: 2px;
+    margin-bottom: 5px;
+}
+
+.time-list .jam {
+    padding: 5px 8px;
+    background-color: var(--primary-color);
+    border-radius: 12px;
+}
+
+.time-list .jam p {
+    margin-bottom: 0px;
+    color: var(--accent-color);
+}
+
+.time-list .jam p.schedule-jam {
+    font-weight: 550;
+}
+
+.time-list .jam p.schedule-unit {
+    background-color: #f8f804;
+    border-radius: 14px;
+    color: var(--secondary-darker-color);
+    text-transform: lowercase;
+    font-weight: 550;
+}
+
+.time-list .jam.day-off {
+    background-color: #dbdbdb;
+}
+
+.time-list .jam.day-off p {
+    color: #898989;
+}
+
+.time-list .jam.day-off p.schedule-unit {
+    background-color: #a9a9a9;
+    color: #fff;
 }
 
 /*

@@ -745,22 +745,26 @@ function renderDoctorPage() {
                             <div class="col-12 col-md-3 border-end">
                                 <div class="p-4 text-center">
                                     <img
-                                            src="https://mobile.rs-elisabeth.com/paramedic/${dokter.paramedic_code}.png"
-                                            class="rounded-circle img-fluid mb-3"
-                                            style="width:120px;height:120px;object-fit:cover;"
-                                            alt="Foto Dokter">
+                                        src="https://mobile.rs-elisabeth.com/paramedic/${dokter.paramedic_code}.png"
+                                        class="rounded-circle img-fluid mb-3"
+                                        style="width:180px;height:180px;object-fit:cover;"
+                                        alt="Foto Dokter">
                                     <h5 class="fw-bold mb-1">${dokter.paramedic_name}</h5>
                                     <span class="badge bg-primary mb-3 d-none">
                                             Spesialis Jantung
                                     </span>
-                                    <div class="container my-3">
+                                    <div class="container my-3 group-btn">
                                         <a 
                                             href='#' 
-                                            class='text-muted'
+                                            class='btn-cek-profil'
                                             data-bs-toggle='modal'
                                             data-bs-target='#detailDokter'
                                             data-id='${dokter.entry_id}'
                                             data-jadwal=''>Cek Profil</a>
+                                        <a
+                                            href='https://regonline.rs-elisabeth.com/'
+                                            class='btn-buat-janji'
+                                            target='_blank'>Buat Janji</a>
                                     </div>
                                 </div>
                             </div>
@@ -1152,27 +1156,38 @@ detailDokter.addEventListener("show.bs.modal", (event) => {
     let scheduleCard = "";
 
     for (const [day, detail] of Object.entries(jadwalDokter)) {
+        
         let scheduleTime = "";
-        detail.forEach((data) => {
-            console.log(data);
-
+        
+        if (detail.length > 0) {
+            detail.forEach((data) => {
+                
+                data['jam'].forEach((jam) => {
+                    scheduleTime += `
+                        <div class="jam col-12">
+                            <p class="schedule-jam">${jam}</p>
+                            <p class="schedule-unit">${data["serviceUnitName"]}</p>
+                        </div>
+                    `;
+                });
+            });
+        } else {
             scheduleTime += `
-                <div class="bg-light rounded shadow-sm col-12">
-                    <span class="schedule-time">${data["jam"]}</span>
-                    <span class="schedule-unit">${data["serviceUnitName"]}</span>
+                <div class="jam day-off col-12">
+                    <p class="schedule-jam">-</p>
+                    <p class="schedule-unit">-</p>
                 </div>
             `;
-        });
+
+        }
         scheduleCard += `
-            <div class="col-12 col-lg-4 gap-2">
-                <div class="modal-schedule-card text-center">
+            <div class="col-12 col-lg-3 gap-2 mt-3">
+                <div class="modal-schedule-card">
                     <div class="day-badge">
-                        <p>
+                        <p class="day-name">
                             ${hari[day - 1]}
                         </p>
-                        <span></span>
                     </div>
-
                     <div class="time-list row g-2">
                         ${scheduleTime}
                     </div>

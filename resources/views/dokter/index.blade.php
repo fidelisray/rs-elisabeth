@@ -181,6 +181,7 @@
                                     type="button"
                                     class="btn-close mb-2 float-end close-btn"
                                     data-bs-dismiss="modal">
+                                    <i class="fa-solid fa-xmark" style="color: #fff"></i>
                                 </button>
                                 <div class="d-flex align-items-center gap-3">
                                     <div id="foto-dokter" class="doctor-photo">
