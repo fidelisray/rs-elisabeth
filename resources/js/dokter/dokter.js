@@ -1157,18 +1157,25 @@ detailDokter.addEventListener("show.bs.modal", (event) => {
             console.log(data);
 
             scheduleTime += `
-                <div>
+                <div class="bg-light rounded shadow-sm col-12">
                     <span class="schedule-time">${data["jam"]}</span>
-                    <span class="">${data["serviceUnitName"]}</span>
+                    <span class="schedule-unit">${data["serviceUnitName"]}</span>
                 </div>
             `;
         });
         scheduleCard += `
-            <div class="col-12 col-lg-4">
-                <div class="schedule-card">
-                    <div class="day-badge">${hari[day - 1]}</div>
+            <div class="col-12 col-lg-4 gap-2">
+                <div class="modal-schedule-card text-center">
+                    <div class="day-badge">
+                        <p>
+                            ${hari[day - 1]}
+                        </p>
+                        <span></span>
+                    </div>
 
-                    ${scheduleTime}
+                    <div class="time-list row g-2">
+                        ${scheduleTime}
+                    </div>
                 </div>
             </div>
         `;

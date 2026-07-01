@@ -179,7 +179,7 @@
                             <div class="profile-header">
                                 <button 
                                     type="button"
-                                    class="btn-close mb-2 float-end"
+                                    class="btn-close mb-2 float-end close-btn"
                                     data-bs-dismiss="modal">
                                 </button>
                                 <div class="d-flex align-items-center gap-3">
@@ -310,8 +310,8 @@
                                                 </div>
                                             </div>
 
-                                            <div class="modal-schedule-cards">
-                                                <div id="modal-schedule-cards">
+                                            <div class="modal-schedule-content">
+                                                <div id="modal-schedule-cards" class="row">
 
                                                 </div>
                                             </div>

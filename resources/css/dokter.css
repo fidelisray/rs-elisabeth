@@ -214,13 +214,20 @@ div.schedule.off-day h5.schedule-title {
     font-weight:600;
 } */
 
+/*
+=======================================================================
+==========================Detail Dokter Modal==========================
+=======================================================================
+*/
+
+
 div#detailDokter .modal-dokter {
     width: 90vw;
     max-width: 1400px;
     /* margin: auto; */
 }
 
-.doctor-card {
+div#detailDokter .doctor-card {
     width: 100%;
     max-width: none;
     max-height: 90vh;
@@ -239,14 +246,14 @@ div#detailDokter div.content-section {
     overflow-y: auto;
 } */
 
-.profile-header {
+div#detailDokter .doctor-card .profile-header {
     background: #0f2f97;
     color: #fff;
     padding: 24px;
     position: relative;
 }
 
-.close-btn {
+div#detailDokter .close-btn {
     position: absolute;
     top: 18px;
     right: 18px;
@@ -260,7 +267,7 @@ div#detailDokter div.content-section {
     cursor: pointer;
 }
 
-.doctor-photo {
+div#detailDokter .doctor-photo {
     width: 95px;
     height: 95px;
     border-radius: 18px;
@@ -269,13 +276,13 @@ div#detailDokter div.content-section {
     flex-shrink: 0;
 }
 
-.doctor-photo img {
+div#detailDokter .doctor-photo img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.speciality-badge {
+div#detailDokter .speciality-badge {
     background: #6c63ff;
     color: #fff;
     border-radius: 10px;
@@ -285,18 +292,60 @@ div#detailDokter div.content-section {
     margin-top: 6px;
 }
 
-.stats {
+div#detailDokter .stats {
     margin-top: 20px;
     display: flex;
     gap: 12px;
 }
 
-.stat-pill {
+div#detailDokter .stat-pill {
     background: rgba(255, 255, 255, 0.12);
     padding: 8px 14px;
     border-radius: 50px;
     font-weight: 600;
 }
+
+/* div#detailDokter .modal-schedule-card {
+    display: flex;
+} */
+
+div#detailDokter .day-badge {
+    /* width: 48px;
+    height: 48px; */
+    width: 100%;
+    height: 24px;
+
+    /* background: #7aa6e3; */
+    
+    /* border-radius: 14px; */
+    
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    
+    /* flex-shrink: 0; */
+}
+
+
+div#detailDokter .day-badge > p {
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: var(--secondary-darker-color);
+
+}
+div#detailDokter .day-badge::after {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 2px;
+    color: #5fa8ec;
+    border-radius: 1px;
+}
+
+/*
+=======================================================================
+*/
 
 .nav-tabs {
     border-bottom: none;
@@ -435,24 +484,7 @@ div#detailDokter div.content-section {
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
 }
 
-.day-badge {
-    width: 48px;
-    height: 48px;
-
-    background: #06248f;
-    color: #fff;
-
-    border-radius: 14px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    font-size: 0.75rem;
-    font-weight: 700;
-
-    flex-shrink: 0;
-}
+/* day-badge */
 
 .schedule-day {
     font-size: 1.05rem;
@@ -572,11 +604,3 @@ div#detailDokter div.content-section {
     background: #f5f8ff;
 }
 
-/*
-    ==============Modal Detail Dokter==============
-*/
-
-#modal-schedule-cards {
-    display: flex;
-    flex-wrap: wrap;
-}
