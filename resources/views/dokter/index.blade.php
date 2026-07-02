@@ -102,7 +102,7 @@
                                     class="dropdown-item clinic-option"
                                     data-value="{{ $spesialis->Name }}"
                                     data-code="{{ $spesialis->Code }}">
-                                    {{ $spesialis->Name }}
+                                    {{ ucwords(strtolower($spesialis->Name)) }}
                                 </button>
                                     {{-- @endif --}}
                                 @endforeach
@@ -196,30 +196,28 @@
                                 </div>
                             </div>
                             <!-- TABS -->
-                            <ul class="nav nav-tabs justify-content-center mt-2">
-                                <ul class="nav nav-tabs justify-content-center mt-2" id="doctorTabs" role="tablist">
-                                    <li class="nav-item flex-fill text-center">
-                                        <button
-                                            class="nav-link active w-100"
-                                            id="tentang-tab"
-                                            data-bs-toggle="tab"
-                                            data-bs-target="#tentang-pane"
-                                            type="button">
-                                            Tentang
-                                        </button>
-                                    </li>
-    
-                                    <li class="nav-item flex-fill text-center">
-                                        <button
-                                            class="nav-link w-100"
-                                            id="jadwal-tab"
-                                            data-bs-toggle="tab"
-                                            data-bs-target="#jadwal-pane"
-                                            type="button">
-                                            Jadwal
-                                        </button>
-                                    </li>
-                                </ul>
+                            <ul class="nav nav-tabs justify-content-center mt-2" id="doctorTabs" role="tablist">
+                                <li class="nav-item flex-fill text-center">
+                                    <button
+                                        class="nav-link active w-100"
+                                        id="tentang-tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#tentang-pane"
+                                        type="button">
+                                        Tentang
+                                    </button>
+                                </li>
+
+                                <li class="nav-item flex-fill text-center">
+                                    <button
+                                        class="nav-link w-100"
+                                        id="jadwal-tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#jadwal-pane"
+                                        type="button">
+                                        Jadwal
+                                    </button>
+                                </li>
                             </ul>
                             <!-- CONTENT -->
                             <div class="content-section">

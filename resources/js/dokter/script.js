@@ -74,3 +74,16 @@ buttonJanji[0].addEventListener("click", () => {
 buttonJanji[1].addEventListener("click", () => {
     window.open("https://regonline.rs-elisabeth.com/", "_blank");
 });
+
+// modal detailDokter
+const modal = document.getElementById("detailDokter");
+
+modal.addEventListener("hidden.bs.modal", function () {
+    document.getElementById("tentang-tab").classList.add("active");
+
+    document.getElementById("jadwal-tab").classList.remove("active");
+
+    document.getElementById("tentang-pane").classList.add("show", "active");
+
+    document.getElementById("jadwal-pane").classList.remove("show", "active");
+});
