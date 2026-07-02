@@ -786,7 +786,18 @@ export async function initializeDoctor() {
     `;
 
     try {
-        const response = await fetch(`/dokter/all-dokter`);
+        // const response = await fetch(`/dokter/all-dokter`);
+
+        const csrfToken = document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content");
+
+        const response = await fetch(`/dokter/all-dokter`, {
+            headers: {
+                "X-Requested-With": "XMLHttpRequest",
+                "X-CSRF-TOKEN": csrfToken,
+            },
+        });
 
         if (!response.ok)
             throw new Error(`${response.status}: Data tidak tersedia`);

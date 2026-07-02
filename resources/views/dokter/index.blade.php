@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{-- Di Blade layout kamu, dalam <head> --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Dokter Kami</title>
     @vite([
         'resources/css/style.css',
@@ -190,7 +192,8 @@
                                     <div>
                                         <h5 class="mb-1 fw-bold" id="namaDokter">
                                         </h5>
-                                        <span class="speciality-badge d-none">
+                                        <span class="speciality-badge">
+                                            <p class="speciality-title">Dokter Spesialis Kaki Kaki</p>
                                         </span>
                                     </div>
                                 </div>
