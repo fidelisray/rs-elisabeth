@@ -308,7 +308,8 @@ div#detailDokter div.content-section {
 } */
 
 div#detailDokter .doctor-card .profile-header {
-    background: #0f2f97;
+    /* background: #0f2f97; */
+    background-color: var(--primary-color);
     color: #fff;
     padding: 24px;
     position: relative;
@@ -343,7 +344,7 @@ div#detailDokter .doctor-photo img {
     object-fit: cover;
 }
 
-div#detailDokter .speciality-badge {
+/* div#detailDokter .speciality-badge {
     background: #6c63ff;
     color: #fff;
     border-radius: 10px;
@@ -351,7 +352,7 @@ div#detailDokter .speciality-badge {
     font-size: 0.8rem;
     display: inline-block;
     margin-top: 6px;
-}
+} */
 
 div#detailDokter .stats {
     margin-top: 20px;
@@ -519,8 +520,9 @@ div#detailDokter .day-badge p.day-name::after {
 
 .cta-btn {
     /* background:#06248f; */
-    background: #59bd06;
-    color: white;
+    /* background: #59bd06; */
+    background-color: var(--accent-color);
+    color: var(--secondary-darker-color);
     border: none;
     width: 100%;
     border-radius: 16px;
@@ -532,7 +534,9 @@ div#detailDokter .day-badge p.day-name::after {
 }
 
 .cta-btn:hover {
-    background: #0a36c4;
+    /* background: #0a36c4; */
+    background: #1006da;
+    color: #fff;
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(6, 36, 143, 0.25);
 }
