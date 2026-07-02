@@ -827,7 +827,7 @@ function renderDoctorPage() {
     if (FILTERED_DOCTOR_LIST.length === 0) {
         container.innerHTML = `
             <div class="container bg-light text-muted rounded shadow-sm text-center py-3 my-3">
-                <h5>Dokter tidak ditemukan</h5>
+                <h5>Mohon Maaf Saat Ini Data Dokter Tersebut Belum Tersedia...</h5>
             </div>
         `;
         renderPagination(); // kosongkan pagination juga
@@ -859,7 +859,7 @@ function renderDoctorPage() {
                                         class="rounded-circle img-fluid mb-3"
                                         style="width:180px;height:180px;object-fit:cover;"
                                         alt="Foto Dokter">
-                                    <h5 class="fw-bold mb-1">${dokter.paramedic_name}</h5>
+                                    <!-- <h5 class="fw-bold mb-1">${dokter.paramedic_name}</h5> -->
                                     <span class="badge bg-primary mb-3 d-none">
                                             Spesialis Jantung
                                     </span>
@@ -880,8 +880,17 @@ function renderDoctorPage() {
                             </div>
                             <div class="col-12 col-md-9 mx-auto">
                                 <div class="container py-4">
+                                    <div class="dokter-header mb-0">
+                                        <h5 class="fw-bold mb-1">${dokter.paramedic_name}</h5>
+                                        <span class="speciality-badge">
+                                            <p class="speciality-title">Spesialis Jantung</p>
+                                        </span>
+                                    </div>
                                     <div class="jadwal-wrapper">
-                                        <h2 class="jadwal-title">Jadwal Dokter</h2>
+                                        <h2 class="jadwal-title">
+                                            <i class="fa-regular fa-calendar"></i>
+                                            Jadwal Dokter
+                                        </h2>
                                         <div class="jadwal-scroll">
                                             <div class="jadwal-grid" id="jadwalGrid-${dokter.paramedic_code}">
                                             </div>

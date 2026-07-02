@@ -178,6 +178,22 @@ div.schedule.off-day h5.schedule-title {
 }
 
 
+/*  ==================================================================
+    ===================speciality badge doctor card===================
+/*  ==================================================================
+*/
+
+.speciality-badge .speciality-title {
+    font-size: 1rem;
+    background: var(--accent-color);
+    color: var(--secondary-darker-color);
+    width: fit-content;
+    padding: 1.35px 2.25rem;
+    border-radius: 1.1rem;
+    font-weight: 550;
+}
+
+
 /* 
     =====================Button Buat Jadwal Dokter=====================
 */
