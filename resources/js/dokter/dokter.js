@@ -251,10 +251,13 @@ function preprocessingApiData(doctor) {
     return result;
 }
 
+/*
 function getMaxSlot(schedule) {
     return Math.max(...Object.values(schedule).map((day) => day.length));
 }
+*/
 
+/*
 function renderHeader(grid) {
     const today = new Date().getDay();
 
@@ -281,7 +284,34 @@ function renderHeader(grid) {
         grid.appendChild(header);
     });
 }
+*/
 
+function renderHeader(grid, schedule) {
+    const hariIndonesia = {
+        1: "Senin",
+        2: "Selasa",
+        3: "Rabu",
+        4: "Kamis",
+        5: "Jumat",
+        6: "Sabtu",
+        7: "Minggu",
+    };
+
+    const activeDays = DAYS.filter((day) => schedule[day].length > 0);
+
+    activeDays.forEach((day) => {
+        const header = document.createElement("div");
+
+        header.classList.add("day-header");
+
+        header.textContent = hariIndonesia[day];
+
+        grid.appendChild(header);
+    });
+}
+
+
+/*
 function createScheduleCard(jam, serviceUnitName, day) {
     const card = document.createElement("div");
     card.classList.add("schedule-card");
@@ -302,6 +332,35 @@ function createScheduleCard(jam, serviceUnitName, day) {
 
     return card;
 }
+*/
+
+
+function createScheduleCard(jam, serviceUnitName) {
+    const card = document.createElement("div");
+
+    card.classList.add("schedule-card");
+
+    card.innerHTML = `
+        <span class="sc-time">
+            ${jam}
+        </span>
+        <span class="sc-klinik">
+            ${serviceUnitName}
+        </span>
+    `;
+
+    return card;
+}
+
+
+function getDayCardCount(daySchedule) {
+    return daySchedule.reduce((total, item) => total + item.jam.length, 0);
+}
+
+function getMaxSlot(schedule) {
+    return Math.max(...Object.values(schedule).map(getDayCardCount));
+}
+
 
 function createEmptyCard() {
     const card = document.createElement("div");
@@ -310,6 +369,8 @@ function createEmptyCard() {
     return card;
 }
 
+
+/*
 function renderSchedule(dokter) {
     const grid = document.getElementById(`jadwalGrid-${dokter.paramedic_code}`);
 
@@ -343,6 +404,55 @@ function renderSchedule(dokter) {
         grid.appendChild(col);
     });
 }
+*/
+
+function renderSchedule(dokter) {
+    const grid = document.getElementById(`jadwalGrid-${dokter.paramedic_code}`);
+
+    grid.innerHTML = "";
+
+    const schedule = dokter.schedule;
+
+    const maxSlot = getMaxSlot(schedule);
+
+    // const activeDays = DAYS.filter((day) => schedule[day].length > 0);
+
+    // grid.style.gridTemplateColumns = `repeat(${activeDays.length}, minmax(120px, 1fr))`;
+
+    // grid.style.minWidth = `${activeDays.length * 130}px`;
+
+
+
+    const activeDays = DAYS.filter((day) => schedule[day].length > 0);
+
+    grid.style.gridTemplateColumns = `repeat(${activeDays.length}, minmax(120px, 1fr))`;
+
+    grid.style.minWidth = `${Math.max(activeDays.length, 4) * 130}px`;
+
+    renderHeader(grid, schedule);
+
+    activeDays.forEach((day) => {
+        const col = document.createElement("div");
+
+        col.classList.add("slot-col");
+
+        schedule[day].forEach((item) => {
+            item.jam.forEach((jam) => {
+                col.appendChild(createScheduleCard(jam, item.serviceUnitName));
+            });
+        });
+
+        const emptyCount = maxSlot - getDayCardCount(schedule[day]);
+
+        for (let i = 0; i < emptyCount; i++) {
+            col.appendChild(createEmptyCard());
+        }
+
+        grid.appendChild(col);
+    });
+}
+
+
 
 function getDoctorCard(doctor_list) {
     const html = doctor_list
