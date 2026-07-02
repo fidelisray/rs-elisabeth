@@ -251,7 +251,7 @@ function preprocessingApiData(doctor) {
     return result;
 }
 
-/*
+/* Tampilan Layout Versi Semua Hari ikut di render */
 function getMaxSlot(schedule) {
     return Math.max(...Object.values(schedule).map((day) => day.length));
 }
