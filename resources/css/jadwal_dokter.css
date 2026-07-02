@@ -31,9 +31,9 @@ Jadwal Dokter Styles
 /* Grid 7 kolom: 1 per hari */
 .jadwal-grid {
     display: grid;
-    grid-template-columns: repeat(7, minmax(120px, 1fr));
+    /* grid-template-columns: repeat(7, minmax(120px, 1fr)); */
     gap: 8px;
-    min-width: 860px;
+    /* min-width: 860px; */
 }
 
 /* ---- Header hari ---- */
@@ -41,7 +41,7 @@ Jadwal Dokter Styles
     text-align: center;
     padding: 10px 6px;
     border-radius: 8px;
-    font-size: 0.8rem;
+    font-size: 1.1rem;
     font-weight: 600;
     /* background-color: #f8f9fa; */
     background-color: var(--primary-color);

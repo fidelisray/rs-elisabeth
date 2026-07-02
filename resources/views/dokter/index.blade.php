@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{-- Di Blade layout kamu, dalam <head> --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Dokter Kami</title>
     @vite([
         'resources/css/style.css',
@@ -102,7 +104,7 @@
                                     class="dropdown-item clinic-option"
                                     data-value="{{ $spesialis->Name }}"
                                     data-code="{{ $spesialis->Code }}">
-                                    {{ $spesialis->Name }}
+                                    {{ ucwords(strtolower($spesialis->Name)) }}
                                 </button>
                                     {{-- @endif --}}
                                 @endforeach
@@ -190,36 +192,35 @@
                                     <div>
                                         <h5 class="mb-1 fw-bold" id="namaDokter">
                                         </h5>
-                                        <span class="speciality-badge d-none">
+                                        <span class="speciality-badge">
+                                            <p class="speciality-title">Dokter Spesialis Kaki Kaki</p>
                                         </span>
                                     </div>
                                 </div>
                             </div>
                             <!-- TABS -->
-                            <ul class="nav nav-tabs justify-content-center mt-2">
-                                <ul class="nav nav-tabs justify-content-center mt-2" id="doctorTabs" role="tablist">
-                                    <li class="nav-item flex-fill text-center">
-                                        <button
-                                            class="nav-link active w-100"
-                                            id="tentang-tab"
-                                            data-bs-toggle="tab"
-                                            data-bs-target="#tentang-pane"
-                                            type="button">
-                                            Tentang
-                                        </button>
-                                    </li>
-    
-                                    <li class="nav-item flex-fill text-center">
-                                        <button
-                                            class="nav-link w-100"
-                                            id="jadwal-tab"
-                                            data-bs-toggle="tab"
-                                            data-bs-target="#jadwal-pane"
-                                            type="button">
-                                            Jadwal
-                                        </button>
-                                    </li>
-                                </ul>
+                            <ul class="nav nav-tabs justify-content-center mt-2" id="doctorTabs" role="tablist">
+                                <li class="nav-item flex-fill text-center">
+                                    <button
+                                        class="nav-link active w-100"
+                                        id="tentang-tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#tentang-pane"
+                                        type="button">
+                                        Tentang
+                                    </button>
+                                </li>
+
+                                <li class="nav-item flex-fill text-center">
+                                    <button
+                                        class="nav-link w-100"
+                                        id="jadwal-tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#jadwal-pane"
+                                        type="button">
+                                        Jadwal
+                                    </button>
+                                </li>
                             </ul>
                             <!-- CONTENT -->
                             <div class="content-section">

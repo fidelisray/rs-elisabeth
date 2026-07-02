@@ -255,7 +255,9 @@ function preprocessingApiData(doctor) {
 function getMaxSlot(schedule) {
     return Math.max(...Object.values(schedule).map((day) => day.length));
 }
+*/
 
+/*
 function renderHeader(grid) {
     const today = new Date().getDay();
 
@@ -282,7 +284,34 @@ function renderHeader(grid) {
         grid.appendChild(header);
     });
 }
+*/
 
+function renderHeader(grid, schedule) {
+    const hariIndonesia = {
+        1: "Senin",
+        2: "Selasa",
+        3: "Rabu",
+        4: "Kamis",
+        5: "Jumat",
+        6: "Sabtu",
+        7: "Minggu",
+    };
+
+    const activeDays = DAYS.filter((day) => schedule[day].length > 0);
+
+    activeDays.forEach((day) => {
+        const header = document.createElement("div");
+
+        header.classList.add("day-header");
+
+        header.textContent = hariIndonesia[day];
+
+        grid.appendChild(header);
+    });
+}
+
+
+/*
 function createScheduleCard(jam, serviceUnitName, day) {
     const card = document.createElement("div");
     card.classList.add("schedule-card");
@@ -303,6 +332,35 @@ function createScheduleCard(jam, serviceUnitName, day) {
 
     return card;
 }
+*/
+
+
+function createScheduleCard(jam, serviceUnitName) {
+    const card = document.createElement("div");
+
+    card.classList.add("schedule-card");
+
+    card.innerHTML = `
+        <span class="sc-time">
+            ${jam}
+        </span>
+        <span class="sc-klinik">
+            ${serviceUnitName}
+        </span>
+    `;
+
+    return card;
+}
+
+
+function getDayCardCount(daySchedule) {
+    return daySchedule.reduce((total, item) => total + item.jam.length, 0);
+}
+
+function getMaxSlot(schedule) {
+    return Math.max(...Object.values(schedule).map(getDayCardCount));
+}
+
 
 function createEmptyCard() {
     const card = document.createElement("div");
@@ -311,6 +369,8 @@ function createEmptyCard() {
     return card;
 }
 
+
+/*
 function renderSchedule(dokter) {
     const grid = document.getElementById(`jadwalGrid-${dokter.paramedic_code}`);
 
@@ -344,6 +404,55 @@ function renderSchedule(dokter) {
         grid.appendChild(col);
     });
 }
+*/
+
+function renderSchedule(dokter) {
+    const grid = document.getElementById(`jadwalGrid-${dokter.paramedic_code}`);
+
+    grid.innerHTML = "";
+
+    const schedule = dokter.schedule;
+
+    const maxSlot = getMaxSlot(schedule);
+
+    // const activeDays = DAYS.filter((day) => schedule[day].length > 0);
+
+    // grid.style.gridTemplateColumns = `repeat(${activeDays.length}, minmax(120px, 1fr))`;
+
+    // grid.style.minWidth = `${activeDays.length * 130}px`;
+
+
+
+    const activeDays = DAYS.filter((day) => schedule[day].length > 0);
+
+    grid.style.gridTemplateColumns = `repeat(${activeDays.length}, minmax(120px, 1fr))`;
+
+    grid.style.minWidth = `${Math.max(activeDays.length, 4) * 130}px`;
+
+    renderHeader(grid, schedule);
+
+    activeDays.forEach((day) => {
+        const col = document.createElement("div");
+
+        col.classList.add("slot-col");
+
+        schedule[day].forEach((item) => {
+            item.jam.forEach((jam) => {
+                col.appendChild(createScheduleCard(jam, item.serviceUnitName));
+            });
+        });
+
+        const emptyCount = maxSlot - getDayCardCount(schedule[day]);
+
+        for (let i = 0; i < emptyCount; i++) {
+            col.appendChild(createEmptyCard());
+        }
+
+        grid.appendChild(col);
+    });
+}
+
+
 
 function getDoctorCard(doctor_list) {
     const html = doctor_list
@@ -677,7 +786,18 @@ export async function initializeDoctor() {
     `;
 
     try {
-        const response = await fetch(`/dokter/all-dokter`);
+        // const response = await fetch(`/dokter/all-dokter`);
+
+        const csrfToken = document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content");
+
+        const response = await fetch(`/dokter/all-dokter`, {
+            headers: {
+                "X-Requested-With": "XMLHttpRequest",
+                "X-CSRF-TOKEN": csrfToken,
+            },
+        });
 
         if (!response.ok)
             throw new Error(`${response.status}: Data tidak tersedia`);
@@ -718,7 +838,7 @@ function renderDoctorPage() {
     if (FILTERED_DOCTOR_LIST.length === 0) {
         container.innerHTML = `
             <div class="container bg-light text-muted rounded shadow-sm text-center py-3 my-3">
-                <h5>Dokter tidak ditemukan</h5>
+                <h5>Mohon Maaf Saat Ini Data Dokter Tersebut Belum Tersedia...</h5>
             </div>
         `;
         renderPagination(); // kosongkan pagination juga
@@ -750,7 +870,7 @@ function renderDoctorPage() {
                                         class="rounded-circle img-fluid mb-3"
                                         style="width:180px;height:180px;object-fit:cover;"
                                         alt="Foto Dokter">
-                                    <h5 class="fw-bold mb-1">${dokter.paramedic_name}</h5>
+                                    <!-- <h5 class="fw-bold mb-1">${dokter.paramedic_name}</h5> -->
                                     <span class="badge bg-primary mb-3 d-none">
                                             Spesialis Jantung
                                     </span>
@@ -771,8 +891,17 @@ function renderDoctorPage() {
                             </div>
                             <div class="col-12 col-md-9 mx-auto">
                                 <div class="container py-4">
+                                    <div class="dokter-header mb-0">
+                                        <h5 class="fw-bold mb-1">${dokter.paramedic_name}</h5>
+                                        <span class="speciality-badge">
+                                            <p class="speciality-title">Spesialis Jantung</p>
+                                        </span>
+                                    </div>
                                     <div class="jadwal-wrapper">
-                                        <h2 class="jadwal-title">Jadwal Dokter</h2>
+                                        <h2 class="jadwal-title">
+                                            <i class="fa-regular fa-calendar"></i>
+                                            Jadwal Dokter
+                                        </h2>
                                         <div class="jadwal-scroll">
                                             <div class="jadwal-grid" id="jadwalGrid-${dokter.paramedic_code}">
                                             </div>
