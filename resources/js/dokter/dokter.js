@@ -866,7 +866,8 @@ function renderDoctorPage() {
                                         src="https://mobile.rs-elisabeth.com/paramedic/${dokter.paramedic_code}.png"
                                         class="rounded-circle img-fluid mb-3"
                                         style="width:180px;height:180px;object-fit:cover;"
-                                        alt="Foto Dokter">
+                                        alt="Foto Dokter"
+                                        onerror="this.onerror=null; this.src='/images/default.png';">
                                     <!-- <h5 class="fw-bold mb-1">${dokter.paramedic_name}</h5> -->
                                     <span class="badge bg-primary mb-3 d-none">
                                             Spesialis Jantung
@@ -1275,7 +1276,9 @@ detailDokter.addEventListener("show.bs.modal", (event) => {
     // }
 
     fotoDokter.innerHTML = `
-        <img src="https://mobile.rs-elisabeth.com/paramedic/${doctor.paramedic_code}.png" alt="Doctor">
+        <img src="https://mobile.rs-elisabeth.com/paramedic/${doctor.paramedic_code}.png" 
+        alt="Doctor"
+        onerror="this.onerror=null; this.src='/images/default.png';">
     `;
 
     document.getElementById("namaDokter").textContent = doctor.paramedic_name;
