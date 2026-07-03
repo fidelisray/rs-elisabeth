@@ -535,7 +535,7 @@ div#detailDokter .day-badge p.day-name::after {
 
 .cta-btn:hover {
     /* background: #0a36c4; */
-    background: #1006da;
+    background: #031c65;
     color: #fff;
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(6, 36, 143, 0.25);
