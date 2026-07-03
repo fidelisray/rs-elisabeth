@@ -23,11 +23,11 @@
                     <img src="{{ asset('images/logo.png') }}" alt="Logo" width="auto" height="70" class="d-inline-block align-text-top">
                     <img src="{{ asset('images/akreditasi.png') }}" alt="Logo" width="auto" height="70" class="d-inline-block align-text-top">
                 </a>
-                <form class="d-flex nav-form-search" role="search">
+                <form class="d-flex nav-form-search d-none" role="search">
                     <input class="form-control me-2" type="search" placeholder="Temukan dokter, klinik, jadwal.." aria-label="Search"/>
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
-                <div class="dropdown">
+                <div class="dropdown d-none">
                     <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-user"></i>
                     </a>
@@ -133,7 +133,7 @@
                         <button
                             type="button"
                             id="btnCari"
-                            class="btn px-4">
+                            class="btn px-4 d-none">
                             Cari
                         </button>
                         <button
