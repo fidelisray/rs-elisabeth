@@ -18,8 +18,9 @@ Route::get('/promotions', [HospitalController::class, 'getPromotions'])->name('g
 // Glosarium
 // Route::get('/kamus', [HospitalController::class, 'getKamusMedis'])->name('getKamusMedis');
 // Route::prefix('kamus-medis')->name('glossary.')->group(function () {
-Route::prefix('kamus-medis')->name('glossary.')->group(function () {
-    Route::get('/',            [GlossaryController::class, 'index'])  ->name('index');
-    Route::get('/cari',        [GlossaryController::class, 'search']) ->name('search');
-    Route::get('/{term}',      [GlossaryController::class, 'show'])   ->name('show');
+Route::prefix('glosarium')->name('glossary.')->group(function () {
+    Route::get('/',       [GlossaryController::class, 'index'])  ->name('index');
+    // Route::get('/cari',   [GlossaryController::class, 'search']) ->name('search');
+    Route::get('/cari',   [GlossaryController::class, 'search']) ->name('search');
+    Route::get('/{term}', [GlossaryController::class, 'show'])   ->name('show');
 });

@@ -49,7 +49,7 @@ class GlossaryController extends Controller
 
         // return view('glossary.index', compact('glossary', 'activeLetter', 'availableLetters'));
 
-        return view('glosarium', compact('glossary', 'activeLetter', 'availableLetters'));
+        return view('glosarium.index', compact('glossary', 'activeLetter', 'availableLetters'));
     }
 
     /**
@@ -65,14 +65,15 @@ class GlossaryController extends Controller
         // dd($item);
 
         // return view('glossary.show', compact('item'));
-        return view('glosarium', compact('item'));
+        return view('glosarium.index', compact('item'));
     }
 
     /**
      * Search via AJAX (Fetch API dari frontend)
-     */
+    */
     public function search(Request $request)
     {
+        
         $keyword = trim($request->query('q', ''));
 
         if (strlen($keyword) < 2) {
@@ -88,6 +89,7 @@ class GlossaryController extends Controller
             ->values()
             ->take(20); // batasi hasil search
 
+        // dd($results);
         return response()->json($results);
     }
 }
