@@ -9,6 +9,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
         @vite([
             'resources/js/navbar/navbar.js',
+            'resources/js/glosarium/glosarium.js',
             'resources/css/style.css',
             'resources/css/hero.css',
             'resources/css/glossarium.css',
@@ -84,78 +85,66 @@
             </div>
         </nav>
         <section class="hero-section">
-  <div class="container">
+            <div class="container">
 
-    <!-- Breadcrumb -->
-    <nav class="hero-breadcrumb" aria-label="breadcrumb">
-      <ol class="breadcrumb flex-wrap">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Kamus Medis</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Begins with 'A'</li>
-      </ol>
-    </nav>
+                <!-- Breadcrumb -->
+                <nav class="hero-breadcrumb" aria-label="breadcrumb">
+                    <ol class="breadcrumb flex-wrap">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Kamus Medis</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Begins with 'A'</li>
+                    </ol>
+                </nav>
 
-    <div class="row">
-        <!-- Kolom kiri: Judul, subjudul, search -->
-        <div class="col-12 col-lg-6">
-            <h1 class="hero-title">Glossary of Health Coverage and Medical Terms</h1>
-            <p class="hero-subtitle">Easy-to-understand answers about Health and Medical Terms</p>
+                <div class="row">
+                    <!-- Kolom kiri: Judul, subjudul, search -->
+                    <div class="col-12 col-lg-6">
+                        <h1 class="hero-title">Glossary of Health Coverage and Medical Terms</h1>
+                        <p class="hero-subtitle">Easy-to-understand answers about Health and Medical Terms</p>
 
-            <p class="search-label">Search diseases &amp; conditions</p>
-            <div class="search-box d-flex align-items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-            </svg>
-            <input type="text" placeholder="Search">
-            </div>
-        </div>
+                        <p class="search-label">Search diseases &amp; conditions</p>
+                        <div class="search-box d-flex align-items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                            </svg>
+                            <form id="glossarySearchForm" role="search" autocomplete="off" onsubmit="return false;">
+                                <input
+                                    type="text"
+                                    id="glossarySearchInput"
+                                    name="q"
+                                    class="form-control"
+                                    placeholder="Cari istilah medis..."
+                                    minlength="2"
+                                    autocomplete="off"
+                                >
+                            </form>
+                        </div>
+                    </div>
 
-        <!-- Kolom kanan: Grid huruf A-Z -->
-        <div class="col-12 col-lg-6 mt-4 mt-lg-0 d-flex flex-column align-items-start align-items-lg-end">
-            <div class="letter-panel-label">Find diseases &amp; conditions by first letter</div>
-                <div class="letter-grid">
-                    <a href="#" class="letter-btn active">A</a>
-                    {{-- @foreach(range('A', 'Z') as $letter)
-                        @php $hasItems = in_array($letter, $availableLetters); @endphp
-                        <a href="{{ $hasItems ? route('glossary.index', ['letter' => $letter]) : '#' }}"
-                        class="letter-btn
-                            {{ $activeLetter === $letter ? 'btn-primary' : ($hasItems ? 'btn-outline-secondary' : 'btn-outline-light text-muted') }}"
-                        {{ !$hasItems ? 'aria-disabled=true' : '' }}>
-                            {{ $letter }}
-                        </a>
-                    @endforeach --}}
-                    <a href="#" class="letter-btn">B</a>
-                    <a href="#" class="letter-btn">C</a>
-                    <a href="#" class="letter-btn">D</a>
-                    <a href="#" class="letter-btn">E</a>
-                    <a href="#" class="letter-btn">F</a>
-                    <a href="#" class="letter-btn">G</a>
-                    <a href="#" class="letter-btn">H</a>
-                    <a href="#" class="letter-btn">I</a>
-                    <a href="#" class="letter-btn">J</a>
-                    <a href="#" class="letter-btn">K</a>
-                    <a href="#" class="letter-btn">L</a>
-                    <a href="#" class="letter-btn">M</a>
-                    <a href="#" class="letter-btn">N</a>
-                    <a href="#" class="letter-btn">O</a>
-                    <a href="#" class="letter-btn">P</a>
-                    <a href="#" class="letter-btn">Q</a>
-                    <a href="#" class="letter-btn">R</a>
-                    <a href="#" class="letter-btn">S</a>
-                    <a href="#" class="letter-btn">T</a>
-                    <a href="#" class="letter-btn">U</a>
-                    <a href="#" class="letter-btn">V</a>
-                    <a href="#" class="letter-btn">W</a>
-                    <a href="#" class="letter-btn">X</a>
-                    <a href="#" class="letter-btn">Y</a>
-                    <a href="#" class="letter-btn">Z</a>
-                    <a href="#" class="letter-btn">#</a>
+                    <!-- Kolom kanan: Grid huruf A-Z -->
+                    <div class="col-12 col-lg-6 mt-4 mt-lg-0 d-flex flex-column align-items-start align-items-lg-end">
+                        <div class="letter-panel-label">Find diseases &amp; conditions by first letter</div>
+                            <div class="letter-grid">
+                                {{-- <a href="#" class="letter-btn active">A</a> --}}
+                                <a href="{{ route('glossary.index') }}"
+                                    class="letter-btn {{ $activeLetter === 'ALL' ? 'btn-primary' : 'btn-outline-secondary' }}">
+                                    All
+                                </a>
+                                @foreach(range('A', 'Z') as $letter)
+                                    @php $hasItems = in_array($letter, $availableLetters); @endphp
+                                    <a href="{{ $hasItems ? route('glossary.index', ['letter' => $letter]) : '#' }}"
+                                    class="letter-btn
+                                        $activeLetter===$letter?'btn-primary':($hasItems?'btn-outline-secondary':'btn-outline-lighttext-muted')"
+                                    {{ !$hasItems ? 'aria-disabled=true' : '' }}>
+                                        {{ $letter }}
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-
-    </div>
-</section>
+        </section>
         <section id="promotions"> {{-- change the id name later --}}
             <div class="title text-center">
                 <h2 class="display-8 fw-bold section-title">Kamus Medis</h2>
@@ -163,7 +152,7 @@
             <div class="container py-5">
                 <section class="content-header">
                     {{-- Navigasi A-Z --}}
-                    <div class="d-flex flex-wrap gap-1 mb-4">
+                    {{-- <div class="d-flex flex-wrap gap-1 mb-4">
                         <a href="{{ route('glossary.index') }}"
                         class="btn btn-sm {{ $activeLetter === 'ALL' ? 'btn-primary' : 'btn-outline-secondary' }}">
                             Semua
@@ -178,7 +167,7 @@
                                 {{ $letter }}
                             </a>
                         @endforeach
-                    </div>
+                    </div> --}}
                 </section>
                 <section class="content-body">
                     {{-- Daftar Istilah --}}
@@ -253,6 +242,15 @@
                 </div> --}}
             </div>
         </section>
+
+
+        <div id="glossarySearchResults" class="list-group position-absolute w-100 shadow-sm" style="z-index: 1000; display: none;">
+            {{-- Hasil pencarian akan di-render di sini oleh JS --}}
+        </div>
+
+
+
+
         <section id="footer" class="pt-5">
             <div class="container-fluid col-12 col-md-12">
                 <div class="container">
@@ -314,6 +312,7 @@
         <script src="https://kit.fontawesome.com/726e331ad1.js" crossorigin="anonymous"></script>
         @vite([
             'resources/js/navbar/navbar.js',
+            'resources/js/glosarium/glosarium.js',
         ])
     </body>
 </html>
