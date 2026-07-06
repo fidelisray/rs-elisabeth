@@ -148,32 +148,6 @@
         </section>
 
         <section id="advertisement">
-            {{-- <div class="content-container container advertisement-content">
-                <div class="row row-1 g-2 mt-4">
-                    <div class="container col-12 glossary-content-1">
-                        <div class="title-header">
-                            <h5 class="title">Kenali Sedari Dini</h5>
-                            <p class="description">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, doloremque!
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row row-2 g-2">
-                    <div class="container col-12 col-md-6 gossary-content-2">
-                        <h5 class="title">Advertisement 1</h5>
-                        <p class="description">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, quaerat?
-                        </p>
-                    </div>
-                    <div class="container col-12 col-md-6 gossary-content-3">
-                        <h5 class="title">Advertisement 2</h5>
-                        <p class="description">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat, error.
-                        </p>
-                    </div>
-                </div>
-            </div> --}}
             <div class="container">
                 <!-- Card 1 -->
                 <section class="ads-card ads-card-large">
@@ -239,109 +213,55 @@
             </div>
         </section>
 
-        <section id="promotions"> {{-- change the id name later --}}
-            <div class="title text-center">
-                <h2 class="display-8 fw-bold section-title">Kamus Medis</h2>
-            </div>
-            <div class="container py-5">
-                <section class="content-header">
-                    {{-- Navigasi A-Z --}}
-                    {{-- <div class="d-flex flex-wrap gap-1 mb-4">
-                        <a href="{{ route('glossary.index') }}"
-                        class="btn btn-sm {{ $activeLetter === 'ALL' ? 'btn-primary' : 'btn-outline-secondary' }}">
-                            Semua
-                        </a>
 
-                        @foreach(range('A', 'Z') as $letter)
-                            @php $hasItems = in_array($letter, $availableLetters); @endphp
-                            <a href="{{ $hasItems ? route('glossary.index', ['letter' => $letter]) : '#' }}"
-                            class="btn btn-sm
-                                {{ $activeLetter === $letter ? 'btn-primary' : ($hasItems ? 'btn-outline-secondary' : 'btn-outline-light text-muted') }}"
-                            {{ !$hasItems ? 'aria-disabled=true' : '' }}>
-                                {{ $letter }}
-                            </a>
-                        @endforeach
-                    </div> --}}
-                </section>
-                <section class="content-body">
-                    {{-- Daftar Istilah --}}
-                    {{-- @forelse($glossary as $item)
-                        <div class="card mb-2 border-0 shadow-sm">
-                            <div class="card-body py-3">
-                                <div class="d-flex justify-content-between align-items-start">
-                                    <div>
-                                        <h5 class="mb-1 text-primary">{{ $item['istilah'] }}</h5>
-                                        <p class="mb-0 text-muted small">{{ Str::limit($item['deskripsi'], 180) }}</p>
-                                    </div>
-                                    <a href="{{ route('glossary.show', urlencode($item['istilah'])) }}"
-                                    class="btn btn-sm btn-outline-primary ms-3 flex-shrink-0">
-                                        Selengkapnya
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    @empty
-                        <div class="alert alert-info">
-                            Tidak ada istilah medis untuk huruf <strong>{{ $activeLetter }}</strong>.
-                        </div>
-                    @endforelse --}}
+        {{-- ===================================================== --}}
+        {{-- ======================Glosarium====================== --}}
+        {{-- ===================================================== --}}
 
 
-                    {{-- Daftar Istilah (dikelompokkan per 2 huruf) --}}
-                    @if(count($glossary) > 0)
-                        @foreach($glossary as $prefix => $items)
+        <section id="glosarium">
+            <div class="container">
+                <div class="title text-center">
+                    <h2 class="display-8 fw-bold section-title">Kamus Medis Elisabeth</h2>
+                </div>
+                <div class="glosarium-container py-5">
+                    <section class="content-body">
+                        @if(count($glossary) > 0)
+                            @foreach($glossary as $prefix => $items)
 
-                            {{-- Header grup: "Ba", "Bi", "Ca", dst --}}
-                            <h4 class="fw-bold mt-4 mb-2 border-bottom pb-1">{{ $prefix }}</h4>
+                                {{-- Header grup: "Ba", "Bi", "Ca", dst --}}
+                                <h4 class="fw-bold mt-4 mb-2 border-bottom pb-1">{{ $prefix }}</h4>
 
-                            @foreach($items as $item)
-                                <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-                                    <a href="{{ route('glossary.show', urlencode($item['istilah'])) }}"
-                                    class="text-decoration-none text-dark fs-6">
-                                        {{ $item['istilah'] }}
-                                    </a>
-                                </div>
-                            @endforeach
-
-                        @endforeach
-                    @else
-                        <div class="alert alert-info mt-3">
-                            Tidak ada istilah medis untuk huruf <strong>{{ $activeLetter }}</strong>.
-                        </div>
-                    @endif
-                </section>
-                {{-- <div class="row cards">
-                    @forelse ($glossary as $glosarium)
-                        <div class="col-12 col-md-4 mb-4">
-                            <div class="card h-100 shadow-sm border-0">
-                                <div class="card-body row">
-                                    <div class="col-12">
-                                        <h5 class="card-text" style="text-transform: capitalize">{{ $glosarium['istilah'] }}</h5>
-                                        <p class="mb-0 text-muted small card-description">{{ Str::limit($glosarium['deskripsi'], 180) }}</p>
-                                    </div>
-                                    <div class="col-12">
-                                        <a href="{{ route('glossary.show', urlencode($glosarium['istilah'])) }}"
-                                        class="btn btn-sm btn-outline-primary w-100">
-                                            Selengkapnya
+                                @foreach($items as $item)
+                                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                                        <a href="{{ route('glossary.show', urlencode($item['istilah'])) }}"
+                                        class="text-decoration-none text-dark fs-6">
+                                            {{ $item['istilah'] }}
                                         </a>
                                     </div>
-                                </div>
+                                @endforeach
+
+                            @endforeach
+                        @else
+                            <div class="alert alert-info mt-3">
+                                Tidak ada istilah medis untuk huruf <strong>{{ $activeLetter }}</strong>.
                             </div>
-                        </div>
-                    @empty
-                        <div class="alert alert-info">
-                            Tidak ada istilah medis untuk huruf <strong>{{ $activeLetter }}</strong>.
-                        </div>
-                    @endforelse
-                </div> --}}
+                        @endif
+                    </section>
+                    <section class="content-side">
+
+                    </section>
+                </div>
             </div>
         </section>
 
-        
-
-        <div id="glossarySearchResults" class="list-group position-absolute w-100 shadow-sm" style="z-index: 1000; display: none;">
-            {{-- Hasil pencarian akan di-render di sini oleh JS --}}
-        </div>
+        <section id="glosarium-search-result">
+            <div class="container">
+                <div id="glossarySearchResults" class="list-group">
+                    {{-- Hasil pencarian akan di-render di sini oleh JS --}}
+                </div>
+            </div>
+        </section>
 
 
 
