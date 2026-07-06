@@ -293,3 +293,8 @@ section#advertisement a:hover{
         height:220px;
     }
 }
+
+section#glosarium .glosarium-container {
+	display: grid;
+	grid-template-columns: 1fr 45%;
+}
