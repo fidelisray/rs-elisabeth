@@ -7,6 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Kamus Medis</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
         @vite([
             'resources/js/navbar/navbar.js',
             'resources/js/glosarium/glosarium.js',
@@ -84,7 +85,7 @@
                 </div>
             </div>
         </nav>
-        <section class="hero-section">
+        <section id="hero-section">
             <div class="container">
 
                 <!-- Breadcrumb -->
@@ -145,6 +146,99 @@
                 </div>
             </div>
         </section>
+
+        <section id="advertisement">
+            {{-- <div class="content-container container advertisement-content">
+                <div class="row row-1 g-2 mt-4">
+                    <div class="container col-12 glossary-content-1">
+                        <div class="title-header">
+                            <h5 class="title">Kenali Sedari Dini</h5>
+                            <p class="description">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, doloremque!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-2 g-2">
+                    <div class="container col-12 col-md-6 gossary-content-2">
+                        <h5 class="title">Advertisement 1</h5>
+                        <p class="description">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, quaerat?
+                        </p>
+                    </div>
+                    <div class="container col-12 col-md-6 gossary-content-3">
+                        <h5 class="title">Advertisement 2</h5>
+                        <p class="description">
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat, error.
+                        </p>
+                    </div>
+                </div>
+            </div> --}}
+            <div class="container">
+                <!-- Card 1 -->
+                <section class="ads-card ads-card-large">
+                    <div class="ads-card-content">
+                        <i class="bi bi-heart-pulse icon"></i>
+                        <h2>Symptom Checker</h2>
+                        <p>
+                            Find out what could be causing your
+                            symptoms and when to seek care.
+                        </p>
+                        <a href="#">
+                            Check symptoms
+                            <i class="bi bi-chevron-right"></i>
+                        </a>
+                    </div>
+                    <div class="ads-card-image blue"></div>
+                </section>
+
+                <!-- Card 2 -->
+                <section class="ads-card">
+                    <i class="bi bi-beaker icon"></i>
+                    <h3>Clinical trials</h3>
+                    <p>
+                        Search for clinical trials by disease,
+                        treatment, or drug name.
+                    </p>
+                    <a href="#">
+                        Search clinical trials
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                </section>
+
+                <!-- Card 3 -->
+                <section class="ads-card">
+                    <i class="bi bi-people icon"></i>
+                    <h3>Connect to support groups</h3>
+                    <p>
+                        Share your experiences and find support
+                        in our online communities.
+                    </p>
+                    <a href="#">
+                        Find a support group
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                </section>
+
+                <!-- Card 4 -->
+                <section class="ads-card ads-card-large">
+                    <div class="ads-card-content dark">
+                        <h2>
+                            Elisameds
+                        </h2>
+                        <p>
+                            Elisameds, mobile apps RS St. Elisabeth Semarang
+                        </p>
+                        <a href="#">
+                            Learn about Elisameds
+                            <i class="bi bi-chevron-right"></i>
+                        </a>
+                    </div>
+                    <div class="ads-card-image dark-blue"></div>
+                </section>
+            </div>
+        </section>
+
         <section id="promotions"> {{-- change the id name later --}}
             <div class="title text-center">
                 <h2 class="display-8 fw-bold section-title">Kamus Medis</h2>
@@ -243,6 +337,7 @@
             </div>
         </section>
 
+        
 
         <div id="glossarySearchResults" class="list-group position-absolute w-100 shadow-sm" style="z-index: 1000; display: none;">
             {{-- Hasil pencarian akan di-render di sini oleh JS --}}
