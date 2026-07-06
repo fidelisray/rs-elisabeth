@@ -147,113 +147,113 @@
             </div>
         </section>
 
-        <section id="advertisement">
-            <div class="container">
-                <!-- Card 1 -->
-                <section class="ads-card ads-card-large">
-                    <div class="ads-card-content">
-                        <i class="bi bi-heart-pulse icon"></i>
-                        <h2>Symptom Checker</h2>
+        @if ($mode === 'ads')
+            <section id="advertisement">
+                <div class="container">
+                    <!-- Card 1 -->
+                    <section class="ads-card ads-card-large">
+                        <div class="ads-card-content">
+                            <i class="bi bi-heart-pulse icon"></i>
+                            <h2>Symptom Checker</h2>
+                            <p>
+                                Find out what could be causing your
+                                symptoms and when to seek care.
+                            </p>
+                            <a href="#">
+                                Check symptoms
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </div>
+                        <div class="ads-card-image blue"></div>
+                    </section>
+
+                    <!-- Card 2 -->
+                    <section class="ads-card">
+                        <i class="bi bi-beaker icon"></i>
+                        <h3>Clinical trials</h3>
                         <p>
-                            Find out what could be causing your
-                            symptoms and when to seek care.
+                            Search for clinical trials by disease,
+                            treatment, or drug name.
                         </p>
                         <a href="#">
-                            Check symptoms
+                            Search clinical trials
                             <i class="bi bi-chevron-right"></i>
                         </a>
-                    </div>
-                    <div class="ads-card-image blue"></div>
-                </section>
+                    </section>
 
-                <!-- Card 2 -->
-                <section class="ads-card">
-                    <i class="bi bi-beaker icon"></i>
-                    <h3>Clinical trials</h3>
-                    <p>
-                        Search for clinical trials by disease,
-                        treatment, or drug name.
-                    </p>
-                    <a href="#">
-                        Search clinical trials
-                        <i class="bi bi-chevron-right"></i>
-                    </a>
-                </section>
-
-                <!-- Card 3 -->
-                <section class="ads-card">
-                    <i class="bi bi-people icon"></i>
-                    <h3>Connect to support groups</h3>
-                    <p>
-                        Share your experiences and find support
-                        in our online communities.
-                    </p>
-                    <a href="#">
-                        Find a support group
-                        <i class="bi bi-chevron-right"></i>
-                    </a>
-                </section>
-
-                <!-- Card 4 -->
-                <section class="ads-card ads-card-large">
-                    <div class="ads-card-content dark">
-                        <h2>
-                            Elisameds
-                        </h2>
+                    <!-- Card 3 -->
+                    <section class="ads-card">
+                        <i class="bi bi-people icon"></i>
+                        <h3>Connect to support groups</h3>
                         <p>
-                            Elisameds, mobile apps RS St. Elisabeth Semarang
+                            Share your experiences and find support
+                            in our online communities.
                         </p>
                         <a href="#">
-                            Learn about Elisameds
+                            Find a support group
                             <i class="bi bi-chevron-right"></i>
                         </a>
-                    </div>
-                    <div class="ads-card-image dark-blue"></div>
-                </section>
-            </div>
-        </section>
+                    </section>
 
-
-        {{-- ===================================================== --}}
-        {{-- ======================Glosarium====================== --}}
-        {{-- ===================================================== --}}
-
-
-        <section id="glosarium">
-            <div class="container">
-                <div class="title text-center">
-                    <h2 class="display-8 fw-bold section-title">Kamus Medis Elisabeth</h2>
+                    <!-- Card 4 -->
+                    <section class="ads-card ads-card-large">
+                        <div class="ads-card-content dark">
+                            <h2>
+                                Elisameds
+                            </h2>
+                            <p>
+                                Elisameds, mobile apps RS St. Elisabeth Semarang
+                            </p>
+                            <a href="#">
+                                Learn about Elisameds
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </div>
+                        <div class="ads-card-image dark-blue"></div>
+                    </section>
                 </div>
-                <div class="glosarium-container py-5">
-                    <section class="content-body">
-                        @if(count($glossary) > 0)
-                            @foreach($glossary as $prefix => $items)
+            </section>
+        @elseif ($mode === 'glosarium')
 
-                                {{-- Header grup: "Ba", "Bi", "Ca", dst --}}
-                                <h4 class="fw-bold mt-4 mb-2 border-bottom pb-1">{{ $prefix }}</h4>
+            <section id="glosarium">
+                <div class="container">
+                    <div class="title text-center">
+                        <h2 class="display-8 fw-bold section-title">Kamus Medis Elisabeth</h2>
+                    </div>
+                    <div class="glosarium-container py-5">
+                        <section class="content-body">
+                            @if(count($glossary) > 0)
+                                @foreach($glossary as $prefix => $items)
 
-                                @foreach($items as $item)
-                                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-                                        <a href="{{ route('glossary.show', urlencode($item['istilah'])) }}"
-                                        class="text-decoration-none text-dark fs-6">
-                                            {{ $item['istilah'] }}
-                                        </a>
-                                    </div>
+                                    {{-- Header grup: "Ba", "Bi", "Ca", dst --}}
+                                    <h4 class="fw-bold mt-4 mb-2 border-bottom pb-1">{{ $prefix }}</h4>
+
+                                    @foreach($items as $item)
+                                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                                            <a href="{{ route('glossary.show', urlencode($item['istilah'])) }}"
+                                            class="text-decoration-none text-dark fs-6">
+                                                {{ $item['istilah'] }}
+                                            </a>
+                                        </div>
+                                    @endforeach
+
                                 @endforeach
+                            @else
+                                <div class="alert alert-info mt-3">
+                                    Tidak ada istilah medis untuk huruf <strong>{{ $activeLetter }}</strong>.
+                                </div>
+                            @endif
+                        </section>
+                        <section class="content-side">
 
-                            @endforeach
-                        @else
-                            <div class="alert alert-info mt-3">
-                                Tidak ada istilah medis untuk huruf <strong>{{ $activeLetter }}</strong>.
-                            </div>
-                        @endif
-                    </section>
-                    <section class="content-side">
-
-                    </section>
+                        </section>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+
+        @endif
+
+
 
         <section id="glosarium-search-result">
             <div class="container">

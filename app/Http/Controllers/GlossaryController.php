@@ -28,11 +28,12 @@ class GlossaryController extends Controller
     {
         // Ambil filter huruf dari query string (?letter=A), default 'ALL'
         $activeLetter = strtoupper($request->query('letter', 'ALL'));
-
+        
         // Validasi: harus huruf A-Z atau ALL
         if ($activeLetter !== 'ALL' && !preg_match('/^[A-Z]$/', $activeLetter)) {
             $activeLetter = 'ALL';
         }
+
 
         // Ambil data (dari cache kalau ada, dari API kalau tidak)
         // $glossary = $this->apiService->getGlossaryByLetter($activeLetter);
@@ -47,9 +48,27 @@ class GlossaryController extends Controller
             ->values()
             ->toArray();
 
-        // return view('glossary.index', compact('glossary', 'activeLetter', 'availableLetters'));
 
-        return view('glosarium.index', compact('glossary', 'activeLetter', 'availableLetters'));
+
+        if ($activeLetter === 'ALL') {
+            return view('glosarium.index', [
+                'mode' => 'ads',
+                'glossary' => null,
+                'activeLetter' => 'ALL',
+                'availableLetters' => null
+            ]);
+        } else {
+    
+            // return view('glossary.index', compact('glossary', 'activeLetter', 'availableLetters'));
+    
+            // return view('glosarium.index', compact('glossary', 'activeLetter', 'availableLetters'));
+            return view('glosarium.index', [
+                'mode' => 'glosarium',
+                'glossary' => $glossary,
+                'activeLetter' => $activeLetter,
+                'availableLetters' => $availableLetters
+            ]);
+        }
     }
 
     /**
