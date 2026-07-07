@@ -92,8 +92,12 @@
                 <nav class="hero-breadcrumb" aria-label="breadcrumb">
                     <ol class="breadcrumb flex-wrap">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Kamus Medis</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Begins with 'A'</li>
+                        @if (preg_match('/^[A-Z]$/', $activeLetter))
+                            <li class="breadcrumb-item"><a href="{{ route('glossary.index') }}">Kamus Medis</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Begins with '{{ $activeLetter }}'</li>
+                        @else    
+                            <li class="breadcrumb-item active"><a href="{{ route('glossary.index') }}">Kamus Medis</a></li>
+                        @endif
                     </ol>
                 </nav>
 
@@ -121,22 +125,22 @@
                             </form>
                         </div>
                     </div>
-
+                    
                     <!-- Kolom kanan: Grid huruf A-Z -->
                     <div class="col-12 col-lg-6 mt-4 mt-lg-0 d-flex flex-column align-items-start align-items-lg-end">
                         <div class="letter-panel-label">Find diseases &amp; conditions by first letter</div>
                             <div class="letter-grid">
                                 {{-- <a href="#" class="letter-btn active">A</a> --}}
-                                <a href="{{ route('glossary.index') }}"
+                                {{-- <a href="{{ route('glossary.index') }}"
                                     class="letter-btn {{ $activeLetter === 'ALL' ? 'btn-primary' : 'btn-outline-secondary' }}">
                                     All
-                                </a>
+                                </a> --}}
                                 @foreach(range('A', 'Z') as $letter)
                                     @php $hasItems = in_array($letter, $availableLetters); @endphp
                                     <a href="{{ $hasItems ? route('glossary.index', ['letter' => $letter]) : '#' }}"
                                     class="letter-btn
-                                        $activeLetter===$letter?'btn-primary':($hasItems?'btn-outline-secondary':'btn-outline-lighttext-muted')"
-                                    {{ !$hasItems ? 'aria-disabled=true' : '' }}>
+                                        {{ $activeLetter === $letter ? 'active' : (!$hasItems ? 'btn-muted' : '') }}"
+                                        {{ !$hasItems ? 'aria-disabled=true' : '' }}>
                                         {{ $letter }}
                                     </a>
                                 @endforeach
@@ -214,7 +218,7 @@
                 </div>
             </section>
         @elseif ($mode === 'glosarium')
-
+            <div class="container mt-4"></div>
             <section id="glosarium">
                 <div class="container">
                     <div class="title text-center">

@@ -53,9 +53,9 @@ class GlossaryController extends Controller
         if ($activeLetter === 'ALL') {
             return view('glosarium.index', [
                 'mode' => 'ads',
-                'glossary' => null,
+                'glossary' => $glossary,
                 'activeLetter' => 'ALL',
-                'availableLetters' => null
+                'availableLetters' => $availableLetters,
             ]);
         } else {
     
