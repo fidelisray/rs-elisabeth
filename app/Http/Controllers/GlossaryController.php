@@ -111,4 +111,36 @@ class GlossaryController extends Controller
         // dd($results);
         return response()->json($results);
     }
+
+    public function tampil_data() {
+        // 1. Ambil file JSON dari storage
+        $jsonPath = storage_path('app/json/hasil_scraping2.json');
+        
+        if (!file_exists($jsonPath)) {
+            abort(404, "File data tidak ditemukan.");
+        }
+
+        $jsonContent = file_get_contents($jsonPath);
+        $rawData = json_decode($jsonContent, true);
+
+        $glossaryData = [];
+
+        // 2. Olah struktur data agar lebih mudah di-loop di Blade
+        foreach ($rawData['data'] as $disease) {
+            foreach ($disease as $slug => $details) {
+                // Mengubah "atrial-fibrillation" menjadi "Atrial Fibrillation"
+                $formattedTitle = ucwords(str_replace('-', ' ', $slug));
+
+                $glossaryData[] = [
+                    'slug' => $slug,
+                    'title' => $formattedTitle,
+                    'url' => $details['url'],
+                    'sections' => $details['sections']
+                ];
+            }
+        }
+
+        // 3. Kirim data ke view
+        return view('glosarium.gemini', compact('glossaryData'));
+    }
 }
