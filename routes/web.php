@@ -21,7 +21,14 @@ Route::get('/promotions', [HospitalController::class, 'getPromotions'])->name('g
 Route::prefix('glosarium')->name('glossary.')->group(function () {
     Route::get('/',       [GlossaryController::class, 'index'])  ->name('index');
     // Route::get('/cari',   [GlossaryController::class, 'search']) ->name('search');
+    
     Route::get('/glosary-gemini', [GlossaryController::class, 'tampil_data'])->name('gemini');
+    // Rute untuk halaman daftar huruf A-Z
+    Route::get('/diseases-conditions', [GlossaryController::class, 'gemini_index'])->name('gemini');
+    // Rute untuk halaman detail penyakit (URL unik per penyakit)
+    Route::get('/diseases-conditions/{slug}', [GlossaryController::class, 'gemini_show'])->name('gemini.show');
+    
+    
     Route::get('/cari',   [GlossaryController::class, 'search']) ->name('search');
     Route::get('/{term}', [GlossaryController::class, 'show'])   ->name('show');
 });

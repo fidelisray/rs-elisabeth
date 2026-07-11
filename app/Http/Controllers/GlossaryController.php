@@ -143,4 +143,71 @@ class GlossaryController extends Controller
         // 3. Kirim data ke view
         return view('glosarium.gemini', compact('glossaryData'));
     }
+
+
+
+    // Helper untuk membaca file JSON
+    private function getJsonData()
+    {
+        $jsonPath = storage_path('app/json/hasil_scraping2.json');
+        if (!file_exists($jsonPath)) {
+            abort(404, "File data tidak ditemukan.");
+        }
+        return json_decode(file_get_contents($jsonPath), true)['data'];
+    }
+
+    // Menampilkan halaman A-Z dan daftar penyakit
+    public function gemini_index(Request $request)
+    {
+        // Tangkap parameter '?letter=' dari URL. Jika kosong, default ke huruf 'A'
+        $activeLetter = strtoupper($request->query('letter', 'A')); 
+        
+        $rawData = $this->getJsonData();
+        $filteredDiseases = [];
+
+        foreach ($rawData as $disease) {
+            foreach ($disease as $slug => $details) {
+                $title = ucwords(str_replace('-', ' ', $slug));
+                
+                // Filter: Hanya ambil penyakit yang huruf pertamanya cocok dengan parameter URL
+                if (strtoupper(substr($title, 0, 1)) === $activeLetter) {
+                    $filteredDiseases[] = [
+                        'slug' => $slug,
+                        'title' => $title
+                    ];
+                }
+            }
+        }
+
+        // Urutkan alfabetis
+        usort($filteredDiseases, function($a, $b) {
+            return strcmp($a['title'], $b['title']);
+        });
+
+        $alphabets = range('A', 'Z');
+
+        return view('glosarium.gemini', compact('filteredDiseases', 'alphabets', 'activeLetter'));
+    }
+
+    // Menampilkan halaman spesifik 1 penyakit
+    public function gemini_show(string $slug)
+    {
+        $rawData = $this->getJsonData();
+        $diseaseData = null;
+        $title = ucwords(str_replace('-', ' ', $slug));
+
+        // Cari penyakit yang slug-nya cocok dengan URL
+        foreach ($rawData as $disease) {
+            if (isset($disease[$slug])) {
+                $diseaseData = $disease[$slug];
+                break;
+            }
+        }
+
+        if (!$diseaseData) {
+            abort(404, "Penyakit tidak ditemukan.");
+        }
+
+        return view('glosarium.gemini-show', compact('diseaseData', 'title', 'slug'));
+    }
 }
