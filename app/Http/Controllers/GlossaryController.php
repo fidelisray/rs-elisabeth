@@ -178,47 +178,85 @@ class GlossaryController extends Controller
         return json_decode(file_get_contents($jsonPath), true)['data'];
     }
 
-    // Menampilkan halaman A-Z dan daftar penyakit
+    // Menampilkan halaman A-Z dan daftar penyakit untuk versi Gemini
     public function gemini_index(Request $request)
     {
-        // Tangkap parameter '?letter=' dari URL. Jika kosong, default ke huruf 'A'
-        $activeLetter = strtoupper($request->query('letter', 'A')); 
+        $keyword = trim($request->query('q', ''));
+        $activeLetter = strtoupper($request->query('letter', 'ALL'));
         
-        $rawData = $this->getJsonData();
-        $filteredDiseases = [];
-
-        foreach ($rawData as $disease) {
-            foreach ($disease as $slug => $details) {
-                $title = ucwords(str_replace('-', ' ', $slug));
-                
-                // Filter: Hanya ambil penyakit yang huruf pertamanya cocok dengan parameter URL
-                if (strtoupper(substr($title, 0, 1)) === $activeLetter) {
-                    $filteredDiseases[] = [
-                        'slug' => $slug,
-                        'title' => $title
-                    ];
-                }
-            }
+        if ($activeLetter !== 'ALL' && !preg_match('/^[A-Z]$/', $activeLetter)) {
+            $activeLetter = 'ALL';
         }
 
-        // Urutkan alfabetis
-        usort($filteredDiseases, function($a, $b) {
-            return strcmp($a['title'], $b['title']);
-        });
+        $rawData = $this->getJsonData();
+        
+        $allItems = [];
+        foreach ($rawData as $disease) {
+            foreach ($disease as $slug => $details) {
+                $allItems[] = [
+                    'slug' => $slug,
+                    'istilah' => ucwords(str_replace('-', ' ', $slug)),
+                    'deskripsi' => '', // Gemini version might not have a simple description field in the list, but we can map it if needed
+                    'details' => $details
+                ];
+            }
+        }
+        $allItems = collect($allItems);
 
-        $alphabets = range('A', 'Z');
+        $availableLetters = $allItems
+            ->map(fn($item) => strtoupper(substr($item['istilah'], 0, 1)))
+            ->unique()
+            ->sort()
+            ->values()
+            ->toArray();
 
-        return view('glosarium.gemini.index', compact('filteredDiseases', 'alphabets', 'activeLetter'));
+        if ($keyword !== '') {
+            $glossary = $allItems
+                ->filter(function($item) use ($keyword) {
+                    return str_contains(strtolower($item['istilah']), strtolower($keyword));
+                })
+                ->groupBy(function ($item) {
+                    return ucfirst(substr($item['istilah'], 0, 2));
+                })
+                ->sortKeys()
+                ->toArray();
+
+            return view('glosarium.gemini.index', [
+                'mode' => 'glosarium',
+                'glossary' => $glossary,
+                'activeLetter' => 'ALL',
+                'availableLetters' => $availableLetters,
+                'keyword' => $keyword
+            ]);
+        }
+
+        $glossary = $allItems
+            ->filter(function($item) use ($activeLetter) {
+                if ($activeLetter === 'ALL') return true;
+                return strtoupper(substr($item['istilah'], 0, 1)) === $activeLetter;
+            })
+            ->groupBy(function ($item) {
+                return ucfirst(substr($item['istilah'], 0, 2));
+            })
+            ->sortKeys()
+            ->toArray();
+
+        return view('glosarium.gemini.index', [
+            'mode' => $activeLetter === 'ALL' ? 'ads' : 'glosarium',
+            'glossary' => $glossary,
+            'activeLetter' => $activeLetter,
+            'availableLetters' => $availableLetters,
+            'keyword' => ''
+        ]);
     }
 
-    // Menampilkan halaman spesifik 1 penyakit
+    // Menampilkan halaman spesifik 1 penyakit untuk versi Gemini
     public function gemini_show(string $slug)
     {
         $rawData = $this->getJsonData();
         $diseaseData = null;
         $title = ucwords(str_replace('-', ' ', $slug));
 
-        // Cari penyakit yang slug-nya cocok dengan URL
         foreach ($rawData as $disease) {
             if (isset($disease[$slug])) {
                 $diseaseData = $disease[$slug];
@@ -230,6 +268,15 @@ class GlossaryController extends Controller
             abort(404, "Penyakit tidak ditemukan.");
         }
 
-        return view('glosarium.gemini.show', compact('diseaseData', 'title', 'slug'));
+        // Build $item array similar to what glosarium/show.blade.php expects
+        $item = [
+            'slug' => $slug,
+            'istilah' => $title,
+            // You can extract a proper description from sections if needed
+            'deskripsi' => '', 
+            'details' => $diseaseData
+        ];
+
+        return view('glosarium.gemini.show', compact('item'));
     }
 }
