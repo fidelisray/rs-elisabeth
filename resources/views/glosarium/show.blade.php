@@ -93,17 +93,13 @@
             <div class="container">
 
                 <!-- Breadcrumb -->
-                {{-- <nav class="hero-breadcrumb" aria-label="breadcrumb">
+                <nav class="hero-breadcrumb" aria-label="breadcrumb">
                     <ol class="breadcrumb flex-wrap">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        @if (preg_match('/^[A-Z]$/', $activeLetter))
-                            <li class="breadcrumb-item"><a href="{{ route('glossary.index') }}">Kamus Medis</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Begins with '{{ $activeLetter }}'</li>
-                        @else    
-                            <li class="breadcrumb-item active"><a href="{{ route('glossary.index') }}">Kamus Medis</a></li>
-                        @endif
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('glossary.index') }}">Kamus Medis</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ $item['istilah'] ?? '' }}</li>
                     </ol>
-                </nav> --}}
+                </nav>
 
                 <div class="row">
                     <!-- Kolom kiri: Judul, subjudul, search -->
@@ -176,15 +172,24 @@
 
         
         
-        <section class="glosarium">
-            <div class="container py-4">
-                <div class="row">
-                    <h1 class="title">
-                        {{ $istilah }}
-                    </h1>
-                    <p class="deskripsi-">
-                        {{ $deskripsi }}
-                    </p>
+        <section class="glosarium-detail bg-light py-5">
+            <div class="container">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body p-4 p-md-5">
+                        <h1 class="title mb-4 fw-bold" style="color: #0b5c96;">
+                            {{ $item['istilah'] ?? 'Istilah Tidak Ditemukan' }}
+                        </h1>
+                        <hr class="mb-4">
+                        <div class="deskripsi-text fs-5 text-secondary" style="line-height: 1.8;">
+                            {{ $item['deskripsi'] ?? 'Deskripsi tidak tersedia untuk istilah ini.' }}
+                        </div>
+                        
+                        <div class="mt-5">
+                            <a href="{{ route('glossary.index') }}" class="btn btn-outline-primary">
+                                <i class="fa-solid fa-arrow-left me-2"></i> Kembali ke Kamus Medis
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

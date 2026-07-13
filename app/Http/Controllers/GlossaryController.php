@@ -84,7 +84,7 @@ class GlossaryController extends Controller
         // dd($item);
 
         // return view('glossary.show', compact('item'));
-        return view('glosarium.index', compact('item'));
+        return view('glosarium.show', compact('item'));
     }
 
     /**
@@ -141,7 +141,7 @@ class GlossaryController extends Controller
         }
 
         // 3. Kirim data ke view
-        return view('glosarium.gemini', compact('glossaryData'));
+        return view('glosarium.index', compact('glossaryData'));
     }
 
 
@@ -149,7 +149,7 @@ class GlossaryController extends Controller
     // Helper untuk membaca file JSON
     private function getJsonData()
     {
-        $jsonPath = storage_path('app/json/hasil_scraping2.json');
+        $jsonPath = storage_path('app/json/hasil_scraping.json');
         if (!file_exists($jsonPath)) {
             abort(404, "File data tidak ditemukan.");
         }
@@ -186,7 +186,7 @@ class GlossaryController extends Controller
 
         $alphabets = range('A', 'Z');
 
-        return view('glosarium.gemini', compact('filteredDiseases', 'alphabets', 'activeLetter'));
+        return view('glosarium.gemini.index', compact('filteredDiseases', 'alphabets', 'activeLetter'));
     }
 
     // Menampilkan halaman spesifik 1 penyakit
@@ -208,6 +208,6 @@ class GlossaryController extends Controller
             abort(404, "Penyakit tidak ditemukan.");
         }
 
-        return view('glosarium.gemini-show', compact('diseaseData', 'title', 'slug'));
+        return view('glosarium.gemini.show', compact('diseaseData', 'title', 'slug'));
     }
 }
