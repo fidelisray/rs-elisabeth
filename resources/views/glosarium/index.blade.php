@@ -134,19 +134,26 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                             </svg>
-                            <form id="glossarySearchForm" role="search" autocomplete="off" class="d-flex w-100 align-items-center gap-2">
+                            <form action="{{ route('glossary.index') }}" method="GET" id="glossarySearchForm" role="search" autocomplete="off" class="d-flex w-100 align-items-center gap-2">
                                 <input
                                     type="text"
                                     id="glossarySearchInput"
                                     name="q"
+                                    value="{{ request('q') }}"
                                     class="form-control"
                                     placeholder="Cari istilah medis..."
                                     minlength="2"
                                     autocomplete="off"
                                 >
-                                <button type="button" id="resetSearchBtn" class="btn btn-outline-danger" style="display: none;">
-                                    Reset
-                                </button>
+                                @if(request('q'))
+                                    <a href="{{ route('glossary.index') }}" id="resetSearchBtn" class="btn btn-outline-danger">
+                                        Reset
+                                    </a>
+                                @else
+                                    <button type="submit" class="btn btn-outline-success">
+                                        Cari
+                                    </button>
+                                @endif
                             </form>
                         </div>
 
@@ -276,8 +283,12 @@
 
                                     @endforeach
                                 @else
-                                    <div class="alert alert-info mt-3">
-                                        Tidak ada istilah medis untuk huruf <strong>{{ $activeLetter }}</strong>.
+                                    <div class="alert alert-info mt-3 fs-5">
+                                        @if(isset($keyword) && $keyword !== '')
+                                            Mohon maaf data yang anda inputkan <strong>{{ $keyword }}</strong> saat ini belum tersedia.
+                                        @else
+                                            Tidak ada istilah medis untuk huruf <strong>{{ $activeLetter }}</strong>.
+                                        @endif
                                     </div>
                                 @endif
                             </section>

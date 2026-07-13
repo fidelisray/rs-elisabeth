@@ -26,6 +26,7 @@ class GlossaryController extends Controller
      */
     public function index(Request $request)
     {
+        $keyword = trim($request->query('q', ''));
         // Ambil filter huruf dari query string (?letter=A), default 'ALL'
         $activeLetter = strtoupper($request->query('letter', 'ALL'));
         
@@ -33,11 +34,6 @@ class GlossaryController extends Controller
         if ($activeLetter !== 'ALL' && !preg_match('/^[A-Z]$/', $activeLetter)) {
             $activeLetter = 'ALL';
         }
-
-
-        // Ambil data (dari cache kalau ada, dari API kalau tidak)
-        // $glossary = $this->apiService->getGlossaryByLetter($activeLetter);
-        $glossary = $this->apiService->getGlossaryGrouped($activeLetter);
 
         // Hitung huruf yang tersedia untuk navigasi A-Z
         $allItems       = $this->apiService->getGlosarium();
@@ -48,7 +44,31 @@ class GlossaryController extends Controller
             ->values()
             ->toArray();
 
+        // Jika ada pencarian
+        if ($keyword !== '') {
+            $glossary = collect($allItems)
+                ->filter(function($item) use ($keyword) {
+                    return str_contains(strtolower($item['istilah']), strtolower($keyword)) || 
+                           str_contains(strtolower($item['deskripsi']), strtolower($keyword));
+                })
+                ->groupBy(function ($item) {
+                    return ucfirst(substr($item['istilah'], 0, 2));
+                })
+                ->sortKeys()
+                ->toArray();
 
+            return view('glosarium.index', [
+                'mode' => 'glosarium',
+                'glossary' => $glossary,
+                'activeLetter' => 'ALL',
+                'availableLetters' => $availableLetters,
+                'keyword' => $keyword
+            ]);
+        }
+
+        // Ambil data (dari cache kalau ada, dari API kalau tidak)
+        // $glossary = $this->apiService->getGlossaryByLetter($activeLetter);
+        $glossary = $this->apiService->getGlossaryGrouped($activeLetter);
 
         if ($activeLetter === 'ALL') {
             return view('glosarium.index', [
@@ -56,6 +76,7 @@ class GlossaryController extends Controller
                 'glossary' => $glossary,
                 'activeLetter' => 'ALL',
                 'availableLetters' => $availableLetters,
+                'keyword' => ''
             ]);
         } else {
     
@@ -66,7 +87,8 @@ class GlossaryController extends Controller
                 'mode' => 'glosarium',
                 'glossary' => $glossary,
                 'activeLetter' => $activeLetter,
-                'availableLetters' => $availableLetters
+                'availableLetters' => $availableLetters,
+                'keyword' => ''
             ]);
         }
     }
