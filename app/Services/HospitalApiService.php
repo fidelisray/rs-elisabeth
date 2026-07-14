@@ -12,8 +12,8 @@ class HospitalApiService
     protected string $apiKey;
     protected int $timeout;
 
-    protected const TOKEN_CACHE_KEY = null;
-    // protected const TOKEN_CACHE_KEY = 'hospital_api_token';
+    // protected const TOKEN_CACHE_KEY = null;
+    protected const TOKEN_CACHE_KEY = 'hospital_api_token';
 
     public function __construct()
     {
@@ -265,11 +265,32 @@ class HospitalApiService
      */
     public function refreshGlossaryCache(): array
     {
-        Cache::forget('glosarium_');
-        Log::info('Glossary cache cleared — refreshing...');
+        // 1. Coba ambil data baru langsung dari API (bypass cache)
+        try {
+            $response = $this->requestWithRetry('GET', '/glossarium');
+            $data = $response['Data'] ?? [];
 
-        return $this->getGlosarium();
+            // 2. Jika data berhasil ditarik dan TIDAK kosong, timpa cache lama
+            if (!empty($data)) {
+                usort($data, fn($a, $b) => strcasecmp($a['istilah'], $b['istilah']));
+                
+                $ttl = config('rsapi.cache_ttl.glosarium');
+                Cache::put('glosarium_', $data, $ttl);
+                
+                Log::info('Glossary cache refreshed successfully with fresh API data.');
+                return $data;
+            }
+        } catch (\Exception $e) {
+            Log::error('Failed to connect to API during glossary cache refresh: ' . $e->getMessage());
+        }
+
+        // 3. Jika API gagal / kosong, jangan hapus cache lama!
+        Log::warning('Failed to refresh glossary cache: API offline or returned empty. Keeping old cache.');
+        
+        // Kembalikan cache lama yang masih ada agar command tidak error
+        return Cache::get('glosarium_') ?? [];
     }
+
 
     /**
      * Filter glossary berdasarkan huruf awal.
