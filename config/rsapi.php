@@ -16,5 +16,6 @@ return [
 
     'cache_ttl' => [
         'promotions' => 1800,
+        'glosarium' => 86400,
     ],
 ];
