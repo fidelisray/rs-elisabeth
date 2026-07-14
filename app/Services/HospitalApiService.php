@@ -208,7 +208,7 @@ class HospitalApiService
     }
 
     /**
-     * Ambil daftar dokter, 
+     * Ambil daftar promoitions, 
      * setup cache 
      */
     public function getPromotionsList(string $category): array
