@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap");
 
 :root {
     /* --primary-color: #2F9DFE; */
@@ -18,7 +18,7 @@
     --inactive-bg-color: #d2d2d2;
     --inactive-fg-color: #aaaaaa;
 
-    --shadow-sticky: 0 6px 24px rgba(15, 23, 42, 0.10);
+    --shadow-sticky: 0 6px 24px rgba(15, 23, 42, 0.1);
 }
 
 * {
@@ -46,7 +46,6 @@
 .ambulance-call span {
     font-size: 1.2rem;
     font-weight: 600;
-
 }
 
 /* section#quick-access {
@@ -69,9 +68,9 @@ nav#second-navbar {
     z-index: 100;
     background-color: var(--primary-color);
     transition:
-      padding 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-      box-shadow 0.35s ease,
-      background-color 0.35s ease;
+        padding 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.35s ease,
+        background-color 0.35s ease;
 }
 
 /* Class ini ditambahkan via JS saat navbar "menempel" di atas */
@@ -82,19 +81,17 @@ nav#second-navbar.is-stuck {
     box-shadow: var(--shadow-sticky);
 }
 
-
 /* .second-nav-body {
     width: 85vw;
 } */
 
 nav#second-navbar .second-nav-body ul.nav-content .nav-item .nav-link {
-    
     padding: 0.2rem 0.8rem;
     border-radius: 1.5rem;
     color: #edfbff;
     font-weight: 500;
     position: relative;
-    
+
     transition: all 0.5s ease-out;
 }
 
@@ -104,7 +101,7 @@ nav#second-navbar .second-nav-body ul.nav-content .nav-item .nav-link:hover {
     transform: scaleX(1);
 }
 
-nav#second-navbar.is-stuck .second-nav-body ul.nav-content .nav-item .nav-link::before {
+nav#second-navbar.is-stuck .nav-link::before {
     content: "";
     position: absolute;
     left: 0;
@@ -117,54 +114,54 @@ nav#second-navbar.is-stuck .second-nav-body ul.nav-content .nav-item .nav-link::
     transition: all 0.3s ease-out;
 }
 
-nav#second-navbar.is-stuck .second-nav-body ul.nav-content .nav-item .nav-link:hover::before {
+nav#second-navbar.is-stuck .nav-link:hover::before {
     /* width: 100%; */
     transform: scaleX(1);
 }
- 
-/* nav#second-navbar.is-stuck .second-nav-body ul.nav-content .nav-item .nav-link:focus-visible {
+
+/* nav#second-navbar.is-stuck .nav-link:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 4px;
     border-radius: 4px;
 } */
 
-section#quick-access div.container div.cards {
+#quick-access .options-cards {
     height: 200px;
 }
 
-.doctor-icon,
-.appointment-icon,
-.whatsapp-icon,
-.emergency-call {
+#quick-access .doctor-icon,
+#quick-access .appointment-icon,
+#quick-access .whatsapp-icon,
+#quick-access .emergency-call {
     font-size: 2.5rem;
 }
 
-.row .col-md-3 a .card .card-body  {
+#quick-access .card-body {
     flex-direction: column;
 }
 
-.row .col-md-3 a .card .card-body > *  {
+#quick-access .card-body > * {
     font-weight: 800;
     color: #f2f2f2;
 }
 
-.row .col-md-3:nth-child(1) a .card  {
+#quick-access .col-md-3:nth-child(1) .card {
     background-color: rgb(128, 0, 148);
 }
 
-.row .col-md-3:nth-child(2) a .card  {
+#quick-access .col-md-3:nth-child(2) .card {
     background-color: rgb(12, 136, 236);
 }
 
-.row .col-md-3:nth-child(3) a .card  {
+#quick-access .col-md-3:nth-child(3) .card {
     background-color: rgb(3, 198, 94);
 }
 
-.row .col-md-3:nth-child(4) a .card  {
-    background-color: rgb(246, 37, 22);
+#quick-access .col-md-3:nth-child(4) .card {
+    background-color: rgb(22, 153, 246);
 }
 
-.about-content .about-rs h4 {
+.about-content .about-rs h3 {
     /* color: #124f8c; */
     color: var(--primary-color);
     font-weight: 600;
@@ -173,46 +170,47 @@ section#quick-access div.container div.cards {
 .about-content .about-rs p {
     font-size: 1.1rem;
     margin-right: 8px;
-    font-family: 'Crimson Text', sans-serif;
+    font-family: "Crimson Text", sans-serif;
     font-weight: 600;
     text-indent: 1.8ch;
     text-align: justify;
 }
 
-section#our-speciality .carousel-item {
+.our-speciality .carousel-item {
     min-height: 325px;
 }
 
-section#our-speciality .carousel-item .row {
+.our-speciality .carousel-item .row {
     min-height: 325px;
 }
 
-/* section#our-speciality .carousel .carusel-inner .carousel-item img {
+/* .our-speciality .carousel .carusel-inner .carousel-item img {
     height: 100px;
 } */
 
-/* section#our-speciality .carousel-control-prev-icon {
+/* .our-speciality .carousel-control-prev-icon {
     color: var(--secondary-darker-color)
 } */
 
 .carousel {
     /* Mengubah warna panah navigasi */
-    --bs-carousel-control-color: var(--secondary-darker-color); 
-    
+    --bs-carousel-control-color: var(--secondary-darker-color);
+
     /* Mengubah warna indikator (garis bawah) saat tidak aktif */
     --bs-carousel-indicator-opacity: 0.5;
-    
+
     /* Mengubah warna indikator saat aktif */
     --bs-carousel-indicator-active-bg: var(--secondary-darker-color);
 }
 
 span.carousel-control-prev-icon,
 span.carousel-control-next-icon {
-    filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(202deg) brightness(118%) contrast(119%);
+    filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(202deg)
+        brightness(118%) contrast(119%);
 }
 
 .section-title {
-    color: var(--secondary-darker-color)
+    color: var(--secondary-darker-color);
 }
 
 .btn-learn {
@@ -220,72 +218,71 @@ span.carousel-control-next-icon {
     text-transform: uppercase;
 }
 
-
-section#promotions {
+#promotions {
     background: #fff;
     padding-top: 2rem;
 }
 
-section#promotions .card {
+#promotions .card {
     /* filter: drop-shadow(13px 11px 1.5rem #00085e); */
     /* box-shadow: 3px 3px 11px 0px #2c2c2cd1;
     border-radius: 0.7rem; */
     overflow: hidden;
 }
 
-
 /* ************* */
 /* ---- Footer ---- */
 /* ************* */
 
-section#footer {
-    background: var(--primary-color);
+#footer {
+    /* background: var(--primary-color); */
+    background-color: var(--secondary-darker-color);
 }
 
-/* section#footer .footer-body {
+/* #footer .footer-body {
     height: 12rem;
 } */
 
-
-section#footer .footer-body div ul {
+#footer .footer-body ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-section#footer .footer-body div ul li.footer-list a {
+#footer .footer-list a {
     text-decoration: none;
     color: #fff;
     font-weight: 400;
 }
 
-section#footer div div div.footer-copyright {
+#footer .footer-copyright {
     padding: 1.1rem;
 }
 
-section#footer div div div.footer-copyright p {
-    color: rgb(1, 1, 88);
+#footer .footer-copyright p {
+    color: #fff;
 }
 
 .footer-header .rs-name {
     font-size: 1.8rem;
     font-weight: 900;
-    font-family: 'Cormorant Garamond', sans-serif;
+    font-family: "Cormorant Garamond", sans-serif;
     color: #fff;
 }
 
 .footer-header p.moto {
     font-size: 1.5rem;
     font-weight: 600;
-    font-family: 'Crimson Text', sans-serif;
+    font-family: "Crimson Text", sans-serif;
     font-style: italic;
     text-transform: capitalize;
-    color: rgb(208, 208, 16);
+    color: var(--accent-color);
 }
 
 h4.footer-title {
     font-weight: 700;
-    color: rgb(1, 1, 88);
+    /* color: rgb(1, 1, 88); */
+    color: var(--accent-color);
 }
 
 .footer-list {
@@ -314,7 +311,6 @@ h4.footer-title {
 .social-media div:nth-child(3):hover {
     color: rgb(232, 7, 7);
 }
-
 
 .fa-google-play {
     font-size: 3rem;
