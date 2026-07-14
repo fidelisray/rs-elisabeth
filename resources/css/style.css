@@ -132,7 +132,7 @@ nav#second-navbar.is-stuck .nav-link:hover::before {
 #quick-access .doctor-icon,
 #quick-access .appointment-icon,
 #quick-access .whatsapp-icon,
-#quick-access .emergency-call {
+#quick-access .glossary-icon {
     font-size: 2.5rem;
 }
 
@@ -146,11 +146,11 @@ nav#second-navbar.is-stuck .nav-link:hover::before {
 }
 
 #quick-access .col-md-3:nth-child(1) .card {
-    background-color: rgb(128, 0, 148);
+    background-color: rgb(12, 136, 236);
 }
 
 #quick-access .col-md-3:nth-child(2) .card {
-    background-color: rgb(12, 136, 236);
+    background-color: rgb(236, 109, 12);
 }
 
 #quick-access .col-md-3:nth-child(3) .card {
@@ -224,10 +224,79 @@ span.carousel-control-next-icon {
 }
 
 #promotions .card {
-    /* filter: drop-shadow(13px 11px 1.5rem #00085e); */
-    /* box-shadow: 3px 3px 11px 0px #2c2c2cd1;
-    border-radius: 0.7rem; */
     overflow: hidden;
+    border-radius: 0.75rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#promotions .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+/* Promo horizontal scroll track */
+.promo-track {
+    display: flex;
+    overflow-x: auto;
+    cursor: grab;
+    -webkit-overflow-scrolling: touch;
+    /* Hide scrollbar across all browsers */
+    scrollbar-width: none;          /* Firefox */
+    -ms-overflow-style: none;       /* IE / Edge */
+}
+
+.promo-track::-webkit-scrollbar {
+    display: none;                  /* Chrome / Safari */
+}
+
+.promo-track.is-dragging {
+    cursor: grabbing;
+    user-select: none;
+}
+
+.promo-card {
+    flex: 0 0 calc(25% - 12px);
+    min-width: calc(25% - 12px);
+    padding: 0;
+    margin-right: 16px;
+    box-sizing: border-box;
+}
+
+/* Entrance animation */
+@keyframes promoFadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.promo-card {
+    opacity: 0;
+    animation: promoFadeInUp 0.5s ease forwards;
+}
+
+.promo-card:nth-child(1) { animation-delay: 0.05s; }
+.promo-card:nth-child(2) { animation-delay: 0.15s; }
+.promo-card:nth-child(3) { animation-delay: 0.25s; }
+.promo-card:nth-child(4) { animation-delay: 0.35s; }
+.promo-card:nth-child(n+5) { animation-delay: 0s; opacity: 1; }
+
+/* Responsive: 2 cards on tablet, 1 on mobile */
+@media (max-width: 991.98px) {
+    .promo-card {
+        flex: 0 0 calc(50% - 8px);
+        min-width: calc(50% - 8px);
+    }
+}
+@media (max-width: 575.98px) {
+    .promo-card {
+        flex: 0 0 85%;
+        min-width: 85%;
+    }
 }
 
 /* ************* */

@@ -164,7 +164,7 @@
                         <a href="{{ route('glossary.index') }}" class="text-decoration-none">
                             <div class="card h-100 border-0 rounded-0">
                                 <div class="card-body d-flex text-center align-items-center justify-content-center">
-                                    <i class="fa-solid fa-book-medical"></i>
+                                    <i class="fa-solid fa-book-medical glossary-icon"></i>
                                     <div class="mt-1">
                                         <p class="my-0">Kamus Medis</p>
                                         {{-- <p class="my-0">(024) 850-22-44</p> --}}
@@ -381,52 +381,52 @@
                 <h2 class="display-8 fw-bold section-title">Paket dan Promo</h2>
             </div>
             <div class="container py-5">
-                <div class="row cards">
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100 shadow-sm border-0" style="width: 22rem;">
+                <div class="promo-track" id="promoTrack">
+                    <div class="promo-card">
+                        <div class="card h-100 shadow-sm border-0">
                             <img src="{{ asset('images/ADS1749518930.jpg') }}" class="card-img" alt="Paket dan Promo RS St. Elisabeth">
                             <div class="card-body">
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                             </div>
                         </div>
-                    </div>    
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100 shadow-sm border-0" style="width: 22rem;">
+                    </div>
+                    <div class="promo-card">
+                        <div class="card h-100 shadow-sm border-0">
                             <img src="{{ asset('images/ADS1749518080.jpeg') }}" class="card-img" alt="Paket dan Promo RS St. Elisabeth">
                             <div class="card-body">
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                             </div>
                         </div>
-                    </div>    
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100 shadow-sm border-0" style="width: 22rem;">
+                    </div>
+                    <div class="promo-card">
+                        <div class="card h-100 shadow-sm border-0">
                             <img src="{{ asset('images/ADS1758074522.jpeg') }}" class="card-img" alt="Paket dan Promo RS St. Elisabeth">
                             <div class="card-body">
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                             </div>
                         </div>
-                    </div>    
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100 shadow-sm border-0" style="width: 22rem;">
+                    </div>
+                    <div class="promo-card">
+                        <div class="card h-100 shadow-sm border-0">
                             <img src="{{ asset('images/ADS1758075145.jpeg') }}" class="card-img" alt="Paket dan Promo RS St. Elisabeth">
                             <div class="card-body">
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100 shadow-sm border-0" style="width: 22rem;">
+                    <div class="promo-card">
+                        <div class="card h-100 shadow-sm border-0">
                             <img src="{{ asset('images/ADS1761805772.jpeg') }}" class="card-img" alt="Paket dan Promo RS St. Elisabeth">
                             <div class="card-body">
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100 shadow-sm border-0" style="width: 22rem;">
+                    <div class="promo-card">
+                        <div class="card h-100 shadow-sm border-0">
                             <img src="{{ asset('images/ADS1761805889.jpeg') }}" class="card-img" alt="Paket dan Promo RS St. Elisabeth">
                             <div class="card-body">
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                             </div>
                         </div>
                     </div>
@@ -494,7 +494,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/726e331ad1.js" crossorigin="anonymous"></script>
     @vite([
-        'resources/js/navbar/navbar.js'
+        'resources/js/navbar/navbar.js',
+        'resources/js/promotions/promotions.js'
     ])
     <script type="application/ld+json">
     {
