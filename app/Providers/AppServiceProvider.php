@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Services\DoctorApiService;
+use App\Services\HospitalApiService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,8 +15,11 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         $this->app->singleton(DoctorApiService::class, function ($app) {
-        return new DoctorApiService();
-    });
+            return new DoctorApiService();
+        });
+        $this->app->singleton(HospitalApiService::class, function ($app) {
+            return new HospitalApiService();
+        });
     }
 
     /**

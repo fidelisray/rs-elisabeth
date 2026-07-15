@@ -25,5 +25,7 @@ return [
         'staff' => 3600,
         'jadwal' => 1800,
         'klinik' => 1800,
+        'promotions' => 1800,
+        'glosarium' => 86400,
     ],
 ];
