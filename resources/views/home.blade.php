@@ -132,7 +132,7 @@
             <div class="container">
                 <div class="row g-0 options-cards">
                     <div class="col-md-3 card-options">
-                        <a href="/dokter" class="text-decoration-none">
+                        <a href="{{ route('dokter.index') }}" class="text-decoration-none">
                             <div class="card h-100 border-0 rounded-0">
                                 <div class="card-body d-flex text-center align-items-center justify-content-center">
                                     <i class="fa-solid fa-user-doctor doctor-icon"></i>

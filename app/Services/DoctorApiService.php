@@ -204,9 +204,9 @@ class DoctorApiService
 
                     $response_data = [
                         "Success" => true,
-                        "LeaveSchedule" => $data->LeaveSchedule,
-                        "ScheduleByDate" => $data->ScheduleByDate,
-                        "ScheduleRoutine" => $data->ScheduleRoutine,
+                        "LeaveSchedule" => $data?->LeaveSchedule ?? [],
+                        "ScheduleByDate" => $data?->ScheduleByDate ?? [],
+                        "ScheduleRoutine" => $data?->ScheduleRoutine ?? [],
                     ];
 
                     return $response_data;
