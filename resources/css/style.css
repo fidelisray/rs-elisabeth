@@ -184,9 +184,38 @@ nav#second-navbar.is-stuck .nav-link:hover::before {
     min-height: 325px;
 }
 
-/* .our-speciality .carousel .carusel-inner .carousel-item img {
-    height: 100px;
-} */
+/*
+ * Fix: gambar item 4-6 memiliki resolusi lebih kecil dari item 1-3,
+ * sehingga tinggi carousel tidak konsisten saat berpindah slide.
+ *
+ * Solusi: bungkus gambar dalam div dengan tinggi tetap, dan gunakan
+ * object-fit: cover agar semua gambar mengisi area yang sama persis
+ * tanpa distorsi, apapun resolusi aslinya.
+ */
+.our-speciality .carousel-item .img-wrapper {
+    width: 100%;
+    height: 420px;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.our-speciality .carousel-item .img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 0.5rem;
+    /* Hapus class img-fluid shadow rounded (sudah dihandle wrapper) */
+    box-shadow: none;
+}
+
+/* Responsive: kurangi tinggi wrapper di layar kecil */
+@media (max-width: 767.98px) {
+    .our-speciality .carousel-item .img-wrapper {
+        height: 220px;
+    }
+}
 
 /* .our-speciality .carousel-control-prev-icon {
     color: var(--secondary-darker-color)
@@ -226,7 +255,9 @@ span.carousel-control-next-icon {
 #promotions .card {
     overflow: hidden;
     border-radius: 0.75rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 #promotions .card:hover {
@@ -241,12 +272,12 @@ span.carousel-control-next-icon {
     cursor: grab;
     -webkit-overflow-scrolling: touch;
     /* Hide scrollbar across all browsers */
-    scrollbar-width: none;          /* Firefox */
-    -ms-overflow-style: none;       /* IE / Edge */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE / Edge */
 }
 
 .promo-track::-webkit-scrollbar {
-    display: none;                  /* Chrome / Safari */
+    display: none; /* Chrome / Safari */
 }
 
 .promo-track.is-dragging {
@@ -279,11 +310,22 @@ span.carousel-control-next-icon {
     animation: promoFadeInUp 0.5s ease forwards;
 }
 
-.promo-card:nth-child(1) { animation-delay: 0.05s; }
-.promo-card:nth-child(2) { animation-delay: 0.15s; }
-.promo-card:nth-child(3) { animation-delay: 0.25s; }
-.promo-card:nth-child(4) { animation-delay: 0.35s; }
-.promo-card:nth-child(n+5) { animation-delay: 0s; opacity: 1; }
+.promo-card:nth-child(1) {
+    animation-delay: 0.05s;
+}
+.promo-card:nth-child(2) {
+    animation-delay: 0.15s;
+}
+.promo-card:nth-child(3) {
+    animation-delay: 0.25s;
+}
+.promo-card:nth-child(4) {
+    animation-delay: 0.35s;
+}
+.promo-card:nth-child(n + 5) {
+    animation-delay: 0s;
+    opacity: 1;
+}
 
 /* Responsive: 2 cards on tablet, 1 on mobile */
 @media (max-width: 991.98px) {

@@ -8,6 +8,7 @@
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
       @vite([
         'resources/css/style.css',
+        'resources/css/navbar-dropdown.css'
       ])
   </head>
   <body>
@@ -48,10 +49,10 @@
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
                 <ul class="navbar-nav nav-content gap-2">
-                    <li class="nav-item">
+                    <li class="nav-item nav-beranda">
                         <a class="nav-link active" aria-current="page" href="#">Beranda</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown nav-tentang-kami">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Tentang Kami
                         </a>
@@ -63,16 +64,16 @@
                             <li><a class="dropdown-item" href="#">Akreditasi</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item nav-cari-dokter">
                         <a class="nav-link" href="#">Cari Dokter</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item nav-ruang-perawatan">
                         <a class="nav-link" href="#">Ruang Perawatan</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item nav-fasilitas">
                         <a class="nav-link" href="#">Fasilitas</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item nav-paket-dan-promo">
                         <a class="nav-link" href="#">Paket dan Promo</a>
                     </li>
                 </ul>
@@ -217,12 +218,14 @@
                         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
                         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="5" aria-label="Slide 6"></button>
                     </div>
-                    <div class="carousel-inner">
+                    <div class="carousel-inner" id="carousel-our-speciality">
                         <div class="carousel-item active">
                             <div class="container">
                                 <div class="row align-items-center gy-4">
                                     <div class="col-md-6">
-                                        <img src="{{ asset('images/F1670220299.jpg') }}" class="img-fluid rounded shadow" alt="Fasilitas Spesialisasi RS St. Elisabeth">
+                                        <div class="img-wrapper">
+                                            <img src="{{ asset('images/F1670220299.jpg') }}" class="img-fluid" alt="Fasilitas Spesialisasi RS St. Elisabeth">
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
                                         <!-- <span class="badge bg-primary mb-3"> -->
@@ -247,7 +250,9 @@
                             <div class="container">
                                 <div class="row align-items-center gy-4">
                                     <div class="col-md-6">
-                                        <img src="{{ asset('images/F1670914854.jpg') }}" class="img-fluid rounded shadow" alt="Fasilitas Spesialisasi RS St. Elisabeth">
+                                        <div class="img-wrapper">
+                                            <img src="{{ asset('images/F1670914854.jpg') }}" class="img-fluid" alt="Fasilitas Spesialisasi RS St. Elisabeth">
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
                                         <!-- <span class="badge bg-primary mb-3"> -->
@@ -272,7 +277,9 @@
                             <div class="container">
                                 <div class="row align-items-center gy-4">
                                     <div class="col-md-6">
-                                        <img src="{{ asset('images/F1670914872.jpg') }}" class="img-fluid rounded shadow" alt="Fasilitas Spesialisasi RS St. Elisabeth">
+                                        <div class="img-wrapper">
+                                            <img src="{{ asset('images/F1670914872.jpg') }}" class="img-fluid" alt="Fasilitas Spesialisasi RS St. Elisabeth">
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
                                         <!-- <span class="badge bg-primary mb-3"> -->
@@ -296,7 +303,9 @@
                             <div class="container">
                                 <div class="row align-items-center gy-4">
                                     <div class="col-md-6">
-                                        <img src="{{ asset('images/F1671680565.jpg') }}" class="img-fluid rounded shadow" alt="Fasilitas Spesialisasi RS St. Elisabeth">
+                                        <div class="img-wrapper">
+                                            <img src="{{ asset('images/F1671680565.jpg') }}" class="img-fluid" alt="Fasilitas Spesialisasi RS St. Elisabeth">
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
                                         <!-- <span class="badge bg-primary mb-3"> -->
@@ -320,7 +329,9 @@
                             <div class="container">
                                 <div class="row align-items-center gy-4">
                                     <div class="col-md-6">
-                                        <img src="{{ asset('images/F1671680579.jpg') }}" class="img-fluid rounded shadow" alt="Fasilitas Spesialisasi RS St. Elisabeth">
+                                        <div class="img-wrapper">
+                                            <img src="{{ asset('images/F1671680579.jpg') }}" class="img-fluid" alt="Fasilitas Spesialisasi RS St. Elisabeth">
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
                                         <!-- <span class="badge bg-primary mb-3"> -->
@@ -344,7 +355,9 @@
                             <div class="container">
                                 <div class="row align-items-center gy-4">
                                     <div class="col-md-6">
-                                        <img src="{{ asset('images/F1671680659.jpg') }}" class="img-fluid rounded shadow" alt="Fasilitas Spesialisasi RS St. Elisabeth">
+                                        <div class="img-wrapper">
+                                            <img src="{{ asset('images/F1671680659.jpg') }}" class="img-fluid" alt="Fasilitas Spesialisasi RS St. Elisabeth">
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
                                         <!-- <span class="badge bg-primary mb-3"> -->
@@ -495,6 +508,7 @@
     <script src="https://kit.fontawesome.com/726e331ad1.js" crossorigin="anonymous"></script>
     @vite([
         'resources/js/navbar/navbar.js',
+        'resources/js/navbar/navbar-dropdown.js',
         'resources/js/promotions/promotions.js'
     ])
     <script type="application/ld+json">
