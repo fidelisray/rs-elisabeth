@@ -25,3 +25,6 @@ Homestead.yaml
 Thumbs.db
 /resources/views/halamanjadwal.blade.php
 /resources/views/carijadwal.blade.php
+implementation_plan.md
+task.md
+walkthrough.md
