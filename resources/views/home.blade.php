@@ -74,7 +74,7 @@
                         <a class="nav-link" href="#">Fasilitas</a>
                     </li>
                     <li class="nav-item nav-paket-dan-promo">
-                        <a class="nav-link" href="#">Paket dan Promo</a>
+                        <a class="nav-link" href="{{ route('promotions.index') }}">Paket dan Promo</a>
                     </li>
                 </ul>
             </div>
@@ -505,7 +505,7 @@
             </div>
 
             <div class="text-center mt-5 mb-3">
-                <a href="{{ route('getPromotions') }}" class="btn btn-bouncing px-5 py-3 rounded-pill fw-bold shadow-lg" aria-label="Lihat Penawaran Menarik Lainnya">
+                <a href="{{ route('promotions.index') }}" class="btn btn-bouncing px-5 py-3 rounded-pill fw-bold shadow-lg" aria-label="Lihat Penawaran Menarik Lainnya">
                     Lihat Penawaran Menarik Lainnya <i class="fa-solid fa-arrow-down ms-2"></i>
                 </a>
             </div>

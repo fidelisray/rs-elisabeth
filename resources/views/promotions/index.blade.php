@@ -76,7 +76,7 @@
                         <a class="nav-link" href="#">Fasilitas</a>
                     </li>
                     <li class="nav-item nav-paket-dan-promo">
-                        <a class="nav-link active" aria-current="page" href="{{ route('getPromotions') }}">Paket dan Promo</a>
+                        <a class="nav-link active" aria-current="page" href="{{ route('promotions.index') }}">Paket dan Promo</a>
                     </li>
                 </ul>
             </div>

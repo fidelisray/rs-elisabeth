@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DokterController;
 use App\Http\Controllers\HospitalController;
+use App\Http\Controllers\PromotionsController;
 use App\Http\Controllers\GlossaryController;
 
 // Route::get('/', function () {
@@ -34,7 +35,9 @@ Route::prefix('dokter')->name('dokter.')->group(function () {
 });
 
 // Halmaan Promotions
-Route::get('/promotions', [HospitalController::class, 'getPromotions'])->name('getPromotions');
+Route::prefix('promotions')->name('promotions.')->group(function () {
+    Route::get('/', [PromotionsController::class, 'index'])->name('index');
+});
 
 // Glosarium
 // Route::get('/kamus', [HospitalController::class, 'getKamusMedis'])->name('getKamusMedis');
