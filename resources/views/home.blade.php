@@ -4,7 +4,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="description" content="Rumah Sakit St. Elisabeth Semarang memberikan pelayanan kesehatan terbaik, profesional, terakreditasi Paripurna KARS, dengan layanan IGD 24 Jam dan Stroke Terpadu.">
-      <title>RS St. Elisabeth Semarang - Pelayanan Kesehatan & Stroke Terpadu</title>
+      <title>St. Elisabeth Hospital</title>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
       @vite([
         'resources/css/style.css',
@@ -180,7 +180,7 @@
         <section class="about-us container-fluid">
             <div class="container p-2 mb-4 rounded-3">
                 <div class="title text-center section-title">
-                    <h2 class="display-8 fw-bold">Why People Choose Us?</h2>
+                    <h2 class="display-8 fw-bold">Percayakan Kesehatan Anda Bersama Kami</h2>
                 </div>
                 <div class="py-5 row">
                     <div class="about-content px-5 col-md-5">
@@ -203,10 +203,10 @@
                 </div>
             </div>
         </section>
-        <section class="our-speciality">
+        <section id="facilities-and-services">
             <!-- <h2 class="tittle text-align-center">Our Speciality</h2> -->
             <div class="title text-center">
-                <h2 class="display-8 fw-bold section-title">Our Speciality</h2>
+                <h2 class="display-8 fw-bold section-title">Fasilitas dan Layanan</h2>
             </div>
             <div class="container-fluid py-5">
                 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
@@ -218,7 +218,7 @@
                         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
                         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="5" aria-label="Slide 6"></button>
                     </div>
-                    <div class="carousel-inner" id="carousel-our-speciality">
+                    <div class="carousel-inner" id="carousel-facilities-and-services">
                         <div class="carousel-item active">
                             <div class="container">
                                 <div class="row align-items-center gy-4">
@@ -392,7 +392,7 @@
         <section id="promotions" class="position-relative">
             <div class="title text-center mb-5">
                 <h2 class="display-8 fw-bold section-title">Paket dan Promo</h2>
-                <p class="text-muted">Temukan penawaran terbaik untuk layanan kesehatan Anda</p>
+                {{-- <p class="text-muted">Temukan penawaran terbaik untuk layanan kesehatan Anda</p> --}}
             </div>
             <div class="container pb-5">
                 <div class="promo-track" id="promoTrack">
