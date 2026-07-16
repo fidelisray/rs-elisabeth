@@ -389,61 +389,125 @@
                 </div>
             </div>
         </section>
-        <section id="promotions">
-            <div class="title text-center">
+        <section id="promotions" class="position-relative">
+            <div class="title text-center mb-5">
                 <h2 class="display-8 fw-bold section-title">Paket dan Promo</h2>
+                <p class="text-muted">Temukan penawaran terbaik untuk layanan kesehatan Anda</p>
             </div>
-            <div class="container py-5">
+            <div class="container pb-5">
                 <div class="promo-track" id="promoTrack">
-                    <div class="promo-card">
-                        <div class="card h-100 shadow-sm border-0">
-                            <img src="{{ asset('images/ADS1749518930.jpg') }}" class="card-img" alt="Paket dan Promo RS St. Elisabeth">
-                            <div class="card-body">
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <div class="promo-card" data-bs-toggle="modal" data-bs-target="#promoModal" data-title="Promo MCU Jantung" data-desc="Medical Check Up khusus Jantung dengan fasilitas lengkap dan ditangani oleh spesialis terbaik. Promo berlaku hingga akhir bulan ini." data-img="{{ asset('images/ADS1749518930.jpg') }}">
+                        <div class="card h-100">
+                            <img src="{{ asset('images/ADS1749518930.jpg') }}" class="card-img-top" alt="Paket MCU Jantung">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title fw-bold text-primary mb-2">Promo MCU Jantung</h5>
+                                <p class="card-text text-muted small flex-grow-1">Pemeriksaan fungsi jantung secara komprehensif dengan harga spesial.</p>
+                                <div class="mt-3 text-end">
+                                    <span class="text-secondary fw-semibold small">Lihat Detail <i class="fa-solid fa-arrow-right ms-1"></i></span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="promo-card">
-                        <div class="card h-100 shadow-sm border-0">
-                            <img src="{{ asset('images/ADS1749518080.jpeg') }}" class="card-img" alt="Paket dan Promo RS St. Elisabeth">
-                            <div class="card-body">
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <div class="promo-card" data-bs-toggle="modal" data-bs-target="#promoModal" data-title="Screening Gula Darah" data-desc="Pemeriksaan gula darah rutin untuk deteksi dini diabetes. Jangan abaikan kesehatan Anda." data-img="{{ asset('images/ADS1749518080.jpeg') }}">
+                        <div class="card h-100">
+                            <img src="{{ asset('images/ADS1749518080.jpeg') }}" class="card-img-top" alt="Screening Gula Darah">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title fw-bold text-primary mb-2">Screening Gula Darah</h5>
+                                <p class="card-text text-muted small flex-grow-1">Deteksi dini risiko diabetes dengan paket screening terjangkau.</p>
+                                <div class="mt-3 text-end">
+                                    <span class="text-secondary fw-semibold small">Lihat Detail <i class="fa-solid fa-arrow-right ms-1"></i></span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="promo-card">
-                        <div class="card h-100 shadow-sm border-0">
-                            <img src="{{ asset('images/ADS1758074522.jpeg') }}" class="card-img" alt="Paket dan Promo RS St. Elisabeth">
-                            <div class="card-body">
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <div class="promo-card" data-bs-toggle="modal" data-bs-target="#promoModal" data-title="Paket Persalinan Nyaman" data-desc="Sambut kelahiran buah hati dengan tenang bersama paket persalinan eksklusif dari RS St. Elisabeth." data-img="{{ asset('images/ADS1758074522.jpeg') }}">
+                        <div class="card h-100">
+                            <img src="{{ asset('images/ADS1758074522.jpeg') }}" class="card-img-top" alt="Paket Persalinan">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title fw-bold text-primary mb-2">Paket Persalinan Nyaman</h5>
+                                <p class="card-text text-muted small flex-grow-1">Layanan persalinan VIP dengan fasilitas terbaik untuk ibu dan anak.</p>
+                                <div class="mt-3 text-end">
+                                    <span class="text-secondary fw-semibold small">Lihat Detail <i class="fa-solid fa-arrow-right ms-1"></i></span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="promo-card">
-                        <div class="card h-100 shadow-sm border-0">
-                            <img src="{{ asset('images/ADS1758075145.jpeg') }}" class="card-img" alt="Paket dan Promo RS St. Elisabeth">
-                            <div class="card-body">
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <div class="promo-card" data-bs-toggle="modal" data-bs-target="#promoModal" data-title="Promo Vaksinasi Influenza" data-desc="Lindungi diri dan keluarga dari virus influenza dengan vaksin berstandar internasional." data-img="{{ asset('images/ADS1758075145.jpeg') }}">
+                        <div class="card h-100">
+                            <img src="{{ asset('images/ADS1758075145.jpeg') }}" class="card-img-top" alt="Vaksinasi Influenza">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title fw-bold text-primary mb-2">Vaksinasi Influenza</h5>
+                                <p class="card-text text-muted small flex-grow-1">Dapatkan perlindungan maksimal dari influenza musim ini.</p>
+                                <div class="mt-3 text-end">
+                                    <span class="text-secondary fw-semibold small">Lihat Detail <i class="fa-solid fa-arrow-right ms-1"></i></span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="promo-card">
-                        <div class="card h-100 shadow-sm border-0">
-                            <img src="{{ asset('images/ADS1761805772.jpeg') }}" class="card-img" alt="Paket dan Promo RS St. Elisabeth">
-                            <div class="card-body">
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <div class="promo-card" data-bs-toggle="modal" data-bs-target="#promoModal" data-title="Screening Kanker Serviks" data-desc="Pemeriksaan papsmear dan konsultasi obgyn dengan harga diskon khusus bulan ini." data-img="{{ asset('images/ADS1761805772.jpeg') }}">
+                        <div class="card h-100">
+                            <img src="{{ asset('images/ADS1761805772.jpeg') }}" class="card-img-top" alt="Screening Kanker Serviks">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title fw-bold text-primary mb-2">Screening Kanker Serviks</h5>
+                                <p class="card-text text-muted small flex-grow-1">Lakukan papsmear berkala demi kesehatan reproduksi Anda.</p>
+                                <div class="mt-3 text-end">
+                                    <span class="text-secondary fw-semibold small">Lihat Detail <i class="fa-solid fa-arrow-right ms-1"></i></span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="promo-card">
-                        <div class="card h-100 shadow-sm border-0">
-                            <img src="{{ asset('images/ADS1761805889.jpeg') }}" class="card-img" alt="Paket dan Promo RS St. Elisabeth">
-                            <div class="card-body">
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <div class="promo-card" data-bs-toggle="modal" data-bs-target="#promoModal" data-title="Promo Fisioterapi" data-desc="Atasi nyeri sendi dan tulang dengan layanan fisioterapi kami yang menggunakan teknologi terkini." data-img="{{ asset('images/ADS1761805889.jpeg') }}">
+                        <div class="card h-100">
+                            <img src="{{ asset('images/ADS1761805889.jpeg') }}" class="card-img-top" alt="Promo Fisioterapi">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title fw-bold text-primary mb-2">Promo Fisioterapi</h5>
+                                <p class="card-text text-muted small flex-grow-1">Paket 5x sesi fisioterapi untuk pemulihan cedera olahraga.</p>
+                                <div class="mt-3 text-end">
+                                    <span class="text-secondary fw-semibold small">Lihat Detail <i class="fa-solid fa-arrow-right ms-1"></i></span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Modal Promotion -->
+            <div class="modal fade" id="promoModal" tabindex="-1" aria-labelledby="promoModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-xl">
+                    <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+                        <button type="button" class="btn-close position-absolute top-0 end-0 m-3 z-3 bg-white p-2 rounded-circle shadow-sm" data-bs-dismiss="modal" aria-label="Close" style="opacity: 0.9;"></button>
+                        <div class="modal-body p-0">
+                            <div class="row g-0">
+                                <!-- Bagian Kiri: Gambar Promo -->
+                                <div class="col-md-6 d-flex align-items-center justify-content-center bg-light">
+                                    <img src="" id="promoModalImg" class="img-fluid w-100 h-100" style="object-fit: contain; max-height: 85vh;" alt="Promo">
+                                </div>
+                                <!-- Bagian Kanan: Detail Promo -->
+                                <div class="col-md-6 p-4 p-md-5 d-flex flex-column justify-content-center bg-white">
+                                    <h6 class="text-uppercase fw-bold mb-2" style="color: var(--secondary-color); letter-spacing: 1px;">Info Spesial</h6>
+                                    <h2 id="promoModalTitle" class="fw-bold mb-4" style="color: var(--primary-color);"></h2>
+                                    <p id="promoModalDesc" class="text-secondary fs-5 lh-base mb-5"></p>
+                                    
+                                    <div class="mt-auto border-top pt-4">
+                                        <p class="text-muted fw-semibold mb-3">Dapatkan penawaran ini sekarang!</p>
+                                        <div class="d-flex flex-wrap gap-2">
+                                            <a href="https://wa.me/6281234567890" target="_blank" class="btn btn-success px-4 py-2 rounded-pill fw-bold shadow-sm d-flex align-items-center flex-grow-1 justify-content-center">
+                                                <i class="fa-brands fa-whatsapp fs-5 me-2"></i> Hubungi Kami
+                                            </a>
+                                            <button type="button" class="btn btn-light px-4 py-2 rounded-pill fw-semibold flex-grow-0" data-bs-dismiss="modal">Tutup</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5 mb-3">
+                <a href="{{ route('getPromotions') }}" class="btn btn-bouncing px-5 py-3 rounded-pill fw-bold shadow-lg" aria-label="Lihat Penawaran Menarik Lainnya">
+                    Lihat Penawaran Menarik Lainnya <i class="fa-solid fa-arrow-down ms-2"></i>
+                </a>
             </div>
         </section>
     </main>

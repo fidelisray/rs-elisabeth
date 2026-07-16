@@ -254,50 +254,36 @@ span.carousel-control-next-icon {
 
 #promotions .card {
     overflow: hidden;
-    border-radius: 0.75rem;
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
+    border-radius: 1rem;
+    border: none;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.95);
 }
 
 #promotions .card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
-/* Promo horizontal scroll track */
 .promo-track {
-    display: flex;
-    overflow-x: auto;
-    cursor: grab;
-    -webkit-overflow-scrolling: touch;
-    /* Hide scrollbar across all browsers */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE / Edge */
-}
-
-.promo-track::-webkit-scrollbar {
-    display: none; /* Chrome / Safari */
-}
-
-.promo-track.is-dragging {
-    cursor: grabbing;
-    user-select: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
 }
 
 .promo-card {
-    flex: 0 0 calc(25% - 12px);
-    min-width: calc(25% - 12px);
-    padding: 0;
-    margin-right: 16px;
-    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    animation: promoFadeInUp 0.6s ease forwards;
 }
 
-/* Entrance animation */
 @keyframes promoFadeInUp {
     from {
         opacity: 0;
-        transform: translateY(24px);
+        transform: translateY(30px);
     }
     to {
         opacity: 1;
@@ -305,41 +291,12 @@ span.carousel-control-next-icon {
     }
 }
 
-.promo-card {
-    opacity: 0;
-    animation: promoFadeInUp 0.5s ease forwards;
-}
-
-.promo-card:nth-child(1) {
-    animation-delay: 0.05s;
-}
-.promo-card:nth-child(2) {
-    animation-delay: 0.15s;
-}
-.promo-card:nth-child(3) {
-    animation-delay: 0.25s;
-}
-.promo-card:nth-child(4) {
-    animation-delay: 0.35s;
-}
-.promo-card:nth-child(n + 5) {
-    animation-delay: 0s;
-    opacity: 1;
-}
-
-/* Responsive: 2 cards on tablet, 1 on mobile */
-@media (max-width: 991.98px) {
-    .promo-card {
-        flex: 0 0 calc(50% - 8px);
-        min-width: calc(50% - 8px);
-    }
-}
-@media (max-width: 575.98px) {
-    .promo-card {
-        flex: 0 0 85%;
-        min-width: 85%;
-    }
-}
+.promo-card:nth-child(1) { animation-delay: 0.1s; }
+.promo-card:nth-child(2) { animation-delay: 0.2s; }
+.promo-card:nth-child(3) { animation-delay: 0.3s; }
+.promo-card:nth-child(4) { animation-delay: 0.4s; }
+.promo-card:nth-child(5) { animation-delay: 0.5s; }
+.promo-card:nth-child(6) { animation-delay: 0.6s; }
 
 /* ************* */
 /* ---- Footer ---- */
@@ -431,5 +388,26 @@ h4.footer-title {
 .elisameds-desc {
     font-size: 1.1rem;
     font-weight: 500;
-    color: #eee;
+}
+
+/* Bouncing Button Animation */
+@keyframes bounce-y {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.btn-bouncing {
+    animation: bounce-y 2s infinite ease-in-out;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--accent-color);
+    transition: all 0.3s ease;
+}
+
+.btn-bouncing:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: var(--accent-color);
+    animation-play-state: paused;
+    transform: scale(1.05);
 }
