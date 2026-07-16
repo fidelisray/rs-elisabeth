@@ -187,7 +187,7 @@
                 <section id="quick-access" class="pb-5">
                     <div class="row g-4 cards">
                         <div class="col-md-3">
-                            <a href="/dokter" class="text-decoration-none h-100">
+                            <a href="{{ route('dokter.index') }}" class="text-decoration-none h-100">
                                 <div class="card card-doctor h-100 border-0 rounded-4 shadow-sm">
                                     <div
                                         class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-5">
@@ -198,7 +198,7 @@
                             </a>
                         </div>
                         <div class="col-md-3">
-                            <a href="#" class="text-decoration-none h-100">
+                            <a href="https://regonline.rs-elisabeth.com" class="text-decoration-none h-100">
                                 <div class="card card-appointment h-100 border-0 rounded-4 shadow-sm">
                                     <div
                                         class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-5">
@@ -209,7 +209,7 @@
                             </a>
                         </div>
                         <div class="col-md-3">
-                            <a href="#" class="text-decoration-none h-100">
+                            <a href="https://wa.me/6285600600870?text=Halo%2C%20saya%20ingin%20membuat%20janji%20temu" class="text-decoration-none h-100">
                                 <div class="card card-contact h-100 border-0 rounded-4 shadow-sm">
                                     <div
                                         class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-5">
@@ -224,9 +224,10 @@
                                 <div class="card card-emergency h-100 border-0 rounded-4 shadow-sm">
                                     <div
                                         class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-4">
-                                        <i class="fa-solid fa-briefcase-medical emergency-call mb-3"></i>
-                                        <h5 class="fw-bold m-0 text-white">Emergency Call</h5>
-                                        <p class="mb-0 mt-2 opacity-75 fs-5">(024) 850-22-44</p>
+                                        {{-- <i class="fa-solid fa-briefcase-medical emergency-call mb-3"></i> --}}
+                                        <i class="fa-solid fa-book-medical glossary-icon mb-3"></i>
+                                        <h5 class="fw-bold m-0 text-white">Kamus Medis</h5>
+                                        <p class="mb-0 mt-2 opacity-75 fs-2.5">Temukan penyakit & istilah medis</p>
                                     </div>
                                 </div>
                             </a>
