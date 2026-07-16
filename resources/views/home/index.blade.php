@@ -8,7 +8,9 @@
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
       @vite([
         'resources/css/style.css',
-        'resources/css/navbar-dropdown.css'
+        'resources/css/navbar-dropdown.css',
+        'resources/css/search-and-quick-access.css',
+        'resources/css/home-hero.css'
       ])
   </head>
   <body>
@@ -82,7 +84,162 @@
     </nav>
     <main>
         <h1 class="visually-hidden">Rumah Sakit Santa Elisabeth Semarang</h1>
-        <section id="hero">
+
+        <section id="home-hero">
+            <!-- Background Carousel from home.blade.php -->
+            <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-pause="false">
+                <div class="carousel-inner">
+                    <div class="carousel-item active"><img src="{{ asset('images/hero.jpg') }}" class="d-block w-100"
+                            alt="Slide 1"></div>
+                    {{-- <div class="carousel-item"><img src="{{ asset('images/lp-web-02.jpg') }}" class="d-block w-100" alt="Slide 2"></div>
+                    <div class="carousel-item"><img src="{{ asset('images/lp-web-03.jpg') }}" class="d-block w-100" alt="Slide 3"></div>
+                    <div class="carousel-item"><img src="{{ asset('images/lp-web-04.jpg') }}" class="d-block w-100" alt="Slide 4"></div>
+                    <div class="carousel-item"><img src="{{ asset('images/lp-web-05.jpg') }}" class="d-block w-100" alt="Slide 5"></div>
+                    <div class="carousel-item"><img src="{{ asset('images/lp-web-06.jpg') }}" class="d-block w-100" alt="Slide 6"></div>
+                    <div class="carousel-item"><img src="{{ asset('images/lp-web-07.jpg') }}" class="d-block w-100" alt="Slide 7"></div> --}}
+                </div>
+            </div>
+
+            <!-- Gradient Overlay -->
+            <div class="hero-overlay"></div>
+
+            <!-- Hero Content Overlay (Bumrungrad style) -->
+            <div class="container position-relative">
+                <div class="hero-content">
+                    <h1>Kesehatan Anda Adalah Prioritas Utama Kami</h1>
+                    <p>Pelayanan prima dan paripurna dari RS St. Elisabeth Semarang dengan fasilitas berstandar
+                        internasional dan tenaga medis profesional yang penuh kasih.</p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <button class="btn btn-primary-custom">Temukan Dokter</button>
+                        <button class="btn btn-outline-light"
+                            style="border-radius: 50px; padding: 12px 30px; font-weight: 600;">Hubungi Kami</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="search-and-quick-access">
+            <h2 class="visually-hidden">Pencarian Layanan dan Akses Cepat</h2>
+            <div class="container">
+                <div class="search-widget mb-5">
+                    <ul class="nav nav-tabs" id="searchTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#doctor"
+                                type="button"><i class="fas fa-user-md me-2"></i>Cari Dokter</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#clinic" type="button"><i
+                                    class="fas fa-hospital me-2"></i>Cari Klinik</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#condition"
+                                type="button"><i class="fas fa-calendar-alt me-2"></i>Jadwal Praktek</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="searchTabsContent">
+                        <div class="tab-pane fade show active" id="doctor">
+                            <form class="row g-3">
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" placeholder="Nama Dokter">
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-select">
+                                        <option selected>Pilih Spesialisasi</option>
+                                        <option>Spesialis Jantung</option>
+                                        <option>Spesialis Saraf</option>
+                                        <option>Spesialis Anak</option>
+                                        <option>Spesialis Kandungan</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-primary-custom w-100" type="button"><i
+                                            class="fas fa-search me-2"></i>Cari</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="clinic">
+                            <form class="row g-3">
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control"
+                                        placeholder="Klinik (Misal: Klinik Gigi)">
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-primary-custom w-100" type="button"><i
+                                            class="fas fa-search me-2"></i>Cari</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="condition">
+                            <form class="row g-3">
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control"
+                                        placeholder="Temukan jadwal dokter hari ini">
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-primary-custom w-100" type="button"><i
+                                            class="fas fa-search me-2"></i>Cari</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <section id="quick-access" class="pb-5">
+                    <div class="row g-4 cards">
+                        <div class="col-md-3">
+                            <a href="/dokter" class="text-decoration-none h-100">
+                                <div class="card card-doctor h-100 border-0 rounded-4 shadow-sm">
+                                    <div
+                                        class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-5">
+                                        <i class="fa-solid fa-user-doctor doctor-icon mb-3"></i>
+                                        <h5 class="fw-bold m-0 text-white">Cari Dokter</h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="#" class="text-decoration-none h-100">
+                                <div class="card card-appointment h-100 border-0 rounded-4 shadow-sm">
+                                    <div
+                                        class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-5">
+                                        <i class="fa-regular fa-calendar appointment-icon mb-3"></i>
+                                        <h5 class="fw-bold m-0 text-white">Buat Janji Temu</h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="#" class="text-decoration-none h-100">
+                                <div class="card card-contact h-100 border-0 rounded-4 shadow-sm">
+                                    <div
+                                        class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-5">
+                                        <i class="fa-brands fa-whatsapp whatsapp-icon mb-3"></i>
+                                        <h5 class="fw-bold m-0 text-white">Hubungi Kami</h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="#" class="text-decoration-none h-100">
+                                <div class="card card-emergency h-100 border-0 rounded-4 shadow-sm">
+                                    <div
+                                        class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-4">
+                                        <i class="fa-solid fa-briefcase-medical emergency-call mb-3"></i>
+                                        <h5 class="fw-bold m-0 text-white">Emergency Call</h5>
+                                        <p class="mb-0 mt-2 opacity-75 fs-5">(024) 850-22-44</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+
+
+
+        {{-- <section id="hero">
             <div class="carousel">
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
@@ -127,8 +284,8 @@
                     </button>
                 </div>
             </div>
-        </section>
-        <section id="quick-access" class="pb-5">
+        </section> --}}
+        {{-- <section id="quick-access" class="pb-5">
             <div class="container">
                 <div class="row g-0 options-cards">
                     <div class="col-md-3 card-options">
@@ -168,7 +325,6 @@
                                     <i class="fa-solid fa-book-medical glossary-icon"></i>
                                     <div class="mt-1">
                                         <p class="my-0">Kamus Medis</p>
-                                        {{-- <p class="my-0">(024) 850-22-44</p> --}}
                                     </div>
                                 </div>
                             </div>
@@ -176,8 +332,9 @@
                     </div>
                 </div>
             </div>
-        </section>
-        <section class="about-us container-fluid">
+        </section> --}}
+
+        <section id="about-us" class="container-fluid">
             <div class="container p-2 mb-4 rounded-3">
                 <div class="title text-center section-title">
                     <h2 class="display-8 fw-bold">Percayakan Kesehatan Anda Bersama Kami</h2>
