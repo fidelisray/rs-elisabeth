@@ -10,7 +10,7 @@ use App\Http\Controllers\GlossaryController;
 //     return view('welcome');
 // });
 Route::get('/', function () {
-    return view('home');
+    return view('home.index');
 });
 
 // Route::get('/dokter', function() {
