@@ -39,6 +39,11 @@ Route::prefix('promotions')->name('promotions.')->group(function () {
     Route::get('/', [PromotionsController::class, 'index'])->name('index');
 });
 
+// Halaman Fasilitas dan Layanan
+Route::get('/fasilitas', function () {
+    return view('facilities-and-services.index');
+})->name('facilities.index');
+
 // Glosarium
 // Route::get('/kamus', [HospitalController::class, 'getKamusMedis'])->name('getKamusMedis');
 // Route::prefix('kamus-medis')->name('glossary.')->group(function () {

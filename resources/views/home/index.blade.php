@@ -73,7 +73,7 @@
                         <a class="nav-link" href="#">Ruang Perawatan</a>
                     </li>
                     <li class="nav-item nav-fasilitas">
-                        <a class="nav-link" href="#">Fasilitas</a>
+                        <a class="nav-link" href="{{ route('facilities.index') }}">Fasilitas</a>
                     </li>
                     <li class="nav-item nav-paket-dan-promo">
                         <a class="nav-link" href="{{ route('promotions.index') }}">Paket dan Promo</a>
