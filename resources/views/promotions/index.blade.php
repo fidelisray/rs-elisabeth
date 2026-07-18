@@ -70,7 +70,7 @@
                         <a class="nav-link" href="#">Cari Dokter</a>
                     </li>
                     <li class="nav-item nav-ruang-perawatan">
-                        <a class="nav-link" href="#">Ruang Perawatan</a>
+                        <a class="nav-link" href="{{ route('ruang-perawatan.index') }}">Ruang Perawatan</a>
                     </li>
                     <li class="nav-item nav-fasilitas">
                         <a class="nav-link" href="{{ route('facilities.index') }}">Fasilitas</a>

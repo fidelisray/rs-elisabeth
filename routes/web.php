@@ -44,6 +44,11 @@ Route::get('/fasilitas', function () {
     return view('facilities-and-services.index');
 })->name('facilities.index');
 
+// Halaman Ruang Perawatan
+Route::get('/ruang-perawatan', function () {
+    return view('ruang-perawatan.index');
+})->name('ruang-perawatan.index');
+
 // Glosarium
 // Route::get('/kamus', [HospitalController::class, 'getKamusMedis'])->name('getKamusMedis');
 // Route::prefix('kamus-medis')->name('glossary.')->group(function () {
