@@ -69,8 +69,8 @@
                                 <li><a class="dropdown-item" href="#">Akreditasi</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Cari Dokter</a>
+                        <li class="nav-item nav-cari-dokter">
+                            <a class="nav-link" href="{{ route('dokter.index') }}">Cari Dokter</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Ruang Perawatan</a>

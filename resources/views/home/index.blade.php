@@ -67,7 +67,7 @@
                         </ul>
                     </li>
                     <li class="nav-item nav-cari-dokter">
-                        <a class="nav-link" href="#">Cari Dokter</a>
+                        <a class="nav-link" href="{{ route('dokter.index') }}">Cari Dokter</a>
                     </li>
                     <li class="nav-item nav-ruang-perawatan">
                         <a class="nav-link" href="{{ route('ruang-perawatan.index') }}">Ruang Perawatan</a>

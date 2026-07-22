@@ -7,7 +7,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Dokter Kami</title>
     @vite([
+        'resources/js/navbar/navbar.js',
+        'resources/js/navbar/navbar-dropdown.js',
         'resources/css/style.css',
+        'resources/css/navbar-dropdown.css',
         'resources/css/dokter.css',
         'resources/css/jadwal_dokter.css',
         'resources/js/dokter/script.js'
@@ -16,18 +19,22 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 <body>
-    <header>
+    <header class="nav-group">
         <nav class="navbar bg-body-tertiary">
             <div class="container d-flex">
                 <a class="navbar-brand" href="/">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo" width="auto" height="70" class="d-inline-block align-text-top">
-                    <img src="{{ asset('images/akreditasi.png') }}" alt="Logo" width="auto" height="70" class="d-inline-block align-text-top">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo RS St. Elisabeth Semarang" width="auto" height="70" class="d-inline-block align-text-top">
+                    <img src="{{ asset('images/akreditasi.png') }}" alt="Logo RS St. Elisabeth Semarang" width="auto" height="70" class="d-inline-block align-text-top">
                 </a>
-                <form class="d-flex nav-form-search d-none" role="search">
+                <form class="d-flex nav-form-search" role="search">
                     <input class="form-control me-2" type="search" placeholder="Temukan dokter, klinik, jadwal.." aria-label="Search"/>
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
-                <div class="dropdown d-none">
+                <a href="#" class="navbar-brand ambulance-call" aria-label="Hubungi IGD 24 Jam">
+                    <i class="fa-solid fa-truck-medical"></i>
+                    <span class="">IGD 24</span>
+                </a>
+                <div class="d-none">
                     <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-user"></i>
                     </a>
@@ -40,19 +47,64 @@
             </div>
         </nav>
     </header>
-    <section id="hero" class="container-fluid d-flex align-items-center justify-content-center">
-        <div class="text-center">
-            <div class="hero-img">
-                <i class="fa-solid fa-stethoscope stethoscope-icon"></i>
-            </div>
-            <div class="hero-header container-fluid">
-                <h1 class="display-5 fw-bold text-body-emphasis">Dokter Kami</h1>
-            </div>
-            <div class="col-lg-6 mx-auto">
-                <p class="lead mb-4">Tim Dokter Berpengalaman kami akan selalu siap sedia untuk memberikan pelayanan kesehatan terbaik dan professional untuk anda dan keluarga</p>
+    <div id="navbar-sentinel" class="navbar-sentinel"></div>
+    <nav id="second-navbar" class="navbar navbar-expand-lg second-nav">
+        <div class="container second-nav-body">
+            <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+                <ul class="navbar-nav nav-content gap-2">
+                    <li class="nav-item nav-beranda">
+                        <a class="nav-link" href="/">Beranda</a>
+                    </li>
+                    <li class="nav-item dropdown nav-tentang-kami">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Tentang Kami
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Tentang Kami</a></li>
+                            <li><a class="dropdown-item" href="#">Profil</a></li>
+                            <li><a class="dropdown-item" href="#">Direksi</a></li>
+                            <li><a class="dropdown-item" href="#">Visi & Misi</a></li>
+                            <li><a class="dropdown-item" href="#">Akreditasi</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item nav-cari-dokter">
+                        <a class="nav-link active" aria-current="page" href="{{ route('dokter.index') }}">Cari Dokter</a>
+                    </li>
+                    <li class="nav-item nav-ruang-perawatan">
+                        <a class="nav-link" href="{{ route('ruang-perawatan.index') }}">Ruang Perawatan</a>
+                    </li>
+                    <li class="nav-item nav-fasilitas">
+                        <a class="nav-link" href="{{ route('facilities.index') }}">Fasilitas</a>
+                    </li>
+                    <li class="nav-item nav-paket-dan-promo">
+                        <a class="nav-link" href="{{ route('promotions.index') }}">Paket dan Promo</a>
+                    </li>
+                </ul>
             </div>
         </div>
-    </section>
+    </nav>
+
+    <main>
+        <section id="hero-section">
+            <div class="container">
+                <nav class="hero-breadcrumb" aria-label="breadcrumb">
+                    <ol class="breadcrumb flex-wrap">
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Dokter Kami</li>
+                    </ol>
+                </nav>
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        <h2 class="hero-title">Dokter Kami</h2>
+                        <p class="hero-subtitle">Tim Dokter Berpengalaman kami akan selalu siap sedia untuk memberikan pelayanan kesehatan terbaik dan professional untuk anda dan keluarga.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     <section class="container-fluid toolbar-panel py-3">
         <!-- Toolbar -->
 
@@ -348,7 +400,65 @@
 
         </section>
     </div>
+    </main>
 
+    <footer id="footer" class="pt-5">
+        <div class="container-fluid col-12 col-md-12">
+            <div class="container">
+                <div class="row footer-body">
+                    <div class="col mb-5">
+                        <div class="footer-header mb-4">
+                            <ul>
+                                <li><h4 class="rs-name">RS St. Elisabeth Semarang</h4></li>
+                                <li><p class="moto">Pancaran cintanya menyembuhkan derita sesama</p></li>
+                            </ul>
+                        </div>
+                        <ul>
+                            <li><h4 class="footer-title">Hubungi Kami</h4></li>
+                            <li class="footer-list"><a href="#"><i class="fa-solid fa-location-dot"></i> Jl. Kawi No.1</a></li>
+                            <li class="footer-list"><a href="#"><i class="fa-solid fa-phone"></i> (024) 8502244</a></li>
+                            <li class="footer-list"><a href="#"><i class="fa-solid fa-phone"></i> (024) 8310076 / (024) 8310035</a></li>
+                            <li class="footer-list"><a href="#"><i class="fa-solid fa-envelope"></i> sekretariat@365.rs-elisabeth.com</a></li>
+                        </ul>
+                        <div class="social-media d-flex gap-2">
+                            <div class="insta"><i class="fa-brands fa-instagram"></i></div>
+                            <div class="facebook"><i class="fa-brands fa-facebook"></i></div>
+                            <div class="youtube"><i class="fa-brands fa-youtube"></i></div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <ul>
+                            <li><h4 class="footer-title">Tautan Cepat</h4></li>
+                            <li class="footer-list"><a href="#"><i class="fa-solid fa-caret-right"></i> Tentang Kami</a></li>
+                            <li class="footer-list"><a href="#"><i class="fa-solid fa-caret-right"></i> Elisanews</a></li>
+                            <li class="footer-list"><a href="#"><i class="fa-solid fa-caret-right"></i> Artikel</a></li>
+                            <li class="footer-list"><a href="#"><i class="fa-solid fa-caret-right"></i> Hubungi Kami</a></li>
+                            <li class="footer-list"><a href="#"><i class="fa-solid fa-caret-right"></i> Rekanan</a></li>
+                            <li class="footer-list"><a href="#"><i class="fa-solid fa-caret-right"></i> Perpustakaan Online</a></li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <ul>
+                            <li><h4 class="footer-title">Elisameds</h4></li>
+                            <li class="footer-list">
+                                <p class="elisameds-desc">Aplikasi Mobile Rumah Sakit St. Elisabeth Semarang untuk meningkatkan kualitas pelayanan kesehatan kepada pasien.</p>
+                            </li>
+                            <li><a href="https://play.google.com/store/apps/details?id=com.elisameds.app" aria-label="Unduh aplikasi Elisameds di Google Play Store"><i class="fa-brands fa-google-play"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row footer-copyright">
+                    <div class="col">
+                        <p class="copyright"><i class="fa-solid fa-copyright"></i> 2026 Rumah Sakit Santa Elisabeth Semarang</p>
+                    </div>
+                    <div class="col d-flex justify-content-center gap-3">
+                        <p class="d-inline-block">Designed By Lorem, ipsum dolor.</p>
+                        <p class="d-inline-block">Developed By Lorem, ipsum.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
