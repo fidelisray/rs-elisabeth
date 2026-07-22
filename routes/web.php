@@ -66,6 +66,6 @@ Route::prefix('glosarium-gemini')->name('gemini.')->group(function () {
 
 // Berita (News)
 Route::prefix('news')->name('news.')->group(function () {
-    Route::get('/', [NewsController::class, 'index'])->name('index');
+    Route::get('/', [NewsController::class, 'getArticles'])->name('index');
     Route::get('/{slug}', [NewsController::class, 'show'])->name('show');
 });

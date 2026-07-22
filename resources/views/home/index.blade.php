@@ -672,49 +672,28 @@
 
         <!-- Latest News Section -->
         @php
-            $dummyNews = [
-                [
-                    'id' => 1,
-                    'title' => 'Teknologi Robotik Terbaru untuk Operasi Tulang Belakang Hadir di RS St. Elisabeth',
-                    'slug' => \Illuminate\Support\Str::slug('Teknologi Robotik Terbaru untuk Operasi Tulang Belakang Hadir di RS St. Elisabeth'),
-                    'image' => asset('images/hero.jpg'),
-                    'date' => '2026-07-20',
-                    'excerpt' => 'RS St. Elisabeth Semarang kembali menghadirkan inovasi medis terdepan dengan mengadopsi teknologi robotik canggih untuk operasi tulang belakang...'
-                ],
-                [
-                    'id' => 2,
-                    'title' => 'RS St. Elisabeth Raih Penghargaan Rumah Sakit Ramah Lingkungan 2026',
-                    'slug' => \Illuminate\Support\Str::slug('RS St. Elisabeth Raih Penghargaan Rumah Sakit Ramah Lingkungan 2026'),
-                    'image' => asset('images/feature.jpg'),
-                    'date' => '2026-07-18',
-                    'excerpt' => 'Penghargaan bergengsi kembali diraih oleh RS St. Elisabeth Semarang sebagai Rumah Sakit Ramah Lingkungan (Green Hospital) terbaik tingkat nasional tahun ini.'
-                ],
-                [
-                    'id' => 3,
-                    'title' => 'Mengenal Layanan Klinik Nyeri Terpadu: Solusi Bebas Nyeri Tanpa Operasi',
-                    'slug' => \Illuminate\Support\Str::slug('Mengenal Layanan Klinik Nyeri Terpadu: Solusi Bebas Nyeri Tanpa Operasi'),
-                    'image' => asset('images/F1670914854.jpg'),
-                    'date' => '2026-07-15',
-                    'excerpt' => 'Gangguan nyeri kronis seringkali menurunkan kualitas hidup. Kini, pasien dapat memanfaatkan Layanan Klinik Nyeri Terpadu di RS St. Elisabeth...'
-                ],
-                [
-                    'id' => 4,
-                    'title' => 'Pentingnya Deteksi Dini Kanker Payudara Lewat Mammografi 3D',
-                    'slug' => \Illuminate\Support\Str::slug('Pentingnya Deteksi Dini Kanker Payudara Lewat Mammografi 3D'),
-                    'image' => asset('images/F1670220299.jpg'),
-                    'date' => '2026-07-10',
-                    'excerpt' => 'Kanker payudara masih menjadi salah satu ancaman kesehatan terbesar bagi wanita di Indonesia. Oleh karena itu, deteksi dini sangatlah krusial.'
-                ]
-            ];
+            $articles = app(\App\Services\HospitalApiService::class)->getArticles('artikel');
+            $hasMore = count($articles) > 4;
+            $latestNews = collect($articles)->map(function($item) {
+                preg_match('/<img.+src=[\'"](?P<src>.+?)[\'"].*>/i', $item['deskripsi'] ?? '', $image);
+                return [
+                    'id' => $item['id'] ?? 0,
+                    'title' => $item['judul'] ?? 'Tanpa Judul',
+                    'slug' => \Illuminate\Support\Str::slug($item['judul'] ?? 'berita-' . ($item['id'] ?? rand())),
+                    'image' => $image['src'] ?? asset('images/hero.jpg'),
+                    'date' => $item['created_at'] ?? now()->toDateString(),
+                    'excerpt' => $item['subjudul'] ?? ''
+                ];
+            })->take(7)->toArray();
         @endphp
         <section id="latest-news" class="news-section bg-white pt-2">
             <div class="title text-center mb-5 mt-5">
-                <h2 class="display-8 fw-bold section-title">Berita Terupdate</h2>
+                <h2 class="display-8 fw-bold section-title">ElisaNews</h2>
             </div>
             <div class="container pb-5">
-                <div class="row g-4">
-                    @foreach($dummyNews as $item)
-                    <div class="col-md-6 col-lg-3">
+                <div class="row g-4 justify-content-center">
+                    @forelse($latestNews as $item)
+                    <div class="col-md-6 col-lg-3 position-relative">
                         <div class="news-card h-100">
                             <div class="news-card-img-wrapper">
                                 <a href="{{ route('news.show', $item['slug']) }}">
@@ -735,8 +714,15 @@
                                 </a>
                             </div>
                         </div>
+                        @if($loop->iteration > 4)
+                            <div class="position-absolute top-0 bottom-0 start-0 end-0" style="background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 70%, rgba(255,255,255,1) 100%); z-index: 5; border-radius: var(--bs-border-radius, 0.375rem); pointer-events: none;"></div>
+                        @endif
                     </div>
-                    @endforeach
+                    @empty
+                    <div class="col-12">
+                        <div class="alert alert-info">Belum ada berita terbaru saat ini.</div>
+                    </div>
+                    @endforelse
                 </div>
                 <div class="text-center mt-5 mb-3">
                     <a href="{{ route('news.index') }}" class="btn btn-bouncing px-5 py-3 rounded-pill fw-bold shadow-lg" aria-label="Lihat Semua Berita">

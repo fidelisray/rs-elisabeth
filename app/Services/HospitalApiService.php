@@ -331,29 +331,31 @@ class HospitalApiService
 
 
     /**
-     * Ambil jadwal praktek dokter
+     * Ambil Articles
      */
-    // public function getJadwalDokter(int $dokterId): array
-    // {
-    //     $cacheKey = "jadwal_dokter_{$dokterId}";
-    //     $ttl      = config('rsapi.cache_ttl.jadwal');
+    public function getArticles(string $category = 'artikel'): array
+    {
+        $cacheKey = "elisanews_";
+        $ttl      = config('rsapi.cache_ttl.jadwal');
 
-    //     return Cache::remember($cacheKey, $ttl, function () use ($dokterId) {
-    //         try {
-    //             $response = $this->apiRequest()
-    //                 ->get("{$this->baseUrl}/api/v1/dokter/{$dokterId}/jadwal");
+        return Cache::remember($cacheKey, $ttl, function () use ($category) {
+            try {
+                $response = $this->apiRequest()
+                    ->withBody(json_encode([
+                        "category" => $category
+                    ]), 'application/json')
+                    ->get("{$this->baseUrl}/articles");
 
-    //             return $response->successful()
-    //                 ? $response->json('data', [])
-    //                 : [];
-
-    //         } catch (\Exception $e) {
-    //             Log::error('Gagal ambil jadwal dokter', [
-    //                 'dokter_id' => $dokterId,
-    //                 'error'     => $e->getMessage(),
-    //             ]);
-    //             return [];
-    //         }
-    //     });
-    // }
+                return $response->successful()
+                    ? $response->json('Data', [])
+                    : [];
+            } catch (\Exception $e) {
+                Log::error('Gagal ambil jadwal dokter', [
+                    // 'dokter_id' => $dokterId,
+                    'error'     => $e->getMessage(),
+                ]);
+                return [];
+            }
+        });
+    }
 }
