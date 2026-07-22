@@ -5,7 +5,7 @@ use App\Http\Controllers\DokterController;
 // use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\PromotionsController;
 use App\Http\Controllers\GlossaryController;
-
+use App\Http\Controllers\NewsController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -62,4 +62,10 @@ Route::prefix('glosarium-gemini')->name('gemini.')->group(function () {
     Route::get('/tampil-data', [GlossaryController::class, 'tampil_data'])->name('tampil_data');
     Route::get('/', [GlossaryController::class, 'gemini_index'])->name('index');
     Route::get('/{slug}', [GlossaryController::class, 'gemini_show'])->name('show');
+});
+
+// Berita (News)
+Route::prefix('news')->name('news.')->group(function () {
+    Route::get('/', [NewsController::class, 'index'])->name('index');
+    Route::get('/{slug}', [NewsController::class, 'show'])->name('show');
 });

@@ -10,10 +10,12 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
         @vite([
             'resources/js/navbar/navbar.js',
+            'resources/js/navbar/navbar-dropdown.js',
             'resources/js/glosarium/glosarium.js',
             'resources/css/style.css',
             'resources/css/hero.css',
             'resources/css/glossarium.css',
+            'resources/css/navbar-dropdown.css',
         ])
     </head>
     <body>
@@ -54,10 +56,10 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
                     <ul class="navbar-nav nav-content gap-2">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Beranda</a>
+                        <li class="nav-item nav-beranda">
+                            <a class="nav-link active" aria-current="page" href="{{ url('/') }}">Beranda</a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown nav-tentang-kami">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Tentang Kami
                             </a>
@@ -72,14 +74,14 @@
                         <li class="nav-item nav-cari-dokter">
                             <a class="nav-link" href="{{ route('dokter.index') }}">Cari Dokter</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Ruang Perawatan</a>
+                        <li class="nav-item nav-ruang-perawatan">
+                            <a class="nav-link" href="{{ route('ruang-perawatan.index') }}">Ruang Perawatan</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Fasilitas</a>
+                        <li class="nav-item nav-fasilitas">
+                            <a class="nav-link" href="{{ route('facilities.index') }}">Fasilitas</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Paket dan Promo</a>
+                        <li class="nav-item nav-paket-dan-promo">
+                            <a class="nav-link" href="{{ route('promotions.index') }}">Paket dan Promo</a>
                         </li>
                     </ul>
                 </div>
@@ -95,7 +97,7 @@
                 <!-- Breadcrumb -->
                 <nav class="hero-breadcrumb" aria-label="breadcrumb">
                     <ol class="breadcrumb flex-wrap">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                         @if (preg_match('/^[A-Z]$/', $activeLetter))
                             <li class="breadcrumb-item"><a href="{{ route('glossary.index') }}">Kamus Medis</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Begins with '{{ $activeLetter }}'</li>
