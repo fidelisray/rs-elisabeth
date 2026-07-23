@@ -21,6 +21,14 @@
     --shadow-sticky: 0 6px 24px rgba(15, 23, 42, 0.1);
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+section[id] {
+    scroll-margin-top: 95px;
+}
+
 * {
     margin: 0;
     padding: 0;

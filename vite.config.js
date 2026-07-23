@@ -20,6 +20,7 @@ export default defineConfig({
                 'resources/css/search-and-quick-access.css',
                 'resources/css/dokter.css',
                 'resources/css/jadwal_dokter.css',
+                'resources/css/tentang-kami.css',
                 'resources/js/app.js',
                 'resources/js/navbar/navbar.js',
                 'resources/js/navbar/navbar-dropdown.js',

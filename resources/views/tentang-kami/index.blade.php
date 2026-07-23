@@ -63,11 +63,9 @@
                         Tentang Kami
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ route('tentang-kami.index') }}">Tentang Kami</a></li>
                             <li><a class="dropdown-item" href="#">Profil</a></li>
-                            <li><a class="dropdown-item" href="#">Direksi</a></li>
-                            <li><a class="dropdown-item" href="#">Visi & Misi</a></li>
-                            <li><a class="dropdown-item" href="#">Akreditasi</a></li>
+                            <li><a class="dropdown-item" href="#visi-dan-misi">Visi & Misi</a></li>
+                            <li><a class="dropdown-item" href="#sejarah-singkat">Sejarah</a></li>
                         </ul>
                     </li>
                     <li class="nav-item nav-cari-dokter">
@@ -108,7 +106,7 @@
             </div>
         </section>
 
-        <section class="py-5">
+        <section id="motto" class="py-5">
             <div class="container">
                 <!-- Motto -->
                 <div class="row justify-content-center mb-5 pb-3">
@@ -117,7 +115,10 @@
                         <h2 class="display-6">"Pancaran Cintanya Menyembuhkan Derita Sesama"</h2>
                     </div>
                 </div>
+        </section>
 
+        <section id="sejarah-singkat">
+            <div class="container">
                 <!-- Sejarah Singkat -->
                 <div class="row justify-content-center mb-5 pb-4">
                     <div class="col-lg-10">
@@ -144,7 +145,11 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
+        <section id="visi-dan-misi">
+            <div class="container">
                 <!-- Visi -->
                 <div class="row justify-content-center mb-5 pb-4">
                     <div class="col-lg-10 text-center">

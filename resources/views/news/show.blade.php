@@ -58,12 +58,10 @@
                             Tentang Kami
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Tentang Kami</a></li>
-                                <li><a class="dropdown-item" href="#">Profil</a></li>
-                                <li><a class="dropdown-item" href="#">Direksi</a></li>
-                                <li><a class="dropdown-item" href="#">Visi & Misi</a></li>
-                                <li><a class="dropdown-item" href="#">Akreditasi</a></li>
-                            </ul>
+                            <li><a class="dropdown-item" href="{{ route('tentang-kami.index') }}">Profil</a></li>
+                            <li><a class="dropdown-item" href="{{ route('tentang-kami.index') }}#visi-dan-misi">Visi & Misi</a></li>
+                            <li><a class="dropdown-item" href="{{ route('tentang-kami.index') }}#sejarah-singkat">Sejarah</a></li>
+                        </ul>
                         </li>
                         <li class="nav-item nav-cari-dokter">
                             <a class="nav-link" href="{{ route('dokter.index') }}">Cari Dokter</a>
