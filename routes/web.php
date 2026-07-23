@@ -49,6 +49,11 @@ Route::get('/ruang-perawatan', function () {
     return view('ruang-perawatan.index');
 })->name('ruang-perawatan.index');
 
+// Halaman Tentang Kami
+Route::get('/tentang-kami', function () {
+    return view('tentang-kami.index');
+})->name('tentang-kami.index');
+
 // Glosarium
 // Route::get('/kamus', [HospitalController::class, 'getKamusMedis'])->name('getKamusMedis');
 // Route::prefix('kamus-medis')->name('glossary.')->group(function () {
