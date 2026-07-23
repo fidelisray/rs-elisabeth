@@ -11,7 +11,9 @@
         'resources/css/navbar-dropdown.css',
         'resources/css/search-and-quick-access.css',
         'resources/css/home-hero.css',
-        'resources/css/news.css'
+        'resources/css/news.css',
+        'resources/css/stats-section.css',
+        'resources/css/app-section.css'
       ])
   </head>
   <body>
@@ -745,6 +747,122 @@
                 </div>
             </div>
         </section>
+
+        <section id="stats-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-6">
+                        <div class="stat-item">
+                            <div class="stat-number">95+</div>
+                            <div class="stat-text">Tahun Pengalaman</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="stat-item">
+                            <div class="stat-number">150+</div>
+                            <div class="stat-text">Dokter Ahli</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="stat-item">
+                            <div class="stat-number">Paripurna</div>
+                            <div class="stat-text">Akreditasi KARS</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="stat-item">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-text">Pelayanan Prima</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="app-section">
+            <!-- Decorative background elements -->
+            <div class="app-bg-shape app-bg-shape-1"></div>
+            <div class="app-bg-shape app-bg-shape-2"></div>
+            
+            <div class="container position-relative z-1">
+                <div class="row align-items-center mb-5 pb-lg-4">
+                    <div class="col-lg-6 mb-5 mb-lg-0 app-content pe-lg-5">
+                        <span class="badge bg-primary text-white mb-3 px-3 py-2 rounded-pill fw-semibold shadow-sm">Elisameds App</span>
+                        <h2 class="display-5 mb-4">Kemudahan Dalam Genggaman Anda</h2>
+                        <p class="lead mb-4" style="color: #4a5568;">Aplikasi <strong>Elisameds</strong> hadir untuk menyederhanakan layanan kesehatan Anda di RS St. Elisabeth Semarang. Dari pendaftaran hingga riwayat medis, semuanya lebih praktis.</p>
+
+                        <ul class="list-unstyled mb-5">
+                            <li class="mb-3 d-flex align-items-center"><i class="fas fa-check-circle me-3 fs-5" style="color: var(--primary-color);"></i> <span>Reservasi dokter dan klinik secara online</span></li>
+                            <li class="mb-3 d-flex align-items-center"><i class="fas fa-check-circle me-3 fs-5" style="color: var(--primary-color);"></i> <span>Akses riwayat kesehatan dengan aman</span></li>
+                            <li class="mb-3 d-flex align-items-center"><i class="fas fa-check-circle me-3 fs-5" style="color: var(--primary-color);"></i> <span>Info antrean dan jadwal dokter secara real-time</span></li>
+                        </ul>
+
+                        <div class="d-flex flex-wrap gap-3 mt-4">
+                            <a href="https://play.google.com/store/apps/details?id=com.elisameds.app" class="btn-store shadow">
+                                <i class="fab fa-google-play"></i>
+                                <div class="store-text">
+                                    <span class="small-text">GET IT ON</span>
+                                    <span class="large-text">Google Play</span>
+                                </div>
+                            </a>
+                            <a href="#" class="btn-store shadow">
+                                <i class="fab fa-apple"></i>
+                                <div class="store-text">
+                                    <span class="small-text">Download on the</span>
+                                    <span class="large-text">App Store</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="app-mockup-container">
+                            <div class="mobile-frame app-mockup-secondary">
+                                <img src="{{ asset('images/elisameds/elisameds-2.webp') }}" alt="Elisameds Feature">
+                            </div>
+                            <div class="mobile-frame app-mockup-main">
+                                <img src="{{ asset('images/elisameds/elisameds-1.webp') }}" alt="Elisameds Main App">
+                            </div>
+                            
+                            <div class="floating-badge">
+                                <div class="icon-box"><i class="fa-solid fa-calendar-check"></i></div>
+                                <div>
+                                    <strong>Reservasi Mudah</strong>
+                                    <span>Tanpa antre lama</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row app-features-mockups mt-5 pt-4 justify-content-center">
+                    <div class="col-lg-4 col-md-6 mb-5 d-flex justify-content-center">
+                        <div class="static-mockup-wrapper">
+                            <div class="mockup-glow"></div>
+                            <div class="static-mobile-frame">
+                                <img src="{{ asset('images/elisameds/elisameds-3.webp') }}" alt="Elisameds Feature 1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-5 d-flex justify-content-center">
+                        <div class="static-mockup-wrapper">
+                            <div class="mockup-glow"></div>
+                            <div class="static-mobile-frame">
+                                <img src="{{ asset('images/elisameds/elisameds-4.webp') }}" alt="Elisameds Feature 2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-5 d-flex justify-content-center">
+                        <div class="static-mockup-wrapper">
+                            <div class="mockup-glow"></div>
+                            <div class="static-mobile-frame">
+                                <img src="{{ asset('images/elisameds/elisameds-5.webp') }}" alt="Elisameds Feature 3">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
     <footer id="footer" class="pt-5">
         <div class="container-fluid col-12 col-md-12">
