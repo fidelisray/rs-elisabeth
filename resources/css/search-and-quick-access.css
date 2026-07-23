@@ -1,0 +1,77 @@
+/* Search Widget */
+.search-widget {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transform: translateY(-50%);
+    position: relative;
+    z-index: 10;
+    margin-bottom: -50px;
+}
+
+.search-widget .nav-tabs {
+    border-bottom: 2px solid var(--bg-light, #f7fafc);
+    margin-bottom: 20px;
+}
+
+.search-widget .nav-link {
+    border: none;
+    color: var(--text-light, #718096) !important;
+    font-weight: 600;
+    padding: 10px 20px;
+}
+
+.search-widget .nav-link.active {
+    background: transparent;
+    color: var(--primary-color) !important;
+    border-bottom: 3px solid var(--primary-color);
+}
+
+.search-widget .form-control,
+.search-widget .form-select {
+    border-radius: 8px;
+    padding: 12px 15px;
+    border: 1px solid #e2e8f0;
+}
+
+.search-widget .form-control:focus,
+.search-widget .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 143, 215, 0.25);
+}
+
+/* Quick Access Cards */
+#quick-access div.container div.cards {
+    height: 200px;
+}
+
+#quick-access .card {
+    transition: transform 0.3s ease;
+}
+
+#quick-access .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2) !important;
+}
+
+#quick-access .card i {
+    font-size: 3rem;
+}
+
+/* Card gradients */
+#quick-access .card-doctor {
+    background: linear-gradient(135deg, rgb(128, 0, 148), #a832a8);
+}
+
+#quick-access .card-appointment {
+    background: linear-gradient(135deg, rgb(12, 136, 236), #32a8e3);
+}
+
+#quick-access .card-contact {
+    background: linear-gradient(135deg, rgb(3, 198, 94), #32e38c);
+}
+
+#quick-access .card-emergency {
+    background: linear-gradient(135deg, rgb(246, 37, 22), #f25c5c);
+}

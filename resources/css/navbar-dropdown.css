@@ -1,0 +1,101 @@
+/* ============================================================
+ * navbar-dropdown.css
+ * Hover dropdown dengan animasi smooth untuk .nav-tentang-kami
+ * ============================================================ */
+
+/* Nonaktifkan caret Bootstrap default dan ganti dengan versi kustom */
+.nav-tentang-kami > .nav-link.dropdown-toggle::after {
+    display: inline-block;
+    margin-left: 0.3em;
+    vertical-align: 0.15em;
+    content: "";
+    border-top: 0.35em solid;
+    border-right: 0.35em solid transparent;
+    border-bottom: 0;
+    border-left: 0.35em solid transparent;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Caret rotate 180° saat dropdown terbuka */
+.nav-tentang-kami.hover-open > .nav-link.dropdown-toggle::after {
+    transform: rotate(-180deg);
+}
+
+/* ---- Dropdown menu ---- */
+/*
+ * Override Bootstrap yang menggunakan display:none.
+ * Kita pakai display:block permanen lalu kendalikan
+ * visibility + opacity + transform agar bisa di-animasi.
+ */
+.nav-tentang-kami .dropdown-menu {
+    display: block !important;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+
+    transform: translateY(-8px);
+    transform-origin: top center;
+
+    /*
+     * Transisi MENUTUP (state hover-open hilang):
+     * - opacity & transform: 0.22s
+     * - visibility ditunda selama 0.22s (tunggu fade-out selesai
+     *   sebelum benar-benar disembunyikan dari accessibility tree)
+     */
+    transition:
+        opacity    0.22s cubic-bezier(0.4, 0, 0.2, 1),
+        transform  0.22s cubic-bezier(0.4, 0, 0.2, 1),
+        visibility 0s   linear 0.22s;
+
+    border: none;
+    border-radius: 0.65rem;
+    padding: 0.5rem 0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.14);
+    min-width: 11.5rem;
+    background-color: #ffffff;
+    margin-top: 0.3rem;
+}
+
+/* State TERBUKA — class .hover-open ditambahkan via JS */
+.nav-tentang-kami.hover-open .dropdown-menu {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+
+    /*
+     * Transisi MEMBUKA:
+     * - visibility: segera (0s delay) agar elemen langsung
+     *   dapat diakses/diklik saat animasi mulai
+     * - opacity & transform: 0.3s
+     */
+    transition:
+        opacity    0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        transform  0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        visibility 0s   linear 0s;
+}
+
+/* ---- Dropdown items ---- */
+.nav-tentang-kami .dropdown-menu .dropdown-item {
+    font-size: 0.92rem;
+    font-weight: 500;
+    padding: 0.5rem 1.25rem;
+    color: #2c3e50;
+    border-radius: 0.3rem;
+    transition:
+        background-color 0.18s ease,
+        color            0.18s ease,
+        padding-left     0.18s ease;
+}
+
+.nav-tentang-kami .dropdown-menu .dropdown-item:hover,
+.nav-tentang-kami .dropdown-menu .dropdown-item:focus {
+    background-color: #e8f4fd;
+    color: var(--primary-color, #008fd7);
+    padding-left: 1.6rem;
+}
+
+/* Divider tipis antar item */
+.nav-tentang-kami .dropdown-menu .dropdown-item + .dropdown-item {
+    border-top: 1px solid #f0f4f8;
+}

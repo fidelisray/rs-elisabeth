@@ -1,0 +1,123 @@
+:root {
+    --primary-color: #008fd7;
+    --secondary-color: #026199;
+    --secondary-darker-color: #124f8c;
+    --accent-color: #f8f804;
+    --primary-lighter-color: #b7e4e5;
+
+    --primary-darker-color: #03327a;
+}
+
+/* =====================
+Jadwal Dokter Styles
+===================== */
+
+.jadwal-wrapper {
+    padding: 1.5rem 0;
+}
+
+.jadwal-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    color: #212529;
+}
+
+/* Scroll horizontal di mobile */
+.jadwal-scroll {
+    overflow-x: auto;
+}
+
+/* Grid 7 kolom: 1 per hari */
+.jadwal-grid {
+    display: grid;
+    /* grid-template-columns: repeat(7, minmax(120px, 1fr)); */
+    gap: 8px;
+    /* min-width: 860px; */
+}
+
+/* ---- Header hari ---- */
+.day-header {
+    text-align: center;
+    padding: 10px 6px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    /* background-color: #f8f9fa; */
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+    border: 1px solid #5fa8ec;
+}
+
+.day-header.today {
+    color: var(--primary-darker-color);
+    background-color: var(--accent-color);
+    border: none;
+    /* border-color: var(--primary-darker-color); */
+    /* color: #fff; */
+    /* border-color: #03327a; */
+}
+
+/* ---- Kolom slot ---- */
+.slot-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* ---- Card jadwal ---- */
+.schedule-card {
+    border-radius: 8px;
+    border: 1px solid #5fa8ec;
+    background-color: #fff;
+    /* border: 1px solid #dee2e6;
+    background-color: #fff; */
+    padding: 10px 10px;
+    font-size: 0.78rem;
+    min-height: 78px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.schedule-card .sc-time {
+    font-weight: 600;
+    color: #212529;
+    font-size: 0.8rem;
+}
+
+.schedule-card .sc-room {
+    font-size: 0.75rem;
+    color: #6c757d;
+}
+
+.schedule-card .sc-klinik {
+    font-size: 0.75rem;
+    color: #6c757d;
+}
+
+/* Card hari ini — hijau */
+.schedule-card.today-card {
+    background-color: var(--accent-color);
+    /* border-color: #03327a; */
+    border-color: var(--accent-color);
+}
+
+.schedule-card.today-card .sc-time {
+    /* color: #fff; */
+    /* color: var(--accent-color); */
+    color: var(--primary-darker-color);
+}
+
+.schedule-card.today-card .sc-room,
+.schedule-card.today-card .sc-klinik {
+    /* color: rgba(255, 255, 255, 0.85); */
+    color: var(--primary-darker-color);
+}
+
+/* Slot kosong — tidak terlihat tapi tetap menjaga tinggi grid */
+.schedule-card.empty-card {
+    background-color: transparent;
+    border-color: transparent;
+    pointer-events: none;
+}
