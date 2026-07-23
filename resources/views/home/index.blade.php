@@ -613,9 +613,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3 position-relative">
-                        <div class="promo-card" data-bs-toggle="modal" data-bs-target="#promoModal" data-title="Screening Kanker Serviks" data-desc="Pemeriksaan papsmear dan konsultasi obgyn dengan harga diskon khusus bulan ini." data-img="{{ asset('images/ADS1761805772.jpeg') }}">
-                            <div class="card h-100">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="promo-card">
+                            <div class="card position-relative teased-card">
                                 <img src="{{ asset('images/ADS1761805772.jpeg') }}" class="card-img-top" alt="Screening Kanker Serviks">
                                 <div class="card-body d-flex flex-column">
                                     <h5 class="card-title fw-bold text-primary mb-2">Screening Kanker Serviks</h5>
@@ -624,13 +624,13 @@
                                         <span class="text-secondary fw-semibold small">Lihat Detail <i class="fa-solid fa-arrow-right ms-1"></i></span>
                                     </div>
                                 </div>
+                                <div class="tease-overlay position-absolute top-0 bottom-0 start-0 end-0" style="background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.95) 35%, rgba(255,255,255,1) 100%); z-index: 5; pointer-events: none;"></div>
                             </div>
                         </div>
-                        <div class="position-absolute top-0 bottom-0 start-0 end-0" style="background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 70%, rgba(255,255,255,1) 100%); z-index: 5; border-radius: var(--bs-border-radius, 0.375rem); pointer-events: none;"></div>
                     </div>
-                    <div class="col-md-6 col-lg-3 position-relative">
-                        <div class="promo-card" data-bs-toggle="modal" data-bs-target="#promoModal" data-title="Promo Fisioterapi" data-desc="Atasi nyeri sendi dan tulang dengan layanan fisioterapi kami yang menggunakan teknologi terkini." data-img="{{ asset('images/ADS1761805889.jpeg') }}">
-                            <div class="card h-100">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="promo-card">
+                            <div class="card position-relative teased-card">
                                 <img src="{{ asset('images/ADS1761805889.jpeg') }}" class="card-img-top" alt="Promo Fisioterapi">
                                 <div class="card-body d-flex flex-column">
                                     <h5 class="card-title fw-bold text-primary mb-2">Promo Fisioterapi</h5>
@@ -639,9 +639,9 @@
                                         <span class="text-secondary fw-semibold small">Lihat Detail <i class="fa-solid fa-arrow-right ms-1"></i></span>
                                     </div>
                                 </div>
+                                <div class="tease-overlay position-absolute top-0 bottom-0 start-0 end-0" style="background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.95) 35%, rgba(255,255,255,1) 100%); z-index: 5; pointer-events: none;"></div>
                             </div>
                         </div>
-                        <div class="position-absolute top-0 bottom-0 start-0 end-0" style="background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 70%, rgba(255,255,255,1) 100%); z-index: 5; border-radius: var(--bs-border-radius, 0.375rem); pointer-events: none;"></div>
                     </div>
                 </div>
             </div>

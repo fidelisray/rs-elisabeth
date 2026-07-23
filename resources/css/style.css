@@ -262,9 +262,15 @@ span.carousel-control-next-icon {
     background: rgba(255, 255, 255, 0.95);
 }
 
-#promotions .card:hover {
+#promotions .card:not(.teased-card):hover {
     transform: translateY(-12px) scale(1.02);
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.teased-card {
+    height: 220px;
+    overflow: hidden;
+    cursor: default !important;
 }
 
 .promo-card .card-img-top {
