@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const specialtyCode = urlParams.get('specialty_code');
     const nama = urlParams.get('nama');
+    const klinik = urlParams.get('klinik');
 
     let fetchSuccess = false;
 
@@ -34,7 +35,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     if (fetchSuccess) {
-        if (nama) {
+        if (klinik) {
+            // Update UI for clinic search
+            if (dropdownButton) {
+                dropdownButton.innerText = `Pencarian Klinik: ${klinik}`;
+            }
+            filterDoctors(klinik, "klinik");
+        } else if (nama) {
             if (searchInput) searchInput.value = nama;
             filterDoctors(nama.toLowerCase());
         }

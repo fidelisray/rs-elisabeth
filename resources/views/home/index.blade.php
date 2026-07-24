@@ -132,10 +132,10 @@
                             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#clinic" type="button"><i
                                     class="fas fa-hospital me-2"></i>Cari Klinik</button>
                         </li>
-                        <li class="nav-item" role="presentation">
+                        {{-- <li class="nav-item" role="presentation">
                             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#condition"
                                 type="button"><i class="fas fa-calendar-alt me-2"></i>Jadwal Praktek</button>
-                        </li>
+                        </li> --}}
                     </ul>
                     <div class="tab-content" id="searchTabsContent">
                         <div class="tab-pane fade show active" id="doctor">
@@ -160,18 +160,18 @@
                             </form>
                         </div>
                         <div class="tab-pane fade" id="clinic">
-                            <form class="row g-3">
+                            <form class="row g-3" action="{{ route('dokter.index') }}" method="GET">
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control"
-                                        placeholder="Klinik (Misal: Klinik Gigi)">
+                                    <input type="text" name="klinik" class="form-control"
+                                        placeholder="Nama Klinik">
                                 </div>
                                 <div class="col-md-4">
-                                    <button class="btn btn-primary-custom w-100" type="button"><i
+                                    <button class="btn btn-primary-custom w-100" type="submit"><i
                                             class="fas fa-search me-2"></i>Cari</button>
                                 </div>
                             </form>
                         </div>
-                        <div class="tab-pane fade" id="condition">
+                        {{-- <div class="tab-pane fade" id="condition">
                             <form class="row g-3">
                                 <div class="col-md-8">
                                     <input type="text" class="form-control"
@@ -182,7 +182,7 @@
                                             class="fas fa-search me-2"></i>Cari</button>
                                 </div>
                             </form>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 

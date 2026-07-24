@@ -21,6 +21,8 @@ export function preprocessingApiData(doctorData, knownSpecialtyCode = null) {
                 paramedicCode: item.ParamedicCode,
                 paramedicName: item.ParamedicName,
                 specialtyCode: item.SpecialityCode || knownSpecialtyCode,
+                specialtyName: item.SpecialtyName || "",
+                serviceUnitName: item.ServiceUnitName || "",
                 schedule
             });
         }
@@ -42,13 +44,20 @@ export function setDoctorContext(doctorList) {
     state.currentPage = 1;
 }
 
-export function filterDoctors(keyword) {
+export function filterDoctors(keyword, type = "nama") {
     if (keyword === "") {
         state.filteredDoctorList = state.fullDoctorList;
     } else {
+        const lowerKeyword = keyword.toLowerCase();
         state.filteredDoctorList = state.fullDoctorList.filter((dokter) => {
-            const nama = dokter.paramedicName?.toLowerCase() || "";
-            return nama.includes(keyword);
+            if (type === "klinik") {
+                const specName = dokter.specialtyName?.toLowerCase() || "";
+                const unitName = dokter.serviceUnitName?.toLowerCase() || "";
+                return specName.includes(lowerKeyword) || unitName.includes(lowerKeyword);
+            } else {
+                const nama = dokter.paramedicName?.toLowerCase() || "";
+                return nama.includes(lowerKeyword);
+            }
         });
     }
     state.currentPage = 1;
@@ -59,10 +68,11 @@ export async function fetchAllDokter() {
         const csrfTokenElement = document.querySelector('meta[name="csrf-token"]');
         const csrfToken = csrfTokenElement ? csrfTokenElement.getAttribute("content") : "";
 
-        const response = await fetch(`/dokter/all-dokter`, {
+        const response = await fetch(`/dokter/all-dokter?_t=${new Date().getTime()}`, {
             headers: {
                 "X-Requested-With": "XMLHttpRequest",
                 "X-CSRF-TOKEN": csrfToken,
+                "Cache-Control": "no-cache",
             },
         });
 

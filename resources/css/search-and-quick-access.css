@@ -41,6 +41,10 @@
     box-shadow: 0 0 0 0.2rem rgba(0, 143, 215, 0.25);
 }
 
+.search-widget .form-control::placeholder {
+    opacity: 0.5;
+}
+
 /* Quick Access Cards */
 #quick-access div.container div.cards {
     height: 200px;
