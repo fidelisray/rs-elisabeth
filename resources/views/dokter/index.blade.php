@@ -240,7 +240,7 @@
                                         <h5 class="mb-1 fw-bold" id="namaDokter">
                                         </h5>
                                         <span class="speciality-badge">
-                                            <p class="speciality-title">Dokter Spesialis Kaki Kaki</p>
+                                            <p class="speciality-title fw-bold">Dokter Spesialis Kaki Kaki</p>
                                         </span>
                                     </div>
                                 </div>

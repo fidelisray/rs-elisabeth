@@ -57,6 +57,14 @@ export function createScheduleGrid(dokter) {
     const gridStyle = `grid-template-columns: repeat(${activeDays.length}, minmax(120px, 1fr)); min-width: ${Math.max(activeDays.length, 4) * 130}px;`;
     return { html, gridStyle };
 }
+function getSpecialtyName(specialtyCode) {
+    let name = "Spesialis Umum";
+    if (specialtyCode) {
+        const option = document.querySelector(`.clinic-option[data-code="${specialtyCode}"]`);
+        if (option) name = option.dataset.value;
+    }
+    return name.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+}
 
 export function createDoctorCard(dokter) {
     return `
@@ -71,8 +79,8 @@ export function createDoctorCard(dokter) {
                                 style="width:180px;height:180px;object-fit:cover;"
                                 alt="Foto Dokter"
                                 onerror="this.onerror=null; this.src='/images/default.png';">
-                            <span class="badge bg-primary mb-3 d-none">
-                                    Spesialis Jantung
+                            <span class="badge bg-primary mb-3 d-none fw-bold">
+                                    ${getSpecialtyName(dokter.specialtyCode)}
                             </span>
                             <div class="container my-3 group-btn">
                                 <a 
@@ -94,7 +102,7 @@ export function createDoctorCard(dokter) {
                             <div class="dokter-header mb-0">
                                 <h5 class="fw-bold mb-1">${dokter.paramedicName}</h5>
                                 <span class="speciality-badge">
-                                    <p class="speciality-title">Spesialis Jantung</p>
+                                    <p class="speciality-title fw-bold">${getSpecialtyName(dokter.specialtyCode)}</p>
                                 </span>
                             </div>
                             <div class="jadwal-wrapper">
@@ -235,6 +243,11 @@ export function renderModal(doctorData) {
     const namaDokter = document.getElementById("namaDokter");
     if (namaDokter) {
         namaDokter.textContent = doctorData.paramedicName;
+    }
+
+    const specialtyBadge = document.querySelector("#detailDokter .speciality-title");
+    if (specialtyBadge) {
+        specialtyBadge.textContent = getSpecialtyName(doctorData.specialtyCode);
     }
 
     let scheduleCard = "";

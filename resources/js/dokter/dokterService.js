@@ -6,7 +6,7 @@ export const state = {
     days: [1, 2, 3, 4, 5, 6, 7]
 };
 
-export function preprocessingApiData(doctorData) {
+export function preprocessingApiData(doctorData, knownSpecialtyCode = null) {
     const doctorMap = new Map();
 
     doctorData.forEach((item) => {
@@ -20,6 +20,7 @@ export function preprocessingApiData(doctorData) {
                 entry_id: `${item.ServiceUnitCode}0823${item.ParamedicCode}9373`,
                 paramedicCode: item.ParamedicCode,
                 paramedicName: item.ParamedicName,
+                specialtyCode: item.SpecialityCode || knownSpecialtyCode,
                 schedule
             });
         }
@@ -92,7 +93,7 @@ export async function fetchDokterBySpecialtyCode(specialtyCode) {
             return true;
         }
 
-        const doctorList = preprocessingApiData(ScheduleRoutine);
+        const doctorList = preprocessingApiData(ScheduleRoutine, specialtyCode);
         setDoctorContext(doctorList);
         return true;
     } catch (error) {
