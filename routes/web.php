@@ -6,12 +6,12 @@ use App\Http\Controllers\DokterController;
 use App\Http\Controllers\PromotionsController;
 use App\Http\Controllers\GlossaryController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\HomeController;
+
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/', function () {
-    return view('home.index');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
 // Route::get('/dokter', function() {
 //     return view('dokter');

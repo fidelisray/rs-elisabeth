@@ -181,6 +181,17 @@ class DoctorApiService
         });
     }
 
+    public function getCachedSpesialisasi(): array
+    {
+        return Cache::get('specialty_list_', []);
+    }
+
+    public function getCachedUnits(array $filters = []): array
+    {
+        $cacheKey = 'units_' . md5(serialize($filters));
+        return Cache::get($cacheKey, []);
+    }
+
     public function getDokterBySpesialisasi(string $specialtyCode): array
     {
         $cacheKey = 'doctor_specialty_' . $specialtyCode;

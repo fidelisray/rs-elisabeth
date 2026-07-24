@@ -139,21 +139,22 @@
                     </ul>
                     <div class="tab-content" id="searchTabsContent">
                         <div class="tab-pane fade show active" id="doctor">
-                            <form class="row g-3">
+                            <form class="row g-3" action="{{ route('dokter.index') }}" method="GET">
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" placeholder="Nama Dokter">
+                                    <input type="text" name="nama" class="form-control" placeholder="Nama Dokter">
                                 </div>
                                 <div class="col-md-4">
-                                    <select class="form-select">
-                                        <option selected>Pilih Spesialisasi</option>
-                                        <option>Spesialis Jantung</option>
-                                        <option>Spesialis Saraf</option>
-                                        <option>Spesialis Anak</option>
-                                        <option>Spesialis Kandungan</option>
+                                    <select name="specialty_code" class="form-select">
+                                        <option value="" selected>Pilih Spesialisasi</option>
+                                        @if(isset($spesialisasi))
+                                            @foreach ($spesialisasi as $spesialis)
+                                                <option value="{{ $spesialis->Code }}">{{ ucwords(strtolower($spesialis->Name)) }}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                 </div>
                                 <div class="col-md-4">
-                                    <button class="btn btn-primary-custom w-100" type="button"><i
+                                    <button class="btn btn-primary-custom w-100" type="submit"><i
                                             class="fas fa-search me-2"></i>Cari</button>
                                 </div>
                             </form>

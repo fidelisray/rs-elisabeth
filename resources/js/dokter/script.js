@@ -11,8 +11,33 @@ const detailDokterModal = document.getElementById("detailDokter");
 // Initialization
 document.addEventListener("DOMContentLoaded", async () => {
     showLoading();
-    const success = await fetchAllDokter();
-    if (success) {
+
+    // Parse URL Parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const specialtyCode = urlParams.get('specialty_code');
+    const nama = urlParams.get('nama');
+
+    let fetchSuccess = false;
+
+    if (specialtyCode) {
+        // Find the clinic option to get the name
+        const option = Array.from(clinicOptions).find(opt => opt.dataset.code === specialtyCode);
+        if (option && dropdownButton) {
+            dropdownButton.innerText = option.dataset.value;
+            dropdownButton.dataset.selected_name = option.dataset.value;
+            dropdownButton.dataset.selected_code = specialtyCode;
+        }
+        
+        fetchSuccess = await fetchDokterBySpecialtyCode(specialtyCode);
+    } else {
+        fetchSuccess = await fetchAllDokter();
+    }
+
+    if (fetchSuccess) {
+        if (nama) {
+            if (searchInput) searchInput.value = nama;
+            filterDoctors(nama.toLowerCase());
+        }
         renderDoctorPage(handlePageChange);
     } else {
         showError();

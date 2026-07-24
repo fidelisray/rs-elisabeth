@@ -292,13 +292,18 @@ class HospitalApiService
     }
 
 
+    public function getCachedGlosarium(): array
+    {
+        return Cache::get('glosarium_', []);
+    }
+
     /**
      * Filter glossary berdasarkan huruf awal.
      * Proses di PHP, tidak perlu request API lagi.
      */
     public function getGlossaryByLetter(string $letter): array
     {
-        $all = $this->getGlosarium();
+        $all = $this->getCachedGlosarium();
 
         if ($letter === 'ALL') {
             return $all;

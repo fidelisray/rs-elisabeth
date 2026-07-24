@@ -21,7 +21,7 @@ class DokterController extends Controller
         //     $this->apiService->getDaftarDokter(),
         // ];
 
-        $units = $this->apiService->GetDaftarUnits();
+        $units = $this->apiService->getCachedUnits();
 
         return view('dokter.index', compact('units'));
 
@@ -47,7 +47,7 @@ class DokterController extends Controller
     }
 
     public function spesialisasi() {
-        $spesialisasi = $this->apiService->getDaftarSpesialisasi();
+        $spesialisasi = $this->apiService->getCachedSpesialisasi();
 
         // dd($spesialisasi);
 

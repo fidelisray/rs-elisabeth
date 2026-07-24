@@ -36,7 +36,7 @@ class GlossaryController extends Controller
         }
 
         // Hitung huruf yang tersedia untuk navigasi A-Z
-        $allItems       = $this->apiService->getGlosarium();
+        $allItems       = $this->apiService->getCachedGlosarium();
         $availableLetters = collect($allItems)
             ->map(fn($item) => strtoupper(substr($item['istilah'], 0, 1)))
             ->unique()
@@ -98,7 +98,7 @@ class GlossaryController extends Controller
      */
     public function show(string $term)
     {
-        $all  = $this->apiService->getGlosarium();
+        $all  = $this->apiService->getCachedGlosarium();
         $item = collect($all)->firstWhere('istilah', urldecode($term));
 
         abort_if(!$item, 404, 'Istilah medis tidak ditemukan.');
@@ -121,7 +121,7 @@ class GlossaryController extends Controller
             return response()->json([]);
         }
 
-        $all     = $this->apiService->getGlosarium();
+        $all     = $this->apiService->getCachedGlosarium();
         $results = collect($all)
             ->filter(fn($item) =>
                 str_contains(strtolower($item['istilah']),   strtolower($keyword)) ||

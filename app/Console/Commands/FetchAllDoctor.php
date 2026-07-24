@@ -27,6 +27,10 @@ class FetchAllDoctor extends Command
     public function handle(DoctorApiService $apiService)
     {
         //
+        $this->info('Memulai warm-up cache master data (Spesialisasi & Unit)...');
+        $apiService->getDaftarSpesialisasi();
+        $apiService->getDaftarUnits();
+
         $this->info('Memulai fetch data dokter...');
 
         // dd($apiService->getDaftarSpesialisasi());
