@@ -156,29 +156,37 @@ class DoctorApiService
         $cacheKey = 'specialty_list_';
         $ttl      = config('rsapi.cache_ttl.specialty');
 
-        return Cache::remember($cacheKey, $ttl, function () {
-            try {
-                $response = $this->apiRequest()
-                    ->get("{$this->baseUrl}{$this->medinEndpoint}/api/reference/master/lst_spc");
+        $cached = Cache::get($cacheKey);
+        if ($cached !== null) {
+            return $cached;
+        }
 
-                // Dump struktur response, lalu stop eksekusi
-                // dd(json_decode($response->json('Data')));
+        try {
+            $response = $this->apiRequest()
+                ->get("{$this->baseUrl}{$this->medinEndpoint}/api/reference/master/lst_spc");
 
-                if ($response->successful()) {
-                    return json_decode($response->json('Data', []));
+            // Dump struktur response, lalu stop eksekusi
+            // dd(json_decode($response->json('Data')));
+
+            if ($response->successful()) {
+                $data = json_decode($response->json('Data', '[]')) ?? [];
+                if (!is_array($data)) {
+                    $data = [];
                 }
-
-                Log::warning('API dokter gagal', [
-                    'status' => $response->status(),
-                    'body'   => $response->body(),
-                ]);
-                return [$response->status(), $response->body()];
-
-            } catch (\Exception $e) {
-                Log::error('Gagal connect ke API RS', ['error' => $e->getMessage()]);
-                return ["Gagal conncect ke API RS -request DaftarDokterByUnitId"];
+                Cache::put($cacheKey, $data, $ttl);
+                return $data;
             }
-        });
+
+            Log::warning('API dokter gagal', [
+                'status' => $response->status(),
+                'body'   => $response->body(),
+            ]);
+            return [];
+
+        } catch (\Exception $e) {
+            Log::error('Gagal connect ke API RS', ['error' => $e->getMessage()]);
+            return [];
+        }
     }
 
     public function getCachedSpesialisasi(): array
