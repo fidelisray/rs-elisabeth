@@ -21,9 +21,10 @@ class DokterController extends Controller
         //     $this->apiService->getDaftarDokter(),
         // ];
 
-        $units = $this->apiService->getCachedUnits();
+        $units = $this->apiService->getDaftarUnits();
+        $spesialisasi = $this->apiService->getDaftarSpesialisasi();
 
-        return view('dokter.index', compact('units'));
+        return view('dokter.index', compact('units', 'spesialisasi'));
 
         // return view('dokter.index', compact('dokter', 'filters'));
 

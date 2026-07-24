@@ -13,7 +13,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $spesialisasi = $this->apiService->getCachedSpesialisasi();
+        $spesialisasi = $this->apiService->getDaftarSpesialisasi();
 
         return view('home.index', compact('spesialisasi'));
     }

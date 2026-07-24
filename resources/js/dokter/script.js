@@ -36,20 +36,41 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (fetchSuccess) {
         if (klinik) {
-            // Update UI for clinic search
-            if (dropdownButton) {
-                dropdownButton.innerText = `Pencarian Klinik: ${klinik}`;
-            }
             filterDoctors(klinik, "klinik");
+            updateSearchSummary("Hasil Pencarian Klinik:", klinik);
         } else if (nama) {
             if (searchInput) searchInput.value = nama;
             filterDoctors(nama.toLowerCase());
+            updateSearchSummary("Hasil Pencarian Nama:", nama);
+        } else if (specialtyCode && dropdownButton) {
+            updateSearchSummary("Spesialisasi:", dropdownButton.dataset.selected_name);
+        } else {
+            updateSearchSummary(null);
         }
         renderDoctorPage(handlePageChange);
     } else {
         showError();
     }
 });
+
+// Helper function to update search summary UI dynamically
+function updateSearchSummary(label, keyword = "") {
+    const summaryContainer = document.getElementById("search-summary-container");
+    const summaryLabel = document.getElementById("search-summary-label");
+    const summaryKeyword = document.getElementById("search-summary-keyword");
+    const summaryCount = document.getElementById("search-summary-count");
+    
+    if (summaryContainer && summaryLabel && summaryKeyword && summaryCount) {
+        if (!label || !keyword) {
+            summaryContainer.classList.add("d-none");
+        } else {
+            summaryLabel.innerText = label;
+            summaryKeyword.innerText = keyword;
+            summaryCount.innerText = state.filteredDoctorList.length;
+            summaryContainer.classList.remove("d-none");
+        }
+    }
+}
 
 // Callback for pagination
 function handlePageChange(newPage) {
@@ -71,6 +92,7 @@ if (searchInput) {
         searchDebounceTimer = setTimeout(() => {
             const keyword = this.value.trim().toLowerCase();
             filterDoctors(keyword);
+            updateSearchSummary(keyword ? "Hasil Pencarian Nama:" : null, keyword);
             renderDoctorPage(handlePageChange);
         }, 400);
     });
@@ -105,6 +127,7 @@ clinicOptions.forEach((option) => {
         const success = await fetchDokterBySpecialtyCode(selected_code);
         if (success) {
             if (searchInput) searchInput.value = "";
+            updateSearchSummary("Spesialisasi:", selected_name);
             renderDoctorPage(handlePageChange);
         } else {
             showError();
@@ -134,6 +157,7 @@ if (btnReset) {
         showLoading();
         const success = await fetchAllDokter();
         if (success) {
+            updateSearchSummary(null);
             renderDoctorPage(handlePageChange);
         } else {
             showError();

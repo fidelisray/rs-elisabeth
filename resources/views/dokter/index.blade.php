@@ -12,7 +12,8 @@
         'resources/css/style.css',
         'resources/css/navbar-dropdown.css',
         'resources/css/dokter.css',
-        'resources/css/jadwal_dokter.css'
+        'resources/css/jadwal_dokter.css',
+        'resources/css/search-and-quick-access.css'
     ])
 </head>
 <body>
@@ -100,95 +101,67 @@
                 </div>
             </div>
         </section>
-    <section class="container-fluid toolbar-panel py-3">
-        <!-- Toolbar -->
-
-        <div class="toolbar container">
-            <div class="row align-items-start justify-content-center">
-                <!-- Dropdown Klinik -->
-                <div class="col-lg-4">
-                    <label class="form-label fw-semibold mb-3">
-                        <i class="bi bi-hospital me-2"></i>
-                        Spesialisasi Dokter
-                    </label>
-                    <div class="dropdown w-100">
-                        <button
-                            class="btn dropdown-toggle w-100 text-start d-flex justify-content-between align-items-center"
-                            type="button"
-                            id="clinicDropdown"
-                            data-bs-toggle="dropdown"
-                            data-selected="">
-                            Pilih Spesialisasi
-                        </button>
-                        <div class="dropdown-menu p-0 w-100">
-                            <!-- Search Klinik -->
-                            <div class="p-2 border-bottom">
-                                <input
-                                    type="text"
-                                    id="clinicSearch"
-                                    class="form-control"
-                                    placeholder="Cari Spesialisasi...">
+    <section id="search-and-quick-access">
+        <!-- Toolbar / Search Widget -->
+        <div class="container">
+            <div class="search-widget shadow-sm" style="transform: none; margin-bottom: 2rem; margin-top: 2rem;">
+                <ul class="nav nav-tabs" id="searchTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link {{ request('klinik') ? '' : 'active' }}" data-bs-toggle="tab" data-bs-target="#doctor"
+                            type="button"><i class="fas fa-user-md me-2"></i>Cari Spesialisasi & Dokter</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link {{ request('klinik') ? 'active' : '' }}" data-bs-toggle="tab" data-bs-target="#clinic" type="button"><i
+                                class="fas fa-hospital me-2"></i>Cari Klinik</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="searchTabsContent">
+                    <!-- Tab Spesialisasi & Dokter -->
+                    <div class="tab-pane fade {{ request('klinik') ? '' : 'show active' }}" id="doctor">
+                        <div class="row g-3 align-items-center">
+                            <!-- Dropdown Spesialisasi -->
+                            <div class="col-md-4">
+                                <div class="dropdown w-100">
+                                    <button class="btn dropdown-toggle form-select text-start" style="height: 45px;" type="button" id="clinicDropdown" data-bs-toggle="dropdown" data-selected="">
+                                        Pilih Spesialisasi
+                                    </button>
+                                    <div class="dropdown-menu p-0 w-100">
+                                        <div class="p-2 border-bottom">
+                                            <input type="text" id="clinicSearch" class="form-control" placeholder="Cari Spesialisasi...">
+                                        </div>
+                                        <div id="clinicList" class="clinic-list" style="max-height: 250px; overflow-y: auto;">
+                                            @foreach ($spesialisasi as $spesialis)
+                                            <button type="button" class="dropdown-item clinic-option" data-value="{{ $spesialis->Name }}" data-code="{{ $spesialis->Code }}">
+                                                {{ ucwords(strtolower($spesialis->Name)) }}
+                                            </button>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <!-- List Klinik -->
-                            <div
-                                id="clinicList"
-                                class="clinic-list">
-                                {{-- @foreach ($units as $unit)
-                                    @if (str_contains(strtolower($unit->Name), 'klinik'))
-                                <button
-                                    type="button"
-                                    class="dropdown-item clinic-option"
-                                    data-value="{{ ucwords(strtolower(str_replace(['|OUTPATIENT','|DIAGNOSTIC'],'', $unit->Name))) }}"
-                                    data-code="{{ $unit->Code }}">
-                                    {{ ucwords(strtolower(str_replace(['|OUTPATIENT','|DIAGNOSTIC'],'', $unit->Name))) }}
-                                </button>
-                                    @endif
-                                @endforeach --}}
-                                @foreach ($spesialisasi as $spesialis)
-                                    {{-- @if (str_contains(strtolower($spesialis->Name), 'klinik')) --}}
-                                <button
-                                    type="button"
-                                    class="dropdown-item clinic-option"
-                                    data-value="{{ $spesialis->Name }}"
-                                    data-code="{{ $spesialis->Code }}">
-                                    {{ ucwords(strtolower($spesialis->Name)) }}
-                                </button>
-                                    {{-- @endif --}}
-                                @endforeach
+                            <!-- Search Nama Dokter -->
+                            <div class="col-md-4">
+                                <input type="text" id="searchKeyword" class="form-control" style="height: 45px;" placeholder="Nama Dokter">
+                            </div>
+                            <!-- Buttons -->
+                            <div class="col-md-4 d-flex gap-2">
+                                <button type="button" class="btn btn-primary-custom-sm flex-grow-1"><i class="fas fa-search me-2"></i>Cari</button>
+                                <button type="button" id="btnReset" class="btn btn-outline-secondary px-3" style="border-radius: 50px;" title="Reset Pencarian"><i class="fas fa-undo"></i></button>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- Search -->
-                <div class="col-lg-6">
-                    <label class="form-label fw-semibold mb-3">
-                        <i class="bi bi-search me-2"></i>
-                        Cari
-                    </label>
-                    <input
-                        type="text"
-                        id="searchKeyword"
-                        class="form-control"
-                        placeholder="Cari nama dokter">
-                </div>
-                <!-- Button -->
-                <div class="action col-lg-2">
-                    <label class="form-label opacity-0 mb-3">
-                        Action
-                    </label>
-                    <div class="action-button d-flex gap-3">
-                        <button
-                            type="button"
-                            id="btnCari"
-                            class="btn px-4 d-none">
-                            Cari
-                        </button>
-                        <button
-                            type="button"
-                            id="btnReset"
-                            class="btn px-4">
-                            Reset
-                        </button>
+                    
+                    <!-- Tab Klinik -->
+                    <div class="tab-pane fade {{ request('klinik') ? 'show active' : '' }}" id="clinic">
+                        <form class="row g-3 align-items-center" action="{{ route('dokter.index') }}" method="GET">
+                            <div class="col-md-8">
+                                <input type="text" name="klinik" class="form-control" style="height: 45px;" placeholder="Nama Klinik" value="{{ request('klinik') }}">
+                            </div>
+                            <div class="col-md-4 d-flex gap-2">
+                                <button class="btn btn-primary-custom-sm flex-grow-1" type="submit"><i class="fas fa-search me-2"></i>Cari</button>
+                                <a href="{{ route('dokter.index') }}" class="btn btn-outline-secondary px-3 d-flex align-items-center justify-content-center" style="border-radius: 50px;" title="Reset Pencarian"><i class="fas fa-undo"></i></a>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -201,6 +174,16 @@
             <!-- ================================================= -->
             <!-- -------------------Card Dokter------------------- -->
             <!-- ================================================= -->
+            
+            <div id="search-summary-container" class="d-none mb-4">
+                <div class="d-flex justify-content-between align-items-center bg-white p-3 rounded shadow-sm border-start border-4 border-primary">
+                    <h6 class="mb-0 fw-semibold text-muted"><span id="search-summary-label">Hasil Pencarian:</span> <span class="text-dark fw-bold" id="search-summary-keyword"></span></h6>
+                    <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill fs-6">
+                        Ditemukan <span id="search-summary-count" class="fw-bold">0</span> dokter
+                    </span>
+                </div>
+            </div>
+
             <div id="daftar-dokter">
 
             </div>
