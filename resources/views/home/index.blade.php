@@ -415,11 +415,10 @@
                                         <span class="mb-3">Featured</span>
                                         <h3 class="fw-bold">Pelayanan Stroke Terpadu</h3>
                                         <p class="text-muted">
-                                            Comprehensive medical services
-                                            for Stroke patients.
+                                            Pelayanan Stroke Terpadu RS St. Elisabeth Semarang menyediakan layanan komprehensif bagi pasien stroke, mulai dari penanganan akut hingga rehabilitasi.
                                         </p>
                                         <div class="mt-4">
-                                            <a href="#" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
+                                            <a href="{{ route('facilities.index') }}#facility-stroke" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
                                             <!-- <a href="#"
                                             class="btn btn-outline-primary">
                                                 Contact Us
@@ -442,11 +441,10 @@
                                         <span class="mb-3">Featured</span>
                                         <h3 class="fw-bold">Klinik Nyeri</h3>
                                         <p class="text-muted">
-                                            Comprehensive medical services
-                                            for Stroke patients. Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis praesentium velit atque dolore, reprehenderit tempore. Illo itaque dolores assumenda quia?
+                                            Klinik Nyeri RS St. Elisabeth menyediakan layanan penanganan nyeri kronis maupun akut secara komprehensif untuk membantu mengelola nyeri secara efektif.
                                         </p>
                                         <div class="mt-4">
-                                            <a href="#" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
+                                            <a href="{{ route('facilities.index') }}#facility-nyeri" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
                                             <!-- <a href="#"
                                             class="btn btn-outline-primary">
                                                 Contact Us
@@ -469,10 +467,10 @@
                                         <span class="mb-3">Featured</span>
                                         <h3 class="fw-bold">Pelayanan Neurofisiologi</h3>
                                         <p class="text-muted">
-                                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis deserunt consectetur quos neque eius dicta possimus numquam autem beatae nam.
+                                            Layanan Neurofisiologi kami menyediakan pemeriksaan dan evaluasi fungsi sistem saraf secara komprehensif menggunakan teknologi terkini (EEG, EMG).
                                         </p>
                                         <div class="mt-4">
-                                            <a href="#" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
+                                            <a href="{{ route('facilities.index') }}#facility-neuro" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
                                             <!-- <a href="#"
                                             class="btn btn-outline-primary">
                                                 Contact Us
@@ -495,10 +493,10 @@
                                         <span class="mb-3">Featured</span>
                                         <h3 class="fw-bold">Pelayanan Gawat Darurat</h3>
                                         <p class="text-muted">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste eius illum excepturi pariatur, dicta maiores, voluptas veniam quisquam, cupiditate hic consectetur adipisci ducimus repellendus officiis. Aliquid iure magnam atque iusto?
+                                            Instalasi Gawat Darurat (IGD) RS St. Elisabeth Semarang menyediakan layanan gawat darurat 24 jam, yang dilayani oleh tenaga medis andal dan berpengalaman.
                                         </p>
                                         <div class="mt-4">
-                                            <a href="#" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
+                                            <a href="{{ route('facilities.index') }}#facility-igd" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
                                             <!-- <a href="#"
                                             class="btn btn-outline-primary">
                                                 Contact Us
@@ -521,10 +519,10 @@
                                         <span class="mb-3">Featured</span>
                                         <h3 class="fw-bold">Ruang Rawat Intensif</h3>
                                         <p class="text-muted">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum distinctio iste, aut, magnam inventore dolorem labore ducimus, unde saepe ratione a aliquid error atque magni! Ratione maiores sequi vitae aspernatur aliquam ullam dignissimos accusamus fuga.
+                                            Ruang Rawat Intensif (ICU/ICCU) dilengkapi dengan peralatan canggih dan tenaga medis khusus untuk menangani dan memantau pasien kritis 24 jam.
                                         </p>
                                         <div class="mt-4">
-                                            <a href="#" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
+                                            <a href="{{ route('facilities.index') }}#facility-icu" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
                                             <!-- <a href="#"
                                             class="btn btn-outline-primary">
                                                 Contact Us
@@ -547,10 +545,10 @@
                                         <span class="mb-3">Featured</span>
                                         <h3 class="fw-bold">Klinik Spesialis dan Gigi</h3>
                                         <p class="text-muted">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum eos quaerat debitis odit? Qui, architecto?
+                                            Klinik spesialis yang ditangani oleh dokter-dokter ahli berpengalaman, serta klinik gigi dan mulut untuk perawatan kesehatan gigi komprehensif.
                                         </p>
                                         <div class="mt-4">
-                                            <a href="#" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
+                                            <a href="{{ route('facilities.index') }}#facility-klinik" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
                                             <!-- <a href="#"
                                             class="btn btn-outline-primary">
                                                 Contact Us
