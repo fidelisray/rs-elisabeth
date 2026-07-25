@@ -13,10 +13,30 @@
         'resources/css/home-hero.css',
         'resources/css/news.css',
         'resources/css/stats-section.css',
-        'resources/css/app-section.css'
+        'resources/css/app-section.css',
+        'resources/css/top-bar.css'
       ])
   </head>
   <body>
+    <!-- Top Bar -->
+    <div class="top-bar d-none d-lg-block">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <a href="tel:+62248502244" class="ambulance-call p-1 px-3 d-inline-block text-white text-decoration-none"
+                        style="border-radius: 1.5rem; border: 1px solid #d10202; background-color: #d10202; font-weight:600; margin-left: 0;">
+                        <i class="fa-solid fa-truck-medical me-1"></i> IGD 24 Jam
+                    </a>
+                    <a href="tel:+62248502244" class="text-white text-decoration-none"><i class="fas fa-phone-alt me-2"></i> (024) 8502244</a>
+                </div>
+                <div class="col-md-6 text-end">
+                    <a href="#"><i class="fas fa-user-circle me-1"></i> Portal Pasien</a>
+                    <a href="#"><i class="fas fa-globe me-1"></i> ID <i class="fas fa-chevron-down ms-1"
+                            style="font-size: 0.7em;"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
     <header class="nav-group">
         <nav class="navbar bg-body-tertiary">
             <div class="container d-flex">
@@ -28,10 +48,10 @@
                     <input class="form-control me-2" type="search" placeholder="Temukan dokter, klinik, jadwal.." aria-label="Search"/>
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
-                <a href="#" class="navbar-brand ambulance-call" aria-label="Hubungi IGD 24 Jam">
+                {{-- <a href="#" class="navbar-brand ambulance-call" aria-label="Hubungi IGD 24 Jam">
                     <i class="fa-solid fa-truck-medical"></i>
                     <span class="">IGD 24</span>
-                </a>
+                </a> --}}
                 <div class="d-none">
                     <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-user"></i>
