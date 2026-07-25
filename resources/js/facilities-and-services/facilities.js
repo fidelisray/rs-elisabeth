@@ -24,6 +24,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (activeDetail) activeDetail.classList.add('active');
     }
 
+    // Fungsi helper untuk scroll dengan offset (menghindari sticky navbar)
+    function scrollToPanel(panel) {
+        const offset = 120; // Sesuaikan dengan tinggi navbar Anda (sekitar 120px)
+        const y = panel.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+
     // Event listener untuk setiap tombol
     facilityButtons.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -34,14 +41,36 @@ document.addEventListener('DOMContentLoaded', () => {
             if (window.innerWidth < 992) {
                 const detailPanel = document.querySelector('.facility-detail-panel');
                 if (detailPanel) {
-                    detailPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    scrollToPanel(detailPanel);
                 }
             }
         });
     });
 
-    // Aktifkan item pertama secara default
-    if (facilityButtons.length > 0) {
+    // Cek apakah URL memiliki hash (misal #facility-icu) dari klik halaman Beranda
+    const hash = window.location.hash;
+    let initialTarget = null;
+
+    if (hash) {
+        const hashId = hash.substring(1); // Hapus karakter '#'
+        const hashBtn = document.querySelector(`.btn-facility[data-target="${hashId}"]`);
+        if (hashBtn) {
+            initialTarget = hashId;
+        }
+    }
+
+    // Aktifkan item sesuai hash, atau item pertama jika tidak ada hash
+    if (initialTarget) {
+        activateFacility(initialTarget);
+        
+        // Buat efek scroll smooth saat pertama kali halaman dimuat
+        setTimeout(() => {
+            const detailPanel = document.querySelector('.facility-detail-panel');
+            if (detailPanel) {
+                scrollToPanel(detailPanel);
+            }
+        }, 150); // Jeda singkat menunggu render DOM class 'active'
+    } else if (facilityButtons.length > 0) {
         const firstTargetId = facilityButtons[0].getAttribute('data-target');
         activateFacility(firstTargetId);
     }
