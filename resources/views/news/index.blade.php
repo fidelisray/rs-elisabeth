@@ -106,7 +106,7 @@
                     <div class="col-md-6 col-lg-4">
                         <div class="news-card">
                             <div class="news-card-img-wrapper">
-                                <a href="{{ route('news.show', $item['slug']) }}">
+                                <a href="{{ route('news.show', ['slug' => $item['slug']]) }}">
                                     <img src="{{ $item['image'] }}" class="news-card-img" alt="{{ $item['title'] }}">
                                 </a>
                             </div>
@@ -115,11 +115,11 @@
                                     <i class="fa-regular fa-calendar"></i>
                                     {{ \Carbon\Carbon::parse($item['date'])->translatedFormat('d F Y') }}
                                 </div>
-                                <a href="{{ route('news.show', $item['slug']) }}">
+                                <a href="{{ route('news.show', ['slug' => $item['slug']]) }}">
                                     <h3 class="news-title">{{ $item['title'] }}</h3>
                                 </a>
                                 <p class="news-excerpt">{{ $item['excerpt'] }}</p>
-                                <a href="{{ route('news.show', $item['slug']) }}" class="news-read-more">
+                                <a href="{{ route('news.show', ['slug' => $item['slug']]) }}" class="news-read-more">
                                     Baca Selengkapnya <i class="fa-solid fa-arrow-right"></i>
                                 </a>
                             </div>
