@@ -52,7 +52,10 @@
                     <i class="fa-solid fa-truck-medical"></i>
                     <span class="">IGD 24</span>
                 </a> --}}
-                <div class="d-none">
+                <div class="d-flex align-items-center">
+                    <a class="btn btn-accent" href="https://regonline.rs-elisabeth.com" target="_blank" rel="noopener noreferrer"><i class="far fa-calendar-check me-2"></i>Buat Janji</a>
+                </div>
+                {{-- <div class="d-none">
                     <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-user"></i>
                     </a>
@@ -61,7 +64,7 @@
                         <li><a class="dropdown-item" href="#">Log In</a></li>
                         <li><a class="dropdown-item" href="#">Create Account</a></li>
                     </ul>
-                </div>
+                </div> --}}
             </div>
         </nav>
     </header>
@@ -910,12 +913,12 @@
                     <div class="col">
                         <ul>
                             <li><h4 class="footer-title">Tautan Cepat</h4></li>
-                            <li class="footer-list"><a href="#"><i class="fa-solid fa-caret-right"></i> Tentang Kami</a></li>
-                            <li class="footer-list"><a href="#"><i class="fa-solid fa-caret-right"></i> Elisanews</a></li>
-                            <li class="footer-list"><a href="#"><i class="fa-solid fa-caret-right"></i> Artikel</a></li>
+                            <li class="footer-list"><a href="{{ route("tentang-kami.index") }}"><i class="fa-solid fa-caret-right"></i> Tentang Kami</a></li>
+                            <li class="footer-list"><a href="{{ route("news.index") }}"><i class="fa-solid fa-caret-right"></i> Elisanews</a></li>
+                            {{-- <li class="footer-list"><a href="#"><i class="fa-solid fa-caret-right"></i> Artikel</a></li> --}}
                             <li class="footer-list"><a href="#"><i class="fa-solid fa-caret-right"></i> Hubungi Kami</a></li>
-                            <li class="footer-list"><a href="#"><i class="fa-solid fa-caret-right"></i> Rekanan</a></li>
-                            <li class="footer-list"><a href="#"><i class="fa-solid fa-caret-right"></i> Perpustakaan Online</a></li>
+                            {{-- <li class="footer-list"><a href="#"><i class="fa-solid fa-caret-right"></i> Rekanan</a></li> --}}
+                            <li class="footer-list"><a href="{{ route("glossary.index") }}"><i class="fa-solid fa-caret-right"></i> Perpustakaan Online</a></li>
                         </ul>
                     </div>
                     <div class="col">
