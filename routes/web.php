@@ -54,6 +54,11 @@ Route::get('/tentang-kami', function () {
     return view('tentang-kami.index');
 })->name('tentang-kami.index');
 
+// Halaman Informasi Pelanggan
+Route::get('/informasi-pelanggan', function () {
+    return view('customer-information.index');
+})->name('customer-information.index');
+
 // Glosarium
 // Route::get('/kamus', [HospitalController::class, 'getKamusMedis'])->name('getKamusMedis');
 // Route::prefix('kamus-medis')->name('glossary.')->group(function () {

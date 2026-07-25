@@ -8,6 +8,7 @@
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
       @vite([
         'resources/css/style.css',
+        'resources/css/btn-accent.css',
         'resources/css/navbar-dropdown.css',
         'resources/css/search-and-quick-access.css',
         'resources/css/home-hero.css',
@@ -101,6 +102,9 @@
                     </li>
                     <li class="nav-item nav-paket-dan-promo">
                         <a class="nav-link" href="{{ route('promotions.index') }}">Paket dan Promo</a>
+                    </li>
+                    <li class="nav-item nav-informasi-pelanggan">
+                        <a class="nav-link" href="{{ route('customer-information.index') }}">Informasi Pelanggan</a>
                     </li>
                 </ul>
             </div>

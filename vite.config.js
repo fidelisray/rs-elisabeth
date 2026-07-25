@@ -8,6 +8,7 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/css/style.css',
+                'resources/css/btn-accent.css',
                 'resources/css/navbar-dropdown.css',
                 'resources/css/facilities-and-services.css',
                 'resources/css/ruang-perawatan.css',
@@ -21,6 +22,7 @@ export default defineConfig({
                 'resources/css/dokter.css',
                 'resources/css/jadwal_dokter.css',
                 'resources/css/tentang-kami.css',
+                'resources/css/customer-information.css',
                 'resources/js/app.js',
                 'resources/js/navbar/navbar.js',
                 'resources/js/navbar/navbar-dropdown.js',

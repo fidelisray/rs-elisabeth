@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
         @vite([
             'resources/css/style.css',
+            'resources/css/btn-accent.css',
             'resources/css/hero.css',
             'resources/css/glossarium.css',
             'resources/css/navbar-dropdown.css',
