@@ -23,6 +23,7 @@ export default defineConfig({
                 'resources/css/jadwal_dokter.css',
                 'resources/css/tentang-kami.css',
                 'resources/css/customer-information.css',
+                'resources/css/top-bar.css',
                 'resources/js/app.js',
                 'resources/js/navbar/navbar.js',
                 'resources/js/navbar/navbar-dropdown.js',
