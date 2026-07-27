@@ -303,16 +303,15 @@ a.btn-buat-janji:hover {
 
 
 div#detailDokter .modal-dokter {
-    width: 90vw;
-    max-width: 1400px;
-    /* margin: auto; */
+    width: 94vw;
+    max-width: 900px;
 }
 
 div#detailDokter .doctor-card {
     width: 100%;
     max-width: none;
-    max-height: 90vh;
-    border-radius: 28px;
+    max-height: 88vh;
+    border-radius: 20px;
     overflow-y: auto;
     background: #fff;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
@@ -350,12 +349,9 @@ div#detailDokter .close-btn {
 }
 
 div#detailDokter .doctor-photo {
-    width: 120px;
-    height: 120px;
-    /* width: 95px;
-    height: 95px; */
-    border-radius: 18px;
-    /* border: 2px solid rgba(255, 255, 255, 0.25); */
+    width: 80px;
+    height: 80px;
+    border-radius: 14px;
     overflow: hidden;
     flex-shrink: 0;
 }
@@ -488,7 +484,13 @@ div#detailDokter .day-badge p.day-name::after {
 }
 
 .content-section {
-    padding: 24px;
+    padding: 16px;
+}
+
+@media (min-width: 768px) {
+    .content-section {
+        padding: 24px;
+    }
 }
 
 .section-title {
@@ -732,3 +734,63 @@ div#detailDokter .day-badge p.day-name::after {
     background: #f5f8ff;
 }
 
+/* ==================================================
+   Pagination Styles
+================================================== */
+.custom-pagination {
+    gap: 4px;
+}
+.custom-pagination .page-item {
+    display: flex;
+}
+.custom-pagination .page-link {
+    border-radius: 8px;
+    border: 1px solid #dbe8f5;
+    color: var(--secondary-darker-color);
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 10px;
+}
+.custom-pagination .page-link:hover:not(:disabled) {
+    background-color: var(--primary-lighter-color);
+    border-color: var(--primary-color);
+    color: var(--secondary-darker-color);
+}
+.custom-pagination .page-item.active .page-link {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 143, 215, 0.3);
+}
+.custom-pagination .page-item.disabled .page-link {
+    color: #adb5bd;
+    background-color: #f8f9fa;
+    border-color: #e9ecef;
+}
+
+/* Pagination Jump Input */
+.custom-pagination .pagination-input {
+    width: 60px;
+    text-align: center;
+    background-color: #f4f8fc;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+.custom-pagination .pagination-input:focus {
+    background-color: #fff;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 143, 215, 0.25);
+    outline: none;
+}
+.custom-pagination .pagination-input::-webkit-outer-spin-button,
+.custom-pagination .pagination-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.custom-pagination .pagination-input[type=number] {
+    -moz-appearance: textfield;
+}

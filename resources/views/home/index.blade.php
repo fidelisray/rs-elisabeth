@@ -40,73 +40,70 @@
     </div>
     <header class="nav-group">
         <nav class="navbar bg-body-tertiary">
-            <div class="container d-flex">
-                <a class="navbar-brand" href="/">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo RS St. Elisabeth Semarang" width="auto" height="70" class="d-inline-block align-text-top">
-                    <img src="{{ asset('images/akreditasi.png') }}" alt="Logo RS St. Elisabeth Semarang" width="auto" height="70" class="d-inline-block align-text-top">
+            <div class="container d-flex flex-wrap flex-lg-nowrap justify-content-between align-items-center gap-3">
+                <a class="navbar-brand m-0" href="/">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo RS St. Elisabeth Semarang" width="auto" height="50" class="d-inline-block align-text-top logo-main">
+                    <img src="{{ asset('images/akreditasi.png') }}" alt="Logo RS St. Elisabeth Semarang" width="auto" height="50" class="d-inline-block align-text-top logo-akreditasi d-none d-sm-inline-block">
                 </a>
-                <form class="d-flex nav-form-search" role="search">
+                <form class="d-flex nav-form-search flex-grow-1 mx-lg-3 order-3 order-lg-2 w-100 w-lg-auto" role="search">
                     <input class="form-control me-2" type="search" placeholder="Temukan dokter, klinik, jadwal.." aria-label="Search"/>
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
-                {{-- <a href="#" class="navbar-brand ambulance-call" aria-label="Hubungi IGD 24 Jam">
-                    <i class="fa-solid fa-truck-medical"></i>
-                    <span class="">IGD 24</span>
-                </a> --}}
-                <div class="d-flex align-items-center">
-                    <a class="btn btn-accent" href="https://regonline.rs-elisabeth.com" target="_blank" rel="noopener noreferrer"><i class="far fa-calendar-check me-2"></i>Buat Janji</a>
+                <div class="d-flex align-items-center order-2 order-lg-3">
+                    <a class="btn btn-accent btn-sm d-lg-none me-2" href="tel:+62248502244"><i class="fa-solid fa-phone"></i></a>
+                    <a class="btn btn-accent btn-sm d-lg-none" href="https://regonline.rs-elisabeth.com" target="_blank" rel="noopener noreferrer"><i class="far fa-calendar-check"></i></a>
+                    <a class="btn btn-accent d-none d-lg-inline-block" href="https://regonline.rs-elisabeth.com" target="_blank" rel="noopener noreferrer"><i class="far fa-calendar-check me-2"></i>Buat Janji</a>
                 </div>
-                {{-- <div class="d-none">
-                    <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-user"></i>
-                    </a>
-    
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Log In</a></li>
-                        <li><a class="dropdown-item" href="#">Create Account</a></li>
-                    </ul>
-                </div> --}}
             </div>
         </nav>
     </header>
     <div id="navbar-sentinel" class="navbar-sentinel"></div>
     <nav id="second-navbar" class="navbar navbar-expand-lg second-nav">
         <div class="container second-nav-body">
-            <!-- <a class="navbar-brand" href="#">Navbar</a> -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <!-- Offcanvas Toggler for Mobile -->
+            <button class="navbar-toggler text-white border-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <i class="fa-solid fa-bars"></i>
             </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
-                <ul class="navbar-nav nav-content gap-2">
-                    <li class="nav-item nav-beranda">
-                        <a class="nav-link active" aria-current="page" href="#">Beranda</a>
-                    </li>
-                    <li class="nav-item dropdown nav-tentang-kami">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Tentang Kami
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ route('tentang-kami.index') }}">Profil</a></li>
-                            <li><a class="dropdown-item" href="{{ route('tentang-kami.index') }}#visi-dan-misi">Visi & Misi</a></li>
-                            <li><a class="dropdown-item" href="{{ route('tentang-kami.index') }}#sejarah-singkat">Sejarah</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item nav-cari-dokter">
-                        <a class="nav-link" href="{{ route('dokter.index') }}">Cari Dokter</a>
-                    </li>
-                    <li class="nav-item nav-ruang-perawatan">
-                        <a class="nav-link" href="{{ route('ruang-perawatan.index') }}">Ruang Perawatan</a>
-                    </li>
-                    <li class="nav-item nav-fasilitas">
-                        <a class="nav-link" href="{{ route('facilities.index') }}">Fasilitas</a>
-                    </li>
-                    <li class="nav-item nav-paket-dan-promo">
-                        <a class="nav-link" href="{{ route('promotions.index') }}">Paket dan Promo</a>
-                    </li>
-                    <li class="nav-item nav-informasi-pelanggan">
-                        <a class="nav-link" href="{{ route('customer-information.index') }}">Informasi Pelanggan</a>
-                    </li>
-                </ul>
+            <span class="d-lg-none text-white fw-bold ms-2 me-auto">Menu Utama</span>
+
+            <!-- Offcanvas Sidebar -->
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header bg-primary text-white">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">RS St. Elisabeth</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav nav-content gap-2 justify-content-center flex-grow-1">
+                        <li class="nav-item nav-beranda">
+                            <a class="nav-link active" aria-current="page" href="#">Beranda</a>
+                        </li>
+                        <li class="nav-item dropdown nav-tentang-kami">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Tentang Kami
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ route('tentang-kami.index') }}">Profil</a></li>
+                                <li><a class="dropdown-item" href="{{ route('tentang-kami.index') }}#visi-dan-misi">Visi & Misi</a></li>
+                                <li><a class="dropdown-item" href="{{ route('tentang-kami.index') }}#sejarah-singkat">Sejarah</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item nav-cari-dokter">
+                            <a class="nav-link" href="{{ route('dokter.index') }}">Cari Dokter</a>
+                        </li>
+                        <li class="nav-item nav-ruang-perawatan">
+                            <a class="nav-link" href="{{ route('ruang-perawatan.index') }}">Ruang Perawatan</a>
+                        </li>
+                        <li class="nav-item nav-fasilitas">
+                            <a class="nav-link" href="{{ route('facilities.index') }}">Fasilitas</a>
+                        </li>
+                        <li class="nav-item nav-paket-dan-promo">
+                            <a class="nav-link" href="{{ route('promotions.index') }}">Paket dan Promo</a>
+                        </li>
+                        <li class="nav-item nav-informasi-pelanggan">
+                            <a class="nav-link" href="{{ route('customer-information.index') }}">Informasi Pelanggan</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </nav>
@@ -132,15 +129,13 @@
             <div class="hero-overlay"></div>
 
             <!-- Hero Content Overlay (Bumrungrad style) -->
-            <div class="container position-relative">
-                <div class="hero-content">
-                    <h1>Kesehatan Anda Adalah Prioritas Utama Kami</h1>
-                    <p>Pelayanan prima dan paripurna dari RS St. Elisabeth Semarang dengan fasilitas berstandar
-                        internasional dan tenaga medis profesional yang penuh kasih.</p>
-                    <div class="d-flex gap-3 flex-wrap">
-                        <button class="btn btn-primary-custom">Temukan Dokter</button>
-                        <button class="btn btn-outline-light"
-                            style="border-radius: 50px; padding: 12px 30px; font-weight: 600;">Hubungi Kami</button>
+            <div class="container position-relative h-100">
+                <div class="hero-content h-100 d-flex flex-column justify-content-center">
+                    <h1 class="display-5 fw-bold text-white mb-3">Kesehatan Anda Adalah Prioritas Utama Kami</h1>
+                    <p class="fs-5 text-white mb-4">Pelayanan prima dan paripurna dari RS St. Elisabeth Semarang dengan fasilitas berstandar internasional dan tenaga medis profesional yang penuh kasih.</p>
+                    <div class="d-flex gap-3 flex-column flex-sm-row">
+                        <button class="btn btn-primary-custom px-4 py-2">Temukan Dokter</button>
+                        <button class="btn btn-outline-light px-4 py-2 fw-semibold rounded-pill">Hubungi Kami</button>
                     </div>
                 </div>
             </div>
@@ -215,48 +210,43 @@
 
                 <section id="quick-access" class="pb-5">
                     <div class="row g-4 cards">
-                        <div class="col-md-3">
+                        <div class="col-6 col-md-3">
                             <a href="{{ route('dokter.index') }}" class="text-decoration-none h-100">
                                 <div class="card card-doctor h-100 border-0 rounded-4 shadow-sm">
-                                    <div
-                                        class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-5">
-                                        <i class="fa-solid fa-user-doctor doctor-icon mb-3"></i>
-                                        <h5 class="fw-bold m-0 text-white">Cari Dokter</h5>
+                                    <div class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-4 py-md-5">
+                                        <i class="fa-solid fa-user-doctor doctor-icon mb-2 mb-md-3"></i>
+                                        <h5 class="fw-bold m-0 text-white fs-6 fs-md-5">Cari Dokter</h5>
                                     </div>
                                 </div>
                             </a>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-6 col-md-3">
                             <a href="https://regonline.rs-elisabeth.com" class="text-decoration-none h-100">
                                 <div class="card card-appointment h-100 border-0 rounded-4 shadow-sm">
-                                    <div
-                                        class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-5">
-                                        <i class="fa-regular fa-calendar appointment-icon mb-3"></i>
-                                        <h5 class="fw-bold m-0 text-white">Buat Janji Temu</h5>
+                                    <div class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-4 py-md-5">
+                                        <i class="fa-regular fa-calendar appointment-icon mb-2 mb-md-3"></i>
+                                        <h5 class="fw-bold m-0 text-white fs-6 fs-md-5">Buat Janji</h5>
                                     </div>
                                 </div>
                             </a>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-6 col-md-3">
                             <a href="https://wa.me/6285600600870?text=Halo%2C%20saya%20ingin%20membuat%20janji%20temu" class="text-decoration-none h-100">
                                 <div class="card card-contact h-100 border-0 rounded-4 shadow-sm">
-                                    <div
-                                        class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-5">
-                                        <i class="fa-brands fa-whatsapp whatsapp-icon mb-3"></i>
-                                        <h5 class="fw-bold m-0 text-white">Hubungi Kami</h5>
+                                    <div class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-4 py-md-5">
+                                        <i class="fa-brands fa-whatsapp whatsapp-icon mb-2 mb-md-3"></i>
+                                        <h5 class="fw-bold m-0 text-white fs-6 fs-md-5">Hubungi Kami</h5>
                                     </div>
                                 </div>
                             </a>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-6 col-md-3">
                             <a href="{{ route('glossary.index') }}" class="text-decoration-none h-100">
                                 <div class="card card-emergency h-100 border-0 rounded-4 shadow-sm">
-                                    <div
-                                        class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-4">
-                                        {{-- <i class="fa-solid fa-briefcase-medical emergency-call mb-3"></i> --}}
-                                        <i class="fa-solid fa-book-medical glossary-icon mb-3"></i>
-                                        <h5 class="fw-bold m-0 text-white">Kamus Medis</h5>
-                                        <p class="mb-0 mt-2 opacity-75 fs-2.5">Temukan penyakit & istilah medis</p>
+                                    <div class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-4 py-md-5">
+                                        <i class="fa-solid fa-book-medical glossary-icon mb-2 mb-md-3"></i>
+                                        <h5 class="fw-bold m-0 text-white fs-6 fs-md-5">Kamus Medis</h5>
+                                        <p class="mb-0 mt-1 mt-md-2 opacity-75 small d-none d-md-block">Temukan penyakit & istilah medis</p>
                                     </div>
                                 </div>
                             </a>

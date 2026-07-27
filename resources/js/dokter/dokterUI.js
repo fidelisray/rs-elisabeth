@@ -1,62 +1,10 @@
 import { state } from './dokterService.js';
 
-function getDayCardCount(daySchedule) {
-    return daySchedule.reduce((total, item) => total + item.jam.length, 0);
-}
+const HARI_INDONESIA = {
+    1: "Senin", 2: "Selasa", 3: "Rabu", 4: "Kamis",
+    5: "Jumat", 6: "Sabtu", 7: "Minggu",
+};
 
-function getMaxSlot(schedule) {
-    return Math.max(...Object.values(schedule).map(getDayCardCount));
-}
-
-function createEmptyCard() {
-    return `<div class="schedule-card empty-card"></div>`;
-}
-
-function createScheduleCard(jam, serviceUnitName) {
-    return `
-        <div class="schedule-card">
-            <span class="sc-time">${jam}</span>
-            <span class="sc-klinik">${serviceUnitName}</span>
-        </div>
-    `;
-}
-
-function renderHeaderHtml(schedule) {
-    const hariIndonesia = {
-        1: "Senin", 2: "Selasa", 3: "Rabu", 4: "Kamis", 5: "Jumat", 6: "Sabtu", 7: "Minggu",
-    };
-    const activeDays = state.days.filter((day) => schedule[day].length > 0);
-    
-    return activeDays.map(day => `<div class="day-header">${hariIndonesia[day]}</div>`).join("");
-}
-
-export function createScheduleGrid(dokter) {
-    const schedule = dokter.schedule;
-    const maxSlot = getMaxSlot(schedule);
-    const activeDays = state.days.filter((day) => schedule[day].length > 0);
-    
-    let html = '';
-    html += renderHeaderHtml(schedule);
-
-    activeDays.forEach((day) => {
-        let colHtml = `<div class="slot-col">`;
-        schedule[day].forEach((item) => {
-            item.jam.forEach((jam) => {
-                colHtml += createScheduleCard(jam, item.serviceUnitName);
-            });
-        });
-        
-        const emptyCount = maxSlot - getDayCardCount(schedule[day]);
-        for (let i = 0; i < emptyCount; i++) {
-            colHtml += createEmptyCard();
-        }
-        colHtml += `</div>`;
-        html += colHtml;
-    });
-
-    const gridStyle = `grid-template-columns: repeat(${activeDays.length}, minmax(120px, 1fr)); min-width: ${Math.max(activeDays.length, 4) * 130}px;`;
-    return { html, gridStyle };
-}
 function getSpecialtyName(specialtyCode) {
     let name = "Spesialis Umum";
     if (specialtyCode) {
@@ -64,6 +12,45 @@ function getSpecialtyName(specialtyCode) {
         if (option) name = option.dataset.value;
     }
     return name.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+}
+
+/**
+ * Renders the schedule grid for a doctor card.
+ * Uses a responsive CSS grid that wraps naturally, no forced horizontal scroll.
+ */
+export function createScheduleGrid(dokter) {
+    const schedule = dokter.schedule;
+    const activeDays = state.days.filter((day) => schedule[day].length > 0);
+
+    if (activeDays.length === 0) {
+        return {
+            html: `<p class="text-muted small mb-0">Jadwal belum tersedia.</p>`,
+            gridStyle: ''
+        };
+    }
+
+    let html = '';
+    activeDays.forEach((day) => {
+        let slotsHtml = '';
+        schedule[day].forEach((item) => {
+            item.jam.forEach((jam) => {
+                slotsHtml += `
+                    <div class="jadwal-slot">
+                        <span class="slot-time">${jam}</span>
+                        <span class="slot-klinik">${item.serviceUnitName}</span>
+                    </div>
+                `;
+            });
+        });
+        html += `
+            <div class="jadwal-day-col">
+                <div class="jadwal-day-name">${HARI_INDONESIA[day]}</div>
+                <div class="jadwal-slots">${slotsHtml}</div>
+            </div>
+        `;
+    });
+
+    return { html, gridStyle: '' };
 }
 
 export function createDoctorCard(dokter) {
@@ -148,9 +135,9 @@ export function renderDoctorPage(onPageChange) {
     pageItems.forEach((doctor) => {
         const grid = document.getElementById(`jadwalGrid-${doctor.paramedicCode}`);
         if (grid) {
-            const { html, gridStyle } = createScheduleGrid(doctor);
+            const { html } = createScheduleGrid(doctor);
             grid.innerHTML = html;
-            grid.style.cssText = gridStyle;
+            // No forced min-width; grid is now responsive
         }
     });
 
@@ -171,17 +158,39 @@ export function renderPagination(totalPages, onPageChange) {
         return;
     }
 
-    let pagesHtml = "";
-    for (let i = 1; i <= totalPages; i++) {
-        pagesHtml += `
-            <li class="page-item ${i === state.currentPage ? "active" : ""}">
-                <button class="page-link" data-page="${i}">${i}</button>
-            </li>
-        `;
+    // --- Smart Pagination Logic ---
+    let pages = [];
+    if (totalPages <= 7) {
+        for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+        if (state.currentPage <= 3) {
+            pages = [1, 2, 3, 'INPUT', totalPages - 1, totalPages];
+        } else if (state.currentPage >= totalPages - 2) {
+            pages = [1, 2, 'INPUT', totalPages - 2, totalPages - 1, totalPages];
+        } else {
+            pages = [1, 'INPUT', state.currentPage - 1, state.currentPage, state.currentPage + 1, 'INPUT_2', totalPages];
+        }
     }
 
+    let pagesHtml = "";
+    pages.forEach(p => {
+        if (p === 'INPUT' || p === 'INPUT_2') {
+            pagesHtml += `
+                <li class="page-item">
+                    <input type="number" class="page-link pagination-input jump-page-input" placeholder="..." min="1" max="${totalPages}" title="Ketik halaman lalu Enter">
+                </li>
+            `;
+        } else {
+            pagesHtml += `
+                <li class="page-item ${p === state.currentPage ? "active" : ""}">
+                    <button class="page-link" data-page="${p}">${p}</button>
+                </li>
+            `;
+        }
+    });
+
     paginationContainer.innerHTML = `
-        <ul class="pagination justify-content-center mt-3">
+        <ul class="pagination custom-pagination justify-content-center mt-4 mb-5 shadow-sm">
             <li class="page-item ${state.currentPage === 1 ? "disabled" : ""}">
                 <button class="page-link" data-page="${state.currentPage - 1}">&laquo;</button>
             </li>
@@ -192,11 +201,36 @@ export function renderPagination(totalPages, onPageChange) {
         </ul>
     `;
 
-    paginationContainer.querySelectorAll(".page-link").forEach((btn) => {
+    // Click events for buttons
+    paginationContainer.querySelectorAll("button.page-link").forEach((btn) => {
         btn.addEventListener("click", (e) => {
-            const targetPage = parseInt(e.target.dataset.page);
+            const targetPage = parseInt(e.currentTarget.dataset.page);
             if (!targetPage || targetPage < 1 || targetPage > totalPages) return;
             onPageChange(targetPage);
+        });
+    });
+
+    // Enter event for inputs
+    paginationContainer.querySelectorAll(".jump-page-input").forEach((input) => {
+        input.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                const targetPage = parseInt(e.target.value);
+                if (targetPage && targetPage >= 1 && targetPage <= totalPages) {
+                    onPageChange(targetPage);
+                } else if (targetPage) {
+                    // Reset to empty if invalid page
+                    e.target.value = ""; 
+                }
+            }
+        });
+        // Clear placeholder on focus for cleaner UX
+        input.addEventListener("focus", (e) => {
+            e.target.placeholder = "";
+        });
+        input.addEventListener("blur", (e) => {
+            e.target.placeholder = "...";
+            e.target.value = ""; // clear typed text if they didn't press enter
         });
     });
 }
@@ -250,45 +284,42 @@ export function renderModal(doctorData) {
         specialtyBadge.textContent = getSpecialtyName(doctorData.specialtyCode);
     }
 
-    let scheduleCard = "";
-    for (const [day, detail] of Object.entries(doctorData.schedule)) {
-        let scheduleTime = "";
-        if (detail.length > 0) {
+    // Render schedule cards in modal — clean responsive grid layout
+    let scheduleHtml = '';
+    const schedule = doctorData.schedule;
+    const activeDays = Object.entries(schedule).filter(([, detail]) => detail.length > 0);
+
+    if (activeDays.length === 0) {
+        scheduleHtml = `<p class="text-muted">Jadwal belum tersedia.</p>`;
+    } else {
+        activeDays.forEach(([day, detail]) => {
+            let timeSlotsHtml = '';
             detail.forEach((data) => {
-                data['jam'].forEach((jam) => {
-                    scheduleTime += `
-                        <div class="jam col-12">
-                            <p class="schedule-jam">${jam}</p>
-                            <p class="schedule-unit">${data["serviceUnitName"]}</p>
+                data.jam.forEach((jam) => {
+                    timeSlotsHtml += `
+                        <div class="modal-time-slot">
+                            <span class="modal-slot-time">${jam}</span>
+                            <span class="modal-slot-unit">${data.serviceUnitName}</span>
                         </div>
                     `;
                 });
             });
-        } else {
-            scheduleTime += `
-                <div class="jam day-off col-12">
-                    <p class="schedule-jam">-</p>
-                    <p class="schedule-unit">-</p>
+
+            scheduleHtml += `
+                <div class="col-6 col-md-4 col-lg-3 mb-3">
+                    <div class="modal-schedule-card">
+                        <div class="modal-day-header">${hari[parseInt(day) - 1]}</div>
+                        <div class="modal-time-list">
+                            ${timeSlotsHtml}
+                        </div>
+                    </div>
                 </div>
             `;
-        }
-        
-        scheduleCard += `
-            <div class="col-12 col-lg-3 gap-2 mt-3">
-                <div class="modal-schedule-card">
-                    <div class="day-badge">
-                        <p class="day-name">${hari[day - 1]}</p>
-                    </div>
-                    <div class="time-list row g-2">
-                        ${scheduleTime}
-                    </div>
-                </div>
-            </div>
-        `;
+        });
     }
 
     const modalCards = document.getElementById("modal-schedule-cards");
     if (modalCards) {
-        modalCards.innerHTML = scheduleCard;
+        modalCards.innerHTML = scheduleHtml;
     }
 }
