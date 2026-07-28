@@ -231,11 +231,13 @@
                                 </div>
                             </form>
                         </div> --}}
-                    </div>
                 </div>
+            </div>
+        </section>
 
-                <section id="quick-access" class="pb-5">
-                    <div class="row g-4 cards">
+        <section id="quick-access" class="pb-5">
+            <div class="container">
+                <div class="row g-4 cards">
                         <div class="col-6 col-md-3">
                             <a href="{{{ route('dokter.index') }}}" class="text-decoration-none h-100">
                                 <div class="card card-doctor h-100 border-0 rounded-4 shadow-sm">
@@ -278,7 +280,7 @@
                             </a>
                         </div>
                     </div>
-                </section>
+                </div>
             </div>
         </section>
 
