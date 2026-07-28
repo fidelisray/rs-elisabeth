@@ -60,53 +60,78 @@
     <div id="navbar-sentinel" class="navbar-sentinel"></div>
     <nav id="second-navbar" class="navbar navbar-expand-lg second-nav">
         <div class="container second-nav-body">
-            <!-- Offcanvas Toggler for Mobile -->
-            <button class="navbar-toggler text-white border-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <!-- Mobile Menu Modal Toggler -->
+            <button class="navbar-toggler text-white border-white" type="button" data-bs-toggle="modal" data-bs-target="#mobileMenuModal" aria-controls="mobileMenuModal" aria-label="Toggle navigation">
                 <i class="fa-solid fa-bars"></i>
             </button>
             <span class="d-lg-none text-white fw-bold ms-2 me-auto">Menu Utama</span>
 
-            <!-- Offcanvas Sidebar -->
-            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header bg-primary text-white">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">RS St. Elisabeth</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <!-- Desktop Sidebar -->
+            <div class="collapse navbar-collapse justify-content-center d-none d-lg-flex" id="navbarNavDropdown">
+                <ul class="navbar-nav nav-content gap-2">
+                    <li class="nav-item nav-beranda">
+                        <a class="nav-link active" aria-current="page" href="#">Beranda</a>
+                    </li>
+                    <li class="nav-item dropdown nav-tentang-kami">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tentang Kami</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{{ route('tentang-kami.index') }}}">Profil</a></li>
+                            <li><a class="dropdown-item" href="{{{ route('tentang-kami.index') }}}#visi-dan-misi">Visi & Misi</a></li>
+                            <li><a class="dropdown-item" href="{{{ route('tentang-kami.index') }}}#sejarah-singkat">Sejarah</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item nav-cari-dokter">
+                        <a class="nav-link" href="{{{ route('dokter.index') }}}">Cari Dokter</a>
+                    </li>
+                    <li class="nav-item nav-ruang-perawatan">
+                        <a class="nav-link" href="{{{ route('ruang-perawatan.index') }}}">Ruang Perawatan</a>
+                    </li>
+                    <li class="nav-item nav-fasilitas">
+                        <a class="nav-link" href="{{{ route('facilities.index') }}}">Fasilitas</a>
+                    </li>
+                    <li class="nav-item nav-paket-dan-promo">
+                        <a class="nav-link" href="{{{ route('promotions.index') }}}">Paket dan Promo</a>
+                    </li>
+                    <li class="nav-item nav-informasi-pelanggan">
+                        <a class="nav-link" href="{{{ route('customer-information.index') }}}">Informasi Pelanggan</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Modal -->
+    <div class="modal fade" id="mobileMenuModal" tabindex="-1" aria-labelledby="mobileMenuModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mobile-menu-dialog">
+            <div class="modal-content mobile-menu-content">
+                <div class="modal-header border-0 pb-0">
+                    <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="offcanvas-body">
-                    <ul class="navbar-nav nav-content gap-2 justify-content-center flex-grow-1">
-                        <li class="nav-item nav-beranda">
-                            <a class="nav-link active" aria-current="page" href="#">Beranda</a>
-                        </li>
-                        <li class="nav-item dropdown nav-tentang-kami">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Tentang Kami
+                <div class="modal-body pt-0">
+                    <ul class="mobile-nav-list">
+                        <li><a class="active" href="#">Beranda</a></li>
+                        <li>
+                            <a href="#collapseTentangKamiMobile" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseTentangKamiMobile" class="d-flex justify-content-center align-items-center gap-2">
+                                Tentang Kami <i class="fas fa-chevron-down" style="font-size: 0.8em;"></i>
                             </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ route('tentang-kami.index') }}">Profil</a></li>
-                                <li><a class="dropdown-item" href="{{ route('tentang-kami.index') }}#visi-dan-misi">Visi & Misi</a></li>
-                                <li><a class="dropdown-item" href="{{ route('tentang-kami.index') }}#sejarah-singkat">Sejarah</a></li>
-                            </ul>
+                            <div class="collapse" id="collapseTentangKamiMobile">
+                                <ul class="mobile-submenu-list">
+                                    <li><a href="{{{ route('tentang-kami.index') }}}">Profil</a></li>
+                                    <li><a href="{{{ route('tentang-kami.index') }}}#visi-dan-misi">Visi & Misi</a></li>
+                                    <li><a href="{{{ route('tentang-kami.index') }}}#sejarah-singkat">Sejarah</a></li>
+                                </ul>
+                            </div>
                         </li>
-                        <li class="nav-item nav-cari-dokter">
-                            <a class="nav-link" href="{{ route('dokter.index') }}">Cari Dokter</a>
-                        </li>
-                        <li class="nav-item nav-ruang-perawatan">
-                            <a class="nav-link" href="{{ route('ruang-perawatan.index') }}">Ruang Perawatan</a>
-                        </li>
-                        <li class="nav-item nav-fasilitas">
-                            <a class="nav-link" href="{{ route('facilities.index') }}">Fasilitas</a>
-                        </li>
-                        <li class="nav-item nav-paket-dan-promo">
-                            <a class="nav-link" href="{{ route('promotions.index') }}">Paket dan Promo</a>
-                        </li>
-                        <li class="nav-item nav-informasi-pelanggan">
-                            <a class="nav-link" href="{{ route('customer-information.index') }}">Informasi Pelanggan</a>
-                        </li>
+                        <li><a href="{{{ route('dokter.index') }}}">Cari Dokter</a></li>
+                        <li><a href="{{{ route('ruang-perawatan.index') }}}">Ruang Perawatan</a></li>
+                        <li><a href="{{{ route('facilities.index') }}}">Fasilitas</a></li>
+                        <li><a href="{{{ route('promotions.index') }}}">Paket dan Promo</a></li>
+                        <li><a href="{{{ route('customer-information.index') }}}">Informasi Pelanggan</a></li>
                     </ul>
                 </div>
             </div>
         </div>
-    </nav>
+    </div>
     <main>
         <h1 class="visually-hidden">Rumah Sakit Santa Elisabeth Semarang</h1>
 
@@ -161,7 +186,7 @@
                     </ul>
                     <div class="tab-content" id="searchTabsContent">
                         <div class="tab-pane fade show active" id="doctor">
-                            <form class="row g-3" action="{{ route('dokter.index') }}" method="GET">
+                            <form class="row g-3" action="{{{ route('dokter.index') }}}" method="GET">
                                 <div class="col-md-4">
                                     <input type="text" name="nama" class="form-control" placeholder="Nama Dokter">
                                 </div>
@@ -182,7 +207,7 @@
                             </form>
                         </div>
                         <div class="tab-pane fade" id="clinic">
-                            <form class="row g-3" action="{{ route('dokter.index') }}" method="GET">
+                            <form class="row g-3" action="{{{ route('dokter.index') }}}" method="GET">
                                 <div class="col-md-8">
                                     <input type="text" name="klinik" class="form-control"
                                         placeholder="Nama Klinik">
@@ -211,7 +236,7 @@
                 <section id="quick-access" class="pb-5">
                     <div class="row g-4 cards">
                         <div class="col-6 col-md-3">
-                            <a href="{{ route('dokter.index') }}" class="text-decoration-none h-100">
+                            <a href="{{{ route('dokter.index') }}}" class="text-decoration-none h-100">
                                 <div class="card card-doctor h-100 border-0 rounded-4 shadow-sm">
                                     <div class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-4 py-md-5">
                                         <i class="fa-solid fa-user-doctor doctor-icon mb-2 mb-md-3"></i>
@@ -241,7 +266,7 @@
                             </a>
                         </div>
                         <div class="col-6 col-md-3">
-                            <a href="{{ route('glossary.index') }}" class="text-decoration-none h-100">
+                            <a href="{{{ route('glossary.index') }}}" class="text-decoration-none h-100">
                                 <div class="card card-emergency h-100 border-0 rounded-4 shadow-sm">
                                     <div class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-4 py-md-5">
                                         <i class="fa-solid fa-book-medical glossary-icon mb-2 mb-md-3"></i>
@@ -309,7 +334,7 @@
             <div class="container">
                 <div class="row g-0 options-cards">
                     <div class="col-md-3 card-options">
-                        <a href="{{ route('dokter.index') }}" class="text-decoration-none">
+                        <a href="{{{ route('dokter.index') }}}" class="text-decoration-none">
                             <div class="card h-100 border-0 rounded-0">
                                 <div class="card-body d-flex text-center align-items-center justify-content-center">
                                     <i class="fa-solid fa-user-doctor doctor-icon"></i>
@@ -339,7 +364,7 @@
                         </a>
                     </div>
                     <div class="col-md-3 card-options">
-                        <a href="{{ route('glossary.index') }}" class="text-decoration-none">
+                        <a href="{{{ route('glossary.index') }}}" class="text-decoration-none">
                             <div class="card h-100 border-0 rounded-0">
                                 <div class="card-body d-flex text-center align-items-center justify-content-center">
                                     <i class="fa-solid fa-book-medical glossary-icon"></i>
@@ -412,7 +437,7 @@
                                             Pelayanan Stroke Terpadu RS St. Elisabeth Semarang menyediakan layanan komprehensif bagi pasien stroke, mulai dari penanganan akut hingga rehabilitasi.
                                         </p>
                                         <div class="mt-4">
-                                            <a href="{{ route('facilities.index') }}#facility-stroke" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
+                                            <a href="{{{ route('facilities.index') }}}#facility-stroke" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
                                             <!-- <a href="#"
                                             class="btn btn-outline-primary">
                                                 Contact Us
@@ -438,7 +463,7 @@
                                             Klinik Nyeri RS St. Elisabeth menyediakan layanan penanganan nyeri kronis maupun akut secara komprehensif untuk membantu mengelola nyeri secara efektif.
                                         </p>
                                         <div class="mt-4">
-                                            <a href="{{ route('facilities.index') }}#facility-nyeri" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
+                                            <a href="{{{ route('facilities.index') }}}#facility-nyeri" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
                                             <!-- <a href="#"
                                             class="btn btn-outline-primary">
                                                 Contact Us
@@ -464,7 +489,7 @@
                                             Layanan Neurofisiologi kami menyediakan pemeriksaan dan evaluasi fungsi sistem saraf secara komprehensif menggunakan teknologi terkini (EEG, EMG).
                                         </p>
                                         <div class="mt-4">
-                                            <a href="{{ route('facilities.index') }}#facility-neuro" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
+                                            <a href="{{{ route('facilities.index') }}}#facility-neuro" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
                                             <!-- <a href="#"
                                             class="btn btn-outline-primary">
                                                 Contact Us
@@ -490,7 +515,7 @@
                                             Instalasi Gawat Darurat (IGD) RS St. Elisabeth Semarang menyediakan layanan gawat darurat 24 jam, yang dilayani oleh tenaga medis andal dan berpengalaman.
                                         </p>
                                         <div class="mt-4">
-                                            <a href="{{ route('facilities.index') }}#facility-igd" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
+                                            <a href="{{{ route('facilities.index') }}}#facility-igd" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
                                             <!-- <a href="#"
                                             class="btn btn-outline-primary">
                                                 Contact Us
@@ -516,7 +541,7 @@
                                             Ruang Rawat Intensif (ICU/ICCU) dilengkapi dengan peralatan canggih dan tenaga medis khusus untuk menangani dan memantau pasien kritis 24 jam.
                                         </p>
                                         <div class="mt-4">
-                                            <a href="{{ route('facilities.index') }}#facility-icu" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
+                                            <a href="{{{ route('facilities.index') }}}#facility-icu" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
                                             <!-- <a href="#"
                                             class="btn btn-outline-primary">
                                                 Contact Us
@@ -542,7 +567,7 @@
                                             Klinik spesialis yang ditangani oleh dokter-dokter ahli berpengalaman, serta klinik gigi dan mulut untuk perawatan kesehatan gigi komprehensif.
                                         </p>
                                         <div class="mt-4">
-                                            <a href="{{ route('facilities.index') }}#facility-klinik" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
+                                            <a href="{{{ route('facilities.index') }}}#facility-klinik" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
                                             <!-- <a href="#"
                                             class="btn btn-outline-primary">
                                                 Contact Us
@@ -694,7 +719,7 @@
             </div>
 
             <div class="text-center mt-5 mb-3">
-                <a href="{{ route('promotions.index') }}" class="btn btn-bouncing px-5 py-3 rounded-pill fw-bold shadow-lg" aria-label="Lihat Penawaran Menarik Lainnya">
+                <a href="{{{ route('promotions.index') }}}" class="btn btn-bouncing px-5 py-3 rounded-pill fw-bold shadow-lg" aria-label="Lihat Penawaran Menarik Lainnya">
                     Lihat Penawaran Menarik Lainnya <i class="fa-solid fa-arrow-down ms-2"></i>
                 </a>
             </div>
@@ -726,7 +751,7 @@
                     <div class="col-md-6 col-lg-3 position-relative">
                         <div class="news-card h-100">
                             <div class="news-card-img-wrapper">
-                                <a href="{{ route('news.show', ['slug' => $item['slug']]) }}">
+                                <a href="{{{ route('news.show', ['slug' => $item['slug']]) }}}">
                                     <img src="{{ $item['image'] }}" class="news-card-img" alt="{{ $item['title'] }}">
                                 </a>
                             </div>
@@ -735,11 +760,11 @@
                                     <i class="fa-regular fa-calendar"></i>
                                     {{ \Carbon\Carbon::parse($item['date'])->translatedFormat('d M Y') }}
                                 </div>
-                                <a href="{{ route('news.show', ['slug' => $item['slug']]) }}">
+                                <a href="{{{ route('news.show', ['slug' => $item['slug']]) }}}">
                                     <h3 class="news-title fs-6">{{ $item['title'] }}</h3>
                                 </a>
                                 <p class="news-excerpt small mb-3">{{ Str::limit($item['excerpt'], 80) }}</p>
-                                <a href="{{ route('news.show', ['slug' => $item['slug']]) }}" class="news-read-more small mt-auto">
+                                <a href="{{{ route('news.show', ['slug' => $item['slug']]) }}}" class="news-read-more small mt-auto">
                                     Baca Selengkapnya <i class="fa-solid fa-arrow-right"></i>
                                 </a>
                             </div>
@@ -755,7 +780,7 @@
                     @endforelse
                 </div>
                 <div class="text-center mt-5 mb-3">
-                    <a href="{{ route('news.index') }}" class="btn btn-bouncing px-5 py-3 rounded-pill fw-bold shadow-lg" aria-label="Lihat Semua Berita">
+                    <a href="{{{ route('news.index') }}}" class="btn btn-bouncing px-5 py-3 rounded-pill fw-bold shadow-lg" aria-label="Lihat Semua Berita">
                         Lihat Semua Berita <i class="fa-solid fa-arrow-right ms-2"></i>
                     </a>
                 </div>
@@ -905,12 +930,12 @@
                     <div class="col">
                         <ul>
                             <li><h4 class="footer-title">Tautan Cepat</h4></li>
-                            <li class="footer-list"><a href="{{ route("tentang-kami.index") }}"><i class="fa-solid fa-caret-right"></i> Tentang Kami</a></li>
-                            <li class="footer-list"><a href="{{ route("news.index") }}"><i class="fa-solid fa-caret-right"></i> Elisanews</a></li>
+                            <li class="footer-list"><a href="{{{ route("tentang-kami.index") }}}"><i class="fa-solid fa-caret-right"></i> Tentang Kami</a></li>
+                            <li class="footer-list"><a href="{{{ route("news.index") }}}"><i class="fa-solid fa-caret-right"></i> Elisanews</a></li>
                             {{-- <li class="footer-list"><a href="#"><i class="fa-solid fa-caret-right"></i> Artikel</a></li> --}}
                             <li class="footer-list"><a href="#"><i class="fa-solid fa-caret-right"></i> Hubungi Kami</a></li>
                             {{-- <li class="footer-list"><a href="#"><i class="fa-solid fa-caret-right"></i> Rekanan</a></li> --}}
-                            <li class="footer-list"><a href="{{ route("glossary.index") }}"><i class="fa-solid fa-caret-right"></i> Perpustakaan Online</a></li>
+                            <li class="footer-list"><a href="{{{ route("glossary.index") }}}"><i class="fa-solid fa-caret-right"></i> Perpustakaan Online</a></li>
                         </ul>
                     </div>
                     <div class="col">

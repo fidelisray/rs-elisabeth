@@ -91,3 +91,92 @@
         border-top: 1px solid #f0f4f8;
     }
 }
+
+/* ============================================================
+ * Mobile Menu Modal Styles
+ * ============================================================ */
+.mobile-menu-dialog {
+    width: 90vw;
+    max-width: 90vw;
+    height: 90vh;
+    margin: 5vh auto;
+}
+
+.mobile-menu-content {
+    background-color: var(--secondary-darker-color, #124f8c);
+    height: 100%;
+    border-radius: 1rem;
+    border: none;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.mobile-nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    overflow-y: auto;
+    /* Memberi ruang untuk close button (modal-header) */
+    max-height: calc(90vh - 60px);
+}
+
+.mobile-nav-list > li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.mobile-nav-list > li:last-child {
+    border-bottom: none;
+}
+
+.mobile-nav-list > li > a {
+    display: block;
+    padding: 1.2rem 1rem;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.mobile-nav-list > li > a:hover,
+.mobile-nav-list > li > a.active {
+    color: var(--accent-color, #fff000);
+}
+
+/* Chevron animasi untuk dropdown accordion */
+.mobile-nav-list > li > a i {
+    transition: transform 0.3s ease;
+}
+.mobile-nav-list > li > a[aria-expanded="true"] i {
+    transform: rotate(-180deg);
+}
+
+/* Submenu / Accordion */
+.mobile-submenu-list {
+    list-style: none;
+    padding: 0 0 0.5rem 0;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.15); /* memberi kedalaman visual */
+}
+
+.mobile-submenu-list li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.mobile-submenu-list li:last-child {
+    border-bottom: none;
+}
+
+.mobile-submenu-list li a {
+    display: block;
+    padding: 0.9rem 1rem;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-size: 0.92rem; /* Sama seperti dropdown desktop */
+    font-weight: 500;   /* Sama seperti dropdown desktop */
+    transition: color 0.2s ease;
+}
+
+.mobile-submenu-list li a:hover {
+    color: var(--accent-color, #fff000);
+}

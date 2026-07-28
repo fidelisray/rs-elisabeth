@@ -11,11 +11,12 @@
         'resources/css/btn-accent.css',
         'resources/css/navbar-dropdown.css',
         'resources/css/top-bar.css',
+        'resources/css/search-and-quick-access.css',
         'resources/css/customer-information.css'
     ])
 </head>
 <body>
-    <!-- Top Bar -->
+            <!-- Top Bar -->
     <div class="top-bar d-none d-lg-block">
         <div class="container">
             <div class="row align-items-center">
@@ -34,41 +35,42 @@
             </div>
         </div>
     </div>
-    
     <header class="nav-group">
         <nav class="navbar bg-body-tertiary">
-            <div class="container d-flex">
-                <a class="navbar-brand" href="/">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo RS St. Elisabeth Semarang" width="auto" height="70" class="d-inline-block align-text-top">
-                    <img src="{{ asset('images/akreditasi.png') }}" alt="Logo RS St. Elisabeth Semarang" width="auto" height="70" class="d-inline-block align-text-top">
+            <div class="container d-flex flex-wrap flex-lg-nowrap justify-content-between align-items-center gap-3">
+                <a class="navbar-brand m-0" href="/">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo RS St. Elisabeth Semarang" width="auto" height="50" class="d-inline-block align-text-top logo-main">
+                    <img src="{{ asset('images/akreditasi.png') }}" alt="Logo RS St. Elisabeth Semarang" width="auto" height="50" class="d-inline-block align-text-top logo-akreditasi d-none d-sm-inline-block">
                 </a>
-                <form class="d-flex nav-form-search" role="search">
+                <form class="d-flex nav-form-search flex-grow-1 mx-lg-3 order-3 order-lg-2 w-100 w-lg-auto" role="search">
                     <input class="form-control me-2" type="search" placeholder="Temukan dokter, klinik, jadwal.." aria-label="Search"/>
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
-                <div class="d-flex align-items-center">
-                    <a class="btn btn-accent" href="https://regonline.rs-elisabeth.com" target="_blank" rel="noopener noreferrer"><i class="far fa-calendar-check me-2"></i>Buat Janji</a>
+                <div class="d-flex align-items-center order-2 order-lg-3">
+                    <a class="btn btn-accent btn-sm d-lg-none me-2" href="tel:+62248502244"><i class="fa-solid fa-phone"></i></a>
+                    <a class="btn btn-accent btn-sm d-lg-none" href="https://regonline.rs-elisabeth.com" target="_blank" rel="noopener noreferrer"><i class="far fa-calendar-check"></i></a>
+                    <a class="btn btn-accent d-none d-lg-inline-block" href="https://regonline.rs-elisabeth.com" target="_blank" rel="noopener noreferrer"><i class="far fa-calendar-check me-2"></i>Buat Janji</a>
                 </div>
             </div>
         </nav>
     </header>
-    
     <div id="navbar-sentinel" class="navbar-sentinel"></div>
-    
     <nav id="second-navbar" class="navbar navbar-expand-lg second-nav">
         <div class="container second-nav-body">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                        <!-- Mobile Menu Modal Toggler -->
+            <button class="navbar-toggler text-white border-white" type="button" data-bs-toggle="modal" data-bs-target="#mobileMenuModal" aria-controls="mobileMenuModal" aria-label="Toggle navigation">
+                <i class="fa-solid fa-bars"></i>
             </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+            <span class="d-lg-none text-white fw-bold ms-2 me-auto">Menu Utama</span>
+
+            <!-- Desktop Sidebar -->
+            <div class="collapse navbar-collapse justify-content-center d-none d-lg-flex" id="navbarNavDropdown">
                 <ul class="navbar-nav nav-content gap-2">
                     <li class="nav-item nav-beranda">
-                        <a class="nav-link" href="{{ route('home.index') }}">Beranda</a>
+                        <a class="nav-link " aria-current="page" href="{{ route('home.index') }}">Beranda</a>
                     </li>
                     <li class="nav-item dropdown nav-tentang-kami">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Tentang Kami
-                        </a>
+                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tentang Kami</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{ route('tentang-kami.index') }}">Profil</a></li>
                             <li><a class="dropdown-item" href="{{ route('tentang-kami.index') }}#visi-dan-misi">Visi & Misi</a></li>
@@ -76,25 +78,57 @@
                         </ul>
                     </li>
                     <li class="nav-item nav-cari-dokter">
-                        <a class="nav-link" href="{{ route('dokter.index') }}">Cari Dokter</a>
+                        <a class="nav-link " href="{{ route('dokter.index') }}">Cari Dokter</a>
                     </li>
                     <li class="nav-item nav-ruang-perawatan">
-                        <a class="nav-link" href="{{ route('ruang-perawatan.index') }}">Ruang Perawatan</a>
+                        <a class="nav-link " href="{{ route('ruang-perawatan.index') }}">Ruang Perawatan</a>
                     </li>
                     <li class="nav-item nav-fasilitas">
-                        <a class="nav-link" href="{{ route('facilities.index') }}">Fasilitas</a>
+                        <a class="nav-link " href="{{ route('facilities.index') }}">Fasilitas</a>
                     </li>
                     <li class="nav-item nav-paket-dan-promo">
-                        <a class="nav-link" href="{{ route('promotions.index') }}">Paket dan Promo</a>
+                        <a class="nav-link " href="{{ route('promotions.index') }}">Paket dan Promo</a>
                     </li>
                     <li class="nav-item nav-informasi-pelanggan">
-                        <a class="nav-link active" aria-current="page" href="{{ route('customer-information.index') }}">Informasi Pelanggan</a>
+                        <a class="nav-link active" href="{{ route('customer-information.index') }}">Informasi Pelanggan</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    
+
+    <!-- Mobile Menu Modal -->
+    <div class="modal fade" id="mobileMenuModal" tabindex="-1" aria-labelledby="mobileMenuModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mobile-menu-dialog">
+            <div class="modal-content mobile-menu-content">
+                <div class="modal-header border-0 pb-0">
+                    <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-0">
+                    <ul class="mobile-nav-list">
+                        <li><a class="" href="{{ route('home.index') }}">Beranda</a></li>
+                        <li>
+                            <a href="#collapseTentangKamiMobile" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseTentangKamiMobile" class="d-flex justify-content-center align-items-center gap-2 ">
+                                Tentang Kami <i class="fas fa-chevron-down" style="font-size: 0.8em;"></i>
+                            </a>
+                            <div class="collapse" id="collapseTentangKamiMobile">
+                                <ul class="mobile-submenu-list">
+                                    <li><a href="{{ route('tentang-kami.index') }}">Profil</a></li>
+                                    <li><a href="{{ route('tentang-kami.index') }}#visi-dan-misi">Visi & Misi</a></li>
+                                    <li><a href="{{ route('tentang-kami.index') }}#sejarah-singkat">Sejarah</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li><a class="" href="{{ route('dokter.index') }}">Cari Dokter</a></li>
+                        <li><a class="" href="{{ route('ruang-perawatan.index') }}">Ruang Perawatan</a></li>
+                        <li><a class="" href="{{ route('facilities.index') }}">Fasilitas</a></li>
+                        <li><a class="" href="{{ route('promotions.index') }}">Paket dan Promo</a></li>
+                        <li><a class="active" href="{{ route('customer-information.index') }}">Informasi Pelanggan</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
     <main>
         <section id="hero-section">
             <div class="container">
@@ -226,10 +260,10 @@
                     <div class="col">
                         <ul>
                             <li><h4 class="footer-title">Tautan Cepat</h4></li>
-                            <li class="footer-list"><a href="{{ route('tentang-kami.index') }}"><i class="fa-solid fa-caret-right"></i> Tentang Kami</a></li>
-                            <li class="footer-list"><a href="{{ route('news.index') }}"><i class="fa-solid fa-caret-right"></i> Elisanews</a></li>
+                            <li class="footer-list"><a href="{{{ route('tentang-kami.index') }}}"><i class="fa-solid fa-caret-right"></i> Tentang Kami</a></li>
+                            <li class="footer-list"><a href="{{{ route('news.index') }}}"><i class="fa-solid fa-caret-right"></i> Elisanews</a></li>
                             <li class="footer-list"><a href="#"><i class="fa-solid fa-caret-right"></i> Hubungi Kami</a></li>
-                            <li class="footer-list"><a href="{{ route('glossary.index') }}"><i class="fa-solid fa-caret-right"></i> Perpustakaan Online</a></li>
+                            <li class="footer-list"><a href="{{{ route('glossary.index') }}}"><i class="fa-solid fa-caret-right"></i> Perpustakaan Online</a></li>
                         </ul>
                     </div>
                     <div class="col">

@@ -289,22 +289,22 @@ class DoctorApiService
         // }
 
         try {
-            echo " [" . $i . "/" . $specialityLength . "]" . "Mengambil data dengan speciality id => " . $code;
-            echo "\n\n";
+            // echo " [" . $i . "/" . $specialityLength . "]" . "Mengambil data dengan speciality id => " . $code;
+            // echo "\n\n";
             $data = $this->getDokterBySpesialisasi($code);
             
             
             if (!$data['Success']) {
                 // echo " [" . $i . "/" . $specialityLength . "]" . "Data => " . $code . " Gagal di ambil / kosong";
                 
-                echo "\t" . "-> Data {$code} Gagal diambil";
+                echo "" . "-> Data {$code} Gagal diambil";
                 echo "\n\n";
                 $i++;
                 continue;
             }
                 
-            echo "\t". "-> Data Berhasil diambil";
-            echo "\n\n";
+            // echo "\t". "-> Data Berhasil diambil";
+            // echo "\n\n";
             $i++;
 
             if (!empty($data['ScheduleRoutine']) && is_array($data['ScheduleRoutine'])) {

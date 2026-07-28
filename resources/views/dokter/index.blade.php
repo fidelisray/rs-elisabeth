@@ -19,7 +19,7 @@
     ])
 </head>
 <body>
-    <!-- Top Bar -->
+            <!-- Top Bar -->
     <div class="top-bar d-none d-lg-block">
         <div class="container">
             <div class="row align-items-center">
@@ -32,7 +32,8 @@
                 </div>
                 <div class="col-md-6 text-end">
                     <a href="#"><i class="fas fa-user-circle me-1"></i> Portal Pasien</a>
-                    <a href="#"><i class="fas fa-globe me-1"></i> ID <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;"></i></a>
+                    <a href="#"><i class="fas fa-globe me-1"></i> ID <i class="fas fa-chevron-down ms-1"
+                            style="font-size: 0.7em;"></i></a>
                 </div>
             </div>
         </div>
@@ -59,54 +60,78 @@
     <div id="navbar-sentinel" class="navbar-sentinel"></div>
     <nav id="second-navbar" class="navbar navbar-expand-lg second-nav">
         <div class="container second-nav-body">
-            <!-- Offcanvas Toggler for Mobile -->
-            <button class="navbar-toggler text-white border-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <!-- Mobile Menu Modal Toggler -->
+            <button class="navbar-toggler text-white border-white" type="button" data-bs-toggle="modal" data-bs-target="#mobileMenuModal" aria-controls="mobileMenuModal" aria-label="Toggle navigation">
                 <i class="fa-solid fa-bars"></i>
             </button>
             <span class="d-lg-none text-white fw-bold ms-2 me-auto">Menu Utama</span>
 
-            <!-- Offcanvas Sidebar -->
-            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header bg-primary text-white">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">RS St. Elisabeth</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <ul class="navbar-nav nav-content gap-2 justify-content-center flex-grow-1">
-                        <li class="nav-item nav-beranda">
-                            <a class="nav-link" href="/">Beranda</a>
-                        </li>
-                        <li class="nav-item dropdown nav-tentang-kami">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Tentang Kami
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ route('tentang-kami.index') }}">Profil</a></li>
-                                <li><a class="dropdown-item" href="{{ route('tentang-kami.index') }}#visi-dan-misi">Visi & Misi</a></li>
-                                <li><a class="dropdown-item" href="{{ route('tentang-kami.index') }}#sejarah-singkat">Sejarah</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item nav-cari-dokter">
-                            <a class="nav-link active" aria-current="page" href="{{ route('dokter.index') }}">Cari Dokter</a>
-                        </li>
-                        <li class="nav-item nav-ruang-perawatan">
-                            <a class="nav-link" href="{{ route('ruang-perawatan.index') }}">Ruang Perawatan</a>
-                        </li>
-                        <li class="nav-item nav-fasilitas">
-                            <a class="nav-link" href="{{ route('facilities.index') }}">Fasilitas</a>
-                        </li>
-                        <li class="nav-item nav-paket-dan-promo">
-                            <a class="nav-link" href="{{ route('promotions.index') }}">Paket dan Promo</a>
-                        </li>
-                        <li class="nav-item nav-informasi-pelanggan">
-                            <a class="nav-link" href="{{ route('customer-information.index') }}">Informasi Pelanggan</a>
-                        </li>
-                    </ul>
-                </div>
+            <!-- Desktop Sidebar -->
+            <div class="collapse navbar-collapse justify-content-center d-none d-lg-flex" id="navbarNavDropdown">
+                <ul class="navbar-nav nav-content gap-2">
+                    <li class="nav-item nav-beranda">
+                        <a class="nav-link" aria-current="page" href="{{{ route('home.index') }}}">Beranda</a>
+                    </li>
+                    <li class="nav-item dropdown nav-tentang-kami">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tentang Kami</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{{ route('tentang-kami.index') }}}">Profil</a></li>
+                            <li><a class="dropdown-item" href="{{{ route('tentang-kami.index') }}}#visi-dan-misi">Visi & Misi</a></li>
+                            <li><a class="dropdown-item" href="{{{ route('tentang-kami.index') }}}#sejarah-singkat">Sejarah</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item nav-cari-dokter">
+                        <a class="nav-link active" href="{{{ route('dokter.index') }}}">Cari Dokter</a>
+                    </li>
+                    <li class="nav-item nav-ruang-perawatan">
+                        <a class="nav-link" href="{{{ route('ruang-perawatan.index') }}}">Ruang Perawatan</a>
+                    </li>
+                    <li class="nav-item nav-fasilitas">
+                        <a class="nav-link" href="{{{ route('facilities.index') }}}">Fasilitas</a>
+                    </li>
+                    <li class="nav-item nav-paket-dan-promo">
+                        <a class="nav-link" href="{{{ route('promotions.index') }}}">Paket dan Promo</a>
+                    </li>
+                    <li class="nav-item nav-informasi-pelanggan">
+                        <a class="nav-link" href="{{{ route('customer-information.index') }}}">Informasi Pelanggan</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
 
+    <!-- Mobile Menu Modal -->
+    <div class="modal fade" id="mobileMenuModal" tabindex="-1" aria-labelledby="mobileMenuModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mobile-menu-dialog">
+            <div class="modal-content mobile-menu-content">
+                <div class="modal-header border-0 pb-0">
+                    <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-0">
+                    <ul class="mobile-nav-list">
+                        <li><a href="{{{ route('home.index') }}}">Beranda</a></li>
+                        <li>
+                            <a href="#collapseTentangKamiMobile" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseTentangKamiMobile" class="d-flex justify-content-center align-items-center gap-2">
+                                Tentang Kami <i class="fas fa-chevron-down" style="font-size: 0.8em;"></i>
+                            </a>
+                            <div class="collapse" id="collapseTentangKamiMobile">
+                                <ul class="mobile-submenu-list">
+                                    <li><a href="{{{ route('tentang-kami.index') }}}">Profil</a></li>
+                                    <li><a href="{{{ route('tentang-kami.index') }}}#visi-dan-misi">Visi & Misi</a></li>
+                                    <li><a href="{{{ route('tentang-kami.index') }}}#sejarah-singkat">Sejarah</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li><a class="active" href="{{{ route('dokter.index') }}}">Cari Dokter</a></li>
+                        <li><a href="{{{ route('ruang-perawatan.index') }}}">Ruang Perawatan</a></li>
+                        <li><a href="{{{ route('facilities.index') }}}">Fasilitas</a></li>
+                        <li><a href="{{{ route('promotions.index') }}}">Paket dan Promo</a></li>
+                        <li><a href="{{{ route('customer-information.index') }}}">Informasi Pelanggan</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
     <main>
         <section id="hero-section">
             <div class="container">
@@ -176,13 +201,13 @@
                     
                     <!-- Tab Klinik -->
                     <div class="tab-pane fade {{ request('klinik') ? 'show active' : '' }}" id="clinic">
-                        <form class="row g-3 align-items-center" action="{{ route('dokter.index') }}" method="GET">
+                        <form class="row g-3 align-items-center" action="{{{ route('dokter.index') }}}" method="GET">
                             <div class="col-md-8">
                                 <input type="text" name="klinik" class="form-control" style="height: 45px;" placeholder="Nama Klinik" value="{{ request('klinik') }}">
                             </div>
                             <div class="col-md-4 d-flex gap-2">
                                 <button class="btn btn-primary-custom-sm flex-grow-1" type="submit"><i class="fas fa-search me-2"></i>Cari</button>
-                                <a href="{{ route('dokter.index') }}" class="btn btn-outline-secondary px-3 d-flex align-items-center justify-content-center" style="border-radius: 50px;" title="Reset Pencarian"><i class="fas fa-undo"></i></a>
+                                <a href="{{{ route('dokter.index') }}}" class="btn btn-outline-secondary px-3 d-flex align-items-center justify-content-center" style="border-radius: 50px;" title="Reset Pencarian"><i class="fas fa-undo"></i></a>
                             </div>
                         </form>
                     </div>
