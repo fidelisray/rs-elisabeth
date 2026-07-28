@@ -24,6 +24,7 @@ export default defineConfig({
                 'resources/css/tentang-kami.css',
                 'resources/css/customer-information.css',
                 'resources/css/top-bar.css',
+                'resources/css/promo-banner.css',
                 'resources/js/app.js',
                 'resources/js/navbar/navbar.js',
                 'resources/js/navbar/navbar-dropdown.js',
