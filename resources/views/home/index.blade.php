@@ -322,220 +322,184 @@
 
 
 
-        <section id="about-us" class="container-fluid">
-            <div class="container p-2 mb-4 rounded-3">
-                <div class="title text-center section-title">
-                    <h2 class="display-8 fw-bold">Percayakan Kesehatan Anda Bersama Kami</h2>
+        <section id="about-us" class="py-5">
+            <div class="container">
+                <div class="section-title text-center mb-5">
+                    <h2 class="fw-bold">Percayakan Kesehatan Anda Bersama Kami</h2>
+                    <div class="divider"></div>
                 </div>
-                <div class="py-5 row">
-                    <div class="about-content px-5 col-md-5">
-                        <div class="about-rs">
-                            <h3>Terakreditasi Paripurna</h3>
-                            <p>Kami mendapat predikat PARIPURNA dari Komisi Akreditasi Rumah Sakit (KARS), yang merupakan predikat dengan hasil penilaian tertinggi berdasarkan penilaian terhadap manajemen mutu dan keselamatan pasien yang diterapkan di Rumah Sakit.</p>
+                <div class="row align-items-center mt-5">
+                    <div class="col-md-5 mb-4 mb-md-0 px-md-4">
+                        <div class="about-rs mb-5">
+                            <h4 class="fw-bold d-flex align-items-center" style="color: var(--primary-color);">
+                                <div class="icon-circle bg-light me-3 d-flex align-items-center justify-content-center rounded-circle shadow-sm" style="width: 50px; height: 50px; flex-shrink: 0;">
+                                    <i class="fas fa-medal"></i>
+                                </div>
+                                Terakreditasi Paripurna
+                            </h4>
+                            <p class="text-muted ms-5 ps-3" style="font-size: 1.1rem; line-height: 1.6;">Kami mendapat predikat PARIPURNA dari Komisi Akreditasi Rumah Sakit (KARS), yang merupakan predikat dengan hasil penilaian tertinggi berdasarkan penilaian terhadap manajemen mutu dan keselamatan pasien yang diterapkan di Rumah Sakit.</p>
+                        </div>
+                        <div class="about-rs mb-5">
+                            <h4 class="fw-bold d-flex align-items-center" style="color: var(--primary-color);">
+                                <div class="icon-circle bg-light me-3 d-flex align-items-center justify-content-center rounded-circle shadow-sm" style="width: 50px; height: 50px; flex-shrink: 0;">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                Layanan 24 Jam
+                            </h4>
+                            <p class="text-muted ms-5 ps-3" style="font-size: 1.1rem; line-height: 1.6;">Kami menyediakan layanan 24 jam untuk memenuhi kebutuhan Kesehatan anda, khususnya bagi anda yang membutuhkan penanganan emergency.</p>
                         </div>
                         <div class="about-rs">
-                            <h3>Layanan 24 Jam</h3>
-                            <p>Kami menyediakan layanan 24 jam untuk memenuhi kebutuhan Kesehatan anda, khususnya bagi anda yang membutuhkan penanganan emergency.</p>
-                        </div>
-                        <div class="about-rs">
-                            <h3>Service Excellent</h3>
-                            <p>Berpusat kepada pasien sebagai “Tamu Ilahi”, Kami senantiasa memberikan kualitas pelayanan yang bermutu tinggi dan profesional, dengan tetap memperhatikan aspek keselamatan pasien.</p>
+                            <h4 class="fw-bold d-flex align-items-center" style="color: var(--primary-color);">
+                                <div class="icon-circle bg-light me-3 d-flex align-items-center justify-content-center rounded-circle shadow-sm" style="width: 50px; height: 50px; flex-shrink: 0;">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                Service Excellent
+                            </h4>
+                            <p class="text-muted ms-5 ps-3" style="font-size: 1.1rem; line-height: 1.6;">Berpusat kepada pasien sebagai “Tamu Ilahi”, Kami senantiasa memberikan kualitas pelayanan yang bermutu tinggi dan profesional, dengan tetap memperhatikan aspek keselamatan pasien.</p>
                         </div>
                     </div>
-                    <div class="jumbotron-image col-md-7 text-center">
-                        <img src="{{ asset('images/feature.jpg') }}" class="img-fluid rounded shadow" alt="Fasilitas RS St. Elisabeth Semarang" srcset="">
+                    <div class="col-md-7 text-center position-relative mt-4 mt-md-0">
+                        <div class="position-absolute w-100 h-100 rounded-4" style="background-color: var(--primary-color); opacity: 0.1; transform: translate(20px, 20px);"></div>
+                        <img src="{{ asset('images/feature.jpg') }}" class="img-fluid rounded-4 shadow-lg position-relative" alt="Fasilitas RS St. Elisabeth Semarang" style="z-index: 2; object-fit: cover; max-height: 500px; width: 100%;">
                     </div>
                 </div>
             </div>
         </section>
-        <section id="facilities-and-services">
-            <!-- <h2 class="tittle text-align-center">Our Speciality</h2> -->
-            <div class="title text-center">
-                <h2 class="display-8 fw-bold section-title">Fasilitas dan Layanan</h2>
-            </div>
-            <div class="container-fluid py-5">
-                <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+
+
+        <section id="facilities-and-services" class="py-5 bg-light">
+            <div class="container">
+                <div class="section-title text-center mb-5">
+                    <h2 class="fw-bold">Fasilitas dan Layanan</h2>
+                    <div class="divider"></div>
+                    <p class="text-muted mt-3">Pelayanan unggulan dengan dokter spesialis berpengalaman.</p>
+                </div>
+
+                <div id="carouselExampleCaptions" class="carousel slide shadow rounded-4 overflow-hidden bg-white" data-bs-ride="carousel">
                     <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="5" aria-label="Slide 6"></button>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active bg-dark" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" class="bg-dark" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" class="bg-dark" aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" class="bg-dark" aria-label="Slide 4"></button>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" class="bg-dark" aria-label="Slide 5"></button>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="5" class="bg-dark" aria-label="Slide 6"></button>
                     </div>
                     <div class="carousel-inner" id="carousel-facilities-and-services">
+                        <!-- Item 1 -->
                         <div class="carousel-item active">
-                            <div class="container">
-                                <div class="row align-items-center gy-4">
-                                    <div class="col-md-6">
-                                        <div class="img-wrapper">
-                                            <img src="{{ asset('images/F1670220299.jpg') }}" class="img-fluid" alt="Fasilitas Spesialisasi RS St. Elisabeth">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <!-- <span class="badge bg-primary mb-3"> -->
-                                        <span class="mb-3">Featured</span>
-                                        <h3 class="fw-bold">Pelayanan Stroke Terpadu</h3>
-                                        <p class="text-muted">
-                                            Pelayanan Stroke Terpadu RS St. Elisabeth Semarang menyediakan layanan komprehensif bagi pasien stroke, mulai dari penanganan akut hingga rehabilitasi.
-                                        </p>
-                                        <div class="mt-4">
-                                            <a href="{{{ route('facilities.index') }}}#facility-stroke" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
-                                            <!-- <a href="#"
-                                            class="btn btn-outline-primary">
-                                                Contact Us
-                                            </a> -->
-                                        </div>
+                            <div class="row align-items-center g-0">
+                                <div class="col-md-6 text-center" style="height: 400px;">
+                                    <img src="{{ asset('images/F1670220299.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Pelayanan Stroke Terpadu">
+                                </div>
+                                <div class="col-md-6 p-4 p-md-5">
+                                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">Featured</span>
+                                    <h3 class="fw-bold" style="color: var(--secondary-color);">Pelayanan Stroke Terpadu</h3>
+                                    <p class="text-muted fs-5 mt-3">Pelayanan Stroke Terpadu RS St. Elisabeth Semarang menyediakan layanan komprehensif bagi pasien stroke, mulai dari penanganan akut hingga rehabilitasi.</p>
+                                    <div class="mt-4">
+                                        <a href="{{{ route('facilities.index') }}}#facility-stroke" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Learn More <i class="fas fa-arrow-right ms-2"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- Item 2 -->
                         <div class="carousel-item">
-                            <div class="container">
-                                <div class="row align-items-center gy-4">
-                                    <div class="col-md-6">
-                                        <div class="img-wrapper">
-                                            <img src="{{ asset('images/F1670914854.jpg') }}" class="img-fluid" alt="Fasilitas Spesialisasi RS St. Elisabeth">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <!-- <span class="badge bg-primary mb-3"> -->
-                                        <span class="mb-3">Featured</span>
-                                        <h3 class="fw-bold">Klinik Nyeri</h3>
-                                        <p class="text-muted">
-                                            Klinik Nyeri RS St. Elisabeth menyediakan layanan penanganan nyeri kronis maupun akut secara komprehensif untuk membantu mengelola nyeri secara efektif.
-                                        </p>
-                                        <div class="mt-4">
-                                            <a href="{{{ route('facilities.index') }}}#facility-nyeri" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
-                                            <!-- <a href="#"
-                                            class="btn btn-outline-primary">
-                                                Contact Us
-                                            </a> -->
-                                        </div>
+                            <div class="row align-items-center g-0">
+                                <div class="col-md-6 text-center" style="height: 400px;">
+                                    <img src="{{ asset('images/F1670914854.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Klinik Nyeri">
+                                </div>
+                                <div class="col-md-6 p-4 p-md-5">
+                                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">Featured</span>
+                                    <h3 class="fw-bold" style="color: var(--secondary-color);">Klinik Nyeri</h3>
+                                    <p class="text-muted fs-5 mt-3">Klinik Nyeri RS St. Elisabeth menyediakan layanan penanganan nyeri kronis maupun akut secara komprehensif untuk membantu mengelola nyeri secara efektif.</p>
+                                    <div class="mt-4">
+                                        <a href="{{{ route('facilities.index') }}}#facility-nyeri" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Learn More <i class="fas fa-arrow-right ms-2"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- Item 3 -->
                         <div class="carousel-item">
-                            <div class="container">
-                                <div class="row align-items-center gy-4">
-                                    <div class="col-md-6">
-                                        <div class="img-wrapper">
-                                            <img src="{{ asset('images/F1670914872.jpg') }}" class="img-fluid" alt="Fasilitas Spesialisasi RS St. Elisabeth">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <!-- <span class="badge bg-primary mb-3"> -->
-                                        <span class="mb-3">Featured</span>
-                                        <h3 class="fw-bold">Pelayanan Neurofisiologi</h3>
-                                        <p class="text-muted">
-                                            Layanan Neurofisiologi kami menyediakan pemeriksaan dan evaluasi fungsi sistem saraf secara komprehensif menggunakan teknologi terkini (EEG, EMG).
-                                        </p>
-                                        <div class="mt-4">
-                                            <a href="{{{ route('facilities.index') }}}#facility-neuro" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
-                                            <!-- <a href="#"
-                                            class="btn btn-outline-primary">
-                                                Contact Us
-                                            </a> -->
-                                        </div>
+                            <div class="row align-items-center g-0">
+                                <div class="col-md-6 text-center" style="height: 400px;">
+                                    <img src="{{ asset('images/F1670914872.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Pelayanan Neurofisiologi">
+                                </div>
+                                <div class="col-md-6 p-4 p-md-5">
+                                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">Featured</span>
+                                    <h3 class="fw-bold" style="color: var(--secondary-color);">Pelayanan Neurofisiologi</h3>
+                                    <p class="text-muted fs-5 mt-3">Layanan Neurofisiologi kami menyediakan pemeriksaan dan evaluasi fungsi sistem saraf secara komprehensif menggunakan teknologi terkini (EEG, EMG).</p>
+                                    <div class="mt-4">
+                                        <a href="{{{ route('facilities.index') }}}#facility-neuro" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Learn More <i class="fas fa-arrow-right ms-2"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- Item 4 -->
                         <div class="carousel-item">
-                            <div class="container">
-                                <div class="row align-items-center gy-4">
-                                    <div class="col-md-6">
-                                        <div class="img-wrapper">
-                                            <img src="{{ asset('images/F1671680565.jpg') }}" class="img-fluid" alt="Fasilitas Spesialisasi RS St. Elisabeth">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <!-- <span class="badge bg-primary mb-3"> -->
-                                        <span class="mb-3">Featured</span>
-                                        <h3 class="fw-bold">Pelayanan Gawat Darurat</h3>
-                                        <p class="text-muted">
-                                            Instalasi Gawat Darurat (IGD) RS St. Elisabeth Semarang menyediakan layanan gawat darurat 24 jam, yang dilayani oleh tenaga medis andal dan berpengalaman.
-                                        </p>
-                                        <div class="mt-4">
-                                            <a href="{{{ route('facilities.index') }}}#facility-igd" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
-                                            <!-- <a href="#"
-                                            class="btn btn-outline-primary">
-                                                Contact Us
-                                            </a> -->
-                                        </div>
+                            <div class="row align-items-center g-0">
+                                <div class="col-md-6 text-center" style="height: 400px;">
+                                    <img src="{{ asset('images/F1671680565.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Pelayanan Gawat Darurat">
+                                </div>
+                                <div class="col-md-6 p-4 p-md-5">
+                                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">Featured</span>
+                                    <h3 class="fw-bold" style="color: var(--secondary-color);">Pelayanan Gawat Darurat</h3>
+                                    <p class="text-muted fs-5 mt-3">Instalasi Gawat Darurat (IGD) RS St. Elisabeth Semarang menyediakan layanan gawat darurat 24 jam, yang dilayani oleh tenaga medis andal dan berpengalaman.</p>
+                                    <div class="mt-4">
+                                        <a href="{{{ route('facilities.index') }}}#facility-igd" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Learn More <i class="fas fa-arrow-right ms-2"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- Item 5 -->
                         <div class="carousel-item">
-                            <div class="container">
-                                <div class="row align-items-center gy-4">
-                                    <div class="col-md-6">
-                                        <div class="img-wrapper">
-                                            <img src="{{ asset('images/F1671680579.jpg') }}" class="img-fluid" alt="Fasilitas Spesialisasi RS St. Elisabeth">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <!-- <span class="badge bg-primary mb-3"> -->
-                                        <span class="mb-3">Featured</span>
-                                        <h3 class="fw-bold">Ruang Rawat Intensif</h3>
-                                        <p class="text-muted">
-                                            Ruang Rawat Intensif (ICU/ICCU) dilengkapi dengan peralatan canggih dan tenaga medis khusus untuk menangani dan memantau pasien kritis 24 jam.
-                                        </p>
-                                        <div class="mt-4">
-                                            <a href="{{{ route('facilities.index') }}}#facility-icu" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
-                                            <!-- <a href="#"
-                                            class="btn btn-outline-primary">
-                                                Contact Us
-                                            </a> -->
-                                        </div>
+                            <div class="row align-items-center g-0">
+                                <div class="col-md-6 text-center" style="height: 400px;">
+                                    <img src="{{ asset('images/F1671680579.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Ruang Rawat Intensif">
+                                </div>
+                                <div class="col-md-6 p-4 p-md-5">
+                                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">Featured</span>
+                                    <h3 class="fw-bold" style="color: var(--secondary-color);">Ruang Rawat Intensif</h3>
+                                    <p class="text-muted fs-5 mt-3">Ruang Rawat Intensif (ICU/ICCU) dilengkapi dengan peralatan canggih dan tenaga medis khusus untuk menangani dan memantau pasien kritis 24 jam.</p>
+                                    <div class="mt-4">
+                                        <a href="{{{ route('facilities.index') }}}#facility-icu" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Learn More <i class="fas fa-arrow-right ms-2"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- Item 6 -->
                         <div class="carousel-item">
-                            <div class="container">
-                                <div class="row align-items-center gy-4">
-                                    <div class="col-md-6">
-                                        <div class="img-wrapper">
-                                            <img src="{{ asset('images/F1671680659.jpg') }}" class="img-fluid" alt="Fasilitas Spesialisasi RS St. Elisabeth">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <!-- <span class="badge bg-primary mb-3"> -->
-                                        <span class="mb-3">Featured</span>
-                                        <h3 class="fw-bold">Klinik Spesialis dan Gigi</h3>
-                                        <p class="text-muted">
-                                            Klinik spesialis yang ditangani oleh dokter-dokter ahli berpengalaman, serta klinik gigi dan mulut untuk perawatan kesehatan gigi komprehensif.
-                                        </p>
-                                        <div class="mt-4">
-                                            <a href="{{{ route('facilities.index') }}}#facility-klinik" class="btn-learn" aria-label="Pelajari lebih lanjut">Learn More ></a>
-                                            <!-- <a href="#"
-                                            class="btn btn-outline-primary">
-                                                Contact Us
-                                            </a> -->
-                                        </div>
+                            <div class="row align-items-center g-0">
+                                <div class="col-md-6 text-center" style="height: 400px;">
+                                    <img src="{{ asset('images/F1671680659.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Klinik Spesialis dan Gigi">
+                                </div>
+                                <div class="col-md-6 p-4 p-md-5">
+                                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">Featured</span>
+                                    <h3 class="fw-bold" style="color: var(--secondary-color);">Klinik Spesialis dan Gigi</h3>
+                                    <p class="text-muted fs-5 mt-3">Klinik spesialis yang ditangani oleh dokter-dokter ahli berpengalaman, serta klinik gigi dan mulut untuk perawatan kesehatan gigi komprehensif.</p>
+                                    <div class="mt-4">
+                                        <a href="{{{ route('facilities.index') }}}#facility-klinik" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Learn More <i class="fas fa-arrow-right ms-2"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon bg-rse" aria-hidden="true"></span>
+                        <span class="carousel-control-prev-icon bg-dark p-3 rounded-circle" aria-hidden="true" style="background-size: 50%;"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
                     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                        <span class="carousel-control-next-icon bg-rse" aria-hidden="true"></span>
+                        <span class="carousel-control-next-icon bg-dark p-3 rounded-circle" aria-hidden="true" style="background-size: 50%;"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
             </div>
         </section>
+
+        
         <section id="promotions" class="position-relative">
-            <div class="title text-center mb-5">
-                <h2 class="display-8 fw-bold section-title">Paket dan Promo</h2>
-                {{-- <p class="text-muted">Temukan penawaran terbaik untuk layanan kesehatan Anda</p> --}}
+            <div class="section-title text-center mb-5">
+                <h2 class="display-8 fw-bold">Paket dan Promo</h2>
+                <div class="divider"></div>
+                {{-- <p class="text-muted mt-3">Temukan penawaran terbaik untuk layanan kesehatan Anda</p> --}}
             </div>
             <div class="container pb-5">
                 <div class="row g-4 justify-content-center" id="promoTrack">
@@ -685,8 +649,9 @@
             })->take(7)->toArray();
         @endphp
         <section id="latest-news" class="news-section bg-white pt-2">
-            <div class="title text-center mb-5 mt-5">
-                <h2 class="display-8 fw-bold section-title">ElisaNews</h2>
+            <div class="section-title text-center mb-5 mt-5">
+                <h2 class="display-8 fw-bold">ElisaNews</h2>
+                <div class="divider"></div>
             </div>
             <div class="container pb-5">
                 <div class="row g-4 justify-content-center">

@@ -56,6 +56,14 @@
     box-shadow: 0 5px 15px rgba(0, 143, 215, 0.4);
 }
 
+.section-title .divider {
+    height: 4px;
+    width: 80px;
+    background-color: var(--accent-color);
+    margin: 0 auto;
+    border-radius: 2px;
+}
+
 html {
     scroll-behavior: smooth;
 }
