@@ -47,77 +47,64 @@
 
 /* Quick Access Cards */
 #quick-access {
-    background: linear-gradient(135deg, var(--secondary-darker-color), var(--secondary-color), var(--primary-color));
+    background: linear-gradient(
+        135deg,
+        var(--secondary-darker-color),
+        var(--secondary-color),
+        var(--primary-color)
+    );
 }
 
-#quick-access div.container div.quick-access-options {
+#quick-access div.container.quick-access-container div.quick-access-options {
     height: 200px;
 }
 
-#quick-access .card {
-    background-color: #fffff0; /* Putih Gading */
-    border: 2px solid transparent;
+/* #quick-access div.container.quick-access-container {
+    padding: 0 24px;
+    margin-top: -50px;
+} */
+
+#quick-access .quick-access-options .card {
     transition: transform 0.3s ease;
 }
 
-#quick-access .card:hover {
+#quick-access .quick-access-options .card:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2) !important;
 }
 
-#quick-access .card i {
-    font-size: 3rem;
+#quick-access .quick-access-options .card i,
+#quick-access .quick-access-options .card svg {
+    font-size: 2.5rem;
 }
 
-/* Card outlines and text gradients */
+/* Card gradients */
 .quick-access-option-1 .card {
-    border-image: linear-gradient(135deg, #026199, #008fd7) 1;
-}
-.quick-access-option-1 .card i,
-.quick-access-option-1 .card h5,
-.quick-access-option-1 .card p {
-    background: linear-gradient(135deg, #026199, #008fd7);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
+    background: linear-gradient(
+        135deg,
+        #026199,
+        #008fd7
+    ); /* Professional Healthcare Blue */
 }
 
 .quick-access-option-2 .card {
-    border-image: linear-gradient(135deg, #0d9488, #14b8a6) 1;
-}
-.quick-access-option-2 .card i,
-.quick-access-option-2 .card h5,
-.quick-access-option-2 .card p {
-    background: linear-gradient(135deg, #0d9488, #14b8a6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
+    background: linear-gradient(135deg, #f59e0b, #d97706); /* Calming Teal */
+    /* background: linear-gradient(135deg, #0d9488, #14b8a6); Calming Teal */
 }
 
 .quick-access-option-3 .card {
-    border-image: linear-gradient(135deg, #059669, #10b981) 1;
-}
-.quick-access-option-3 .card i,
-.quick-access-option-3 .card h5,
-.quick-access-option-3 .card p {
-    background: linear-gradient(135deg, #059669, #10b981);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
+    background: linear-gradient(
+        135deg,
+        #059669,
+        #10b981
+    ); /* Professional Emerald/WhatsApp */
 }
 
 .quick-access-option-4 .card {
-    border-image: linear-gradient(135deg, #4f46e5, #6366f1) 1;
-}
-.quick-access-option-4 .card i,
-.quick-access-option-4 .card h5,
-.quick-access-option-4 .card p {
-    background: linear-gradient(135deg, #4f46e5, #6366f1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
+    background: linear-gradient(
+        135deg,
+        #e5468e,
+        #a80379
+    ); /* Knowledgeable Indigo */
+    /* background: linear-gradient(135deg, #4f46e5, #6366f1); Knowledgeable Indigo */
 }

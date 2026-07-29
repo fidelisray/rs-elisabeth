@@ -183,44 +183,44 @@
         </section>
 
         <section id="quick-access" class="py-4">
-            <div class="container">
+            <div class="container quick-access-container">
                 <div class="row g-2 quick-access-options">
                     <div class="col-6 col-md-3 quick-access-option-1">
                         <a href="{{{ route('dokter.index') }}}" class="text-decoration-none h-100">
-                            <div class="card card-doctor h-100 rounded-0 shadow-sm">
-                                <div class="card-body d-flex flex-column text-center align-items-center justify-content-center py-4 py-md-5">
+                            <div class="card card-doctor h-100 border-0 rounded-0 shadow-sm">
+                                <div class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-4 py-md-5">
                                     <i class="fa-solid fa-user-doctor doctor-icon mb-2 mb-md-3"></i>
-                                    <h5 class="fw-bold m-0 fs-6 fs-md-5">Cari Dokter</h5>
+                                    <h5 class="fw-bold m-0 text-white fs-6 fs-md-5">Cari Dokter</h5>
                                 </div>
                             </div>
                         </a>
                     </div>
                     <div class="col-6 col-md-3 quick-access-option-2">
                         <a href="https://regonline.rs-elisabeth.com" class="text-decoration-none h-100">
-                            <div class="card card-appointment h-100 rounded-0 shadow-sm">
-                                <div class="card-body d-flex flex-column text-center align-items-center justify-content-center py-4 py-md-5">
+                            <div class="card card-appointment h-100 border-0 rounded-0 shadow-sm">
+                                <div class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-4 py-md-5">
                                     <i class="fa-regular fa-calendar appointment-icon mb-2 mb-md-3"></i>
-                                    <h5 class="fw-bold m-0 fs-6 fs-md-5">Buat Janji</h5>
+                                    <h5 class="fw-bold m-0 text-white fs-6 fs-md-5">Buat Janji</h5>
                                 </div>
                             </div>
                         </a>
                     </div>
                     <div class="col-6 col-md-3 quick-access-option-3">
                         <a href="https://wa.me/6285600600870?text=Halo%2C%20saya%20ingin%20membuat%20janji%20temu" class="text-decoration-none h-100">
-                            <div class="card card-contact h-100 rounded-0 shadow-sm">
-                                <div class="card-body d-flex flex-column text-center align-items-center justify-content-center py-4 py-md-5">
+                            <div class="card card-contact h-100 border-0 rounded-0 shadow-sm">
+                                <div class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-4 py-md-5">
                                     <i class="fa-brands fa-whatsapp whatsapp-icon mb-2 mb-md-3"></i>
-                                    <h5 class="fw-bold m-0 fs-6 fs-md-5">Hubungi Kami</h5>
+                                    <h5 class="fw-bold m-0 text-white fs-6 fs-md-5">Hubungi Kami</h5>
                                 </div>
                             </div>
                         </a>
                     </div>
                     <div class="col-6 col-md-3 quick-access-option-4">
                         <a href="{{{ route('glossary.index') }}}" class="text-decoration-none h-100">
-                            <div class="card card-emergency h-100 rounded-0 shadow-sm">
-                                <div class="card-body d-flex flex-column text-center align-items-center justify-content-center py-4 py-md-5">
+                            <div class="card card-emergency h-100 border-0 rounded-0 shadow-sm">
+                                <div class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-4 py-md-5">
                                     <i class="fa-solid fa-book-medical glossary-icon mb-2 mb-md-3"></i>
-                                    <h5 class="fw-bold m-0 fs-6 fs-md-5">Kamus Medis</h5>
+                                    <h5 class="fw-bold m-0 text-white fs-6 fs-md-5">Kamus Medis</h5>
                                     <p class="mb-0 mt-1 mt-md-2 opacity-75 small d-none d-md-block">Temukan penyakit & istilah medis</p>
                                 </div>
                             </div>
