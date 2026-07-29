@@ -136,32 +136,116 @@
     <main>
         <h1 class="visually-hidden">Rumah Sakit Santa Elisabeth Semarang</h1>
 
+        <!-- Modern Promo Banner Section (Hero Baru) -->
+        <section id="promo-banner-section">
+            <div id="promo-banner-carousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                    <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                    <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
+                    <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="6" aria-label="Slide 7"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{{ asset('images/lp-web-01.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{ asset('images/lp-web-02.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{ asset('images/lp-web-03.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 3">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{ asset('images/lp-web-04.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 4">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{ asset('images/lp-web-05.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 5">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{ asset('images/lp-web-06.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 6">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{ asset('images/lp-web-07.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 7">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#promo-banner-carousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#promo-banner-carousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </section>
+
+        <section id="quick-access" class="py-4">
+            <div class="container">
+                <div class="row g-2 quick-access-options">
+                    <div class="col-6 col-md-3 quick-access-option-1">
+                        <a href="{{{ route('dokter.index') }}}" class="text-decoration-none h-100">
+                            <div class="card card-doctor h-100 rounded-0 shadow-sm">
+                                <div class="card-body d-flex flex-column text-center align-items-center justify-content-center py-4 py-md-5">
+                                    <i class="fa-solid fa-user-doctor doctor-icon mb-2 mb-md-3"></i>
+                                    <h5 class="fw-bold m-0 fs-6 fs-md-5">Cari Dokter</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-3 quick-access-option-2">
+                        <a href="https://regonline.rs-elisabeth.com" class="text-decoration-none h-100">
+                            <div class="card card-appointment h-100 rounded-0 shadow-sm">
+                                <div class="card-body d-flex flex-column text-center align-items-center justify-content-center py-4 py-md-5">
+                                    <i class="fa-regular fa-calendar appointment-icon mb-2 mb-md-3"></i>
+                                    <h5 class="fw-bold m-0 fs-6 fs-md-5">Buat Janji</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-3 quick-access-option-3">
+                        <a href="https://wa.me/6285600600870?text=Halo%2C%20saya%20ingin%20membuat%20janji%20temu" class="text-decoration-none h-100">
+                            <div class="card card-contact h-100 rounded-0 shadow-sm">
+                                <div class="card-body d-flex flex-column text-center align-items-center justify-content-center py-4 py-md-5">
+                                    <i class="fa-brands fa-whatsapp whatsapp-icon mb-2 mb-md-3"></i>
+                                    <h5 class="fw-bold m-0 fs-6 fs-md-5">Hubungi Kami</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-3 quick-access-option-4">
+                        <a href="{{{ route('glossary.index') }}}" class="text-decoration-none h-100">
+                            <div class="card card-emergency h-100 rounded-0 shadow-sm">
+                                <div class="card-body d-flex flex-column text-center align-items-center justify-content-center py-4 py-md-5">
+                                    <i class="fa-solid fa-book-medical glossary-icon mb-2 mb-md-3"></i>
+                                    <h5 class="fw-bold m-0 fs-6 fs-md-5">Kamus Medis</h5>
+                                    <p class="mb-0 mt-1 mt-md-2 opacity-75 small d-none d-md-block">Temukan penyakit & istilah medis</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="home-hero">
-            <!-- Background Carousel from home.blade.php -->
             <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-pause="false">
                 <div class="carousel-inner">
-                    <div class="carousel-item active"><img src="{{ asset('images/hero.jpg') }}" class="d-block w-100"
-                            alt="Slide 1"></div>
-                    {{-- <div class="carousel-item"><img src="{{ asset('images/lp-web-02.jpg') }}" class="d-block w-100" alt="Slide 2"></div>
-                    <div class="carousel-item"><img src="{{ asset('images/lp-web-03.jpg') }}" class="d-block w-100" alt="Slide 3"></div>
-                    <div class="carousel-item"><img src="{{ asset('images/lp-web-04.jpg') }}" class="d-block w-100" alt="Slide 4"></div>
-                    <div class="carousel-item"><img src="{{ asset('images/lp-web-05.jpg') }}" class="d-block w-100" alt="Slide 5"></div>
-                    <div class="carousel-item"><img src="{{ asset('images/lp-web-06.jpg') }}" class="d-block w-100" alt="Slide 6"></div>
-                    <div class="carousel-item"><img src="{{ asset('images/lp-web-07.jpg') }}" class="d-block w-100" alt="Slide 7"></div> --}}
+                    <div class="carousel-item active" style="background-image: url('{{ asset('images/hero.jpg') }}'); background-size: cover; background-position: center top; background-attachment: fixed; background-repeat: no-repeat; width: 100%;"></div>
                 </div>
             </div>
 
-            <!-- Gradient Overlay -->
             <div class="hero-overlay"></div>
 
-            <!-- Hero Content Overlay (Bumrungrad style) -->
             <div class="container position-relative h-100">
                 <div class="hero-content h-100 d-flex flex-column justify-content-center">
                     <h1 class="display-5 fw-bold text-white mb-3">Kesehatan Anda Adalah Prioritas Utama Kami</h1>
                     <p class="fs-5 text-white mb-4">Pelayanan prima dan paripurna dari RS St. Elisabeth Semarang dengan fasilitas berstandar internasional dan tenaga medis profesional yang penuh kasih.</p>
                     <div class="d-flex gap-3 flex-column flex-sm-row">
-                        <button class="btn btn-primary-custom px-4 py-2">Temukan Dokter</button>
-                        <button class="btn btn-outline-light px-4 py-2 fw-semibold rounded-pill">Hubungi Kami</button>
+                        {{-- <button class="btn btn-primary-custom px-4 py-2">Temukan Dokter</button> --}}
+                        {{-- <button class="btn btn-outline-light px-4 py-2 fw-semibold rounded-pill">Hubungi Kami</button> --}}
                     </div>
                 </div>
             </div>
@@ -231,157 +315,12 @@
                                 </div>
                             </form>
                         </div> --}}
-                </div>
-            </div>
-        </section>
-
-        <section id="quick-access" class="pb-5">
-            <div class="container">
-                <div class="row g-4 cards">
-                        <div class="col-6 col-md-3">
-                            <a href="{{{ route('dokter.index') }}}" class="text-decoration-none h-100">
-                                <div class="card card-doctor h-100 border-0 rounded-4 shadow-sm">
-                                    <div class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-4 py-md-5">
-                                        <i class="fa-solid fa-user-doctor doctor-icon mb-2 mb-md-3"></i>
-                                        <h5 class="fw-bold m-0 text-white fs-6 fs-md-5">Cari Dokter</h5>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <a href="https://regonline.rs-elisabeth.com" class="text-decoration-none h-100">
-                                <div class="card card-appointment h-100 border-0 rounded-4 shadow-sm">
-                                    <div class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-4 py-md-5">
-                                        <i class="fa-regular fa-calendar appointment-icon mb-2 mb-md-3"></i>
-                                        <h5 class="fw-bold m-0 text-white fs-6 fs-md-5">Buat Janji</h5>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <a href="https://wa.me/6285600600870?text=Halo%2C%20saya%20ingin%20membuat%20janji%20temu" class="text-decoration-none h-100">
-                                <div class="card card-contact h-100 border-0 rounded-4 shadow-sm">
-                                    <div class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-4 py-md-5">
-                                        <i class="fa-brands fa-whatsapp whatsapp-icon mb-2 mb-md-3"></i>
-                                        <h5 class="fw-bold m-0 text-white fs-6 fs-md-5">Hubungi Kami</h5>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <a href="{{{ route('glossary.index') }}}" class="text-decoration-none h-100">
-                                <div class="card card-emergency h-100 border-0 rounded-4 shadow-sm">
-                                    <div class="card-body d-flex flex-column text-center align-items-center justify-content-center text-white py-4 py-md-5">
-                                        <i class="fa-solid fa-book-medical glossary-icon mb-2 mb-md-3"></i>
-                                        <h5 class="fw-bold m-0 text-white fs-6 fs-md-5">Kamus Medis</h5>
-                                        <p class="mb-0 mt-1 mt-md-2 opacity-75 small d-none d-md-block">Temukan penyakit & istilah medis</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
 
-
-
-        <!-- Modern Promo Banner Section -->
-        <section id="promo-banner-section">
-            <div class="container">
-                <div id="promo-banner-carousel" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                        <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                        <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
-                        <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
-                        <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="6" aria-label="Slide 7"></button>
-                    </div>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="{{ asset('images/lp-web-01.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 1">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="{{ asset('images/lp-web-02.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 2">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="{{ asset('images/lp-web-03.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 3">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="{{ asset('images/lp-web-04.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 4">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="{{ asset('images/lp-web-05.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 5">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="{{ asset('images/lp-web-06.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 6">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="{{ asset('images/lp-web-07.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 7">
-                        </div>
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#promo-banner-carousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#promo-banner-carousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-            </div>
-        </section>
-        {{-- <section id="quick-access" class="pb-5">
-            <div class="container">
-                <div class="row g-0 options-cards">
-                    <div class="col-md-3 card-options">
-                        <a href="{{{ route('dokter.index') }}}" class="text-decoration-none">
-                            <div class="card h-100 border-0 rounded-0">
-                                <div class="card-body d-flex text-center align-items-center justify-content-center">
-                                    <i class="fa-solid fa-user-doctor doctor-icon"></i>
-                                    <p class="mt-2">Cari Dokter</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 card-options">
-                        <a href="#" class="text-decoration-none">
-                            <div class="card h-100 border-0 rounded-0">
-                                <div class="card-body d-flex text-center align-items-center justify-content-center">
-                                    <i class="fa-regular fa-calendar appointment-icon"></i>
-                                    <p class="mt-2">Buat Janji Temu</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 card-options">
-                        <a href="#" class="text-decoration-none">
-                            <div class="card h-100 border-0 rounded-0">
-                                <div class="card-body d-flex text-center align-items-center justify-content-center">
-                                    <i class="fa-brands fa-whatsapp whatsapp-icon"></i>
-                                    <p class="mt-2">Hubungi Kami</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 card-options">
-                        <a href="{{{ route('glossary.index') }}}" class="text-decoration-none">
-                            <div class="card h-100 border-0 rounded-0">
-                                <div class="card-body d-flex text-center align-items-center justify-content-center">
-                                    <i class="fa-solid fa-book-medical glossary-icon"></i>
-                                    <div class="mt-1">
-                                        <p class="my-0">Kamus Medis</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section> --}}
 
         <section id="about-us" class="container-fluid">
             <div class="container p-2 mb-4 rounded-3">

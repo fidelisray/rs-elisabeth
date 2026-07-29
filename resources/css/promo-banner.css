@@ -2,16 +2,12 @@
 #promo-banner-section {
     position: relative;
     z-index: 10;
-    margin-top: 2rem;
-    margin-bottom: 4rem; /* spacing with about-us */
 }
 
 /* Modern Carousel Wrapper */
 #promo-banner-carousel {
-    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);
-    /* For smaller screens, we can slightly reduce radius */
+    /* Hero banner needs to be full width with no radius/shadow */
 }
 
 /* Carousel Images */
@@ -89,13 +85,9 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
     #promo-banner-section {
-        margin-top: 1rem;
-        margin-bottom: 3rem;
     }
 
     #promo-banner-carousel {
-        border-radius: 12px;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
     }
 
     /* On mobile, usually arrows are less useful and block the view, let's keep them smaller */

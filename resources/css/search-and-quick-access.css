@@ -46,11 +46,17 @@
 }
 
 /* Quick Access Cards */
-#quick-access div.container div.cards {
+#quick-access {
+    background: linear-gradient(135deg, var(--secondary-darker-color), var(--secondary-color), var(--primary-color));
+}
+
+#quick-access div.container div.quick-access-options {
     height: 200px;
 }
 
 #quick-access .card {
+    background-color: #fffff0; /* Putih Gading */
+    border: 2px solid transparent;
     transition: transform 0.3s ease;
 }
 
@@ -63,19 +69,55 @@
     font-size: 3rem;
 }
 
-/* Card gradients */
-#quick-access .card-doctor {
-    background: linear-gradient(135deg, rgb(128, 0, 148), #a832a8);
+/* Card outlines and text gradients */
+.quick-access-option-1 .card {
+    border-image: linear-gradient(135deg, #026199, #008fd7) 1;
+}
+.quick-access-option-1 .card i,
+.quick-access-option-1 .card h5,
+.quick-access-option-1 .card p {
+    background: linear-gradient(135deg, #026199, #008fd7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
 }
 
-#quick-access .card-appointment {
-    background: linear-gradient(135deg, rgb(12, 136, 236), #32a8e3);
+.quick-access-option-2 .card {
+    border-image: linear-gradient(135deg, #0d9488, #14b8a6) 1;
+}
+.quick-access-option-2 .card i,
+.quick-access-option-2 .card h5,
+.quick-access-option-2 .card p {
+    background: linear-gradient(135deg, #0d9488, #14b8a6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
 }
 
-#quick-access .card-contact {
-    background: linear-gradient(135deg, rgb(3, 198, 94), #32e38c);
+.quick-access-option-3 .card {
+    border-image: linear-gradient(135deg, #059669, #10b981) 1;
+}
+.quick-access-option-3 .card i,
+.quick-access-option-3 .card h5,
+.quick-access-option-3 .card p {
+    background: linear-gradient(135deg, #059669, #10b981);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
 }
 
-#quick-access .card-emergency {
-    background: linear-gradient(135deg, rgb(246, 37, 22), #f25c5c);
+.quick-access-option-4 .card {
+    border-image: linear-gradient(135deg, #4f46e5, #6366f1) 1;
+}
+.quick-access-option-4 .card i,
+.quick-access-option-4 .card h5,
+.quick-access-option-4 .card p {
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
 }
