@@ -10,6 +10,14 @@
     margin-bottom: -50px;
 }
 
+@media (max-width: 768px) {
+    .search-widget {
+        transform: translateY(0);
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+}
+
 .search-widget .nav-tabs {
     border-bottom: 2px solid var(--bg-light, #f7fafc);
     margin-bottom: 20px;
@@ -56,7 +64,8 @@
 }
 
 #quick-access div.container.quick-access-container div.quick-access-options {
-    height: 200px;
+    min-height: 200px;
+    height: auto;
 }
 
 /* #quick-access div.container.quick-access-container {

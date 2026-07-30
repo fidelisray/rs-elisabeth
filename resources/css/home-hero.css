@@ -39,6 +39,24 @@ h6 {
     object-fit: cover;
 }
 
+.hero-bg-image {
+    background-size: cover;
+    background-position: center top;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .hero-bg-image {
+        background-attachment: fixed;
+        /* Mencegah glitch resize di mobile browser dengan menonaktifkan 'cover' 
+           dan menggunakan ukuran vertikal statis (120vh) */
+        background-size: auto 120vh;
+        background-position: center center;
+    }
+}
+
 .hero-overlay {
     position: absolute;
     top: 0;

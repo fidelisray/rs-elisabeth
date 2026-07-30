@@ -233,7 +233,7 @@
         <section id="home-hero">
             <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-pause="false">
                 <div class="carousel-inner">
-                    <div class="carousel-item active" style="background-image: url('{{ asset('images/hero.jpg') }}'); background-size: cover; background-position: center top; background-attachment: fixed; background-repeat: no-repeat; width: 100%;"></div>
+                    <div class="carousel-item active hero-bg-image" style="background-image: url('{{ asset('images/hero.jpg') }}');"></div>
                 </div>
             </div>
 
@@ -359,7 +359,7 @@
                         </div>
                     </div>
                     <div class="col-md-7 text-center position-relative mt-4 mt-md-0">
-                        <div class="position-absolute w-100 h-100 rounded-4" style="background-color: var(--primary-color); opacity: 0.1; transform: translate(20px, 20px);"></div>
+                        <div class="position-absolute w-100 h-100 rounded-4 about-bg-accent d-none d-md-block"></div>
                         <img src="{{ asset('images/feature.jpg') }}" class="img-fluid rounded-4 shadow-lg position-relative" alt="Fasilitas RS St. Elisabeth Semarang" style="z-index: 2; object-fit: cover; max-height: 500px; width: 100%;">
                     </div>
                 </div>
@@ -388,7 +388,7 @@
                         <!-- Item 1 -->
                         <div class="carousel-item active">
                             <div class="row align-items-center g-0">
-                                <div class="col-md-6 text-center" style="height: 400px;">
+                                <div class="col-md-6 text-center facility-img-wrapper">
                                     <img src="{{ asset('images/F1670220299.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Pelayanan Stroke Terpadu">
                                 </div>
                                 <div class="col-md-6 p-4 p-md-5">
@@ -404,7 +404,7 @@
                         <!-- Item 2 -->
                         <div class="carousel-item">
                             <div class="row align-items-center g-0">
-                                <div class="col-md-6 text-center" style="height: 400px;">
+                                <div class="col-md-6 text-center facility-img-wrapper">
                                     <img src="{{ asset('images/F1670914854.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Klinik Nyeri">
                                 </div>
                                 <div class="col-md-6 p-4 p-md-5">
@@ -420,7 +420,7 @@
                         <!-- Item 3 -->
                         <div class="carousel-item">
                             <div class="row align-items-center g-0">
-                                <div class="col-md-6 text-center" style="height: 400px;">
+                                <div class="col-md-6 text-center facility-img-wrapper">
                                     <img src="{{ asset('images/F1670914872.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Pelayanan Neurofisiologi">
                                 </div>
                                 <div class="col-md-6 p-4 p-md-5">
@@ -436,7 +436,7 @@
                         <!-- Item 4 -->
                         <div class="carousel-item">
                             <div class="row align-items-center g-0">
-                                <div class="col-md-6 text-center" style="height: 400px;">
+                                <div class="col-md-6 text-center facility-img-wrapper">
                                     <img src="{{ asset('images/F1671680565.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Pelayanan Gawat Darurat">
                                 </div>
                                 <div class="col-md-6 p-4 p-md-5">
@@ -452,7 +452,7 @@
                         <!-- Item 5 -->
                         <div class="carousel-item">
                             <div class="row align-items-center g-0">
-                                <div class="col-md-6 text-center" style="height: 400px;">
+                                <div class="col-md-6 text-center facility-img-wrapper">
                                     <img src="{{ asset('images/F1671680579.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Ruang Rawat Intensif">
                                 </div>
                                 <div class="col-md-6 p-4 p-md-5">
@@ -468,7 +468,7 @@
                         <!-- Item 6 -->
                         <div class="carousel-item">
                             <div class="row align-items-center g-0">
-                                <div class="col-md-6 text-center" style="height: 400px;">
+                                <div class="col-md-6 text-center facility-img-wrapper">
                                     <img src="{{ asset('images/F1671680659.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Klinik Spesialis dan Gigi">
                                 </div>
                                 <div class="col-md-6 p-4 p-md-5">
@@ -743,13 +743,13 @@
                             <div class="stat-text">Dokter Ahli</div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-6">
+                    <div class="col-md-3 col-12">
                         <div class="stat-item">
                             <div class="stat-number">Paripurna</div>
                             <div class="stat-text">Akreditasi KARS</div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-6">
+                    <div class="col-md-3 col-12">
                         <div class="stat-item">
                             <div class="stat-number">24/7</div>
                             <div class="stat-text">Pelayanan Prima</div>

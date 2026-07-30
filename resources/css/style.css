@@ -197,6 +197,25 @@ nav#second-navbar.is-stuck .nav-link:hover::before {
     min-height: 325px;
 }
 
+.about-bg-accent {
+    background-color: var(--primary-color);
+    opacity: 0.1;
+    transform: translate(20px, 20px);
+}
+
+.facility-img-wrapper {
+    height: 400px;
+}
+
+@media (max-width: 768px) {
+    .about-bg-accent {
+        transform: translate(0, 0);
+    }
+    .facility-img-wrapper {
+        height: 250px;
+    }
+}
+
 #facilities-and-services .carousel-item .row {
     min-height: 325px;
 }
