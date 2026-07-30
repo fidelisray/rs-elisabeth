@@ -632,23 +632,56 @@
             </div>
         </section>
 
+        <!-- Latest Articles Section -->
+        <section id="latest-articles" class="news-section bg-white pt-2">
+            <div class="section-title text-center mb-5 mt-5">
+                <h2 class="display-8 fw-bold">Artikel Kesehatan</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="container pb-5">
+                <div class="row g-4 justify-content-center">
+                    @forelse($latestArticles as $item)
+                    <div class="col-md-6 col-lg-3 position-relative">
+                        <div class="news-card h-100">
+                            <div class="news-card-img-wrapper">
+                                <a href="{{{ route('articles.show', ['slug' => $item['slug']]) }}}">
+                                    <img src="{{ $item['image'] }}" class="news-card-img" alt="{{ $item['title'] }}">
+                                </a>
+                            </div>
+                            <div class="news-card-body p-3">
+                                <div class="news-date small">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    {{ \Carbon\Carbon::parse($item['date'])->translatedFormat('d M Y') }}
+                                </div>
+                                <a href="{{{ route('articles.show', ['slug' => $item['slug']]) }}}">
+                                    <h3 class="news-title fs-6">{{ $item['title'] }}</h3>
+                                </a>
+                                <p class="news-excerpt small mb-3">{{ Str::limit($item['excerpt'], 80) }}</p>
+                                <a href="{{{ route('articles.show', ['slug' => $item['slug']]) }}}" class="news-read-more small mt-auto">
+                                    Baca Selengkapnya <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                        @if($loop->iteration > 4)
+                            <div class="position-absolute top-0 bottom-0 start-0 end-0" style="background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 70%, rgba(255,255,255,1) 100%); z-index: 5; border-radius: var(--bs-border-radius, 0.375rem); pointer-events: none;"></div>
+                        @endif
+                    </div>
+                    @empty
+                    <div class="col-12">
+                        <div class="alert alert-info">Belum ada artikel terbaru saat ini.</div>
+                    </div>
+                    @endforelse
+                </div>
+                <div class="text-center mt-5 mb-3">
+                    <a href="{{{ route('articles.index') }}}" class="btn btn-bouncing px-5 py-3 rounded-pill fw-bold shadow-lg" aria-label="Lihat Semua Artikel">
+                        Lihat Semua Artikel <i class="fa-solid fa-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
         <!-- Latest News Section -->
-        @php
-            $articles = app(\App\Services\HospitalApiService::class)->getArticles('artikel');
-            $hasMore = count($articles) > 4;
-            $latestNews = collect($articles)->map(function($item) {
-                preg_match('/<img.+src=[\'"](?P<src>.+?)[\'"].*>/i', $item['deskripsi'] ?? '', $image);
-                return [
-                    'id' => $item['id'] ?? 0,
-                    'title' => $item['judul'] ?? 'Tanpa Judul',
-                    'slug' => \Illuminate\Support\Str::slug($item['judul'] ?? 'berita-' . ($item['id'] ?? rand())),
-                    'image' => $image['src'] ?? asset('images/hero.jpg'),
-                    'date' => $item['created_at'] ?? now()->toDateString(),
-                    'excerpt' => $item['subjudul'] ?? ''
-                ];
-            })->take(7)->toArray();
-        @endphp
-        <section id="latest-news" class="news-section bg-white pt-2">
+        <section id="latest-news" class="news-section bg-light pt-2">
             <div class="section-title text-center mb-5 mt-5">
                 <h2 class="display-8 fw-bold">ElisaNews</h2>
                 <div class="divider"></div>

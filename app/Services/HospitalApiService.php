@@ -336,18 +336,18 @@ class HospitalApiService
 
 
     /**
-     * Ambil Articles
+     * Ambil Data Artikel Kesehatan (Kategori: artikel)
      */
-    public function getArticles(string $category = 'artikel'): array
+    public function getArticles(): array
     {
-        $cacheKey = "elisanews_";
-        $ttl      = config('rsapi.cache_ttl.jadwal');
+        $cacheKey = "articles_";
+        $ttl      = config('rsapi.cache_ttl.articles');
 
-        return Cache::remember($cacheKey, $ttl, function () use ($category) {
+        return Cache::remember($cacheKey, $ttl, function () {
             try {
                 $response = $this->apiRequest()
                     ->withBody(json_encode([
-                        "category" => $category
+                        "category" => "artikel"
                     ]), 'application/json')
                     ->get("{$this->baseUrl}/articles");
 
@@ -355,9 +355,36 @@ class HospitalApiService
                     ? $response->json('Data', [])
                     : [];
             } catch (\Exception $e) {
-                Log::error('Gagal ambil jadwal dokter', [
-                    // 'dokter_id' => $dokterId,
-                    'error'     => $e->getMessage(),
+                Log::error('Gagal ambil data artikel', [
+                    'error' => $e->getMessage(),
+                ]);
+                return [];
+            }
+        });
+    }
+
+    /**
+     * Ambil Data Berita / ElisaNews (Kategori: berita)
+     */
+    public function getNews(): array
+    {
+        $cacheKey = "elisanews_";
+        $ttl      = config('rsapi.cache_ttl.elisanews');
+
+        return Cache::remember($cacheKey, $ttl, function () {
+            try {
+                $response = $this->apiRequest()
+                    ->withBody(json_encode([
+                        "category" => "berita"
+                    ]), 'application/json')
+                    ->get("{$this->baseUrl}/articles");
+
+                return $response->successful()
+                    ? $response->json('Data', [])
+                    : [];
+            } catch (\Exception $e) {
+                Log::error('Gagal ambil data berita', [
+                    'error' => $e->getMessage(),
                 ]);
                 return [];
             }

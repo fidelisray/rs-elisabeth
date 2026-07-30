@@ -8,32 +8,20 @@ use App\Services\HospitalApiService;
 
 class NewsController extends Controller
 {
-    /**
-     * Dummy data for news articles.
-     * Later this will be replaced by API calls.
-     */
-    private function formatApiNews($apiData)
+    use \App\Traits\FormatsArticleData;
+
+    public function index(HospitalApiService $apiService)
     {
-        return collect($apiData)->map(function($item) {
-            preg_match('/<img.+src=[\'"](?P<src>.+?)[\'"].*>/i', $item['deskripsi'] ?? '', $image);
-            $thumbnail = $image['src'] ?? asset('images/hero.jpg');
-            
-            return [
-                'id' => $item['id'] ?? 0,
-                'title' => $item['judul'] ?? 'Tanpa Judul',
-                'slug' => Str::slug($item['judul'] ?? 'berita-' . ($item['id'] ?? rand())),
-                'image' => $thumbnail,
-                'date' => $item['created_at'] ?? now()->toDateString(),
-                'excerpt' => $item['subjudul'] ?? '',
-                'content' => $item['deskripsi'] ?? '',
-            ];
-        });
+        $rawNews = $apiService->getNews();
+        $newsList = $this->formatApiData($rawNews)->all();
+
+        return view('news.index', compact('newsList'));
     }
 
     public function show($slug, HospitalApiService $apiService)
     {
-        $articles = $apiService->getArticles('artikel');
-        $newsList = $this->formatApiNews($articles);
+        $rawNews = $apiService->getNews();
+        $newsList = $this->formatApiData($rawNews);
         
         $news = $newsList->firstWhere('slug', $slug);
 
@@ -42,15 +30,5 @@ class NewsController extends Controller
         }
 
         return view('news.show', compact('news'));
-    }
-
-    public function getArticles(Request $request, HospitalApiService $apiService)
-    {
-        $kategori = $request->query('category', 'artikel');
-        $articles = $apiService->getArticles($kategori);
-        
-        $newsList = $this->formatApiNews($articles)->all();
-
-        return view('news.index', compact('newsList'));
     }
 }

@@ -74,8 +74,14 @@ Route::prefix('glosarium-gemini')->name('gemini.')->group(function () {
     Route::get('/{slug}', [GlossaryController::class, 'gemini_show'])->name('show');
 });
 
+// Artikel Kesehatan
+Route::prefix('articles')->name('articles.')->group(function () {
+    Route::get('/', [App\Http\Controllers\ArticleController::class, 'index'])->name('index');
+    Route::get('/{slug}', [App\Http\Controllers\ArticleController::class, 'show'])->name('show');
+});
+
 // Berita (News)
 Route::prefix('news')->name('news.')->group(function () {
-    Route::get('/', [NewsController::class, 'getArticles'])->name('index');
+    Route::get('/', [NewsController::class, 'index'])->name('index');
     Route::get('/{slug}', [NewsController::class, 'show'])->name('show');
 });

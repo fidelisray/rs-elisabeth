@@ -27,5 +27,7 @@ return [
         'klinik' => 1800,
         'promotions' => 1800,
         'glosarium' => 86400,
+        'articles' => 1800,
+        'elisanews' => 1800
     ],
 ];
