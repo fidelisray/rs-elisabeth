@@ -15,13 +15,24 @@ class ArticlesTable
     {
         return $table
             ->columns([
-                TextColumn::make('title')
+                ImageColumn::make('thumbnail')
+                    ->label('Thumbnail'),
+                TextColumn::make('judul')
+                    ->label('Judul')
                     ->searchable(),
-                TextColumn::make('slug')
+                TextColumn::make('tags')
+                    ->label('Kategori')
+                    ->badge()
                     ->searchable(),
                 TextColumn::make('author')
+                    ->label('Penulis')
                     ->searchable(),
-                ImageColumn::make('image_path'),
+                \Filament\Tables\Columns\ToggleColumn::make('is_active')
+                    ->label('Aktif'),
+                TextColumn::make('views')
+                    ->label('Dilihat')
+                    ->numeric()
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

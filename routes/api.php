@@ -12,7 +12,7 @@ Route::prefix('cms')->group(function () {
     Route::get('/news/{slug}', [\App\Http\Controllers\Api\Cms\NewsApiController::class, 'show']);
     
     Route::get('/articles', [\App\Http\Controllers\Api\Cms\ArticleApiController::class, 'index']);
-    Route::get('/articles/{slug}', [\App\Http\Controllers\Api\Cms\ArticleApiController::class, 'show']);
+    Route::get('/articles/{id}', [\App\Http\Controllers\Api\Cms\ArticleApiController::class, 'show']);
     
     Route::get('/promotions', [\App\Http\Controllers\Api\Cms\PromotionApiController::class, 'index']);
     

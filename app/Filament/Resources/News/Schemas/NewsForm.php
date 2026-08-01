@@ -21,7 +21,15 @@ class NewsForm
                 Textarea::make('content')
                     ->required()
                     ->columnSpanFull(),
+                /*
+                // KODE LAMA (Tanpa Disk Public, menyimpan ke storage/app/private)
+                // Jangan dihapus, uncomment jika ingin kembali ke konfigurasi bawaan
                 FileUpload::make('image_path')
+                    ->image(),
+                */
+                FileUpload::make('image_path')
+                    ->disk('public')
+                    ->directory('news')
                     ->image(),
                 Toggle::make('is_published')
                     ->required(),

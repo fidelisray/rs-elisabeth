@@ -13,12 +13,21 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('slug')->unique();
-            $table->text('content');
-            $table->string('author')->nullable();
-            $table->string('image_path')->nullable();
-            $table->timestamps();
+            $table->string('judul', 250)->nullable();
+            $table->string('thumbnail', 100)->nullable();
+            $table->text('shorts')->nullable();
+            $table->longText('isi')->nullable();
+            $table->string('tags', 100)->nullable();
+            $table->string('author', 50)->nullable();
+            $table->string('is_active', 10)->nullable()->default('no');
+            $table->integer('views')->nullable()->default(0);
+            
+            // Audit Trails & Timestamps
+            $table->timestamps(); // created_at, updated_at
+            $table->softDeletes(); // deleted_at
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('deleted_by')->nullable();
         });
     }
 

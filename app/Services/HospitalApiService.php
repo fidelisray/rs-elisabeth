@@ -340,6 +340,8 @@ class HospitalApiService
      */
     public function getArticles(): array
     {
+        /*
+        // ----- MASTER API LAMA (JANGAN DIHAPUS, UNCOMMENT JIKA INGIN KEMBALI) -----
         $cacheKey = "articles_";
         $ttl      = config('rsapi.cache_ttl.articles');
 
@@ -356,6 +358,29 @@ class HospitalApiService
                     : [];
             } catch (\Exception $e) {
                 Log::error('Gagal ambil data artikel', [
+                    'error' => $e->getMessage(),
+                ]);
+                return [];
+            }
+        });
+        */
+
+        // ----- LOCAL CMS API BARU -----
+        $cacheKey = "local_cms_articles_";
+        $ttl      = config('rsapi.cache_ttl.articles', 60);
+
+        return Cache::remember($cacheKey, $ttl, function () {
+            try {
+                // Fetch dari lokal API CMS yang baru kita buat
+                $response = Http::get(url('/api/cms/articles'));
+
+                // dd($response->json());
+
+                return $response->successful()
+                    ? $response->json()
+                    : [];
+            } catch (\Exception $e) {
+                Log::error('Gagal ambil data artikel dari lokal CMS API', [
                     'error' => $e->getMessage(),
                 ]);
                 return [];

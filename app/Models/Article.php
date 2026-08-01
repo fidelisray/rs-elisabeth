@@ -6,11 +6,52 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
+    use \Illuminate\Database\Eloquent\SoftDeletes;
+
     protected $fillable = [
-        'title',
-        'slug',
-        'content',
+        'judul',
+        'thumbnail',
+        'shorts',
+        'isi',
+        'tags',
         'author',
-        'image_path',
+        'is_active',
+        'views',
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
+
+    /**
+     * Interact with the article's is_active status.
+     * Maps 'yes'/'no' string to boolean for Filament Toggle.
+     */
+    protected function isActive(): \Illuminate\Database\Eloquent\Casts\Attribute
+    {
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(
+            get: fn (?string $value) => $value === 'yes',
+            set: fn (?bool $value) => $value ? 'yes' : 'no',
+        );
+    }
+
+    /**
+     * Boot function to automatically fill audit fields.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->created_by = \Illuminate\Support\Facades\Auth::user()?->email ?? 'system';
+        });
+
+        static::updating(function ($model) {
+            $model->updated_by = \Illuminate\Support\Facades\Auth::user()?->email ?? 'system';
+        });
+
+        static::deleting(function ($model) {
+            $model->deleted_by = \Illuminate\Support\Facades\Auth::user()?->email ?? 'system';
+            $model->saveQuietly();
+        });
+    }
 }
