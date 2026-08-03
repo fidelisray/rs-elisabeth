@@ -17,4 +17,7 @@ Route::prefix('cms')->group(function () {
     Route::get('/promotions', [\App\Http\Controllers\Api\Cms\PromotionApiController::class, 'index']);
     
     Route::get('/facilities', [\App\Http\Controllers\Api\Cms\FacilityServiceApiController::class, 'index']);
+
+    // Room Facilities (Ruang Perawatan) — CMS Baru
+    Route::get('/room-facilities', [\App\Http\Controllers\Api\Cms\RoomFacilityApiController::class, 'index']);
 });

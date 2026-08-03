@@ -415,4 +415,29 @@ class HospitalApiService
             }
         });
     }
+
+    /**
+     * Ambil Data Ruang Perawatan dari Local CMS API.
+     * Menggunakan pola yang sama dengan getArticles().
+     */
+    public function getRoomFacilities(): array
+    {
+        $cacheKey = "local_cms_room_facilities_";
+        $ttl      = config('rsapi.cache_ttl.room_facilities', 60);
+
+        return Cache::remember($cacheKey, $ttl, function () {
+            try {
+                $response = Http::get(url('/api/cms/room-facilities'));
+
+                return $response->successful()
+                    ? $response->json()
+                    : [];
+            } catch (\Exception $e) {
+                Log::error('Gagal ambil data room facilities dari lokal CMS API', [
+                    'error' => $e->getMessage(),
+                ]);
+                return [];
+            }
+        });
+    }
 }
