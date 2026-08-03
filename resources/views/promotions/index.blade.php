@@ -153,86 +153,34 @@
         <section id="promotions-list">
             <div class="container py-5">
                 <div class="row cards">
-                    @foreach ($request as $data)
+                    @forelse ($promotions as $promo)
+                        @php
+                            $imgSrc = !empty($promo->image_path) ? asset('storage/' . $promo->image_path) : asset('images/placeholder.jpg');
+                        @endphp
                         <div class="col-md-4 mb-4">
                             <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden" 
                                  data-bs-toggle="modal" data-bs-target="#promoModal"
-                                 data-title="{{ $data['judul'] ?? $data['deskripsi'] }}"
-                                 data-desc="{{ $data['deskripsi'] ?? 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non, maxime.' }}"
-                                 data-img="data:image/jpeg;base64,{{ $data['gambar'] }}"
+                                 data-title="{{ $promo->title ?? 'Promo' }}"
+                                 data-desc="{{ $promo->description ?? 'Info spesial dari RS St. Elisabeth Semarang.' }}"
+                                 data-img="{{ $imgSrc }}"
                                  style="cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 .125rem .25rem rgba(0,0,0,.075)';">
-                                <img src="data:image/jpeg;base64,{{ $data['gambar'] }}" class="card-img-top" alt="Promotion" style="height: 300px; object-fit: contain; background-color: #f8f9fa;">
+                                <img src="{{ $imgSrc }}" class="card-img-top" alt="Promotion" style="height: 300px; object-fit: contain; background-color: #f8f9fa;">
                                 <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title fw-bold text-primary mb-3" style="text-transform: capitalize">{{ $data['judul'] ?? $data['deskripsi'] }}</h5>
-                                    <p class="card-text text-muted flex-grow-1">{{ $data['deskripsi'] ?? 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non, maxime.' }}</p>
+                                    <h5 class="card-title fw-bold text-primary mb-3" style="text-transform: capitalize">{{ $promo->title ?? 'Promo' }}</h5>
+                                    <p class="card-text text-muted flex-grow-1">{{ $promo->description ?? 'Info spesial dari RS St. Elisabeth Semarang.' }}</p>
                                     <div class="mt-4">
-                                        <a href="https://wa.me/6281234567890?text={{ urlencode('Halo, saya ingin memesan promo ' . ($data['judul'] ?? $data['deskripsi'])) }}" target="_blank" class="btn btn-success w-100 rounded-pill fw-bold shadow-sm d-flex justify-content-center align-items-center">
+                                        <a href="https://wa.me/6281234567890?text={{ urlencode('Halo, saya ingin memesan promo ' . ($promo->title ?? '')) }}" target="_blank" class="btn btn-success w-100 rounded-pill fw-bold shadow-sm d-flex justify-content-center align-items-center">
                                             <i class="fa-brands fa-whatsapp fs-5 me-2"></i> Pesan Sekarang
                                         </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
-
-                    <!-- Dummy data -->
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden" 
-                             data-bs-toggle="modal" data-bs-target="#promoModal"
-                             data-title="Promo MCU Jantung"
-                             data-desc="Medical Check Up khusus Jantung dengan fasilitas lengkap dan ditangani oleh spesialis terbaik."
-                             data-img="{{ asset('images/ADS1749518930.jpg') }}"
-                             style="cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 .125rem .25rem rgba(0,0,0,.075)';">
-                            <img src="{{ asset('images/ADS1749518930.jpg') }}" class="card-img-top" alt="Promo MCU Jantung" style="height: 300px; object-fit: contain; background-color: #f8f9fa;">
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title fw-bold text-primary mb-3">Promo MCU Jantung</h5>
-                                <p class="card-text text-muted flex-grow-1">Medical Check Up khusus Jantung dengan fasilitas lengkap dan ditangani oleh spesialis terbaik.</p>
-                                <div class="mt-4">
-                                    <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20memesan%20Promo%20MCU%20Jantung" target="_blank" class="btn btn-success w-100 rounded-pill fw-bold shadow-sm d-flex justify-content-center align-items-center">
-                                        <i class="fa-brands fa-whatsapp fs-5 me-2"></i> Pesan Sekarang
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                    @empty
+                    <div class="col-12">
+                        <div class="alert alert-info">Belum ada promo saat ini.</div>
                     </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden" 
-                             data-bs-toggle="modal" data-bs-target="#promoModal"
-                             data-title="Screening Gula Darah"
-                             data-desc="Pemeriksaan gula darah rutin untuk deteksi dini diabetes. Jangan abaikan kesehatan Anda."
-                             data-img="{{ asset('images/ADS1749518080.jpeg') }}"
-                             style="cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 .125rem .25rem rgba(0,0,0,.075)';">
-                            <img src="{{ asset('images/ADS1749518080.jpeg') }}" class="card-img-top" alt="Screening Gula Darah" style="height: 300px; object-fit: contain; background-color: #f8f9fa;">
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title fw-bold text-primary mb-3">Screening Gula Darah</h5>
-                                <p class="card-text text-muted flex-grow-1">Pemeriksaan gula darah rutin untuk deteksi dini diabetes. Jangan abaikan kesehatan Anda.</p>
-                                <div class="mt-4">
-                                    <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20memesan%20Screening%20Gula%20Darah" target="_blank" class="btn btn-success w-100 rounded-pill fw-bold shadow-sm d-flex justify-content-center align-items-center">
-                                        <i class="fa-brands fa-whatsapp fs-5 me-2"></i> Pesan Sekarang
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden" 
-                             data-bs-toggle="modal" data-bs-target="#promoModal"
-                             data-title="Paket Persalinan Nyaman"
-                             data-desc="Sambut kelahiran buah hati dengan tenang bersama paket persalinan eksklusif dari RS St. Elisabeth."
-                             data-img="{{ asset('images/ADS1758074522.jpeg') }}"
-                             style="cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 .125rem .25rem rgba(0,0,0,.075)';">
-                            <img src="{{ asset('images/ADS1758074522.jpeg') }}" class="card-img-top" alt="Paket Persalinan Nyaman" style="height: 300px; object-fit: contain; background-color: #f8f9fa;">
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title fw-bold text-primary mb-3">Paket Persalinan Nyaman</h5>
-                                <p class="card-text text-muted flex-grow-1">Sambut kelahiran buah hati dengan tenang bersama paket persalinan eksklusif dari RS St. Elisabeth.</p>
-                                <div class="mt-4">
-                                    <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20memesan%20Paket%20Persalinan%20Nyaman" target="_blank" class="btn btn-success w-100 rounded-pill fw-bold shadow-sm d-flex justify-content-center align-items-center">
-                                        <i class="fa-brands fa-whatsapp fs-5 me-2"></i> Pesan Sekarang
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforelse
                 </div>
             </div>
 

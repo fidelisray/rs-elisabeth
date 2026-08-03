@@ -28,6 +28,10 @@ class HomeController extends Controller
         // 3. Ambil data Berita (ElisaNews)
         $rawNews = $this->hospitalApiService->getNews();
         $latestNews = $this->formatApiData($rawNews)->take(7)->toArray();
-        return view('home.index', compact('spesialisasi', 'latestArticles', 'latestNews'));
+        
+        // 4. Ambil data Promo
+        $promotions = \App\Models\Promotion::where('is_active', true)->latest()->take(6)->get();
+
+        return view('home.index', compact('spesialisasi', 'latestArticles', 'latestNews', 'promotions'));
     }
 }

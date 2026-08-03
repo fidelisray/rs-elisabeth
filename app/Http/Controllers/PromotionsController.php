@@ -14,11 +14,9 @@ class PromotionsController extends Controller
 
     public function index(Request $request)
     {
-        $category = 'promo';
+        $promotions = \App\Models\Promotion::where('is_active', true)->latest()->get();
 
-        $request = $this->apiService->GetPromotionsList($category);
-
-        return view('promotions.index', compact('request'));
+        return view('promotions.index', compact('promotions'));
     }
 
     public function savePhoto(string $base64Image, string $judul): string

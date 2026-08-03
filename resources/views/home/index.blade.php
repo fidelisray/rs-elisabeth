@@ -503,92 +503,29 @@
             </div>
             <div class="container pb-5">
                 <div class="row g-4 justify-content-center" id="promoTrack">
-                    <div class="col-md-6 col-lg-3 position-relative">
-                        <div class="promo-card" data-bs-toggle="modal" data-bs-target="#promoModal" data-title="Promo MCU Jantung" data-desc="Medical Check Up khusus Jantung dengan fasilitas lengkap dan ditangani oleh spesialis terbaik. Promo berlaku hingga akhir bulan ini." data-img="{{ asset('images/ADS1749518930.jpg') }}">
-                            <div class="card h-100">
-                                <img src="{{ asset('images/ADS1749518930.jpg') }}" class="card-img-top" alt="Paket MCU Jantung">
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title fw-bold text-primary mb-2">Promo MCU Jantung</h5>
-                                    <p class="card-text text-muted small flex-grow-1">Pemeriksaan fungsi jantung secara komprehensif dengan harga spesial.</p>
-                                    <div class="mt-3 text-end">
-                                        <span class="text-secondary fw-semibold small">Lihat Detail <i class="fa-solid fa-arrow-right ms-1"></i></span>
+                    @forelse($promotions as $promo)
+                        <div class="col-md-6 col-lg-3 {{ $loop->iteration > 4 ? '' : 'position-relative' }}">
+                            <div class="promo-card" {!! $loop->iteration <= 4 ? 'data-bs-toggle="modal" data-bs-target="#promoModal" data-title="'.($promo->title ?? 'Promo').'" data-desc="'.($promo->description ?? 'Penawaran spesial dari RS St. Elisabeth Semarang.').'" data-img="'.(!empty($promo->image_path) ? asset('storage/'.$promo->image_path) : asset('images/placeholder.jpg')).'"' : '' !!}>
+                                <div class="card {{ $loop->iteration > 4 ? 'position-relative teased-card' : 'h-100' }}">
+                                    <img src="{{ !empty($promo->image_path) ? asset('storage/'.$promo->image_path) : asset('images/placeholder.jpg') }}" class="card-img-top" alt="{{ $promo->title ?? 'Promo' }}">
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title fw-bold text-primary mb-2" style="text-transform: capitalize;">{{ $promo->title ?? 'Promo' }}</h5>
+                                        <p class="card-text text-muted small flex-grow-1">{{ $promo->description ?? 'Penawaran spesial dari RS St. Elisabeth Semarang.' }}</p>
+                                        <div class="mt-3 text-end">
+                                            <span class="text-secondary fw-semibold small">Lihat Detail <i class="fa-solid fa-arrow-right ms-1"></i></span>
+                                        </div>
                                     </div>
+                                    @if($loop->iteration > 4)
+                                    <div class="tease-overlay position-absolute top-0 bottom-0 start-0 end-0" style="background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.95) 35%, rgba(255,255,255,1) 100%); z-index: 5; pointer-events: none;"></div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
+                    @empty
+                    <div class="col-12">
+                        <div class="alert alert-info">Belum ada promo saat ini.</div>
                     </div>
-                    <div class="col-md-6 col-lg-3 position-relative">
-                        <div class="promo-card" data-bs-toggle="modal" data-bs-target="#promoModal" data-title="Screening Gula Darah" data-desc="Pemeriksaan gula darah rutin untuk deteksi dini diabetes. Jangan abaikan kesehatan Anda." data-img="{{ asset('images/ADS1749518080.jpeg') }}">
-                            <div class="card h-100">
-                                <img src="{{ asset('images/ADS1749518080.jpeg') }}" class="card-img-top" alt="Screening Gula Darah">
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title fw-bold text-primary mb-2">Screening Gula Darah</h5>
-                                    <p class="card-text text-muted small flex-grow-1">Deteksi dini risiko diabetes dengan paket screening terjangkau.</p>
-                                    <div class="mt-3 text-end">
-                                        <span class="text-secondary fw-semibold small">Lihat Detail <i class="fa-solid fa-arrow-right ms-1"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 position-relative">
-                        <div class="promo-card" data-bs-toggle="modal" data-bs-target="#promoModal" data-title="Paket Persalinan Nyaman" data-desc="Sambut kelahiran buah hati dengan tenang bersama paket persalinan eksklusif dari RS St. Elisabeth." data-img="{{ asset('images/ADS1758074522.jpeg') }}">
-                            <div class="card h-100">
-                                <img src="{{ asset('images/ADS1758074522.jpeg') }}" class="card-img-top" alt="Paket Persalinan">
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title fw-bold text-primary mb-2">Paket Persalinan Nyaman</h5>
-                                    <p class="card-text text-muted small flex-grow-1">Layanan persalinan VIP dengan fasilitas terbaik untuk ibu dan anak.</p>
-                                    <div class="mt-3 text-end">
-                                        <span class="text-secondary fw-semibold small">Lihat Detail <i class="fa-solid fa-arrow-right ms-1"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 position-relative">
-                        <div class="promo-card" data-bs-toggle="modal" data-bs-target="#promoModal" data-title="Promo Vaksinasi Influenza" data-desc="Lindungi diri dan keluarga dari virus influenza dengan vaksin berstandar internasional." data-img="{{ asset('images/ADS1758075145.jpeg') }}">
-                            <div class="card h-100">
-                                <img src="{{ asset('images/ADS1758075145.jpeg') }}" class="card-img-top" alt="Vaksinasi Influenza">
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title fw-bold text-primary mb-2">Vaksinasi Influenza</h5>
-                                    <p class="card-text text-muted small flex-grow-1">Dapatkan perlindungan maksimal dari influenza musim ini.</p>
-                                    <div class="mt-3 text-end">
-                                        <span class="text-secondary fw-semibold small">Lihat Detail <i class="fa-solid fa-arrow-right ms-1"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="promo-card">
-                            <div class="card position-relative teased-card">
-                                <img src="{{ asset('images/ADS1761805772.jpeg') }}" class="card-img-top" alt="Screening Kanker Serviks">
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title fw-bold text-primary mb-2">Screening Kanker Serviks</h5>
-                                    <p class="card-text text-muted small flex-grow-1">Lakukan papsmear berkala demi kesehatan reproduksi Anda.</p>
-                                    <div class="mt-3 text-end">
-                                        <span class="text-secondary fw-semibold small">Lihat Detail <i class="fa-solid fa-arrow-right ms-1"></i></span>
-                                    </div>
-                                </div>
-                                <div class="tease-overlay position-absolute top-0 bottom-0 start-0 end-0" style="background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.95) 35%, rgba(255,255,255,1) 100%); z-index: 5; pointer-events: none;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="promo-card">
-                            <div class="card position-relative teased-card">
-                                <img src="{{ asset('images/ADS1761805889.jpeg') }}" class="card-img-top" alt="Promo Fisioterapi">
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title fw-bold text-primary mb-2">Promo Fisioterapi</h5>
-                                    <p class="card-text text-muted small flex-grow-1">Paket 5x sesi fisioterapi untuk pemulihan cedera olahraga.</p>
-                                    <div class="mt-3 text-end">
-                                        <span class="text-secondary fw-semibold small">Lihat Detail <i class="fa-solid fa-arrow-right ms-1"></i></span>
-                                    </div>
-                                </div>
-                                <div class="tease-overlay position-absolute top-0 bottom-0 start-0 end-0" style="background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.95) 35%, rgba(255,255,255,1) 100%); z-index: 5; pointer-events: none;"></div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforelse
                 </div>
             </div>
 
