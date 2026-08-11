@@ -52,5 +52,13 @@ class RoomFacility extends Model
                 $model->slug = Str::slug($model->name);
             }
         });
+
+        static::saved(function ($model) {
+            \Illuminate\Support\Facades\Cache::forget('local_cms_room_facilities_');
+        });
+
+        static::deleted(function ($model) {
+            \Illuminate\Support\Facades\Cache::forget('local_cms_room_facilities_');
+        });
     }
 }

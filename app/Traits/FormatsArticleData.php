@@ -32,23 +32,29 @@ trait FormatsArticleData
             */
 
             // ----- NEW CMS API & FALLBACK LOGIC -----
-            // (Catatan: Fallback `??` dipertahankan karena modul "News" masih menggunakan API Lama!)
-            if (isset($item['thumbnail_url'])) {
+            // (Menggunakan asset() agar dinamis terhadap host seperti RoomFacilities)
+            if (!empty($item['thumbnail'])) {
+                $thumbnail = asset('storage/' . $item['thumbnail']);
+            } elseif (!empty($item['image_path'])) {
+                $thumbnail = asset('storage/' . $item['image_path']);
+            } elseif (!empty($item['thumbnail_url'])) {
                 $thumbnail = $item['thumbnail_url'];
+            } elseif (!empty($item['image_url'])) { 
+                $thumbnail = $item['image_url'];
             } else {
-                // Legacy RS API logic (dipakai oleh News saat ini)
-                preg_match('/<img.+src=[\'"](?P<src>.+?)[\'"].*>/i', $item['deskripsi'] ?? '', $image);
+                // Legacy RS API logic
+                preg_match('/<img.+src=[\'"](?P<src>.+?)[\'"].*>/i', $item['deskripsi'] ?? $item['content'] ?? '', $image);
                 $thumbnail = $image['src'] ?? asset('images/hero.jpg');
             }
             
             return [
                 'id' => $item['id'] ?? 0,
-                'title' => $item['judul'] ?? 'Tanpa Judul',
-                'slug' => Str::slug($item['judul'] ?? 'item-' . ($item['id'] ?? rand())),
+                'title' => $item['judul'] ?? $item['title'] ?? 'Tanpa Judul',
+                'slug' => $item['slug'] ?? Str::slug($item['judul'] ?? $item['title'] ?? 'item-' . ($item['id'] ?? rand())),
                 'image' => $thumbnail,
                 'date' => $item['created_at'] ?? now()->toDateString(),
-                'excerpt' => $item['shorts'] ?? $item['subjudul'] ?? '',
-                'content' => $item['isi'] ?? $item['deskripsi'] ?? '',
+                'excerpt' => $item['shorts'] ?? $item['subjudul'] ?? Str::limit(strip_tags($item['isi'] ?? $item['deskripsi'] ?? $item['content'] ?? ''), 100),
+                'content' => $item['isi'] ?? $item['deskripsi'] ?? $item['content'] ?? '',
             ];
         });
     }

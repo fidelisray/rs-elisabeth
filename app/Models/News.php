@@ -13,4 +13,18 @@ class News extends Model
         'image_path',
         'is_published',
     ];
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        static::saved(function ($model) {
+            \Illuminate\Support\Facades\Cache::forget('local_cms_news_');
+        });
+
+        static::deleted(function ($model) {
+            \Illuminate\Support\Facades\Cache::forget('local_cms_news_');
+        });
+    }
 }

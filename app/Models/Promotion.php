@@ -14,4 +14,18 @@ class Promotion extends Model
         'end_date',
         'is_active',
     ];
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        static::saved(function ($model) {
+            \Illuminate\Support\Facades\Cache::forget('local_cms_promotions_');
+        });
+
+        static::deleted(function ($model) {
+            \Illuminate\Support\Facades\Cache::forget('local_cms_promotions_');
+        });
+    }
 }

@@ -14,7 +14,10 @@ class PromotionsController extends Controller
 
     public function index(Request $request)
     {
-        $promotions = \App\Models\Promotion::where('is_active', true)->latest()->get();
+        $promotionsData = $this->apiService->getPromotionsList();
+        
+        // Convert to object so blade template can use $promo->title
+        $promotions = collect($promotionsData)->map(fn($item) => (object) $item)->values();
 
         return view('promotions.index', compact('promotions'));
     }

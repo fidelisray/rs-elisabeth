@@ -35,7 +35,7 @@ class Article extends Model
     }
 
     /**
-     * Boot function to automatically fill audit fields.
+     * Boot function to automatically fill audit fields and clear cache.
      */
     protected static function boot()
     {
@@ -52,6 +52,16 @@ class Article extends Model
         static::deleting(function ($model) {
             $model->deleted_by = \Illuminate\Support\Facades\Auth::user()?->email ?? 'system';
             $model->saveQuietly();
+        });
+
+        // Hapus cache API ketika data diubah atau ditambah
+        static::saved(function ($model) {
+            \Illuminate\Support\Facades\Cache::forget('local_cms_articles_');
+        });
+
+        // Hapus cache API ketika data dihapus
+        static::deleted(function ($model) {
+            \Illuminate\Support\Facades\Cache::forget('local_cms_articles_');
         });
     }
 }
