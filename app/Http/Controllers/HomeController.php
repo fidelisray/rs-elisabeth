@@ -32,6 +32,9 @@ class HomeController extends Controller
         // 4. Ambil data Promo
         $promotions = \App\Models\Promotion::where('is_active', true)->latest()->take(6)->get();
 
-        return view('home.index', compact('spesialisasi', 'latestArticles', 'latestNews', 'promotions'));
+        // 5. Ambil data Banner Promotions (Carousel Halaman Utama dari CMS)
+        $banners = $this->hospitalApiService->getBannerPromotions();
+
+        return view('home.index', compact('spesialisasi', 'latestArticles', 'latestNews', 'promotions', 'banners'));
     }
 }

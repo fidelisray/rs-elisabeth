@@ -20,4 +20,7 @@ Route::prefix('cms')->group(function () {
 
     // Room Facilities (Ruang Perawatan) — CMS Baru
     Route::get('/room-facilities', [\App\Http\Controllers\Api\Cms\RoomFacilityApiController::class, 'index']);
+
+    // Banner Promotions (Carousel Halaman Utama) — CMS Baru
+    Route::get('/banner-promotions', [\App\Http\Controllers\Api\Cms\BannerPromotionApiController::class, 'index']);
 });

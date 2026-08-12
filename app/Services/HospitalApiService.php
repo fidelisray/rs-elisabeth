@@ -484,4 +484,29 @@ class HospitalApiService
             }
         });
     }
+
+    /**
+     * Ambil Data Banner Promotions (Carousel Halaman Utama) dari Local CMS API.
+     * Hanya mengambil banner yang is_active = true, diurutkan berdasarkan sort_order.
+     */
+    public function getBannerPromotions(): array
+    {
+        $cacheKey = 'local_cms_banner_promotions_';
+        $ttl      = config('rsapi.cache_ttl.banner_promotions', 60);
+
+        return Cache::remember($cacheKey, $ttl, function () {
+            try {
+                $response = Http::get(url('/api/cms/banner-promotions'));
+
+                return $response->successful()
+                    ? $response->json()
+                    : [];
+            } catch (\Exception $e) {
+                Log::error('Gagal ambil data banner promotions dari lokal CMS API', [
+                    'error' => $e->getMessage(),
+                ]);
+                return [];
+            }
+        });
+    }
 }

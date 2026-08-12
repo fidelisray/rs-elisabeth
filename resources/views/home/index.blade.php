@@ -139,38 +139,42 @@
         <!-- Modern Promo Banner Section (Hero Baru) -->
         <section id="promo-banner-section">
             <div id="promo-banner-carousel" class="carousel slide" data-bs-ride="carousel">
+
+                {{-- ===== INDIKATOR SLIDE (Dinamis dari CMS) ===== --}}
+                @if(count($banners) > 1)
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                    <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
-                    <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
-                    <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="6" aria-label="Slide 7"></button>
+                    @foreach($banners as $index => $banner)
+                    <button type="button"
+                        data-bs-target="#promo-banner-carousel"
+                        data-bs-slide-to="{{ $index }}"
+                        class="{{ $index === 0 ? 'active' : '' }}"
+                        {{ $index === 0 ? 'aria-current="true"' : '' }}
+                        aria-label="Slide {{ $index + 1 }}">
+                    </button>
+                    @endforeach
                 </div>
+                @endif
+
+                {{-- ===== KONTEN GAMBAR BANNER (Dinamis dari CMS) ===== --}}
                 <div class="carousel-inner">
+                    @forelse($banners as $index => $banner)
+                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                        <img src="{{ $banner['image_url'] }}"
+                             class="d-block w-100"
+                             alt="{{ $banner['title'] }}">
+                    </div>
+                    @empty
+                    {{-- Fallback: tampilkan pesan jika belum ada banner di CMS --}}
                     <div class="carousel-item active">
-                        <img src="{{ asset('images/lp-web-01.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 1">
+                        <div class="d-flex align-items-center justify-content-center bg-light" style="height: 400px;">
+                            <p class="text-muted">Belum ada banner promosi. Tambahkan di CMS Admin Panel.</p>
+                        </div>
                     </div>
-                    <div class="carousel-item">
-                        <img src="{{ asset('images/lp-web-02.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 2">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="{{ asset('images/lp-web-03.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 3">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="{{ asset('images/lp-web-04.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 4">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="{{ asset('images/lp-web-05.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 5">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="{{ asset('images/lp-web-06.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 6">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="{{ asset('images/lp-web-07.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 7">
-                    </div>
+                    @endforelse
                 </div>
+
+                {{-- ===== TOMBOL NAVIGASI (hanya tampil jika ada lebih dari 1 banner) ===== --}}
+                @if(count($banners) > 1)
                 <button class="carousel-control-prev" type="button" data-bs-target="#promo-banner-carousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
@@ -179,6 +183,8 @@
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
+                @endif
+
             </div>
         </section>
 
