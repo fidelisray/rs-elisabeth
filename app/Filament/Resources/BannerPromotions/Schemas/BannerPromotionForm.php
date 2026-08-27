@@ -36,13 +36,6 @@ class BannerPromotionForm
                     ->label('Tampilkan di Halaman Utama')
                     ->helperText('Aktifkan agar banner ini muncul di carousel halaman utama.')
                     ->default(true),
-
-                TextInput::make('sort_order')
-                    ->label('Urutan Tampil')
-                    ->helperText('Angka lebih kecil tampil lebih dahulu. Contoh: 1 → slide pertama.')
-                    ->numeric()
-                    ->default(0)
-                    ->minValue(0),
             ]);
     }
 }

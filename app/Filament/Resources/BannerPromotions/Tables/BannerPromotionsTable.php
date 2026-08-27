@@ -15,7 +15,11 @@ class BannerPromotionsTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->reorderable('sort_order')
             ->defaultSort('sort_order', 'asc')
+            ->afterReordering(function (): void {
+                \Illuminate\Support\Facades\Cache::forget('local_cms_banner_promotions_');
+            })
             ->columns([
                 ImageColumn::make('image_path')
                     ->label('Preview')
@@ -29,12 +33,9 @@ class BannerPromotionsTable
                     ->limit(50),
 
                 ToggleColumn::make('is_active')
-                    ->label('Aktif')
-                    ->sortable(),
+                    ->label('Aktif'),
 
-                TextColumn::make('sort_order')
-                    ->label('Urutan')
-                    ->sortable(),
+
 
                 TextColumn::make('created_by')
                     ->label('Dibuat Oleh')
@@ -44,7 +45,6 @@ class BannerPromotionsTable
                 TextColumn::make('created_at')
                     ->label('Dibuat')
                     ->dateTime('d M Y, H:i')
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('updated_by')
@@ -55,7 +55,6 @@ class BannerPromotionsTable
                 TextColumn::make('updated_at')
                     ->label('Diperbarui')
                     ->dateTime('d M Y, H:i')
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([

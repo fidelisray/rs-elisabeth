@@ -33,9 +33,10 @@ class BannerPromotion extends Model
     {
         parent::boot();
 
-        // Isi created_by saat data pertama kali dibuat
+        // Isi created_by dan sort_order otomatis saat data pertama kali dibuat
         static::creating(function (self $model) {
             $model->created_by = Auth::user()?->email ?? 'system';
+            $model->sort_order = (int) static::max('sort_order') + 1;
         });
 
         // Isi updated_by setiap kali data diperbarui
