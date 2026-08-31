@@ -3,28 +3,28 @@
 namespace App\Http\Controllers\Api\Cms;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Resources\Api\Cms\NewsResource;
+use App\Models\News;
 
 class NewsApiController extends Controller
 {
     public function index()
     {
-        $news = \App\Models\News::where('is_published', true)->latest()->get();
-        $news->transform(function ($item) {
-            if ($item->image_path) {
-                $item->image_url = \Illuminate\Support\Facades\Storage::disk('public')->url($item->image_path);
-            }
-            return $item;
-        });
-        return response()->json($news);
+        $news = News::query()
+            ->where('is_published', true)
+            ->latest()
+            ->get();
+
+        return NewsResource::collection($news);
     }
 
     public function show($slug)
     {
-        $news = \App\Models\News::where('slug', $slug)->where('is_published', true)->firstOrFail();
-        if ($news->image_path) {
-            $news->image_url = \Illuminate\Support\Facades\Storage::disk('public')->url($news->image_path);
-        }
-        return response()->json($news);
+        $news = News::query()
+            ->where('slug', $slug)
+            ->where('is_published', true)
+            ->firstOrFail();
+
+        return new NewsResource($news);
     }
 }

@@ -255,7 +255,7 @@ class HospitalApiService
                 $response = Http::get(url('/api/cms/promotions'));
 
                 return $response->successful()
-                    ? $response->json()
+                    ? $response->json('data', [])
                     : [];
             } catch (\Exception $e) {
                 Log::error('Gagal ambil data promotions dari lokal CMS API', [
@@ -399,7 +399,7 @@ class HospitalApiService
                 // dd($response->json());
 
                 return $response->successful()
-                    ? $response->json()
+                    ? $response->json('data', [])
                     : [];
             } catch (\Exception $e) {
                 Log::error('Gagal ambil data artikel dari lokal CMS API', [
@@ -449,7 +449,7 @@ class HospitalApiService
                 $response = Http::get(url('/api/cms/news'));
 
                 return $response->successful()
-                    ? $response->json()
+                    ? $response->json('data', [])
                     : [];
             } catch (\Exception $e) {
                 Log::error('Gagal ambil data berita dari lokal CMS API', [
@@ -474,7 +474,7 @@ class HospitalApiService
                 $response = Http::get(url('/api/cms/room-facilities'));
 
                 return $response->successful()
-                    ? $response->json()
+                    ? $response->json('data', [])
                     : [];
             } catch (\Exception $e) {
                 Log::error('Gagal ambil data room facilities dari lokal CMS API', [
@@ -499,7 +499,7 @@ class HospitalApiService
                 $response = Http::get(url('/api/cms/banner-promotions'));
 
                 return $response->successful()
-                    ? $response->json()
+                    ? $response->json('data', [])
                     : [];
             } catch (\Exception $e) {
                 Log::error('Gagal ambil data banner promotions dari lokal CMS API', [

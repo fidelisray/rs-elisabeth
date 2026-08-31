@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\Cms;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\Cms\BannerPromotionResource;
 use App\Models\BannerPromotion;
-use Illuminate\Support\Facades\Storage;
 
 class BannerPromotionApiController extends Controller
 {
@@ -14,19 +14,11 @@ class BannerPromotionApiController extends Controller
      */
     public function index()
     {
-        $banners = BannerPromotion::where('is_active', true)
+        $banners = BannerPromotion::query()
+            ->where('is_active', true)
             ->orderBy('sort_order', 'asc')
             ->get();
 
-        $banners->transform(function ($item) {
-            if ($item->image_path) {
-                $item->image_url = url(Storage::disk('public')->url($item->image_path));
-            } else {
-                $item->image_url = null;
-            }
-            return $item;
-        });
-
-        return response()->json($banners);
+        return BannerPromotionResource::collection($banners);
     }
 }
