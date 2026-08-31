@@ -28,16 +28,16 @@ class BannerPromotionResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'title';
 
-    protected static ?int $navigationSort = 1;
+    // protected static ?int $navigationSort = 1;
 
     /**
      * Mengelompokkan modul ini di bawah grup "Konten Halaman Utama"
      * di sidebar Filament.
      */
-    public static function getNavigationGroup(): ?string
-    {
-        return 'Konten Halaman Utama';
-    }
+    // public static function getNavigationGroup(): ?string
+    // {
+    //     return 'Konten Halaman Utama';
+    // }
 
     public static function form(Schema $schema): Schema
     {
