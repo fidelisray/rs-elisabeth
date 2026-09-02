@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\RoomFacilities\Schemas;
 
-use App\Rules\ImageRoomSpec;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
@@ -10,7 +9,6 @@ use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Notifications\Notification;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
@@ -32,7 +30,7 @@ class RoomFacilityForm
 
                         TextInput::make('name')
                             ->label('Nama Ruangan')
-                            ->placeholder('Contoh: President Suite, VIP, Kelas I')
+                            ->placeholder('President Suite, VIP, Kelas I...')
                             ->required()
                             ->maxLength(100)
                             ->live(onBlur: true)
@@ -42,8 +40,8 @@ class RoomFacilityForm
                             }),
 
                         TextInput::make('slug')
-                            ->label('Slug (URL Identifier)')
-                            ->placeholder('auto-terisi dari nama')
+                            ->label('URL Identifier')
+                            ->placeholder('contoh-nama-ruangan')
                             ->required()
                             ->maxLength(100)
                             ->unique(ignoreRecord: true)
@@ -51,9 +49,10 @@ class RoomFacilityForm
 
                         Select::make('category')
                             ->label('Kategori Ruangan')
+                            ->placeholder('Pilih Kategori Ruangan')
                             ->options([
-                                'premium'  => '🏆 Premium (President Suite, Suites, Executive)',
-                                'standard' => '🛏️ Standard (VIP, Kelas I, II, III)',
+                                'premium'  => 'Premium (President Suite, Suites, Executive)',
+                                'standard' => 'Standard (VIP, Kelas I, II, III)',
                             ])
                             ->required()
                             ->helperText('Menentukan di seksi mana ruangan ini ditampilkan di halaman.'),
@@ -121,110 +120,19 @@ class RoomFacilityForm
                     ->schema([
 
                         FileUpload::make('image_path')
-                            ->label('Foto Ruangan (16:9 Landscape, Maks 1 MB)')
+                            ->label('Foto Ruangan')
                             ->disk('public')
                             ->directory('room-facilities')
                             ->image()
                             ->imageEditor()
-                            ->maxSize(1024) // 1 MB = 1024 KB
+                            ->imageEditorAspectRatios(['16:9'])
+                            ->imageCropAspectRatio('16:9')
+                            ->imageResizeTargetWidth(1920)
+                            ->imageResizeTargetHeight(1080)
+                            ->imageResizeMode('cover')
+                            ->maxSize(5120) // 5 MB
                             ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
-                            // ──────────────────────────────────────────────────────────────
-                            // Gunakan custom Rule class (ImageRoomSpec) agar validator
-                            // menerima object UploadedFile secara langsung (bukan string UUID).
-                            // Ini adalah satu-satunya cara agar real-time validation berjalan
-                            // karena Livewire 3 tidak lagi meng-expose path file via $state.
-                            // ──────────────────────────────────────────────────────────────
-                            ->rules([new ImageRoomSpec()])
-                            ->validationMessages([
-                                'max' => 'Ukuran foto tidak boleh melebihi 1 MB.',
-                            ])
-                            ->live()
-                            ->afterStateUpdated(function (Set $set, $state, $component) {
-                                // ── Root Cause Analysis ─────────────────────────────────────────────
-                                // $state yang dikirim ke closure ini adalah "cast state" (sudah
-                                // diproses oleh FileUploadStateCast) sehingga isinya bukan
-                                // TemporaryUploadedFile object, melainkan bisa berupa string/null.
-                                //
-                                // Solusi yang benar: gunakan $component->getRawState() yang
-                                // mengembalikan langsung dari Livewire property dan masih berisi
-                                // TemporaryUploadedFile object (sebelum proses cast).
-                                // ──────────────────────────────────────────────────────────────────
-
-                                if (empty($state)) {
-                                    return;
-                                }
-
-                                // Ambil raw state langsung dari Livewire (berisi TemporaryUploadedFile)
-                                $rawState = $component->getRawState();
-
-                                if (empty($rawState)) {
-                                    return;
-                                }
-
-                                // Normalisasi: rawState bisa array atau single object
-                                $uploadedFile = is_array($rawState)
-                                    ? collect($rawState)->first()
-                                    : $rawState;
-
-                                // Pastikan ini benar-benar TemporaryUploadedFile dari Livewire
-                                if (! ($uploadedFile instanceof \Livewire\Features\SupportFileUploads\TemporaryUploadedFile)) {
-                                    return;
-                                }
-
-                                // getRealPath() pada TemporaryUploadedFile memanggil
-                                // $this->storage->path($this->path) — ini adalah path absolut
-                                // yang VALID dan dapat dibaca oleh getimagesize()
-                                $realPath = $uploadedFile->getRealPath();
-
-                                if (! $realPath || ! file_exists($realPath)) {
-                                    return;
-                                }
-
-                                // Jalankan rule ImageRoomSpec secara manual
-                                $isValid = true;
-
-                                (new \App\Rules\ImageRoomSpec())->validate(
-                                    'image_path',
-                                    $uploadedFile,
-                                    function (string $msg) use (&$isValid) {
-                                        $isValid = false;
-
-                                        // ❌ Notifikasi merah dengan ID tetap 'room-image-error'.
-                                        // Menggunakan ID tetap memastikan notification sebelumnya
-                                        // DIGANTIKAN (bukan ditumpuk) ketika user upload ulang.
-                                        Notification::make('room-image-error')
-                                            ->title('Foto Tidak Sesuai Ketentuan')
-                                            ->body($msg)
-                                            ->danger()
-                                            ->persistent()
-                                            ->send();
-                                    }
-                                );
-
-                                if ($isValid) {
-                                    // ✅ Semua syarat terpenuhi:
-                                    // 1. Tutup notification error sebelumnya menggunakan browser event
-                                    //    yang di-listen oleh Filament: 'close-notification' (window event)
-                                    //    Ini ditemukan di Notification.php baris 364:
-                                    //    'x-on:close-notification.window' => "if ($event.detail.id == 'X') close()"
-                                    $component->getLivewire()->dispatch('close-notification', id: 'room-image-error');
-
-                                    // 2. Tampilkan notification sukses
-                                    $info = @getimagesize($realPath);
-                                    [$w, $h] = $info ?? [0, 0];
-                                    $kb = $uploadedFile->getSize()
-                                        ? round($uploadedFile->getSize() / 1024)
-                                        : '?';
-
-                                    Notification::make('room-image-success')
-                                        ->title('Foto Sesuai Ketentuan ✓')
-                                        ->body("Resolusi {$w}×{$h}px · {$kb} KB · Rasio 16:9")
-                                        ->success()
-                                        ->duration(5000)
-                                        ->send();
-                                }
-                            })
-                            ->helperText('Format: JPG, PNG, WebP · Rasio 16:9 · Resolusi: 1280×720 atau 1920×1080 · Maks 1 MB')
+                            ->helperText('Upload foto ruangan (JPG/PNG/WebP, maks 5 MB). Editor akan membantu Anda memotong gambar ke rasio 16:9. Gambar akan dikonversi ke WebP secara otomatis.')
                             ->columnSpanFull(),
                     ]),
 

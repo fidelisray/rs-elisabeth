@@ -2,11 +2,22 @@
 
 namespace App\Models;
 
+use App\Traits\ConvertsImagesToWebp;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class RoomFacility extends Model
 {
+    use ConvertsImagesToWebp;
+
+    /**
+     * Kolom-kolom yang menyimpan path gambar dan akan dikonversi ke WebP.
+     */
+    protected function getWebpFields(): array
+    {
+        return ['image_path'];
+    }
+
     protected $fillable = [
         'name',
         'slug',

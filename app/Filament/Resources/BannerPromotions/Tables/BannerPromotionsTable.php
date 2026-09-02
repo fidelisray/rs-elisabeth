@@ -35,8 +35,6 @@ class BannerPromotionsTable
                 ToggleColumn::make('is_active')
                     ->label('Aktif'),
 
-
-
                 TextColumn::make('created_by')
                     ->label('Dibuat Oleh')
                     ->searchable()

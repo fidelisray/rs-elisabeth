@@ -22,12 +22,17 @@ class BannerPromotionForm
 
                 FileUpload::make('image_path')
                     ->label('Gambar Banner')
-                    ->helperText('Format: JPG/PNG/WebP. Ukuran maks 2MB. Dimensi ideal: 1920×1080 px (16:9).')
+                    ->helperText('Upload gambar banner (JPG/PNG/WebP, maks 5 MB). Editor akan membantu Anda memotong gambar ke rasio 16:9. Gambar akan dikonversi ke WebP secara otomatis.')
                     ->disk('public')
                     ->directory('banners')
                     ->image()
                     ->imageEditor()
-                    ->maxSize(2048) // 2MB dalam kilobytes
+                    ->imageEditorAspectRatios(['16:9'])
+                    ->imageCropAspectRatio('16:9')
+                    ->imageResizeTargetWidth(1920)
+                    ->imageResizeTargetHeight(1080)
+                    ->imageResizeMode('cover')
+                    ->maxSize(5120) // 5 MB
                     ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                     ->required()
                     ->columnSpanFull(),

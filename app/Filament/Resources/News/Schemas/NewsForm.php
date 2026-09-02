@@ -21,16 +21,20 @@ class NewsForm
                 Textarea::make('content')
                     ->required()
                     ->columnSpanFull(),
-                /*
-                // KODE LAMA (Tanpa Disk Public, menyimpan ke storage/app/private)
-                // Jangan dihapus, uncomment jika ingin kembali ke konfigurasi bawaan
                 FileUpload::make('image_path')
-                    ->image(),
-                */
-                FileUpload::make('image_path')
+                    ->label('Gambar Berita')
                     ->disk('public')
                     ->directory('news')
-                    ->image(),
+                    ->image()
+                    ->imageEditor()
+                    ->imageEditorAspectRatios(['16:9'])
+                    ->imageCropAspectRatio('16:9')
+                    ->imageResizeTargetWidth(1280)
+                    ->imageResizeTargetHeight(720)
+                    ->imageResizeMode('cover')
+                    ->maxSize(5120) // 5 MB
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                    ->helperText('Upload gambar berita (JPG/PNG/WebP, maks 5 MB). Editor akan membantu Anda memotong gambar ke rasio 16:9. Gambar akan dikonversi ke WebP secara otomatis.'),
                 Toggle::make('is_published')
                     ->required(),
             ]);

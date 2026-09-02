@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\ConvertsImagesToWebp;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
@@ -9,7 +10,16 @@ use Illuminate\Support\Facades\Cache;
 
 class BannerPromotion extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, ConvertsImagesToWebp;
+
+    /**
+     * Kolom-kolom yang menyimpan path gambar dan akan dikonversi ke WebP.
+     */
+    protected function getWebpFields(): array
+    {
+        return ['image_path'];
+    }
+
 
     protected $fillable = [
         'title',

@@ -25,29 +25,29 @@ class ArticleForm
                     ->maxLength(50),
                 Select::make('tags')
                     ->label('Kategori')
+                    ->placeholder('Pilih Kategori Artikel')
                     ->options([
                         'Artikel Kesehatan' => 'Artikel Kesehatan',
-                        'Berita' => 'Berita',
+                        // 'Berita' => 'Berita',
                     ])
                     ->required(),
                 Toggle::make('is_active')
                     ->label('Aktif / Tampilkan')
                     ->default(false),
-                /*
-                // KODE LAMA (Tanpa Disk Public, menyimpan ke storage/app/private)
-                // Jangan dihapus, uncomment jika ingin kembali ke konfigurasi bawaan
                 FileUpload::make('thumbnail')
-                    ->label('Thumbnail')
-                    ->directory('articles')
-                    ->image()
-                    ->maxSize(5120), // 5MB
-                */
-                FileUpload::make('thumbnail')
-                    ->label('Thumbnail')
+                    ->label('Thumbnail Artikel')
                     ->disk('public')
                     ->directory('articles')
                     ->image()
-                    ->maxSize(5120), // 5MB
+                    ->imageEditor()
+                    ->imageEditorAspectRatios(['16:9'])
+                    ->imageCropAspectRatio('16:9')
+                    ->imageResizeTargetWidth(1280)
+                    ->imageResizeTargetHeight(720)
+                    ->imageResizeMode('cover')
+                    ->maxSize(5120) // 5 MB
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                    ->helperText('Upload thumbnail artikel (JPG/PNG/WebP, maks 5 MB). Editor akan membantu Anda memotong gambar ke rasio 16:9. Gambar akan dikonversi ke WebP secara otomatis.'),
                 Textarea::make('shorts')
                     ->label('Ringkasan (Shorts)')
                     ->columnSpanFull(),

@@ -2,10 +2,21 @@
 
 namespace App\Models;
 
+use App\Traits\ConvertsImagesToWebp;
 use Illuminate\Database\Eloquent\Model;
 
 class Promotion extends Model
 {
+    use ConvertsImagesToWebp;
+
+    /**
+     * Kolom-kolom yang menyimpan path gambar dan akan dikonversi ke WebP.
+     */
+    protected function getWebpFields(): array
+    {
+        return ['image_path'];
+    }
+
     protected $fillable = [
         'title',
         'description',

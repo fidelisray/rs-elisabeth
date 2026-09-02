@@ -2,11 +2,21 @@
 
 namespace App\Models;
 
+use App\Traits\ConvertsImagesToWebp;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
     use \Illuminate\Database\Eloquent\SoftDeletes;
+    use ConvertsImagesToWebp;
+
+    /**
+     * Kolom-kolom yang menyimpan path gambar dan akan dikonversi ke WebP.
+     */
+    protected function getWebpFields(): array
+    {
+        return ['thumbnail'];
+    }
 
     protected $fillable = [
         'judul',
