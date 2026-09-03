@@ -16,19 +16,28 @@ class NewsTable
     {
         return $table
             ->columns([
+                ImageColumn::make('image_path')
+                    ->label('Preview')
+                    ->disk('public')
+                    ->width(80)
+                    ->height(50),
                 TextColumn::make('title')
+                    ->label('Judul Berita')
                     ->searchable(),
                 TextColumn::make('slug')
+                    ->label('Slug')
                     ->searchable(),
-                ImageColumn::make('image_path'),
                 IconColumn::make('is_published')
+                    ->label('Publikasi')
                     ->boolean(),
                 TextColumn::make('created_at')
-                    ->dateTime()
+                    ->label('Dibuat')
+                    ->dateTime('d M Y, H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->label('Diperbarui')
+                    ->dateTime('d M Y, H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

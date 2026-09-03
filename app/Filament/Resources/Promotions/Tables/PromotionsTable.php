@@ -16,23 +16,33 @@ class PromotionsTable
     {
         return $table
             ->columns([
+                ImageColumn::make('image_path')
+                    ->label('Preview')
+                    ->disk('public')
+                    ->width(60)
+                    ->height(85),
                 TextColumn::make('title')
+                    ->label('Judul Promosi')
                     ->searchable(),
-                ImageColumn::make('image_path'),
                 TextColumn::make('start_date')
-                    ->date()
+                    ->label('Mulai')
+                    ->date('d M Y')
                     ->sortable(),
                 TextColumn::make('end_date')
-                    ->date()
+                    ->label('Berakhir')
+                    ->date('d M Y')
                     ->sortable(),
                 IconColumn::make('is_active')
+                    ->label('Aktif')
                     ->boolean(),
                 TextColumn::make('created_at')
-                    ->dateTime()
+                    ->label('Dibuat')
+                    ->dateTime('d M Y, H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->label('Diperbarui')
+                    ->dateTime('d M Y, H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

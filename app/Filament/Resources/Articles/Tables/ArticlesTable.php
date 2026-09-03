@@ -17,7 +17,10 @@ class ArticlesTable
         return $table
             ->columns([
                 ImageColumn::make('thumbnail')
-                    ->label('Thumbnail'),
+                    ->label('Preview')
+                    ->disk('public')
+                    ->width(80)
+                    ->height(50),
                 TextColumn::make('judul')
                     ->label('Judul')
                     ->searchable(),

@@ -21,7 +21,7 @@ class RoomFacilitiesTable
 
                 // Preview foto ruangan (thumbnail kecil)
                 ImageColumn::make('image_path')
-                    ->label('Foto')
+                    ->label('Preview')
                     ->disk('public')
                     ->width(80)
                     ->height(45) // 16:9 thumbnail ratio
