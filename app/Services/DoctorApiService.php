@@ -281,30 +281,16 @@ class DoctorApiService
     $specialityLength = count($spesialisasiList);
 
     foreach ($spesialisasiList as $code) {
-        // Sesuaikan property name dengan struktur response API kamu
-        // $code = $spesialisasi ?? null;
-
-        // if (!$code) {
-        //     continue;
-        // }
 
         try {
-            // echo " [" . $i . "/" . $specialityLength . "]" . "Mengambil data dengan speciality id => " . $code;
-            // echo "\n\n";
             $data = $this->getDokterBySpesialisasi($code);
             
             
             if (!$data['Success']) {
-                // echo " [" . $i . "/" . $specialityLength . "]" . "Data => " . $code . " Gagal di ambil / kosong";
-                
-                echo "" . "-> Data {$code} Gagal diambil";
-                echo "\n\n";
                 $i++;
                 continue;
             }
-                
-            // echo "\t". "-> Data Berhasil diambil";
-            // echo "\n\n";
+            
             $i++;
 
             if (!empty($data['ScheduleRoutine']) && is_array($data['ScheduleRoutine'])) {

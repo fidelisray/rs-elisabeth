@@ -22,6 +22,9 @@ use Intervention\Image\Drivers\Gd\Driver;
  * a) Konversi file fisik di storage dari .jpg/.png menjadi .webp
  * b) Update kolom path di database agar menunjuk ke file .webp yang baru
  *    (mencegah gambar broken di frontend)
+ *
+ * @mixin \Illuminate\Database\Eloquent\Model
+ * @method static void saved(\Closure $callback)
  */
 trait ConvertsImagesToWebp
 {
