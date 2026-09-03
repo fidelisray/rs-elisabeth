@@ -41,8 +41,9 @@ class ArticleForm
                     ->image()
                     ->imageEditor()
                     ->imageEditorAspectRatioOptions(['16:9'])
-                    ->imageAspectRatio('16:9')
-                    ->automaticallyCropImagesToAspectRatio()
+                    // ->imageAspectRatio('16:9')
+                    // ->automaticallyCropImagesToAspectRatio()
+
                     ->automaticallyResizeImagesToWidth(1280)
                     ->automaticallyResizeImagesToHeight(720)
                     ->automaticallyResizeImagesMode('cover')

@@ -126,8 +126,9 @@ class RoomFacilityForm
                             ->image()
                             ->imageEditor()
                             ->imageEditorAspectRatioOptions(['16:9'])
-                            ->imageAspectRatio('16:9')
-                            ->automaticallyCropImagesToAspectRatio()
+                            // ->imageAspectRatio('16:9')
+                            // ->automaticallyCropImagesToAspectRatio()
+
                             ->automaticallyResizeImagesToWidth(1920)
                             ->automaticallyResizeImagesToHeight(1080)
                             ->automaticallyResizeImagesMode('cover')

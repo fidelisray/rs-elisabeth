@@ -27,8 +27,9 @@ class PromotionForm
                     ->image()
                     ->imageEditor()
                     ->imageEditorAspectRatioOptions(['4:5', '3:4'])
-                    ->imageAspectRatio('4:5')
-                    ->automaticallyCropImagesToAspectRatio()
+                    // ->imageAspectRatio('4:5')
+                    // ->automaticallyCropImagesToAspectRatio()
+
                     ->automaticallyResizeImagesToWidth(1200)
                     ->automaticallyResizeImagesToHeight(1500)
                     ->automaticallyResizeImagesMode('cover')
