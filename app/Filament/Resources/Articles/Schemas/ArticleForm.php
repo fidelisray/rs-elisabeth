@@ -40,11 +40,12 @@ class ArticleForm
                     ->directory('articles')
                     ->image()
                     ->imageEditor()
-                    ->imageEditorAspectRatios(['16:9'])
-                    ->imageCropAspectRatio('16:9')
-                    ->imageResizeTargetWidth(1280)
-                    ->imageResizeTargetHeight(720)
-                    ->imageResizeMode('cover')
+                    ->imageEditorAspectRatioOptions(['16:9'])
+                    ->imageAspectRatio('16:9')
+                    ->automaticallyCropImagesToAspectRatio()
+                    ->automaticallyResizeImagesToWidth(1280)
+                    ->automaticallyResizeImagesToHeight(720)
+                    ->automaticallyResizeImagesMode('cover')
                     ->maxSize(5120) // 5 MB
                     ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                     ->helperText('Upload thumbnail artikel (JPG/PNG/WebP, maks 5 MB). Editor akan membantu Anda memotong gambar ke rasio 16:9. Gambar akan dikonversi ke WebP secara otomatis.'),
