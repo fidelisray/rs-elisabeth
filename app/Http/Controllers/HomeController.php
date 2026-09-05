@@ -34,7 +34,10 @@ class HomeController extends Controller
 
         // 5. Ambil data Banner Promotions (Carousel Halaman Utama dari CMS)
         $banners = $this->hospitalApiService->getBannerPromotions();
+        
+        // 6. Ambil data Facility Services
+        $facilities = collect($this->hospitalApiService->getFacilityServices())->take(6)->toArray();
 
-        return view('home.index', compact('spesialisasi', 'latestArticles', 'latestNews', 'promotions', 'banners'));
+        return view('home.index', compact('spesialisasi', 'latestArticles', 'latestNews', 'promotions', 'banners', 'facilities'));
     }
 }

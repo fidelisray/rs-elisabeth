@@ -382,111 +382,35 @@
                 </div>
 
                 <div id="carouselExampleCaptions" class="carousel slide shadow rounded-4 overflow-hidden bg-white" data-bs-ride="carousel">
+                    @if(count($facilities) > 0)
                     <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active bg-dark" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" class="bg-dark" aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" class="bg-dark" aria-label="Slide 3"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" class="bg-dark" aria-label="Slide 4"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" class="bg-dark" aria-label="Slide 5"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="5" class="bg-dark" aria-label="Slide 6"></button>
+                        @foreach ($facilities as $index => $facility)
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }} bg-dark" aria-current="{{ $index === 0 ? 'true' : 'false' }}" aria-label="Slide {{ $index + 1 }}"></button>
+                        @endforeach
                     </div>
+                    @endif
                     <div class="carousel-inner" id="carousel-facilities-and-services">
-                        <!-- Item 1 -->
-                        <div class="carousel-item active">
+                        @forelse ($facilities as $index => $facility)
+                        <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                             <div class="row align-items-center g-0">
                                 <div class="col-md-6 text-center facility-img-wrapper">
-                                    <img src="{{ asset('images/F1670220299.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Pelayanan Stroke Terpadu">
+                                    <img src="{{ $facility['icon_url'] ?? asset('images/placeholder.jpg') }}" class="w-100 h-100 object-fit-cover" alt="{{ $facility['name'] }}">
                                 </div>
                                 <div class="col-md-6 p-4 p-md-5">
-                                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">Featured</span>
-                                    <h3 class="fw-bold" style="color: var(--secondary-color);">Pelayanan Stroke Terpadu</h3>
-                                    <p class="text-muted fs-5 mt-3">Pelayanan Stroke Terpadu RS St. Elisabeth Semarang menyediakan layanan komprehensif bagi pasien stroke, mulai dari penanganan akut hingga rehabilitasi.</p>
+                                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">{{ $facility['category'] ?? 'Featured' }}</span>
+                                    <h3 class="fw-bold" style="color: var(--secondary-color);">{{ $facility['name'] }}</h3>
+                                    <p class="text-muted fs-5 mt-3">{{ $facility['short_description'] ?? \Illuminate\Support\Str::limit(strip_tags($facility['description'] ?? ''), 150) }}</p>
                                     <div class="mt-4">
-                                        <a href="{{{ route('facilities.index') }}}#facility-stroke" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Learn More <i class="fas fa-arrow-right ms-2"></i></a>
+                                        <a href="{{ route('facilities.index') }}#facility-{{ $facility['slug'] ?? $facility['id'] }}" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Learn More <i class="fas fa-arrow-right ms-2"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- Item 2 -->
-                        <div class="carousel-item">
-                            <div class="row align-items-center g-0">
-                                <div class="col-md-6 text-center facility-img-wrapper">
-                                    <img src="{{ asset('images/F1670914854.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Klinik Nyeri">
-                                </div>
-                                <div class="col-md-6 p-4 p-md-5">
-                                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">Featured</span>
-                                    <h3 class="fw-bold" style="color: var(--secondary-color);">Klinik Nyeri</h3>
-                                    <p class="text-muted fs-5 mt-3">Klinik Nyeri RS St. Elisabeth menyediakan layanan penanganan nyeri kronis maupun akut secara komprehensif untuk membantu mengelola nyeri secara efektif.</p>
-                                    <div class="mt-4">
-                                        <a href="{{{ route('facilities.index') }}}#facility-nyeri" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Learn More <i class="fas fa-arrow-right ms-2"></i></a>
-                                    </div>
-                                </div>
-                            </div>
+                        @empty
+                        <div class="carousel-item active p-5 text-center">
+                            <p class="text-muted">Belum ada data fasilitas unggulan.</p>
                         </div>
-                        <!-- Item 3 -->
-                        <div class="carousel-item">
-                            <div class="row align-items-center g-0">
-                                <div class="col-md-6 text-center facility-img-wrapper">
-                                    <img src="{{ asset('images/F1670914872.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Pelayanan Neurofisiologi">
-                                </div>
-                                <div class="col-md-6 p-4 p-md-5">
-                                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">Featured</span>
-                                    <h3 class="fw-bold" style="color: var(--secondary-color);">Pelayanan Neurofisiologi</h3>
-                                    <p class="text-muted fs-5 mt-3">Layanan Neurofisiologi kami menyediakan pemeriksaan dan evaluasi fungsi sistem saraf secara komprehensif menggunakan teknologi terkini (EEG, EMG).</p>
-                                    <div class="mt-4">
-                                        <a href="{{{ route('facilities.index') }}}#facility-neuro" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Learn More <i class="fas fa-arrow-right ms-2"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Item 4 -->
-                        <div class="carousel-item">
-                            <div class="row align-items-center g-0">
-                                <div class="col-md-6 text-center facility-img-wrapper">
-                                    <img src="{{ asset('images/F1671680565.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Pelayanan Gawat Darurat">
-                                </div>
-                                <div class="col-md-6 p-4 p-md-5">
-                                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">Featured</span>
-                                    <h3 class="fw-bold" style="color: var(--secondary-color);">Pelayanan Gawat Darurat</h3>
-                                    <p class="text-muted fs-5 mt-3">Instalasi Gawat Darurat (IGD) RS St. Elisabeth Semarang menyediakan layanan gawat darurat 24 jam, yang dilayani oleh tenaga medis andal dan berpengalaman.</p>
-                                    <div class="mt-4">
-                                        <a href="{{{ route('facilities.index') }}}#facility-igd" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Learn More <i class="fas fa-arrow-right ms-2"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Item 5 -->
-                        <div class="carousel-item">
-                            <div class="row align-items-center g-0">
-                                <div class="col-md-6 text-center facility-img-wrapper">
-                                    <img src="{{ asset('images/F1671680579.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Ruang Rawat Intensif">
-                                </div>
-                                <div class="col-md-6 p-4 p-md-5">
-                                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">Featured</span>
-                                    <h3 class="fw-bold" style="color: var(--secondary-color);">Ruang Rawat Intensif</h3>
-                                    <p class="text-muted fs-5 mt-3">Ruang Rawat Intensif (ICU/ICCU) dilengkapi dengan peralatan canggih dan tenaga medis khusus untuk menangani dan memantau pasien kritis 24 jam.</p>
-                                    <div class="mt-4">
-                                        <a href="{{{ route('facilities.index') }}}#facility-icu" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Learn More <i class="fas fa-arrow-right ms-2"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Item 6 -->
-                        <div class="carousel-item">
-                            <div class="row align-items-center g-0">
-                                <div class="col-md-6 text-center facility-img-wrapper">
-                                    <img src="{{ asset('images/F1671680659.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Klinik Spesialis dan Gigi">
-                                </div>
-                                <div class="col-md-6 p-4 p-md-5">
-                                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">Featured</span>
-                                    <h3 class="fw-bold" style="color: var(--secondary-color);">Klinik Spesialis dan Gigi</h3>
-                                    <p class="text-muted fs-5 mt-3">Klinik spesialis yang ditangani oleh dokter-dokter ahli berpengalaman, serta klinik gigi dan mulut untuk perawatan kesehatan gigi komprehensif.</p>
-                                    <div class="mt-4">
-                                        <a href="{{{ route('facilities.index') }}}#facility-klinik" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Learn More <i class="fas fa-arrow-right ms-2"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforelse
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon bg-dark p-3 rounded-circle" aria-hidden="true" style="background-size: 50%;"></span>

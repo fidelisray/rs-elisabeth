@@ -40,9 +40,7 @@ Route::prefix('promotions')->name('promotions.')->group(function () {
 });
 
 // Halaman Fasilitas dan Layanan
-Route::get('/fasilitas', function () {
-    return view('facilities-and-services.index');
-})->name('facilities.index');
+Route::get('/fasilitas', [\App\Http\Controllers\FacilityController::class, 'index'])->name('facilities.index');
 
 // Halaman Ruang Perawatan
 Route::get('/ruang-perawatan', [\App\Http\Controllers\RoomController::class, 'index'])->name('ruang-perawatan.index');

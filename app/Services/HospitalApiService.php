@@ -509,4 +509,28 @@ class HospitalApiService
             }
         });
     }
+
+    /**
+     * Ambil Data Facility Services dari Local CMS API.
+     */
+    public function getFacilityServices(): array
+    {
+        $cacheKey = 'local_cms_facility_services_';
+        $ttl      = config('rsapi.cache_ttl.facility_services', 60);
+
+        return Cache::remember($cacheKey, $ttl, function () {
+            try {
+                $response = Http::get(url('/api/cms/facilities'));
+
+                return $response->successful()
+                    ? $response->json('data', [])
+                    : [];
+            } catch (\Exception $e) {
+                Log::error('Gagal ambil data facility services dari lokal CMS API', [
+                    'error' => $e->getMessage(),
+                ]);
+                return [];
+            }
+        });
+    }
 }
