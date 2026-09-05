@@ -8,4 +8,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateFacilityService extends CreateRecord
 {
     protected static string $resource = FacilityServiceResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

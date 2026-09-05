@@ -14,6 +14,7 @@ class FacilityServiceTable
             ->columns([
                 ImageColumn::make('icon_path')
                     ->label('Preview')
+                    ->disk('public')
                     ->circular(),
                     
                 TextColumn::make('name')

@@ -3,14 +3,15 @@
 namespace App\Filament\Resources\FacilityServices\Schemas;
 
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Grid;
+use Filament\Schemas\Components\Grid;
 use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\Section;
+use Filament\Schemas\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
 
@@ -20,13 +21,16 @@ class FacilityServiceForm
     {
         return $schema
             ->components([
-                Grid::make(3)->schema([
-                    Section::make('Informasi Dasar')->schema([
+                Section::make('Informasi Dasar')
+                    ->columns(2)
+                    ->schema([
                         TextInput::make('name')
                             ->required()
                             ->maxLength(255)
                             ->live(onBlur: true)
-                            ->afterStateUpdated(fn (string $operation, $state, \Filament\Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
+                            ->afterStateUpdated(function (Set $set, ?string $state) {
+                                $set('slug', Str::slug($state));
+                            }),
 
                         TextInput::make('slug')
                             ->required()
@@ -43,7 +47,8 @@ class FacilityServiceForm
                                 'Diagnostik' => 'Diagnostik',
                                 'Unggulan' => 'Unggulan'
                             ])
-                            ->required(),
+                            ->required()
+                            ->columnSpanFull(),
 
                         Textarea::make('short_description')
                             ->maxLength(65535)
@@ -58,42 +63,45 @@ class FacilityServiceForm
                             ->columnSpanFull()
                             ->separator(',')
                             ->helperText('Masukkan poin-poin unggulan (tekan Enter/Koma untuk menambah). Akan muncul sebagai badge centang.'),
-                    ])->columnSpan(2),
+                    ]),
 
-                    Grid::make(1)->schema([
-                        Section::make('Gambar Fasilitas')->schema([
-                            FileUpload::make('icon_path')
-                                ->label('Gambar')
-                                ->image()
-                                ->imageEditor()
-                                ->imageEditorAspectRatioOptions([
-                                    '1:1',
-                                    '4:3',
-                                    '16:9'
-                                ])
-                                ->automaticallyResizeImagesMode('cover')
-                                ->required()
-                                ->directory('facility_services'),
-                        ]),
-                        
-                        Section::make('Call to Action (CTA)')->schema([
-                            TextInput::make('wa_link_text')
-                                ->label('Teks WhatsApp')
-                                ->placeholder('misal: Konsultasi Gizi')
-                                ->maxLength(255),
-                                
-                            TextInput::make('wa_link_url')
-                                ->label('URL / Nomor WhatsApp')
-                                ->placeholder('misal: https://wa.me/6285600600870')
-                                ->maxLength(255),
-                                
-                            Toggle::make('has_appointment_cta')
-                                ->label('Tampilkan Tombol "Buat Janji"?')
-                                ->default(false)
-                                ->helperText('Akan mengarah ke portal registrasi online.'),
-                        ])
-                    ])->columnSpan(1),
-                ]),
+                Section::make('Gambar Fasilitas')
+                    ->schema([
+                        FileUpload::make('icon_path')
+                            ->label('Gambar')
+                            ->disk('public')
+                            ->image()
+                            ->imageEditor()
+                            ->imageEditorAspectRatioOptions([
+                                '1:1',
+                                '4:3',
+                                '16:9'
+                            ])
+                            ->automaticallyResizeImagesMode('cover')
+                            ->required()
+                            ->directory('facility_services')
+                            ->columnSpanFull(),
+                    ]),
+                
+                Section::make('Call to Action (CTA)')
+                    ->columns(2)
+                    ->schema([
+                        TextInput::make('wa_link_text')
+                            ->label('Teks WhatsApp')
+                            ->placeholder('misal: Konsultasi Gizi')
+                            ->maxLength(255),
+                            
+                        TextInput::make('wa_link_url')
+                            ->label('URL / Nomor WhatsApp')
+                            ->placeholder('misal: https://wa.me/6285600600870')
+                            ->maxLength(255),
+                            
+                        Toggle::make('has_appointment_cta')
+                            ->label('Tampilkan Tombol "Buat Janji"?')
+                            ->default(false)
+                            ->helperText('Akan mengarah ke portal registrasi online.')
+                            ->columnSpanFull(),
+                    ]),
             ]);
     }
 }
