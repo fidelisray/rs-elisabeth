@@ -81,9 +81,11 @@ class RoomFacilitiesTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-
+            ->reorderable('sort_order')
             ->defaultSort('sort_order', 'asc')
-
+            ->afterReordering(function (): void {
+                \Illuminate\Support\Facades\Cache::forget('local_cms_room_facilities_');
+            })
             ->filters([
                 SelectFilter::make('category')
                     ->label('Kategori')

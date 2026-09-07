@@ -57,11 +57,8 @@ class RoomFacilityForm
                             ->required()
                             ->helperText('Menentukan di seksi mana ruangan ini ditampilkan di halaman.'),
 
-                        TextInput::make('sort_order')
-                            ->label('Urutan Tampil')
-                            ->numeric()
-                            ->default(0)
-                            ->helperText('Angka kecil = tampil lebih awal. Contoh: 1, 2, 3 ...'),
+                        \Filament\Forms\Components\Hidden::make('sort_order')
+                            ->default(0),
 
                         Toggle::make('is_active')
                             ->label('Aktif / Tampilkan di Halaman')
