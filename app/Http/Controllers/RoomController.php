@@ -36,4 +36,22 @@ class RoomController extends Controller
             'standardRooms'
         ));
     }
+
+    /**
+     * Menampilkan halaman detail khusus untuk satu Ruang Perawatan.
+     */
+    public function show($slug)
+    {
+        $roomsData = $this->apiService->getRoomFacilities();
+        $room = collect($roomsData)->firstWhere('slug', $slug);
+
+        if (!$room) {
+            abort(404, 'Ruang Perawatan tidak ditemukan.');
+        }
+
+        // Cast ke object agar seragam penggunaannya di blade ($room->name)
+        $room = (object) $room;
+
+        return view('ruang-perawatan.show', compact('room'));
+    }
 }

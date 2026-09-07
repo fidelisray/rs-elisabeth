@@ -385,7 +385,7 @@
                     @if(count($facilities) > 0)
                     <div class="carousel-indicators">
                         @foreach ($facilities as $index => $facility)
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }} bg-dark" aria-current="{{ $index === 0 ? 'true' : 'false' }}" aria-label="Slide {{ $index + 1 }}"></button>
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }} bg-dark" aria-current="{{ $index === 0 ? 'true' : 'false' }}" aria-label="Slide {{ $index + 1 }}"></button>
                         @endforeach
                     </div>
                     @endif
@@ -440,7 +440,7 @@
                                     <img src="{{ !empty($promo->image_path) ? asset('storage/'.$promo->image_path) : asset('images/placeholder.jpg') }}" class="card-img-top" alt="{{ $promo->title ?? 'Promo' }}">
                                     <div class="card-body d-flex flex-column">
                                         <h5 class="card-title fw-bold text-primary mb-2" style="text-transform: capitalize;">{{ $promo->title ?? 'Promo' }}</h5>
-                                        <p class="card-text text-muted small flex-grow-1">{{ $promo->description ?? 'Penawaran spesial dari RS St. Elisabeth Semarang.' }}</p>
+                                        <p class="card-text text-muted small flex-grow-1">{{ Str::limit($promo->description ?? 'Penawaran spesial dari RS St. Elisabeth Semarang.', 50) }}</p>
                                         <div class="mt-3 text-end">
                                             <span class="text-secondary fw-semibold small">Lihat Detail <i class="fa-solid fa-arrow-right ms-1"></i></span>
                                         </div>

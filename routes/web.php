@@ -44,6 +44,7 @@ Route::get('/fasilitas', [\App\Http\Controllers\FacilityController::class, 'inde
 
 // Halaman Ruang Perawatan
 Route::get('/ruang-perawatan', [\App\Http\Controllers\RoomController::class, 'index'])->name('ruang-perawatan.index');
+Route::get('/ruang-perawatan/{slug}', [\App\Http\Controllers\RoomController::class, 'show'])->name('ruang-perawatan.show');
 
 // Halaman Tentang Kami
 Route::get('/tentang-kami', function () {

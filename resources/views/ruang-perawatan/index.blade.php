@@ -218,7 +218,9 @@
                                     <div class="premium-ribbon"></div>
                                 @endif
                                 <div class="premium-img-wrapper">
-                                    <img src="{{ !empty($room->image_path) ? asset('storage/' . $room->image_path) : ($room->image_url ?? asset('images/feature.jpg')) }}" alt="{{ $room->name }} RS St. Elisabeth Semarang">
+                                    <a href="{{ route('ruang-perawatan.show', $room->slug) }}" class="d-block w-100 h-100">
+                                        <img src="{{ !empty($room->image_path) ? asset('storage/' . $room->image_path) : ($room->image_url ?? asset('images/feature.jpg')) }}" alt="{{ $room->name }} RS St. Elisabeth Semarang">
+                                    </a>
                                     <span class="room-category-label">{{ $room->name }}</span>
                                 </div>
                                 <div class="premium-card-body">
@@ -272,15 +274,20 @@
                                     @endif
 
                                     <div class="premium-card-cta">
-                                        @php
-                                            $waText = $room->whatsapp_text ?? 'Halo, saya ingin informasi ruangan ' . $room->name;
-                                        @endphp
-                                        <a href="https://wa.me/6285600600870?text={{ urlencode($waText) }}" target="_blank" class="btn-gold">
-                                            <i class="fa-brands fa-whatsapp"></i> Tanya Ketersediaan
+                                        <a href="{{ route('ruang-perawatan.show', $room->slug) }}" class="btn-gold-outline w-100 mb-2 d-flex align-items-center justify-content-center gap-2">
+                                            <i class="fa-solid fa-circle-info"></i> Lihat Detail Lengkap
                                         </a>
-                                        <a href="https://regonline.rs-elisabeth.com" target="_blank" class="btn-gold-outline">
-                                            <i class="fa-regular fa-calendar-check"></i>
-                                        </a>
+                                        <div class="d-flex w-100 gap-2">
+                                            @php
+                                                $waText = $room->whatsapp_text ?? 'Halo, saya ingin informasi ruangan ' . $room->name;
+                                            @endphp
+                                            <a href="https://wa.me/6285600600870?text={{ urlencode($waText) }}" target="_blank" class="btn-gold flex-grow-1 d-flex align-items-center justify-content-center gap-1">
+                                                <i class="fa-brands fa-whatsapp"></i> Tanya
+                                            </a>
+                                            <a href="https://regonline.rs-elisabeth.com" target="_blank" class="btn-gold-outline d-flex align-items-center justify-content-center">
+                                                <i class="fa-regular fa-calendar-check"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -492,7 +499,9 @@
                             <div class="standard-room-card room-{{ strtolower(str_replace(' ', '', $room->name)) }}">
                                 <div class="card-top-bar"></div>
                                 <div class="std-img-wrapper">
-                                    <img src="{{ !empty($room->image_path) ? asset('storage/' . $room->image_path) : ($room->image_url ?? asset('images/placeholder.jpg')) }}" alt="{{ $room->name }} RS St. Elisabeth Semarang">
+                                    <a href="{{ route('ruang-perawatan.show', $room->slug) }}" class="d-block w-100 h-100">
+                                        <img src="{{ !empty($room->image_path) ? asset('storage/' . $room->image_path) : ($room->image_url ?? asset('images/placeholder.jpg')) }}" alt="{{ $room->name }} RS St. Elisabeth Semarang">
+                                    </a>
                                 </div>
                                 <div class="std-card-body">
                                     <span class="std-class-label">
@@ -519,11 +528,14 @@
                                     </div>
                                     @endif
 
-                                    <div class="std-card-cta">
+                                    <div class="std-card-cta d-flex flex-column gap-2 mt-auto">
+                                        <a href="{{ route('ruang-perawatan.show', $room->slug) }}" class="btn btn-outline-primary w-100 rounded-pill d-flex align-items-center justify-content-center gap-2">
+                                            <i class="fa-solid fa-circle-info"></i> Lihat Detail
+                                        </a>
                                         @php
                                             $waText = $room->whatsapp_text ?? 'Halo, saya ingin informasi ruangan ' . $room->name;
                                         @endphp
-                                        <a href="https://wa.me/6285600600870?text={{ urlencode($waText) }}" target="_blank" class="btn-blue">
+                                        <a href="https://wa.me/6285600600870?text={{ urlencode($waText) }}" target="_blank" class="btn-blue w-100 d-flex align-items-center justify-content-center gap-2">
                                             <i class="fa-brands fa-whatsapp"></i> Tanya Ketersediaan
                                         </a>
                                     </div>
