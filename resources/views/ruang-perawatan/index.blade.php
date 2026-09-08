@@ -515,7 +515,7 @@
                                     </p>
                                     @endif
                                     
-                                    <p class="std-desc">{{ $room->description }}</p>
+                                    <p class="std-desc">{{ Str::limit(strip_tags($room->description), 180) }}</p>
                                     
                                     @if($room->highlight_tags && is_array($room->highlight_tags))
                                     <div class="std-amenity-chips">

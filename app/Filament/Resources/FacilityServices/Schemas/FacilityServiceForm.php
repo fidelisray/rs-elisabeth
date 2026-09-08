@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\FacilityServices\Schemas;
 
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Hidden;
 use Filament\Schemas\Components\Grid;
 use Filament\Forms\Components\RichEditor;
 use Filament\Schemas\Components\Section;
@@ -100,6 +101,24 @@ class FacilityServiceForm
                             ->label('Tampilkan Tombol "Buat Janji"?')
                             ->default(false)
                             ->helperText('Akan mengarah ke portal registrasi online.')
+                            ->columnSpanFull(),
+                    ]),
+
+                Section::make('Pengaturan Tampilan')
+                    ->description('Atur urutan tampil dan visibilitas fasilitas ini di halaman frontend.')
+                    ->columns(2)
+                    ->schema([
+                        TextInput::make('sort_order')
+                            ->label('Urutan Tampil')
+                            ->numeric()
+                            ->default(0)
+                            ->minValue(0)
+                            ->helperText('Semakin kecil angkanya, semakin awal tampil. Default: 0.'),
+
+                        Toggle::make('is_active')
+                            ->label('Aktif / Tampilkan di Halaman')
+                            ->default(true)
+                            ->helperText('Non-aktifkan untuk menyembunyikan fasilitas ini dari halaman publik tanpa menghapus data.')
                             ->columnSpanFull(),
                     ]),
             ]);

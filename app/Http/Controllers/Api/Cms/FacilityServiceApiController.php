@@ -8,9 +8,17 @@ use App\Models\FacilityService;
 
 class FacilityServiceApiController extends Controller
 {
+    /**
+     * Mengembalikan daftar fasilitas & layanan yang aktif,
+     * diurutkan berdasarkan sort_order lalu name.
+     */
     public function index()
     {
-        $facilities = FacilityService::query()->latest()->get();
+        $facilities = FacilityService::query()
+            ->where('is_active', true)
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->get();
 
         return FacilityServiceResource::collection($facilities);
     }

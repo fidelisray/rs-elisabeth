@@ -2,8 +2,13 @@
 
 namespace App\Filament\Resources\FacilityServices\Tables;
 
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 
 class FacilityServiceTable
@@ -16,28 +21,58 @@ class FacilityServiceTable
                     ->label('Preview')
                     ->disk('public')
                     ->circular(),
-                    
+
+                TextColumn::make('sort_order')
+                    ->label('Urutan')
+                    ->sortable()
+                    ->alignCenter(),
+
                 TextColumn::make('name')
+                    ->label('Nama Fasilitas')
                     ->searchable()
-                    ->sortable(),
-                    
+                    ->sortable()
+                    ->weight('bold'),
+
                 TextColumn::make('category')
+                    ->label('Kategori')
                     ->badge()
                     ->searchable()
                     ->sortable(),
-                    
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                    
+
+                IconColumn::make('is_active')
+                    ->label('Aktif')
+                    ->boolean()
+                    ->trueIcon('heroicon-o-check-circle')
+                    ->falseIcon('heroicon-o-x-circle')
+                    ->trueColor('success')
+                    ->falseColor('danger')
+                    ->alignCenter(),
+
                 TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->label('Diperbarui')
+                    ->dateTime('d M Y, H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->reorderable('sort_order')
+            ->defaultSort('sort_order', 'asc')
+            ->afterReordering(function (): void {
+                \Illuminate\Support\Facades\Cache::forget('local_cms_facility_services_');
+            })
             ->filters([
-                //
+                TernaryFilter::make('is_active')
+                    ->label('Status Aktif')
+                    ->trueLabel('Aktif saja')
+                    ->falseLabel('Non-aktif saja')
+                    ->placeholder('Semua'),
+            ])
+            ->recordActions([
+                EditAction::make(),
+            ])
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                ]),
             ]);
     }
 }
