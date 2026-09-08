@@ -692,7 +692,87 @@
             </div>{{-- end container --}}
         </section>
 
-        {{-- ===== COMPARISON TABLE ===== --}}
+        {{-- ===== COMPARISON TABLE (DYNAMIC) ===== --}}
+        @php
+            // Casting array associative menjadi object agar lebih mudah diakses di Blade
+            $allRooms = collect($roomsData)->map(fn($item) => (object) $item);
+            
+            // Mengumpulkan semua fitur perbandingan yang unik dari seluruh ruangan
+            $allFeatures = collect();
+            foreach($allRooms as $room) {
+                if(isset($room->comparison_features) && is_array($room->comparison_features)) {
+                    foreach($room->comparison_features as $feature) {
+                        $allFeatures->push($feature['feature_name']);
+                    }
+                }
+            }
+            $uniqueFeatures = $allFeatures->unique()->values();
+        @endphp
+
+        @if($allRooms->isNotEmpty() && $uniqueFeatures->isNotEmpty())
+        <section id="room-comparison">
+            <div class="container">
+                <div class="comparison-header">
+                    <h2 class="comparison-title">Perbandingan Fasilitas Ruangan</h2>
+                    <p class="comparison-desc">Bandingkan semua fasilitas di setiap kelas ruang perawatan kami secara mudah.</p>
+                </div>
+                <div class="table-responsive">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th style="text-align:left; padding-left:1.25rem;">Fasilitas</th>
+                                @foreach($allRooms as $room)
+                                    <th class="{{ $room->category === 'premium' ? 'col-premium' : '' }}">
+                                        {{ $room->name }}
+                                    </th>
+                                @endforeach
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($uniqueFeatures as $featureName)
+                            <tr>
+                                <td>{{ $featureName }}</td>
+                                @foreach($allRooms as $room)
+                                    @php
+                                        // Cari nilai fitur untuk ruangan ini
+                                        $featureVal = null;
+                                        if(isset($room->comparison_features) && is_array($room->comparison_features)) {
+                                            $featureVal = collect($room->comparison_features)->firstWhere('feature_name', $featureName);
+                                        }
+                                        
+                                        $val = $featureVal ? strtolower(trim($featureVal['feature_value'])) : 'no';
+                                        $isPremium = $room->category === 'premium';
+                                        $tdClass = $isPremium ? 'cell-premium' : '';
+                                    @endphp
+                                    <td class="{{ $tdClass }}">
+                                        @if($val === 'yes')
+                                            <i class="fa-solid fa-check check-yes"></i>
+                                        @elseif($val === 'no' || $val === 'tidak' || $val === '-')
+                                            <i class="fa-solid fa-minus check-no"></i>
+                                        @elseif($val === 'premium' || $val === 'gold')
+                                            <i class="fa-solid fa-check check-gold"></i>
+                                        @else
+                                            <small {!! $isPremium ? 'style="color:#c9a84c"' : 'class="text-muted"' !!}>
+                                                {{ $featureVal['feature_value'] ?? '' }}
+                                            </small>
+                                        @endif
+                                    </td>
+                                @endforeach
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-center text-muted mt-3" style="font-size:0.8rem;">
+                    <i class="fa-solid fa-circle-info me-1"></i>
+                    Fasilitas dapat berubah. Hubungi kami untuk informasi terkini dan ketersediaan kamar.
+                </p>
+            </div>
+        </section>
+        @endif
+
+        {{-- OLD ROOM-COMPARISON SECTION FOR BACKUP --}}
+        @if(false)
         <section id="room-comparison">
             <div class="container">
                 <div class="comparison-header">
@@ -823,6 +903,7 @@
                 </p>
             </div>
         </section>
+        @endif
 
         {{-- ===== CTA BANNER ===== --}}
         <section id="room-cta-banner">

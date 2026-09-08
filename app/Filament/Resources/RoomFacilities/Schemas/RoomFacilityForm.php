@@ -236,6 +236,55 @@ class RoomFacilityForm
                             ->columnSpanFull(),
                     ]),
 
+                // ─────────────────────────────────────────────
+                // SECTION 8: Fasilitas Perbandingan (Matrix)
+                // ─────────────────────────────────────────────
+                Section::make('Fasilitas Perbandingan (Matrix)')
+                    ->description('Data ini digunakan khusus untuk merender Tabel Perbandingan antar ruangan secara dinamis.')
+                    ->schema([
+
+                        Repeater::make('comparison_features')
+                            ->label('Item Perbandingan')
+                            ->schema([
+
+                                Select::make('feature_name')
+                                    ->label('Nama Fasilitas')
+                                    ->options([
+                                        'Kamar mandi dalam (private)' => 'Kamar mandi dalam (private)',
+                                        'AC individual (thermostat)' => 'AC individual (thermostat)',
+                                        'Televisi' => 'Televisi',
+                                        'Wi-Fi Internet' => 'Wi-Fi Internet',
+                                        'Ruang tamu / sofa' => 'Ruang tamu / sofa',
+                                        'Kulkas' => 'Kulkas',
+                                        'Makan pasien (3× sehari)' => 'Makan pasien (3× sehari)',
+                                        'Perawat personal / dedicated' => 'Perawat personal / dedicated',
+                                        'Jumlah bed per kamar' => 'Jumlah bed per kamar',
+                                        'Akomodasi BPJS Kesehatan' => 'Akomodasi BPJS Kesehatan',
+                                    ])
+                                    ->searchable()
+                                    ->createOptionForm([
+                                        TextInput::make('feature_name')
+                                            ->label('Nama Fasilitas Baru')
+                                            ->required(),
+                                    ])
+                                    ->createOptionUsing(function (array $data) {
+                                        return $data['feature_name'];
+                                    })
+                                    ->required(),
+
+                                TextInput::make('feature_value')
+                                    ->label('Nilai / Status')
+                                    ->placeholder('Misal: yes, no, premium, atau teks (55" Smart TV)')
+                                    ->helperText('Ketik "yes" (✅), "no" (✖), "premium" (✅ emas), atau teks custom.')
+                                    ->required(),
+                            ])
+                            ->columns(2)
+                            ->addActionLabel('+ Tambah Item Perbandingan')
+                            ->defaultItems(0)
+                            ->collapsible()
+                            ->columnSpanFull(),
+                    ]),
+
             ]);
     }
 }

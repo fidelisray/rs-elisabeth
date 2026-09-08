@@ -22,10 +22,11 @@ class RoomFacilityResource extends BaseCmsResource
             'bed_count'      => $this->bed_count,
             'max_companion'  => $this->max_companion,
             'image_path'     => $this->image_path,
-            'image_url'      => $this->generateImageUrl($this->image_path),
-            'amenities'      => $this->amenities ?? [],
-            'highlight_tags' => $this->highlight_tags ?? [],
-            'sort_order'     => $this->sort_order,
+            'image_url'           => $this->generateImageUrl($this->image_path),
+            'amenities'           => $this->amenities ?? [],
+            'highlight_tags'      => $this->highlight_tags ?? [],
+            'comparison_features' => $this->comparison_features ?? [],
+            'sort_order'          => $this->sort_order,
         ];
     }
 }

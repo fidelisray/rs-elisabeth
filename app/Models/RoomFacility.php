@@ -33,16 +33,18 @@ class RoomFacility extends Model
         'whatsapp_text',
         'sort_order',
         'is_active',
+        'comparison_features',
     ];
 
     /**
      * Cast JSON columns to array and boolean column to bool.
      */
     protected $casts = [
-        'amenities'      => 'array',
-        'highlight_tags' => 'array',
-        'is_active'      => 'boolean',
-        'sort_order'     => 'integer',
+        'amenities'           => 'array',
+        'highlight_tags'      => 'array',
+        'comparison_features' => 'array',
+        'is_active'           => 'boolean',
+        'sort_order'          => 'integer',
     ];
 
     /**
