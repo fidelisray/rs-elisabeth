@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\RoomFacilities\Schemas;
 
+use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
@@ -240,26 +241,33 @@ class RoomFacilityForm
                 // SECTION 8: Fasilitas Perbandingan (Matrix)
                 // ─────────────────────────────────────────────
                 Section::make('Fasilitas Perbandingan (Matrix)')
-                    ->description('Data ini digunakan khusus untuk merender Tabel Perbandingan antar ruangan secara dinamis.')
+                    ->description('Centang fasilitas standar yang ada, dan tambahkan fasilitas dengan spesifikasi khusus jika diperlukan.')
                     ->schema([
 
-                        Repeater::make('comparison_features')
-                            ->label('Item Perbandingan')
+                        CheckboxList::make('comparison_features.boolean_features')
+                            ->label('Fasilitas Standar (Ya/Tidak)')
+                            ->options([
+                                'Kamar mandi dalam (private)' => 'Kamar mandi dalam (private)',
+                                'Ruang tamu / sofa' => 'Ruang tamu / sofa',
+                                'Kulkas' => 'Kulkas',
+                                'Makan pasien (3× sehari)' => 'Makan pasien (3× sehari)',
+                                'Akomodasi BPJS Kesehatan' => 'Akomodasi BPJS Kesehatan',
+                            ])
+                            ->columns(3)
+                            ->columnSpanFull(),
+
+                        Repeater::make('comparison_features.text_features')
+                            ->label('Fasilitas Dinamis (Spesifikasi Teks)')
                             ->schema([
 
                                 Select::make('feature_name')
                                     ->label('Nama Fasilitas')
                                     ->options([
-                                        'Kamar mandi dalam (private)' => 'Kamar mandi dalam (private)',
                                         'AC individual (thermostat)' => 'AC individual (thermostat)',
                                         'Televisi' => 'Televisi',
                                         'Wi-Fi Internet' => 'Wi-Fi Internet',
-                                        'Ruang tamu / sofa' => 'Ruang tamu / sofa',
-                                        'Kulkas' => 'Kulkas',
-                                        'Makan pasien (3× sehari)' => 'Makan pasien (3× sehari)',
-                                        'Perawat personal / dedicated' => 'Perawat personal / dedicated',
                                         'Jumlah bed per kamar' => 'Jumlah bed per kamar',
-                                        'Akomodasi BPJS Kesehatan' => 'Akomodasi BPJS Kesehatan',
+                                        'Perawat personal / dedicated' => 'Perawat personal / dedicated',
                                     ])
                                     ->searchable()
                                     ->createOptionForm([
@@ -273,13 +281,12 @@ class RoomFacilityForm
                                     ->required(),
 
                                 TextInput::make('feature_value')
-                                    ->label('Nilai / Status')
-                                    ->placeholder('Misal: yes, no, premium, atau teks (55" Smart TV)')
-                                    ->helperText('Ketik "yes" (✅), "no" (✖), "premium" (✅ emas), atau teks custom.')
+                                    ->label('Nilai / Spesifikasi')
+                                    ->placeholder('Misal: 55" Smart TV, Central, Bersama')
                                     ->required(),
                             ])
                             ->columns(2)
-                            ->addActionLabel('+ Tambah Item Perbandingan')
+                            ->addActionLabel('+ Tambah Fasilitas Dinamis')
                             ->defaultItems(0)
                             ->collapsible()
                             ->columnSpanFull(),

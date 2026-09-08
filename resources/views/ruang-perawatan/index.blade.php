@@ -694,15 +694,32 @@
 
         {{-- ===== COMPARISON TABLE (DYNAMIC) ===== --}}
         @php
-            // Casting array associative menjadi object agar lebih mudah diakses di Blade
-            $allRooms = collect($roomsData)->map(fn($item) => (object) $item);
+            // Menggabungkan Premium dan Standar agar Premium selalu di depan.
+            // Masing-masing kelompok sudah diurutkan berdasarkan sort_order dari controller.
+            $allRooms = $premiumRooms->merge($standardRooms);
             
             // Mengumpulkan semua fitur perbandingan yang unik dari seluruh ruangan
             $allFeatures = collect();
             foreach($allRooms as $room) {
-                if(isset($room->comparison_features) && is_array($room->comparison_features)) {
-                    foreach($room->comparison_features as $feature) {
-                        $allFeatures->push($feature['feature_name']);
+                $compFeatures = $room->comparison_features;
+                
+                // Backward compatibility: jika datanya menggunakan format lama (array rata)
+                if(is_array($compFeatures) && isset($compFeatures[0]['feature_name'])) {
+                    $compFeatures = ['text_features' => $compFeatures];
+                }
+
+                if(is_array($compFeatures)) {
+                    // Extract dari boolean_features
+                    if(isset($compFeatures['boolean_features']) && is_array($compFeatures['boolean_features'])) {
+                        foreach($compFeatures['boolean_features'] as $bFeature) {
+                            $allFeatures->push($bFeature);
+                        }
+                    }
+                    // Extract dari text_features
+                    if(isset($compFeatures['text_features']) && is_array($compFeatures['text_features'])) {
+                        foreach($compFeatures['text_features'] as $tFeature) {
+                            $allFeatures->push($tFeature['feature_name']);
+                        }
                     }
                 }
             }
@@ -734,14 +751,33 @@
                                 <td>{{ $featureName }}</td>
                                 @foreach($allRooms as $room)
                                     @php
-                                        // Cari nilai fitur untuk ruangan ini
-                                        $featureVal = null;
-                                        if(isset($room->comparison_features) && is_array($room->comparison_features)) {
-                                            $featureVal = collect($room->comparison_features)->firstWhere('feature_name', $featureName);
+                                        $val = 'no';
+                                        $displayValue = '';
+                                        $isPremium = $room->category === 'premium';
+                                        
+                                        $compFeatures = $room->comparison_features;
+                                        // Backward compatibility
+                                        if(is_array($compFeatures) && isset($compFeatures[0]['feature_name'])) {
+                                            $compFeatures = ['text_features' => $compFeatures];
+                                        }
+
+                                        if(is_array($compFeatures)) {
+                                            if(isset($compFeatures['boolean_features']) && in_array($featureName, $compFeatures['boolean_features'])) {
+                                                $val = $isPremium ? 'premium' : 'yes';
+                                            } elseif(isset($compFeatures['text_features'])) {
+                                                $featureVal = collect($compFeatures['text_features'])->firstWhere('feature_name', $featureName);
+                                                if($featureVal) {
+                                                    $rawVal = strtolower(trim($featureVal['feature_value']));
+                                                    if(in_array($rawVal, ['yes', 'no', 'premium', 'gold', 'tidak', '-'])) {
+                                                        $val = $rawVal;
+                                                    } else {
+                                                        $val = 'text';
+                                                        $displayValue = $featureVal['feature_value'];
+                                                    }
+                                                }
+                                            }
                                         }
                                         
-                                        $val = $featureVal ? strtolower(trim($featureVal['feature_value'])) : 'no';
-                                        $isPremium = $room->category === 'premium';
                                         $tdClass = $isPremium ? 'cell-premium' : '';
                                     @endphp
                                     <td class="{{ $tdClass }}">
@@ -751,9 +787,9 @@
                                             <i class="fa-solid fa-minus check-no"></i>
                                         @elseif($val === 'premium' || $val === 'gold')
                                             <i class="fa-solid fa-check check-gold"></i>
-                                        @else
+                                        @elseif($val === 'text')
                                             <small {!! $isPremium ? 'style="color:#c9a84c"' : 'class="text-muted"' !!}>
-                                                {{ $featureVal['feature_value'] ?? '' }}
+                                                {{ $displayValue }}
                                             </small>
                                         @endif
                                     </td>
