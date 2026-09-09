@@ -15,7 +15,7 @@ class BannerPromotionForm
             ->components([
                 TextInput::make('title')
                     ->label('Judul Banner')
-                    ->helperText('Digunakan sebagai atribut alt="" pada gambar (untuk SEO & aksesibilitas).')
+                    // ->helperText('Digunakan sebagai atribut alt="" pada gambar (untuk SEO & aksesibilitas).')
                     ->maxLength(255)
                     ->required()
                     ->columnSpanFull(),
@@ -41,7 +41,7 @@ class BannerPromotionForm
 
                 Toggle::make('is_active')
                     ->label('Aktif dan Tampilkan di halaman website')
-                    ->helperText('Aktifkan agar banner ini muncul di carousel halaman utama.')
+                    // ->helperText('Aktifkan agar banner ini muncul di carousel halaman utama.')
                     ->default(false),
             ]);
     }
