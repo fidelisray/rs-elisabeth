@@ -42,11 +42,11 @@ class RoomFacilityForm
 
                         TextInput::make('slug')
                             ->label('URL Identifier')
-                            ->placeholder('contoh-nama-ruangan')
+                            ->placeholder('Klik pada form akan terisi otomatis')
                             ->required()
                             ->maxLength(100)
                             ->unique(ignoreRecord: true)
-                            ->helperText('Terisi otomatis dari Nama Ruangan. Bisa diedit manual jika perlu.'),
+                            ->helperText('Dapat diedit jika diperlukan'),
 
                         Select::make('category')
                             ->label('Kategori Ruangan')
@@ -56,14 +56,14 @@ class RoomFacilityForm
                                 'standard' => 'Standard (VIP, Kelas I, II, III)',
                             ])
                             ->required()
-                            ->helperText('Menentukan di seksi mana ruangan ini ditampilkan di halaman.'),
+                            ->helperText('Menentukan di section mana ruangan ini akan ditampilkan'),
 
                         \Filament\Forms\Components\Hidden::make('sort_order')
                             ->default(0),
 
                         Toggle::make('is_active')
-                            ->label('Aktif / Tampilkan di Halaman')
-                            ->default(true)
+                            ->label('Aktif dan Tampilkan di Halaman')
+                            ->default(false)
                             ->columnSpanFull(),
                     ]),
 
@@ -76,36 +76,42 @@ class RoomFacilityForm
 
                         TextInput::make('room_size')
                             ->label('Luas Kamar')
-                            ->placeholder('Contoh: ~40 m²')
-                            ->maxLength(50),
+                            ->numeric()
+                            ->suffix('m²')
+                            ->placeholder('Contoh: 40')
+                            ->maxValue(999),
 
                         TextInput::make('bed_count')
                             ->label('Jumlah Tempat Tidur')
-                            ->placeholder('Contoh: 1 Tempat Tidur')
-                            ->maxLength(50),
+                            ->numeric()
+                            ->suffix('Bed')
+                            ->placeholder('Contoh: 1')
+                            ->maxValue(99),
 
                         TextInput::make('max_companion')
                             ->label('Maks. Penunggu')
-                            ->placeholder('Contoh: Max 2 Penunggu')
-                            ->maxLength(50),
+                            ->numeric()
+                            ->suffix('Orang')
+                            ->placeholder('Contoh: 2')
+                            ->maxValue(99),
                     ]),
 
                 // ─────────────────────────────────────────────
-                // SECTION 3: Konten
+                // SECTION 3: Deskripsi
                 // ─────────────────────────────────────────────
-                Section::make('Konten Ruangan')
+                Section::make('Deskripsi Ruangan')
                     ->schema([
 
                         Textarea::make('tagline')
                             ->label('Tagline / Deskripsi Singkat')
-                            ->placeholder('Deskripsi singkat 1-2 kalimat yang muncul di card ruangan...')
+                            ->placeholder('Deskripsi singkat sebagai Highlight untuk ruangan ini...')
                             ->maxLength(500)
                             ->rows(3)
                             ->columnSpanFull(),
 
                         Textarea::make('description')
                             ->label('Deskripsi Lengkap')
-                            ->placeholder('Deskripsi lengkap ruangan...')
+                            ->placeholder('Deskripsi lengkap ruangan terkait fasilitas, keunggulan, atau layanan lainnya...')
                             ->rows(5)
                             ->columnSpanFull(),
                     ]),
@@ -114,7 +120,7 @@ class RoomFacilityForm
                 // SECTION 4: Foto Ruangan
                 // ─────────────────────────────────────────────
                 Section::make('Foto Ruangan')
-                    ->description('Upload foto ruangan dengan format landscape (16:9). Contoh resolusi: 1280×720, 1920×1080. Ukuran maksimal 1 MB.')
+                    ->description('Upload foto ruangan dengan format landscape (16:9)')
                     ->schema([
 
                         FileUpload::make('image_path')
@@ -132,7 +138,7 @@ class RoomFacilityForm
                             ->automaticallyResizeImagesMode('cover')
                             ->maxSize(5120) // 5 MB
                             ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
-                            ->helperText('Upload foto ruangan (JPG/PNG/WebP, maks 5 MB). Editor akan membantu Anda memotong gambar ke rasio 16:9. Gambar akan dikonversi ke WebP secara otomatis.')
+                            ->helperText('Upload foto dengan format JPEG/JPG/PNG/WebP, ukuran maksimal 5 MB, Resolusi ideal 1920x1080')
                             ->columnSpanFull(),
                     ]),
 
@@ -140,7 +146,7 @@ class RoomFacilityForm
                 // SECTION 5: Fasilitas (Amenities)
                 // ─────────────────────────────────────────────
                 Section::make('Daftar Fasilitas')
-                    ->description('Kelompokkan fasilitas dalam grup (misal: "Kamar & Ruangan", "Layanan Eksklusif").')
+                    ->description('Kelompokkan fasilitas dalam grup (contoh: "Kamar & Ruangan", "Layanan Eksklusif")...')
                     ->schema([
 
                         Repeater::make('amenities')
@@ -169,7 +175,7 @@ class RoomFacilityForm
                 // SECTION 6: Highlight Tags
                 // ─────────────────────────────────────────────
                 Section::make('Highlight Tags')
-                    ->description('Tags ringkas yang muncul di bagian bawah card (ikon + label singkat).')
+                    ->description('Highlight keunggulan utama yang dimiliki ruangan ini')
                     ->schema([
 
                         Repeater::make('highlight_tags')
@@ -182,12 +188,12 @@ class RoomFacilityForm
                                         'Fasilitas & Kenyamanan' => [
                                             'fa-solid fa-bed' => 'Tempat Tidur',
                                             'fa-solid fa-couch' => 'Sofa / Ruang Tamu',
-                                            'fa-solid fa-bath' => 'Kamar Mandi Dalam',
+                                            'fa-solid fa-bath' => 'Kamar Mandi',
                                             'fa-solid fa-snowflake' => 'AC / Pendingin Ruangan',
                                             'fa-solid fa-tv' => 'TV / Hiburan',
                                             'fa-solid fa-wifi' => 'WiFi / Internet',
-                                            'fa-solid fa-mug-hot' => 'Pembuat Kopi & Teh',
-                                            'fa-solid fa-utensils' => 'Meja Makan / Dapur',
+                                            'fa-solid fa-mug-hot' => 'Dispenser / Teko Elektrik',
+                                            'fa-solid fa-utensils' => 'Meja / Lemari Pribadi',
                                             'fa-solid fa-temperature-arrow-down' => 'Kulkas',
                                         ],
                                         'Pelayanan & Medis' => [
@@ -225,49 +231,52 @@ class RoomFacilityForm
                 // ─────────────────────────────────────────────
                 // SECTION 7: CTA / WhatsApp
                 // ─────────────────────────────────────────────
-                Section::make('Call-to-Action (WhatsApp)')
-                    ->description('Teks pesan yang akan dikirim saat pengunjung klik tombol WhatsApp di halaman ruangan ini.')
+                Section::make('Pengaturan Pesan Whatsapp')
+                    ->description('Tentukan pesan default yang akan secara otomatis terketik saat pengunjung menekan tombol WhatsApp di bagian ruangan ini')
                     ->schema([
 
                         TextInput::make('whatsapp_text')
                             ->label('Teks Pesan WhatsApp')
                             ->placeholder('Contoh: Halo, saya ingin informasi President Suite')
                             ->maxLength(255)
-                            ->helperText('Teks ini akan di-encode URL otomatis di frontend.')
+                            // ->helperText('Pesan ini akan menjadi default message saat pengunjung mengklik tombol WhatsApp di halaman ruangan ini.')
                             ->columnSpanFull(),
                     ]),
 
                 // ─────────────────────────────────────────────
-                // SECTION 8: Fasilitas Perbandingan (Matrix)
+                // SECTION 8: Perbandingan Fasilitas
                 // ─────────────────────────────────────────────
-                Section::make('Fasilitas Perbandingan (Matrix)')
+                Section::make('Fasilitas Yang Didapatkan')
                     ->description('Centang fasilitas standar yang ada, dan tambahkan fasilitas dengan spesifikasi khusus jika diperlukan.')
                     ->schema([
 
                         CheckboxList::make('comparison_features.boolean_features')
                             ->label('Fasilitas Standar (Ya/Tidak)')
                             ->options([
-                                'Kamar mandi dalam (private)' => 'Kamar mandi dalam (private)',
+                                'Kamar mandi private' => 'Kamar mandi private',
                                 'Ruang tamu / sofa' => 'Ruang tamu / sofa',
                                 'Kulkas' => 'Kulkas',
-                                'Makan pasien (3× sehari)' => 'Makan pasien (3× sehari)',
+                                'Kipas Angin' => 'Kipas Angin',
                                 'Akomodasi BPJS Kesehatan' => 'Akomodasi BPJS Kesehatan',
+                                'Tempat Tidur Penunggu Pasien' => 'Tempat Tidur Penunggu Pasien',
+                                'Lemari' => 'Lemari',
+                                'Meja' => 'Meja',
                             ])
                             ->columns(3)
                             ->columnSpanFull(),
 
                         Repeater::make('comparison_features.text_features')
-                            ->label('Fasilitas Dinamis (Spesifikasi Teks)')
+                            ->label('Fasilitas Tambahan')
                             ->schema([
 
                                 Select::make('feature_name')
                                     ->label('Nama Fasilitas')
                                     ->options([
-                                        'AC individual (thermostat)' => 'AC individual (thermostat)',
+                                        'Air Conditioner (AC)' => 'Air Conditioner (AC)',
                                         'Televisi' => 'Televisi',
                                         'Wi-Fi Internet' => 'Wi-Fi Internet',
                                         'Jumlah bed per kamar' => 'Jumlah bed per kamar',
-                                        'Perawat personal / dedicated' => 'Perawat personal / dedicated',
+                                        'Perawat personal' => 'Perawat personal',
                                     ])
                                     ->searchable()
                                     ->createOptionForm([
@@ -281,12 +290,12 @@ class RoomFacilityForm
                                     ->required(),
 
                                 TextInput::make('feature_value')
-                                    ->label('Nilai / Spesifikasi')
-                                    ->placeholder('Misal: 55" Smart TV, Central, Bersama')
+                                    ->label('Spesifikasi')
+                                    ->placeholder('contoh: 55" Smart TV, Central, Bersama')
                                     ->required(),
                             ])
                             ->columns(2)
-                            ->addActionLabel('+ Tambah Fasilitas Dinamis')
+                            ->addActionLabel('+ Tambah Fasilitas Tambahan')
                             ->defaultItems(0)
                             ->collapsible()
                             ->columnSpanFull(),

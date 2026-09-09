@@ -227,12 +227,12 @@
                                     <div class="d-flex align-items-center gap-2 mb-3">
                                         @if($room->room_size || $room->bed_count)
                                         <span class="room-size-chip">
-                                            <i class="fa-solid fa-vector-square"></i> {{ $room->room_size }} @if($room->room_size && $room->bed_count) · @endif {{ $room->bed_count }} Bed
+                                            <i class="fa-solid fa-vector-square"></i> {{ $room->room_size }} m² @if($room->room_size && $room->bed_count) • @endif {{ $room->bed_count }} Bed
                                         </span>
                                         @endif
                                         @if($room->max_companion)
                                         <span class="room-size-chip">
-                                            <i class="fa-solid fa-user-group"></i> {{ $room->max_companion }}
+                                            <i class="fa-solid fa-user-group"></i> Maks. {{ $room->max_companion }} Penunggu
                                         </span>
                                         @endif
                                     </div>
