@@ -32,9 +32,9 @@ class ArticleForm
                     ])
                     ->required(),
                 Toggle::make('is_active')
-                    ->label('Aktif / Tampilkan')
+                    ->label('Aktif dan Tampilkan di halaman website')
                     ->default(false),
-                FileUpload::make('thumbnail')
+                FileUpload::make('image_path')
                     ->label('Thumbnail Artikel')
                     ->disk('public')
                     ->directory('articles')
@@ -44,17 +44,18 @@ class ArticleForm
                     // ->imageAspectRatio('16:9')
                     // ->automaticallyCropImagesToAspectRatio()
 
-                    ->automaticallyResizeImagesToWidth(1280)
-                    ->automaticallyResizeImagesToHeight(720)
+                    ->automaticallyResizeImagesToWidth(1920)
+                    ->automaticallyResizeImagesToHeight(1080)
                     ->automaticallyResizeImagesMode('cover')
                     ->maxSize(5120) // 5 MB
                     ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
-                    ->helperText('Upload thumbnail artikel (JPG/PNG/WebP, maks 5 MB). Editor akan membantu Anda memotong gambar ke rasio 16:9. Gambar akan dikonversi ke WebP secara otomatis.'),
+                    ->helperText('Upload thumbnail artikel dengan format JPEG/JPG/PNG/WebP, ukuran maks 5 MB'),
                 Textarea::make('shorts')
-                    ->label('Ringkasan (Shorts)')
+                    ->label('Ringkasan Artikel')
+                    ->maxLength(250)
                     ->columnSpanFull(),
                 RichEditor::make('isi')
-                    ->label('Isi Konten')
+                    ->label('Isi Konten Artikel')
                     ->columnSpanFull()
                     ->required(),
             ]);

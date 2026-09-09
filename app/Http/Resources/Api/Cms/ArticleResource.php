@@ -14,8 +14,8 @@ class ArticleResource extends BaseCmsResource
         return [
             'id'            => $this->id,
             'judul'         => $this->judul,
-            'thumbnail'     => $this->thumbnail,
-            'thumbnail_url' => $this->generateImageUrl($this->thumbnail),
+            'image_path'    => $this->image_path,
+            'image_url'     => $this->generateImageUrl($this->image_path),
             'shorts'        => $this->shorts,
             'isi'           => $this->isi,
             'tags'          => $this->tags,

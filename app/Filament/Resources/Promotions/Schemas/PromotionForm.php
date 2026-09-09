@@ -16,6 +16,7 @@ class PromotionForm
         return $schema
             ->components([
                 TextInput::make('title')
+                    ->maxLength(255)
                     ->required(),
                 Textarea::make('description')
                     ->required()
@@ -35,12 +36,13 @@ class PromotionForm
                     ->automaticallyResizeImagesMode('cover')
                     ->maxSize(5120) // 5 MB
                     ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
-                    ->helperText('Upload poster promosi (JPG/PNG/WebP, maks 5 MB). Editor akan membantu Anda memotong gambar ke rasio portrait 4:5. Gambar akan dikonversi ke WebP secara otomatis.')
+                    ->helperText('Upload poster promosi dengan format JPEG/JPG/PNG/WebP, ukuran maks 5 MB')
                     ->columnSpanFull(),
                 DatePicker::make('start_date'),
                 DatePicker::make('end_date'),
                 Toggle::make('is_active')
-                    ->required(),
+                    ->label('Aktif dan Tampilkan di halaman website')
+                    ->default(false),
             ]);
     }
 }

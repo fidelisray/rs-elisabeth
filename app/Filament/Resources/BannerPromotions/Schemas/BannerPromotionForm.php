@@ -22,7 +22,7 @@ class BannerPromotionForm
 
                 FileUpload::make('image_path')
                     ->label('Gambar Banner')
-                    ->helperText('Upload gambar banner (JPG/PNG/WebP, maks 5 MB). Editor akan membantu Anda memotong gambar ke rasio 16:9. Gambar akan dikonversi ke WebP secara otomatis.')
+                    ->helperText('Upload gambar banner dengan format JPEG/JPG/PNG/WebP, ukuran maks 5 MB')
                     ->disk('public')
                     ->directory('banners')
                     ->image()
@@ -40,9 +40,9 @@ class BannerPromotionForm
                     ->columnSpanFull(),
 
                 Toggle::make('is_active')
-                    ->label('Tampilkan di Halaman Utama')
+                    ->label('Aktif dan Tampilkan di halaman website')
                     ->helperText('Aktifkan agar banner ini muncul di carousel halaman utama.')
-                    ->default(true),
+                    ->default(false),
             ]);
     }
 }

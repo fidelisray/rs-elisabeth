@@ -15,12 +15,12 @@ class Article extends Model
      */
     protected function getWebpFields(): array
     {
-        return ['thumbnail'];
+        return ['image_path'];
     }
 
     protected $fillable = [
         'judul',
-        'thumbnail',
+        'image_path',
         'shorts',
         'isi',
         'tags',

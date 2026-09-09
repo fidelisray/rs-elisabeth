@@ -15,7 +15,7 @@ class FacilityService extends Model
         'slug',
         'description',
         'short_description',
-        'icon_path',
+        'image_path',
         'category',
         'highlights',
         'wa_link_text',
@@ -63,6 +63,6 @@ class FacilityService extends Model
 
     public function getWebpFields(): array
     {
-        return ['icon_path'];
+        return ['image_path'];
     }
 }

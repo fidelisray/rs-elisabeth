@@ -29,14 +29,18 @@ class FacilityServiceForm
                             ->required()
                             ->maxLength(255)
                             ->live(onBlur: true)
-                            ->afterStateUpdated(function (Set $set, ?string $state) {
-                                $set('slug', Str::slug($state));
+                            ->afterStateUpdated(function (Set $set, $get, ?string $operation, ?string $state) {
+                                if (($operation === 'create' || empty($get('slug'))) && filled($state)) {
+                                    $set('slug', Str::slug($state));
+                                }
                             }),
 
                         TextInput::make('slug')
+                            ->placeholder('Klik pada form akan terisi otomatis')
                             ->required()
                             ->maxLength(255)
-                            ->unique(ignoreRecord: true),
+                            ->unique(ignoreRecord: true)
+                            ->helperText('Dapat diedit jika diperlukan'),
 
                         Select::make('category')
                             ->options([
@@ -68,7 +72,7 @@ class FacilityServiceForm
 
                 Section::make('Gambar Fasilitas')
                     ->schema([
-                        FileUpload::make('icon_path')
+                        FileUpload::make('image_path')
                             ->label('Gambar')
                             ->disk('public')
                             ->image()
@@ -79,6 +83,7 @@ class FacilityServiceForm
                                 '16:9'
                             ])
                             ->automaticallyResizeImagesMode('cover')
+                            ->helperText('Upload gambar dengan format JPEG/JPG/PNG/WebP, ukuran maks 5 MB')
                             ->required()
                             ->directory('facility_services')
                             ->columnSpanFull(),
@@ -116,8 +121,8 @@ class FacilityServiceForm
                             ->helperText('Semakin kecil angkanya, semakin awal tampil. Default: 0.'),
 
                         Toggle::make('is_active')
-                            ->label('Aktif / Tampilkan di Halaman')
-                            ->default(true)
+                            ->label('Aktif dan Tampilkan di halaman website')
+                            ->default(false)
                             ->helperText('Non-aktifkan untuk menyembunyikan fasilitas ini dari halaman publik tanpa menghapus data.')
                             ->columnSpanFull(),
                     ]),

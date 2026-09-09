@@ -33,12 +33,8 @@ trait FormatsArticleData
 
             // ----- NEW CMS API & FALLBACK LOGIC -----
             // (Menggunakan asset() agar dinamis terhadap host seperti RoomFacilities)
-            if (!empty($item['thumbnail'])) {
-                $thumbnail = asset('storage/' . $item['thumbnail']);
-            } elseif (!empty($item['image_path'])) {
+            if (!empty($item['image_path'])) {
                 $thumbnail = asset('storage/' . $item['image_path']);
-            } elseif (!empty($item['thumbnail_url'])) {
-                $thumbnail = $item['thumbnail_url'];
             } elseif (!empty($item['image_url'])) { 
                 $thumbnail = $item['image_url'];
             } else {

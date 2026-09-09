@@ -15,9 +15,20 @@ class NewsForm
         return $schema
             ->components([
                 TextInput::make('title')
-                    ->required(),
+                    ->required()
+                    ->maxLength(255)
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function (\Filament\Forms\Set $set, \Filament\Forms\Get $get, ?string $operation, ?string $state) {
+                        if (($operation === 'create' || empty($get('slug'))) && filled($state)) {
+                            $set('slug', \Illuminate\Support\Str::slug($state));
+                        }
+                    }),
                 TextInput::make('slug')
-                    ->required(),
+                    ->placeholder('Klik pada form akan terisi otomatis')
+                    ->required()
+                    ->maxLength(255)
+                    ->unique(ignoreRecord: true)
+                    ->helperText('Dapat diedit jika diperlukan'),
                 Textarea::make('content')
                     ->required()
                     ->columnSpanFull(),
@@ -31,14 +42,15 @@ class NewsForm
                     // ->imageAspectRatio('16:9')
                     // ->automaticallyCropImagesToAspectRatio()
 
-                    ->automaticallyResizeImagesToWidth(1280)
-                    ->automaticallyResizeImagesToHeight(720)
+                    ->automaticallyResizeImagesToWidth(1920)
+                    ->automaticallyResizeImagesToHeight(1080)
                     ->automaticallyResizeImagesMode('cover')
                     ->maxSize(5120) // 5 MB
                     ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
-                    ->helperText('Upload gambar berita (JPG/PNG/WebP, maks 5 MB). Editor akan membantu Anda memotong gambar ke rasio 16:9. Gambar akan dikonversi ke WebP secara otomatis.'),
+                    ->helperText('Upload gambar berita dengan format JPEG/JPG/PNG/WebP, ukuran maks 5 MB'),
                 Toggle::make('is_published')
-                    ->required(),
+                    ->label('Aktif dan Tampilkan di halaman website')
+                    ->default(false),
             ]);
     }
 }

@@ -16,7 +16,7 @@ class ArticlesTable
     {
         return $table
             ->columns([
-                ImageColumn::make('thumbnail')
+                ImageColumn::make('image_path')
                     ->label('Preview')
                     ->disk('public')
                     ->width(80)

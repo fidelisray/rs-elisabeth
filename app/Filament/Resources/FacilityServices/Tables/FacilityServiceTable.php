@@ -17,7 +17,7 @@ class FacilityServiceTable
     {
         return $table
             ->columns([
-                ImageColumn::make('icon_path')
+                ImageColumn::make('image_path')
                     ->label('Preview')
                     ->disk('public')
                     ->circular(),
