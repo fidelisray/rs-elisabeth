@@ -14,6 +14,8 @@ class PromotionResource extends BaseCmsResource
         return [
             'id'          => $this->id,
             'title'       => $this->title,
+            'slug'        => $this->slug,
+            'shorts'      => $this->shorts,
             'description' => $this->description,
             'image_path'  => $this->image_path,
             'image_url'   => $this->generateImageUrl($this->image_path),

@@ -19,6 +19,8 @@ class Promotion extends Model
 
     protected $fillable = [
         'title',
+        'slug',
+        'shorts',
         'description',
         'image_path',
         'start_date',

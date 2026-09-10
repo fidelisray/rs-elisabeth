@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('banner_promotions', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('slug')->unique()->nullable();
             $table->string('image_path');
             $table->boolean('is_active')->default(true);
             $table->integer('sort_order')->default(0);

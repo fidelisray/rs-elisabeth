@@ -20,9 +20,10 @@ class Article extends Model
 
     protected $fillable = [
         'judul',
+        'slug',
         'image_path',
         'shorts',
-        'isi',
+        'content',
         'tags',
         'author',
         'is_active',

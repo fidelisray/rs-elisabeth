@@ -5,6 +5,7 @@ namespace App\Filament\Resources\BannerPromotions\Schemas;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class BannerPromotionForm
@@ -13,36 +14,66 @@ class BannerPromotionForm
     {
         return $schema
             ->components([
-                TextInput::make('title')
-                    ->label('Judul Banner')
-                    // ->helperText('Digunakan sebagai atribut alt="" pada gambar (untuk SEO & aksesibilitas).')
-                    ->maxLength(255)
-                    ->required()
-                    ->columnSpanFull(),
 
-                FileUpload::make('image_path')
-                    ->label('Gambar Banner')
-                    ->helperText('Upload gambar banner dengan format JPEG/JPG/PNG/WebP, ukuran maks 5 MB')
-                    ->disk('public')
-                    ->directory('banners')
-                    ->image()
-                    ->imageEditor()
-                    ->imageEditorAspectRatioOptions(['16:9'])
-                    // ->imageAspectRatio('16:9')
-                    // ->automaticallyCropImagesToAspectRatio()
+                Section::make('Informasi Dasar Banner Promosi')
+                    ->columnSpanFull()
+                    ->columns(2)
+                    ->schema([
+                        TextInput::make('title')
+                            ->label('Judul Banner')
+                            // ->helperText('Digunakan sebagai atribut alt="" pada gambar (untuk SEO & aksesibilitas).')
+                            ->maxLength(255)
+                            ->required()
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(function (\Filament\Forms\Set $set, \Filament\Forms\Get $get, ?string $operation, ?string $state) {
+                                if (($operation === 'create' || empty($get('slug'))) && filled($state)) {
+                                    $set('slug', \Illuminate\Support\Str::slug($state));
+                                }
+                            }),
+                        
+                        TextInput::make('slug')
+                            ->label('Identifier')
+                            ->placeholder('Klik pada form dan teks akan terisi otomatis')
+                            ->required()
+                            ->maxLength(255)
+                            ->unique(ignoreRecord: true)
+                            ->helperText('Dapat diedit jika diperlukan'),
+                            
+                    ]),
 
-                    ->automaticallyResizeImagesToWidth(1920)
-                    ->automaticallyResizeImagesToHeight(1080)
-                    ->automaticallyResizeImagesMode('cover')
-                    ->maxSize(5120) // 5 MB
-                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
-                    ->required()
-                    ->columnSpanFull(),
+                Section::make('Gambar Banner')
+                    ->columnSpanFull()
+                    ->schema([
+                        FileUpload::make('image_path')
+                            ->label('Gambar')
+                            ->helperText('Upload gambar banner dengan format JPEG/JPG/PNG/WebP, ukuran maks 5 MB')
+                            ->disk('public')
+                            ->directory('banners')
+                            ->image()
+                            ->imageEditor()
+                            ->imageEditorAspectRatioOptions(['16:9'])
+                            // ->imageAspectRatio('16:9')
+                            // ->automaticallyCropImagesToAspectRatio()
 
-                Toggle::make('is_active')
-                    ->label('Aktif dan Tampilkan di halaman website')
-                    // ->helperText('Aktifkan agar banner ini muncul di carousel halaman utama.')
-                    ->default(false),
+                            ->automaticallyResizeImagesToWidth(1920)
+                            ->automaticallyResizeImagesToHeight(1080)
+                            ->automaticallyResizeImagesMode('cover')
+                            ->maxSize(5120) // 5 MB
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                            ->required()
+                            ->columnSpanFull(),
+                    ]),
+
+                Section::make('Publish')
+                    ->columnSpanFull()
+                    ->description('Atur apakah Banner Promosi ini akan ditampilkan pada halaman website')
+                    ->schema([
+                        Toggle::make('is_active')
+                            ->label('Aktif dan Tampilkan di halaman website')
+                            ->default(false)
+                            ->helperText('Non-aktifkan untuk menyembunyikan banner promosi ini dari halaman website tanpa menghapus datanya')
+                            ->columnSpanFull(),
+                    ]),
             ]);
     }
 }

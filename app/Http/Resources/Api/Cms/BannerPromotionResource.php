@@ -14,6 +14,7 @@ class BannerPromotionResource extends BaseCmsResource
         return [
             'id'         => $this->id,
             'title'      => $this->title,
+            'slug'       => $this->slug,
             'image_path' => $this->image_path,
             'image_url'  => $this->generateImageUrl($this->image_path),
             'sort_order' => $this->sort_order,

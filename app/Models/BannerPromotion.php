@@ -23,6 +23,7 @@ class BannerPromotion extends Model
 
     protected $fillable = [
         'title',
+        'slug',
         'image_path',
         'is_active',
         'sort_order',

@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string('judul', 250)->nullable();
+            $table->string('slug', 255)->unique()->nullable();
             $table->string('thumbnail', 100)->nullable();
             $table->text('shorts')->nullable();
-            $table->longText('isi')->nullable();
+            $table->longText('content')->nullable();
             $table->string('tags', 100)->nullable();
             $table->string('author', 50)->nullable();
             $table->string('is_active', 10)->nullable()->default('no');
