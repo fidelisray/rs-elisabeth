@@ -23,6 +23,7 @@ class FacilityServiceForm
         return $schema
             ->components([
                 Section::make('Informasi Dasar')
+                    ->columnSpanFull()
                     ->columns(2)
                     ->schema([
                         TextInput::make('name')
@@ -71,6 +72,7 @@ class FacilityServiceForm
                     ]),
 
                 Section::make('Gambar Fasilitas')
+                    ->columnSpanFull()
                     ->schema([
                         FileUpload::make('image_path')
                             ->label('Gambar')
@@ -93,6 +95,7 @@ class FacilityServiceForm
                     ]),
                 
                 Section::make('Call to Action (CTA)')
+                    ->columnSpanFull()
                     ->columns(2)
                     ->schema([
                         TextInput::make('wa_link_text')
@@ -130,8 +133,9 @@ class FacilityServiceForm
                             ->columnSpanFull(),
                     ]),
 
-                Section::make('Pengaturan Tampilan')
-                    ->description('Atur urutan tampil dan visibilitas fasilitas ini di halaman frontend.')
+                Section::make('Publish')
+                    ->columnSpanFull()
+                    ->description('Atur apakah fasilitas ini akan ditampilkan pada halaman website')
                     ->columns(2)
                     ->schema([
                         \Filament\Forms\Components\Hidden::make('sort_order')
@@ -140,7 +144,7 @@ class FacilityServiceForm
                         Toggle::make('is_active')
                             ->label('Aktif dan Tampilkan di halaman website')
                             ->default(false)
-                            ->helperText('Non-aktifkan untuk menyembunyikan fasilitas ini dari halaman publik tanpa menghapus data.')
+                            ->helperText('Non-aktifkan untuk menyembunyikan fasilitas ini dari halaman website tanpa menghapus datanya')
                             ->columnSpanFull(),
                     ]),
             ]);
