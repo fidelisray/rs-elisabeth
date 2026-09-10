@@ -78,10 +78,13 @@ class FacilityServiceForm
                             ->image()
                             ->imageEditor()
                             ->imageEditorAspectRatioOptions([
-                                '1:1',
-                                '4:3',
                                 '16:9'
                             ])
+                            // ->imageEditorAspectRatioOptions([
+                            //     '1:1',
+                            //     '4:3',
+                            //     '16:9'
+                            // ])
                             ->automaticallyResizeImagesMode('cover')
                             ->helperText('Upload gambar dengan format JPEG/JPG/PNG/WebP, ukuran maks 5 MB')
                             ->required()
@@ -93,14 +96,32 @@ class FacilityServiceForm
                     ->columns(2)
                     ->schema([
                         TextInput::make('wa_link_text')
-                            ->label('Teks WhatsApp')
+                            ->label('Label Tombol WhatsApp')
                             ->placeholder('misal: Konsultasi Gizi')
                             ->maxLength(255),
                             
-                        TextInput::make('wa_link_url')
-                            ->label('URL / Nomor WhatsApp')
-                            ->placeholder('misal: https://wa.me/6285600600870')
-                            ->maxLength(255),
+                        TextInput::make('wa_number')
+                            ->label('Nomor WhatsApp')
+                            ->prefix('https://wa.me/')
+                            ->placeholder('misal: 6285600600870')
+                            ->maxLength(15)
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(function (\Filament\Forms\Set $set, ?string $state) {
+                                if (filled($state)) {
+                                    // Auto-format "08..." to "628..." seamlessly
+                                    $cleanNumber = preg_replace('/[^0-9]/', '', $state);
+                                    if (str_starts_with($cleanNumber, '0')) {
+                                        $cleanNumber = '62' . substr($cleanNumber, 1);
+                                    }
+                                    $set('wa_number', $cleanNumber);
+                                }
+                            }),
+                            
+                        TextInput::make('wa_prefilled_message')
+                            ->label('Pesan Otomatis (Prefilled)')
+                            ->placeholder('misal: Halo, saya ingin mendaftar Konsultasi Gizi')
+                            ->maxLength(255)
+                            ->columnSpanFull(),
                             
                         Toggle::make('has_appointment_cta')
                             ->label('Tampilkan Tombol "Buat Janji"?')
@@ -113,12 +134,8 @@ class FacilityServiceForm
                     ->description('Atur urutan tampil dan visibilitas fasilitas ini di halaman frontend.')
                     ->columns(2)
                     ->schema([
-                        TextInput::make('sort_order')
-                            ->label('Urutan Tampil')
-                            ->numeric()
-                            ->default(0)
-                            ->minValue(0)
-                            ->helperText('Semakin kecil angkanya, semakin awal tampil. Default: 0.'),
+                        \Filament\Forms\Components\Hidden::make('sort_order')
+                            ->default(0),
 
                         Toggle::make('is_active')
                             ->label('Aktif dan Tampilkan di halaman website')

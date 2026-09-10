@@ -22,7 +22,9 @@ class FacilityServiceResource extends BaseCmsResource
             'image_url'           => $this->generateImageUrl($this->image_path),
             'highlights'          => $this->highlights,
             'wa_link_text'        => $this->wa_link_text,
-            'wa_link_url'         => $this->wa_link_url,
+            'wa_number'           => $this->wa_number,
+            'wa_prefilled_message'=> $this->wa_prefilled_message,
+            'wa_action_url'       => $this->wa_number ? "https://wa.me/{$this->wa_number}?text=" . urlencode((string)$this->wa_prefilled_message) : null,
             'has_appointment_cta' => $this->has_appointment_cta,
         ];
     }
