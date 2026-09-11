@@ -748,11 +748,11 @@
                                             foreach($amenities as $group) {
                                                 foreach($group['items'] ?? [] as $item) {
                                                     if(is_array($item) && ($item['name'] ?? '') === $featureName) {
-                                                        if(($item['type'] ?? 'boolean') === 'boolean') {
+                                                        if(empty($item['value'])) {
                                                             $val = $isPremium ? 'premium' : 'yes';
                                                         } else {
                                                             $val = 'text';
-                                                            $displayValue = $item['value'] ?? '';
+                                                            $displayValue = $item['value'];
                                                         }
                                                         break 2;
                                                     }

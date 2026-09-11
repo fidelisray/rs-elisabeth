@@ -10,7 +10,6 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Set;
-use Filament\Forms\Get;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
 
@@ -54,14 +53,6 @@ class RoomFacilityForm
                             ])
                             ->required()
                             ->helperText('Menentukan di section mana ruangan ini akan ditampilkan'),
-
-                        \Filament\Forms\Components\Hidden::make('sort_order')
-                            ->default(0),
-
-                        Toggle::make('is_active')
-                            ->label('Aktif dan Tampilkan di Halaman')
-                            ->default(false)
-                            ->columnSpanFull(),
                     ]),
 
 
@@ -110,7 +101,7 @@ class RoomFacilityForm
                     ]),
 
                 Section::make('Daftar Fasilitas')
-                    ->description('Kelompokkan fasilitas dalam grup lalu tentukan mana yang ikut ditampilkan di tabel perbandingan.')
+                    ->description('Kelompokkan fasilitas dalam grup. Contoh: Fasilitas Kamar, Fasilitas Tambahan, dll.')
                     ->schema([
 
                         Repeater::make('amenities')
@@ -125,6 +116,7 @@ class RoomFacilityForm
                                     ->columnSpanFull(),
 
                                 Repeater::make('items')
+                                    ->required()
                                     ->label('Item Fasilitas')
                                     ->schema([
 
@@ -134,34 +126,25 @@ class RoomFacilityForm
                                             ->required()
                                             ->maxLength(100),
 
-                                        Select::make('type')
-                                            ->label('Tipe')
-                                            ->options([
-                                                'boolean' => 'Ya / Tidak (centang)',
-                                                'text'    => 'Teks Spesifikasi',
-                                            ])
-                                            ->default('boolean')
-                                            ->required()
-                                            ->live(),
-
                                         TextInput::make('value')
-                                            ->label('Spesifikasi')
+                                            ->label('Spesifikasi (Opsional)')
                                             ->placeholder('contoh: 55" Smart TV, Central')
-                                            ->visible(fn (Get $get) => $get('type') === 'text')
-                                            ->requiredIf('type', 'text'),
+                                            // ->helperText('Biarkan kosong jika ini hanya fasilitas standar (tampil sebagai centang)')
+                                            ->maxLength(255),
 
                                         Toggle::make('show_in_comparison')
-                                            ->label('Tampilkan di Tabel Perbandingan')
+                                            ->columnSpanFull()
+                                            ->label('Hightlight Fasilitas')
                                             ->default(false)
                                             ->helperText('Aktifkan agar fasilitas ini ikut muncul di tabel perbandingan antar-ruangan'),
                                     ])
-                                    ->columns(4)
-                                    ->addActionLabel('+ Tambah Item Fasilitas')
+                                    ->columns(2)
+                                    ->addActionLabel('+ Tambah Item')
                                     ->defaultItems(0)
                                     ->collapsible()
                                     ->columnSpanFull(),
                             ])
-                            ->addActionLabel('+ Tambah Grup Fasilitas')
+                            ->addActionLabel('+ Tambah Grup')
                             ->defaultItems(0)
                             ->collapsible()
                             ->columnSpanFull(),
@@ -247,18 +230,32 @@ class RoomFacilityForm
                             ->maxValue(99),
                     ]),
 
-                Section::make('Pengaturan Pesan Whatsapp')
-                    ->description('Tentukan pesan default yang akan secara otomatis terketik saat pengunjung menekan tombol WhatsApp di bagian ruangan ini')
+                Section::make('Pesan Whatsapp')
+                    // ->description('Pesan default yang akan dikirim oleh pengunjung ke admin WhatsApp')
                     ->schema([
 
                         TextInput::make('whatsapp_text')
-                            ->label('Teks Pesan WhatsApp')
-                            ->placeholder('Contoh: Halo, saya ingin informasi President Suite')
+                            ->label('Pesan Otomatis Yang Dikirim Pengunjung ke Admin')
+                            ->placeholder('Contoh: Halo, saya ingin informasi Ruangan President Suite')
                             ->maxLength(255)
                             // ->helperText('Pesan ini akan menjadi default message saat pengunjung mengklik tombol WhatsApp di halaman ruangan ini.')
                             ->columnSpanFull(),
                     ]),
 
+                Section::make('Publish')
+                    ->columnSpanFull()
+                    ->description('Atur apakah ruangan ini akan ditampilkan pada halaman website')
+                    ->columns(2)
+                    ->schema([
+                        \Filament\Forms\Components\Hidden::make('sort_order')
+                            ->default(0),
+
+                        Toggle::make('is_active')
+                            ->label('Aktif dan Tampilkan di halaman website')
+                            ->default(false)
+                            ->helperText('Non-aktifkan untuk menyembunyikan ruangan ini dari halaman website tanpa menghapus datanya')
+                            ->columnSpanFull(),
+                    ]),
 
             ]);
     }
