@@ -246,14 +246,12 @@
                                                 <div class="premium-amenity-group">
                                                     <h6>{{ $amenityGroup['group'] ?? $amenityGroup['group_name'] ?? 'Fasilitas' }}</h6>
                                                     @php
-                                                        $items = isset($amenityGroup['items'])
-                                                            ? (is_array($amenityGroup['items']) ? $amenityGroup['items'] : explode(',', $amenityGroup['items']))
-                                                            : [];
+                                                        $items = $amenityGroup['items'] ?? [];
                                                     @endphp
                                                     @if(!empty($items))
                                                         <ul>
                                                             @foreach($items as $item)
-                                                                <li>{{ trim($item) }}</li>
+                                                                <li>{{ is_array($item) ? $item['name'] : trim($item) }}</li>
                                                             @endforeach
                                                         </ul>
                                                     @endif
@@ -698,27 +696,16 @@
             // Masing-masing kelompok sudah diurutkan berdasarkan sort_order dari controller.
             $allRooms = $premiumRooms->merge($standardRooms);
             
-            // Mengumpulkan semua fitur perbandingan yang unik dari seluruh ruangan
+            // Mengumpulkan semua fitur unik yang ditandai "show_in_comparison" dari seluruh ruangan
             $allFeatures = collect();
             foreach($allRooms as $room) {
-                $compFeatures = $room->comparison_features;
-                
-                // Backward compatibility: jika datanya menggunakan format lama (array rata)
-                if(is_array($compFeatures) && isset($compFeatures[0]['feature_name'])) {
-                    $compFeatures = ['text_features' => $compFeatures];
-                }
-
-                if(is_array($compFeatures)) {
-                    // Extract dari boolean_features
-                    if(isset($compFeatures['boolean_features']) && is_array($compFeatures['boolean_features'])) {
-                        foreach($compFeatures['boolean_features'] as $bFeature) {
-                            $allFeatures->push($bFeature);
-                        }
-                    }
-                    // Extract dari text_features
-                    if(isset($compFeatures['text_features']) && is_array($compFeatures['text_features'])) {
-                        foreach($compFeatures['text_features'] as $tFeature) {
-                            $allFeatures->push($tFeature['feature_name']);
+                $amenities = $room->amenities;
+                if(is_array($amenities)) {
+                    foreach($amenities as $group) {
+                        foreach($group['items'] ?? [] as $item) {
+                            if(is_array($item) && ($item['show_in_comparison'] ?? false)) {
+                                $allFeatures->push($item['name']);
+                            }
                         }
                     }
                 }
@@ -755,24 +742,19 @@
                                         $displayValue = '';
                                         $isPremium = $room->category === 'premium';
                                         
-                                        $compFeatures = $room->comparison_features;
-                                        // Backward compatibility
-                                        if(is_array($compFeatures) && isset($compFeatures[0]['feature_name'])) {
-                                            $compFeatures = ['text_features' => $compFeatures];
-                                        }
-
-                                        if(is_array($compFeatures)) {
-                                            if(isset($compFeatures['boolean_features']) && in_array($featureName, $compFeatures['boolean_features'])) {
-                                                $val = $isPremium ? 'premium' : 'yes';
-                                            } elseif(isset($compFeatures['text_features'])) {
-                                                $featureVal = collect($compFeatures['text_features'])->firstWhere('feature_name', $featureName);
-                                                if($featureVal) {
-                                                    $rawVal = strtolower(trim($featureVal['feature_value']));
-                                                    if(in_array($rawVal, ['yes', 'no', 'premium', 'gold', 'tidak', '-'])) {
-                                                        $val = $rawVal;
-                                                    } else {
-                                                        $val = 'text';
-                                                        $displayValue = $featureVal['feature_value'];
+                                        // Cari item yang cocok di dalam amenities ruangan ini
+                                        $amenities = $room->amenities;
+                                        if(is_array($amenities)) {
+                                            foreach($amenities as $group) {
+                                                foreach($group['items'] ?? [] as $item) {
+                                                    if(is_array($item) && ($item['name'] ?? '') === $featureName) {
+                                                        if(($item['type'] ?? 'boolean') === 'boolean') {
+                                                            $val = $isPremium ? 'premium' : 'yes';
+                                                        } else {
+                                                            $val = 'text';
+                                                            $displayValue = $item['value'] ?? '';
+                                                        }
+                                                        break 2;
                                                     }
                                                 }
                                             }
@@ -783,9 +765,9 @@
                                     <td class="{{ $tdClass }}">
                                         @if($val === 'yes')
                                             <i class="fa-solid fa-check check-yes"></i>
-                                        @elseif($val === 'no' || $val === 'tidak' || $val === '-')
+                                        @elseif($val === 'no')
                                             <i class="fa-solid fa-minus check-no"></i>
-                                        @elseif($val === 'premium' || $val === 'gold')
+                                        @elseif($val === 'premium')
                                             <i class="fa-solid fa-check check-gold"></i>
                                         @elseif($val === 'text')
                                             <small {!! $isPremium ? 'style="color:#c9a84c"' : 'class="text-muted"' !!}>

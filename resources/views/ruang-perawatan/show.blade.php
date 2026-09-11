@@ -245,16 +245,14 @@
                                                     <div id="collapseAmenity{{ $index }}" class="accordion-collapse collapse {{ $index === 0 ? 'show' : '' }}" data-bs-parent="#accordionAmenities">
                                                         <div class="accordion-body px-0 pt-0 pb-3">
                                                             @php
-                                                                $items = isset($amenityGroup['items'])
-                                                                    ? (is_array($amenityGroup['items']) ? $amenityGroup['items'] : explode(',', $amenityGroup['items']))
-                                                                    : [];
+                                                                $items = $amenityGroup['items'] ?? [];
                                                             @endphp
                                                             @if(!empty($items))
                                                                 <ul class="list-unstyled mb-0">
                                                                     @foreach($items as $item)
                                                                         <li class="mb-2 d-flex align-items-start">
                                                                             <i class="fa-solid fa-check text-success mt-1 me-2"></i> 
-                                                                            <span class="text-secondary">{{ trim($item) }}</span>
+                                                                            <span class="text-secondary">{{ is_array($item) ? $item['name'] : trim($item) }}</span>
                                                                         </li>
                                                                     @endforeach
                                                                 </ul>

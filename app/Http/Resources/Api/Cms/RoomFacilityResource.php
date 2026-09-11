@@ -25,7 +25,6 @@ class RoomFacilityResource extends BaseCmsResource
             'image_url'           => $this->generateImageUrl($this->image_path),
             'amenities'           => $this->amenities ?? [],
             'highlight_tags'      => $this->highlight_tags ?? [],
-            'comparison_features' => $this->comparison_features ?? [],
             'sort_order'          => $this->sort_order,
         ];
     }

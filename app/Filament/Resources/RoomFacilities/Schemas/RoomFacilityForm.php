@@ -2,16 +2,15 @@
 
 namespace App\Filament\Resources\RoomFacilities\Schemas;
 
-use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Set;
+use Filament\Forms\Get;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
 
@@ -22,10 +21,8 @@ class RoomFacilityForm
         return $schema
             ->components([
 
-                // ─────────────────────────────────────────────
-                // SECTION 1: Informasi Utama
-                // ─────────────────────────────────────────────
                 Section::make('Informasi Utama')
+                    ->columnSpanFull()
                     ->columns(2)
                     ->schema([
 
@@ -41,8 +38,8 @@ class RoomFacilityForm
                             }),
 
                         TextInput::make('slug')
-                            ->label('URL Identifier')
-                            ->placeholder('Klik pada form akan terisi otomatis')
+                            ->label('Identifier')
+                            ->placeholder('Klik pada form teks akan terisi otomatis')
                             ->required()
                             ->maxLength(100)
                             ->unique(ignoreRecord: true)
@@ -67,43 +64,14 @@ class RoomFacilityForm
                             ->columnSpanFull(),
                     ]),
 
-                // ─────────────────────────────────────────────
-                // SECTION 2: Spesifikasi Kamar
-                // ─────────────────────────────────────────────
-                Section::make('Spesifikasi Kamar')
-                    ->columns(3)
-                    ->schema([
 
-                        TextInput::make('room_size')
-                            ->label('Luas Kamar')
-                            ->numeric()
-                            ->suffix('m²')
-                            ->placeholder('Contoh: 40')
-                            ->maxValue(999),
-
-                        TextInput::make('bed_count')
-                            ->label('Jumlah Tempat Tidur')
-                            ->numeric()
-                            ->suffix('Bed')
-                            ->placeholder('Contoh: 1')
-                            ->maxValue(99),
-
-                        TextInput::make('max_companion')
-                            ->label('Maks. Penunggu')
-                            ->numeric()
-                            ->suffix('Orang')
-                            ->placeholder('Contoh: 2')
-                            ->maxValue(99),
-                    ]),
-
-                // ─────────────────────────────────────────────
-                // SECTION 3: Deskripsi
-                // ─────────────────────────────────────────────
                 Section::make('Deskripsi Ruangan')
+                    ->columnSpanFull()
                     ->schema([
 
                         Textarea::make('tagline')
                             ->label('Tagline / Deskripsi Singkat')
+                            ->required()
                             ->placeholder('Deskripsi singkat sebagai Highlight untuk ruangan ini...')
                             ->maxLength(500)
                             ->rows(3)
@@ -111,15 +79,14 @@ class RoomFacilityForm
 
                         Textarea::make('description')
                             ->label('Deskripsi Lengkap')
+                            ->required()
                             ->placeholder('Deskripsi lengkap ruangan terkait fasilitas, keunggulan, atau layanan lainnya...')
                             ->rows(5)
                             ->columnSpanFull(),
                     ]),
-
-                // ─────────────────────────────────────────────
-                // SECTION 4: Foto Ruangan
-                // ─────────────────────────────────────────────
+                
                 Section::make('Foto Ruangan')
+                    ->columnSpanFull()
                     ->description('Upload foto ruangan dengan format landscape (16:9)')
                     ->schema([
 
@@ -142,11 +109,8 @@ class RoomFacilityForm
                             ->columnSpanFull(),
                     ]),
 
-                // ─────────────────────────────────────────────
-                // SECTION 5: Fasilitas (Amenities)
-                // ─────────────────────────────────────────────
                 Section::make('Daftar Fasilitas')
-                    ->description('Kelompokkan fasilitas dalam grup (contoh: "Kamar & Ruangan", "Layanan Eksklusif")...')
+                    ->description('Kelompokkan fasilitas dalam grup lalu tentukan mana yang ikut ditampilkan di tabel perbandingan.')
                     ->schema([
 
                         Repeater::make('amenities')
@@ -157,13 +121,45 @@ class RoomFacilityForm
                                     ->label('Nama Grup')
                                     ->placeholder('Contoh: Kamar & Ruangan')
                                     ->required()
-                                    ->maxLength(100),
+                                    ->maxLength(100)
+                                    ->columnSpanFull(),
 
-                                TagsInput::make('items')
+                                Repeater::make('items')
                                     ->label('Item Fasilitas')
-                                    ->placeholder('Ketik item lalu Enter...')
-                                    ->helperText('Tekan Enter atau koma untuk menambah item fasilitas.')
-                                    ->separator(','),
+                                    ->schema([
+
+                                        TextInput::make('name')
+                                            ->label('Nama Fasilitas')
+                                            ->placeholder('Contoh: Air Conditioner (AC)')
+                                            ->required()
+                                            ->maxLength(100),
+
+                                        Select::make('type')
+                                            ->label('Tipe')
+                                            ->options([
+                                                'boolean' => 'Ya / Tidak (centang)',
+                                                'text'    => 'Teks Spesifikasi',
+                                            ])
+                                            ->default('boolean')
+                                            ->required()
+                                            ->live(),
+
+                                        TextInput::make('value')
+                                            ->label('Spesifikasi')
+                                            ->placeholder('contoh: 55" Smart TV, Central')
+                                            ->visible(fn (Get $get) => $get('type') === 'text')
+                                            ->requiredIf('type', 'text'),
+
+                                        Toggle::make('show_in_comparison')
+                                            ->label('Tampilkan di Tabel Perbandingan')
+                                            ->default(false)
+                                            ->helperText('Aktifkan agar fasilitas ini ikut muncul di tabel perbandingan antar-ruangan'),
+                                    ])
+                                    ->columns(4)
+                                    ->addActionLabel('+ Tambah Item Fasilitas')
+                                    ->defaultItems(0)
+                                    ->collapsible()
+                                    ->columnSpanFull(),
                             ])
                             ->addActionLabel('+ Tambah Grup Fasilitas')
                             ->defaultItems(0)
@@ -171,9 +167,6 @@ class RoomFacilityForm
                             ->columnSpanFull(),
                     ]),
 
-                // ─────────────────────────────────────────────
-                // SECTION 6: Highlight Tags
-                // ─────────────────────────────────────────────
                 Section::make('Highlight Tags')
                     ->description('Highlight keunggulan utama yang dimiliki ruangan ini')
                     ->schema([
@@ -228,9 +221,32 @@ class RoomFacilityForm
                             ->columnSpanFull(),
                     ]),
 
-                // ─────────────────────────────────────────────
-                // SECTION 7: CTA / WhatsApp
-                // ─────────────────────────────────────────────
+                Section::make('Spesifikasi Kamar')
+                    ->columns(3)
+                    ->schema([
+
+                        TextInput::make('room_size')
+                            ->label('Luas Kamar')
+                            ->numeric()
+                            ->suffix('m²')
+                            ->placeholder('Contoh: 40')
+                            ->maxValue(999),
+
+                        TextInput::make('bed_count')
+                            ->label('Jumlah Tempat Tidur')
+                            ->numeric()
+                            ->suffix('Bed')
+                            ->placeholder('Contoh: 1')
+                            ->maxValue(99),
+
+                        TextInput::make('max_companion')
+                            ->label('Maks. Penunggu')
+                            ->numeric()
+                            ->suffix('Orang')
+                            ->placeholder('Contoh: 2')
+                            ->maxValue(99),
+                    ]),
+
                 Section::make('Pengaturan Pesan Whatsapp')
                     ->description('Tentukan pesan default yang akan secara otomatis terketik saat pengunjung menekan tombol WhatsApp di bagian ruangan ini')
                     ->schema([
@@ -243,63 +259,6 @@ class RoomFacilityForm
                             ->columnSpanFull(),
                     ]),
 
-                // ─────────────────────────────────────────────
-                // SECTION 8: Perbandingan Fasilitas
-                // ─────────────────────────────────────────────
-                Section::make('Fasilitas Yang Didapatkan')
-                    ->description('Centang fasilitas standar yang ada, dan tambahkan fasilitas dengan spesifikasi khusus jika diperlukan.')
-                    ->schema([
-
-                        CheckboxList::make('comparison_features.boolean_features')
-                            ->label('Fasilitas Standar (Ya/Tidak)')
-                            ->options([
-                                'Kamar mandi private' => 'Kamar mandi private',
-                                'Ruang tamu / sofa' => 'Ruang tamu / sofa',
-                                'Kulkas' => 'Kulkas',
-                                'Kipas Angin' => 'Kipas Angin',
-                                'Akomodasi BPJS Kesehatan' => 'Akomodasi BPJS Kesehatan',
-                                'Tempat Tidur Penunggu Pasien' => 'Tempat Tidur Penunggu Pasien',
-                                'Lemari' => 'Lemari',
-                                'Meja' => 'Meja',
-                            ])
-                            ->columns(3)
-                            ->columnSpanFull(),
-
-                        Repeater::make('comparison_features.text_features')
-                            ->label('Fasilitas Tambahan')
-                            ->schema([
-
-                                Select::make('feature_name')
-                                    ->label('Nama Fasilitas')
-                                    ->options([
-                                        'Air Conditioner (AC)' => 'Air Conditioner (AC)',
-                                        'Televisi' => 'Televisi',
-                                        'Wi-Fi Internet' => 'Wi-Fi Internet',
-                                        'Jumlah bed per kamar' => 'Jumlah bed per kamar',
-                                        'Perawat personal' => 'Perawat personal',
-                                    ])
-                                    ->searchable()
-                                    ->createOptionForm([
-                                        TextInput::make('feature_name')
-                                            ->label('Nama Fasilitas Baru')
-                                            ->required(),
-                                    ])
-                                    ->createOptionUsing(function (array $data) {
-                                        return $data['feature_name'];
-                                    })
-                                    ->required(),
-
-                                TextInput::make('feature_value')
-                                    ->label('Spesifikasi')
-                                    ->placeholder('contoh: 55" Smart TV, Central, Bersama')
-                                    ->required(),
-                            ])
-                            ->columns(2)
-                            ->addActionLabel('+ Tambah Fasilitas Tambahan')
-                            ->defaultItems(0)
-                            ->collapsible()
-                            ->columnSpanFull(),
-                    ]),
 
             ]);
     }
