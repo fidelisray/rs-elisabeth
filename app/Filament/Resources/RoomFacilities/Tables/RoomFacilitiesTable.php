@@ -50,7 +50,6 @@ class RoomFacilitiesTable
                     })
                     ->sortable(),
 
-                // Spesifikasi singkat
                 TextColumn::make('room_size')
                     ->label('Luas')
                     ->searchable(),
@@ -59,13 +58,11 @@ class RoomFacilitiesTable
                     ->label('Bed')
                     ->searchable(),
 
-                // Urutan tampil
-                TextColumn::make('sort_order')
-                    ->label('Urutan')
-                    ->sortable()
-                    ->alignCenter(),
+                TextColumn::make('created_at')
+                    ->label('Dibuat Pada')
+                    ->dateTime('d M Y, H:i')
+                    ->sortable(),
 
-                // Status aktif
                 IconColumn::make('is_active')
                     ->label('Aktif')
                     ->boolean()
