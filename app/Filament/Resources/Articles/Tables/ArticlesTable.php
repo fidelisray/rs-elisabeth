@@ -31,17 +31,18 @@ class ArticlesTable
                 TextColumn::make('author')
                     ->label('Penulis')
                     ->searchable(),
-                ToggleColumn::make('is_active')
-                    ->label('Aktif'),
+                TextColumn::make('created_at')
+                    ->label('Dibuat Pada')
+                    ->dateTime()
+                    ->sortable(),
                 TextColumn::make('views')
                     ->label('Dilihat')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                ToggleColumn::make('is_active')
+                    ->label('Aktif'),
                 TextColumn::make('updated_at')
+                    ->label('Diperbarui Pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

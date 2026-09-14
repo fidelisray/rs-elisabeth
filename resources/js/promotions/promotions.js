@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalImg = promoModal.querySelector('#promoModalImg');
 
         modalTitle.textContent = title;
-        modalDesc.textContent = desc;
+        modalDesc.innerHTML = desc;
         modalImg.src = img;
     });
 });

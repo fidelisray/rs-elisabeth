@@ -8,6 +8,8 @@ use Filament\Actions\EditAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 
 class BannerPromotionsTable
@@ -32,31 +34,40 @@ class BannerPromotionsTable
                     ->searchable()
                     ->limit(50),
 
-                ToggleColumn::make('is_active')
-                    ->label('Aktif'),
-
                 TextColumn::make('created_by')
                     ->label('Dibuat Oleh')
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->searchable(),
 
                 TextColumn::make('created_at')
                     ->label('Dibuat')
-                    ->dateTime('d M Y, H:i')
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->dateTime('d M Y, H:i'),
+
+                ToggleColumn::make('is_active')
+                    ->label('Aktif'),
 
                 TextColumn::make('updated_by')
                     ->label('Diperbarui Oleh')
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->searchable(),
 
                 TextColumn::make('updated_at')
                     ->label('Diperbarui')
-                    ->dateTime('d M Y, H:i')
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->dateTime('d M Y, H:i'),
             ])
             ->filters([
-                //
+                // TernaryFilter::make('is_active')
+                //     ->label('Status Aktif')
+                //     ->trueLabel('Aktif saja')
+                //     ->falseLabel('Non-aktif saja')
+                //     ->placeholder('Semua'),
+                // SelectFilter::make('category')
+                //     ->label('Kategori')
+                //     ->options([
+                //         'promo' => 'Promo',
+                //         'hospital_info' => 'Info Rumah Sakit',
+                //         'announcement' => 'Pengumuman',
+                //         'event' => 'Acara',
+                //         'health_tips' => 'Tips Kesehatan',
+                //     ]),
             ])
             ->recordActions([
                 EditAction::make(),

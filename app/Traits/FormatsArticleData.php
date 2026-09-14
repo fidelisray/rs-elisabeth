@@ -49,9 +49,25 @@ trait FormatsArticleData
                 'slug' => $item['slug'] ?? Str::slug($item['judul'] ?? $item['title'] ?? 'item-' . ($item['id'] ?? rand())),
                 'image' => $thumbnail,
                 'date' => $item['created_at'] ?? now()->toDateString(),
+                'category' => $this->getCategoryLabel($item['category'] ?? null),
+                'category_slug' => $item['category'] ?? null,
                 'excerpt' => $item['shorts'] ?? $item['subjudul'] ?? Str::limit(strip_tags($item['isi'] ?? $item['deskripsi'] ?? $item['content'] ?? ''), 100),
                 'content' => $item['isi'] ?? $item['deskripsi'] ?? $item['content'] ?? '',
             ];
         });
+    }
+
+    /**
+     * Map category slug to human readable label.
+     */
+    protected function getCategoryLabel(?string $category): string
+    {
+        return match ($category) {
+            'hospital_info' => 'Info Rumah Sakit',
+            'announcement'  => 'Pengumuman',
+            'event'         => 'Acara',
+            'health_news'   => 'Berita Kesehatan',
+            default         => 'Berita Umum',
+        };
     }
 }

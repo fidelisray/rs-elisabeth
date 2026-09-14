@@ -15,6 +15,7 @@ class NewsResource extends BaseCmsResource
             'id'           => $this->id,
             'title'        => $this->title,
             'slug'         => $this->slug,
+            'category'     => $this->category,
             'author'       => $this->author,
             'shorts'       => $this->shorts,
             'content'      => $this->content,

@@ -7,6 +7,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
 use Filament\Schemas\Components\Section;
 use Illuminate\Support\Str;
 use Filament\Schemas\Schema;
@@ -41,10 +42,22 @@ class NewsForm
                             ->unique(ignoreRecord: true)
                             ->helperText('Dapat diedit jika diperlukan'),
 
+                        Select::make('category')
+                            ->label('Kategori')
+                            ->required()
+                            ->placeholder('Pilih Kategori Berita')
+                            ->options([
+                                'hospital_info' => 'Info Rumah Sakit',
+                                'announcement' => 'Pengumuman',
+                                'event' => 'Acara',
+                                'health_news' => 'Berita Kesehatan',
+                            ]),
+
                         TextInput::make('author')
                             ->label('Author')
                             ->required()
-                            ->maxLength(25),
+                            ->maxLength(25)
+                            ->columnSpanFull(),
 
                         Textarea::make('shorts')
                             ->label('Ringkasan Berita')

@@ -20,23 +20,33 @@ class FacilityServiceTable
                 ImageColumn::make('image_path')
                     ->label('Preview')
                     ->disk('public')
-                    ->circular(),
+                    ->width(120)
+                    ->height(68),
 
-                TextColumn::make('sort_order')
-                    ->label('Urutan')
-                    ->sortable()
-                    ->alignCenter(),
+                // TextColumn::make('sort_order')
+                //     ->label('Urutan')
+                //     ->sortable()
+                //     ->alignCenter(),
 
                 TextColumn::make('name')
                     ->label('Nama Fasilitas')
                     ->searchable()
-                    ->sortable()
-                    ->weight('bold'),
+                    ->sortable(),
 
                 TextColumn::make('category')
                     ->label('Kategori')
                     ->badge()
                     ->searchable()
+                    ->sortable(),
+
+                TextColumn::make('created_at')
+                    ->label('Dibuat')
+                    ->dateTime('d M Y, H:i')
+                    ->sortable(),
+                
+                TextColumn::make('updated_at')
+                    ->label('Diperbarui')
+                    ->dateTime('d M Y, H:i')
                     ->sortable(),
 
                 IconColumn::make('is_active')
@@ -48,11 +58,6 @@ class FacilityServiceTable
                     ->falseColor('danger')
                     ->alignCenter(),
 
-                TextColumn::make('updated_at')
-                    ->label('Diperbarui')
-                    ->dateTime('d M Y, H:i')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->reorderable('sort_order')
             ->defaultSort('sort_order', 'asc')

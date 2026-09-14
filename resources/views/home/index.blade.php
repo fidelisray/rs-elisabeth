@@ -435,12 +435,12 @@
                 <div class="row g-4 justify-content-center" id="promoTrack">
                     @forelse($promotions as $promo)
                         <div class="col-md-6 col-lg-3 {{ $loop->iteration > 4 ? '' : 'position-relative' }}">
-                            <div class="promo-card" {!! $loop->iteration <= 4 ? 'data-bs-toggle="modal" data-bs-target="#promoModal" data-title="'.($promo->title ?? 'Promo').'" data-desc="'.($promo->description ?? 'Penawaran spesial dari RS St. Elisabeth Semarang.').'" data-img="'.(!empty($promo->image_path) ? asset('storage/'.$promo->image_path) : asset('images/placeholder.jpg')).'"' : '' !!}>
+                            <div class="promo-card" {!! $loop->iteration <= 4 ? 'data-bs-toggle="modal" data-bs-target="#promoModal" data-title="'.e($promo->title ?? 'Promo').'" data-desc="'.e($promo->description ?? 'Penawaran spesial dari RS St. Elisabeth Semarang.').'" data-img="'.(!empty($promo->image_path) ? asset('storage/'.$promo->image_path) : asset('images/placeholder.jpg')).'"' : '' !!}>
                                 <div class="card {{ $loop->iteration > 4 ? 'position-relative teased-card' : 'h-100' }}">
                                     <img src="{{ !empty($promo->image_path) ? asset('storage/'.$promo->image_path) : asset('images/placeholder.jpg') }}" class="card-img-top" alt="{{ $promo->title ?? 'Promo' }}">
                                     <div class="card-body d-flex flex-column">
                                         <h5 class="card-title fw-bold text-primary mb-2" style="text-transform: capitalize;">{{ $promo->title ?? 'Promo' }}</h5>
-                                        <p class="card-text text-muted small flex-grow-1">{{ Str::limit($promo->description ?? 'Penawaran spesial dari RS St. Elisabeth Semarang.', 50) }}</p>
+                                        <p class="card-text text-muted small flex-grow-1">{{ Str::limit($promo->shorts ?? strip_tags($promo->description ?? 'Penawaran spesial dari RS St. Elisabeth Semarang.'), 60) }}</p>
                                         <div class="mt-3 text-end">
                                             <span class="text-secondary fw-semibold small">Lihat Detail <i class="fa-solid fa-arrow-right ms-1"></i></span>
                                         </div>
@@ -564,9 +564,12 @@
                                 </a>
                             </div>
                             <div class="news-card-body p-3">
-                                <div class="news-date small">
-                                    <i class="fa-regular fa-calendar"></i>
-                                    {{ \Carbon\Carbon::parse($item['date'])->translatedFormat('d M Y') }}
+                                <div class="news-date small d-flex justify-content-between align-items-center mb-2">
+                                    <span>
+                                        <i class="fa-regular fa-calendar"></i>
+                                        {{ \Carbon\Carbon::parse($item['date'])->translatedFormat('d M Y') }}
+                                    </span>
+                                    <span class="badge bg-primary rounded-pill">{{ $item['category'] ?? 'Berita Umum' }}</span>
                                 </div>
                                 <a href="{{{ route('news.show', ['slug' => $item['slug']]) }}}">
                                     <h3 class="news-title fs-6">{{ $item['title'] }}</h3>
