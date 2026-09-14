@@ -77,6 +77,7 @@ class FacilityServiceForm
                         FileUpload::make('image_path')
                             ->label('Gambar')
                             ->disk('public')
+                            ->directory('facility_services')
                             ->image()
                             ->imageEditor()
                             ->imageEditorAspectRatioOptions([
@@ -87,10 +88,13 @@ class FacilityServiceForm
                             //     '4:3',
                             //     '16:9'
                             // ])
+                            ->automaticallyResizeImagesToWidth(1920)
+                            ->automaticallyResizeImagesToHeight(1080)
                             ->automaticallyResizeImagesMode('cover')
+                            ->maxSize(5120) // 5 MB
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                             ->helperText('Upload gambar dengan format JPEG/JPG/PNG/WebP, ukuran maks 5 MB')
                             ->required()
-                            ->directory('facility_services')
                             ->columnSpanFull(),
                     ]),
                 
@@ -109,7 +113,7 @@ class FacilityServiceForm
                             ->placeholder('misal: 6285600600870')
                             ->maxLength(15)
                             ->live(onBlur: true)
-                            ->afterStateUpdated(function (\Filament\Forms\Set $set, ?string $state) {
+                            ->afterStateUpdated(function (\Filament\Schemas\Components\Utilities\Set $set, ?string $state) {
                                 if (filled($state)) {
                                     // Auto-format "08..." to "628..." seamlessly
                                     $cleanNumber = preg_replace('/[^0-9]/', '', $state);

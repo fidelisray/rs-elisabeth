@@ -394,7 +394,7 @@
                         <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                             <div class="row align-items-center g-0">
                                 <div class="col-md-6 text-center facility-img-wrapper">
-                                    <img src="{{ $facility['icon_url'] ?? asset('images/placeholder.jpg') }}" class="w-100 h-100 object-fit-cover" alt="{{ $facility['name'] }}">
+                                    <img src="{{ $facility['image_url'] ?? asset('images/placeholder.jpg') }}" class="w-100 h-100 object-fit-cover" alt="{{ $facility['name'] }}">
                                 </div>
                                 <div class="col-md-6 p-4 p-md-5">
                                     <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">{{ $facility['category'] ?? 'Featured' }}</span>

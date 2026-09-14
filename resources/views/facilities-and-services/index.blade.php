@@ -198,7 +198,7 @@
                             @foreach ($facilities as $facility)
                             <div class="facility-detail-item" id="facility-{{ $facility['slug'] ?? $facility['id'] }}">
                                 <div class="facility-img-wrapper">
-                                    <img src="{{ $facility['icon_url'] ?? asset('images/placeholder.jpg') }}" alt="{{ $facility['name'] }} RS St. Elisabeth Semarang">
+                                    <img src="{{ $facility['image_url'] ?? asset('images/placeholder.jpg') }}" alt="{{ $facility['name'] }} RS St. Elisabeth Semarang">
                                 </div>
                                 <div class="facility-content-body">
                                     @if(!empty($facility['category']))

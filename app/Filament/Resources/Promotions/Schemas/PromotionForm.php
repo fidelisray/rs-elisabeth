@@ -29,7 +29,7 @@ class PromotionForm
                             ->required()
                             ->maxLength(255)
                             ->live(onBlur: true)
-                            ->afterStateUpdated(function (\Filament\Forms\Set $set, \Filament\Forms\Get $get, ?string $operation, ?string $state) {
+                            ->afterStateUpdated(function (\Filament\Schemas\Components\Utilities\Set $set, \Filament\Schemas\Components\Utilities\Get $get, ?string $operation, ?string $state) {
                                 if (($operation === 'create' || empty($get('slug'))) && filled($state)) {
                                     $set('slug', Str::slug($state));
                                 }
