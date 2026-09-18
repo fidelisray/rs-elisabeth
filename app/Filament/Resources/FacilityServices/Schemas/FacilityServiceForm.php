@@ -37,7 +37,7 @@ class FacilityServiceForm
                             }),
 
                         TextInput::make('slug')
-                            ->placeholder('Klik pada form akan terisi otomatis')
+                            ->placeholder('Klik pada form, teks akan terisi otomatis')
                             ->required()
                             ->maxLength(255)
                             ->unique(ignoreRecord: true)
@@ -57,17 +57,21 @@ class FacilityServiceForm
                             ->columnSpanFull(),
 
                         Textarea::make('short_description')
-                            ->maxLength(65535)
+                            ->maxLength(255)
+                            ->label('Deskripsi Singkat Fasilitas')
+                            ->required()
                             ->columnSpanFull()
-                            ->helperText('Teks singkat yang akan muncul di Carousel Halaman Utama.'),
+                            ->helperText('Penjelasan fasilitas secara singkat dan padat'),
 
                         RichEditor::make('description')
+                            ->label('Deskripsi Lengkap Fasilitas')
+                            ->required()
                             ->columnSpanFull()
-                            ->helperText('Deskripsi lengkap yang muncul saat fasilitas di-klik di halaman Fasilitas & Layanan.'),
+                            ->helperText('Deskripsi lengkap yang menjelaskan fasilitas secara detil'),
 
                         TagsInput::make('highlights')
                             ->columnSpanFull()
-                            ->separator(',')
+                            ->label('Point Unggulan')
                             ->helperText('Masukkan poin-poin unggulan (tekan Enter/Koma untuk menambah). Akan muncul sebagai badge centang.'),
                     ]),
 

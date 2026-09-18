@@ -221,8 +221,8 @@
                                     @endif
                                     
                                     <div class="facility-cta">
-                                        @if(!empty($facility['wa_link_url']))
-                                        <a href="{{ $facility['wa_link_url'] }}" target="_blank" class="btn-primary-facility">
+                                        @if(!empty($facility['wa_action_url']))
+                                        <a href="{{ $facility['wa_action_url'] }}" target="_blank" class="btn-primary-facility">
                                             <i class="fa-brands fa-whatsapp"></i> {{ $facility['wa_link_text'] ?: 'Hubungi Kami' }}
                                         </a>
                                         @endif
