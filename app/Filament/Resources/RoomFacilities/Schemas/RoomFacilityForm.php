@@ -96,6 +96,7 @@ class RoomFacilityForm
                             ->automaticallyResizeImagesMode('cover')
                             ->maxSize(5120) // 5 MB
                             ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                            ->required()
                             ->helperText('Upload foto dengan format JPEG/JPG/PNG/WebP, ukuran maksimal 5 MB, Resolusi ideal 1920x1080')
                             ->columnSpanFull(),
                     ]),
