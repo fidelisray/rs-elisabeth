@@ -69,7 +69,7 @@ class PromotionForm
                         FileUpload::make('image_path')
                         ->label('Poster')
                         ->required()
-                        ->disk('public')
+                        ->disk('s3')
                         ->directory('promotions')
                         ->image()
                         ->imageEditor()

@@ -83,7 +83,7 @@ class RoomFacilityForm
 
                         FileUpload::make('image_path')
                             ->label('Foto Ruangan')
-                            ->disk('public')
+                            ->disk('s3')
                             ->directory('room-facilities')
                             ->image()
                             ->imageEditor()

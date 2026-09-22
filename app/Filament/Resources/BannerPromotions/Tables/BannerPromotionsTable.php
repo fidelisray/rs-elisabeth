@@ -25,7 +25,7 @@ class BannerPromotionsTable
             ->columns([
                 ImageColumn::make('image_path')
                     ->label('Preview')
-                    ->disk('public')
+                    ->disk('s3')
                     ->width(120)
                     ->height(68), // Menjaga aspek rasio 16:9 pada preview tabel
 

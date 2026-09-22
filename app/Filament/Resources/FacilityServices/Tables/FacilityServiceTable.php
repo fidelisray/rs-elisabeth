@@ -19,7 +19,7 @@ class FacilityServiceTable
             ->columns([
                 ImageColumn::make('image_path')
                     ->label('Preview')
-                    ->disk('public')
+                    ->disk('s3')
                     ->width(120)
                     ->height(68),
 

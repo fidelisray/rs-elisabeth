@@ -78,7 +78,7 @@ class NewsForm
                         FileUpload::make('image_path')
                             ->label('Gambar')
                             ->required()
-                            ->disk('public')
+                            ->disk('s3')
                             ->directory('news')
                             ->image()
                             ->imageEditor()

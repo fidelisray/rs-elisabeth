@@ -22,7 +22,7 @@ class RoomFacilitiesTable
                 // Preview foto ruangan (thumbnail kecil)
                 ImageColumn::make('image_path')
                     ->label('Preview')
-                    ->disk('public')
+                    ->disk('s3')
                     ->width(80)
                     ->height(45) // 16:9 thumbnail ratio
                     ->defaultImageUrl(asset('images/logo.png')),

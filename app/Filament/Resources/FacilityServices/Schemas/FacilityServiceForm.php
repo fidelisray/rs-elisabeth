@@ -80,7 +80,7 @@ class FacilityServiceForm
                     ->schema([
                         FileUpload::make('image_path')
                             ->label('Gambar')
-                            ->disk('public')
+                            ->disk('s3')
                             ->directory('facility_services')
                             ->image()
                             ->imageEditor()

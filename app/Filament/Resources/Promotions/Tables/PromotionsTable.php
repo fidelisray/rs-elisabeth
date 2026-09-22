@@ -18,7 +18,7 @@ class PromotionsTable
             ->columns([
                 ImageColumn::make('image_path')
                     ->label('Preview')
-                    ->disk('public')
+                    ->disk('s3')
                     ->width(60)
                     ->height(85),
 
