@@ -2,9 +2,10 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 /**
  * Trait ConvertsImagesToWebp
@@ -23,6 +24,9 @@ use Intervention\Image\Drivers\Gd\Driver;
  * b) Update kolom path di database agar menunjuk ke file .webp yang baru
  *    (mencegah gambar broken di frontend)
  *
+ * Kompatibel dengan disk S3/MinIO maupun disk lokal (public).
+ * Disk yang digunakan dibaca otomatis dari konfigurasi FILESYSTEM_DISK di .env.
+ *
  * @mixin \Illuminate\Database\Eloquent\Model
  * @method static void saved(\Closure $callback)
  */
@@ -33,6 +37,16 @@ trait ConvertsImagesToWebp
      * 82 adalah sweet spot antara kualitas visual & ukuran file.
      */
     protected int $webpQuality = 82;
+
+    /**
+     * Ambil nama disk aktif dari konfigurasi FILESYSTEM_DISK di .env.
+     * Dengan ini, trait bekerja secara otomatis di lingkungan lokal (public)
+     * maupun production (s3/MinIO) tanpa perlu mengubah kode apapun.
+     */
+    protected function getStorageDisk(): string
+    {
+        return config('filesystems.default', 's3');
+    }
 
     /**
      * Daftarkan hook konversi WebP saat model diinisialisasi.
@@ -57,6 +71,7 @@ trait ConvertsImagesToWebp
      */
     protected function convertFieldsToWebp(): void
     {
+        $disk        = $this->getStorageDisk();
         $needsUpdate = false;
         $updates     = [];
 
@@ -72,18 +87,21 @@ trait ConvertsImagesToWebp
                 continue;
             }
 
-            $disk     = 'public';
-            $fullPath = Storage::disk($disk)->path($currentPath);
+            // Lewati jika file tidak ditemukan di storage (lokal maupun S3)
+            if (! Storage::disk($disk)->exists($currentPath)) {
+                Log::debug('ConvertsImagesToWebp: File tidak ditemukan di storage, dilewati.', [
+                    'model' => static::class,
+                    'disk'  => $disk,
+                    'path'  => $currentPath,
+                ]);
 
-            // Lewati jika file fisik tidak ditemukan di storage
-            if (! file_exists($fullPath)) {
                 continue;
             }
 
-            $webpPath = $this->convertToWebp($fullPath, $currentPath);
+            $webpPath = $this->convertToWebp($disk, $currentPath);
 
             if ($webpPath && $webpPath !== $currentPath) {
-                // Hapus file asli (.jpg/.png) setelah konversi berhasil
+                // Hapus file asli (.jpg/.png) dari storage setelah konversi berhasil
                 Storage::disk($disk)->delete($currentPath);
 
                 $updates[$field] = $webpPath;
@@ -98,36 +116,54 @@ trait ConvertsImagesToWebp
     }
 
     /**
-     * Lakukan konversi file gambar ke format WebP menggunakan Intervention Image.
+     * Lakukan konversi file gambar ke format WebP menggunakan Intervention Image v4.
      *
-     * @param  string  $fullPath    Path absolut file asli di server.
-     * @param  string  $storagePath Path relatif file di storage (misal: "room-facilities/abc.jpg").
+     * Alur kerja (kompatibel dengan S3/MinIO dan disk lokal):
+     * 1. Unduh konten binary file dari storage ke memori (RAM).
+     * 2. Decode gambar dari binary menggunakan Intervention Image.
+     * 3. Encode ke format WebP di memori.
+     * 4. Upload hasil WebP langsung ke storage tanpa menyentuh filesystem server.
+     * 5. Return path baru file WebP.
+     *
+     * @param  string  $disk        Nama disk yang digunakan (misal: 's3', 'public').
+     * @param  string  $storagePath Path relatif file di storage (misal: "news/abc.jpg").
      * @return string|null          Path relatif file WebP yang baru, atau null jika gagal.
      */
-    protected function convertToWebp(string $fullPath, string $storagePath): ?string
+    protected function convertToWebp(string $disk, string $storagePath): ?string
     {
         try {
-            $manager = new ImageManager(new Driver());
-            $image   = $manager->decodePath($fullPath);
+            // 1. Unduh konten binary file dari storage (S3/MinIO/lokal) ke memori
+            $fileContent = Storage::disk($disk)->get($storagePath);
 
-            // Ganti ekstensi file menjadi .webp
-            $webpStoragePath = preg_replace('/\.(jpe?g|png|gif|bmp)$/i', '.webp', $storagePath);
-            $webpFullPath    = Storage::disk('public')->path($webpStoragePath);
-
-            // Pastikan direktori tujuan ada
-            $webpDir = dirname($webpFullPath);
-            if (! is_dir($webpDir)) {
-                mkdir($webpDir, 0755, true);
+            if (empty($fileContent)) {
+                return null;
             }
 
-            // Encode dan simpan sebagai WebP (Intervention v4 membaca format dari ekstensi file)
-            $image->save($webpFullPath, $this->webpQuality);
+            // 2. Decode gambar dari binary string
+            $manager = new ImageManager(new Driver());
+            $image   = $manager->decode($fileContent);
+
+            // 3. Tentukan path baru dengan ekstensi .webp
+            $webpStoragePath = (string) preg_replace('/\.(jpe?g|png|gif|bmp)$/i', '.webp', $storagePath);
+
+            // 4. Encode ke format WebP di memori menggunakan Intervention v4
+            $encoded = $image->encode(new \Intervention\Image\Encoders\WebpEncoder($this->webpQuality));
+
+            // 5. Upload hasil konversi WebP ke storage (S3/MinIO/lokal)
+            //    Catatan: Visibilitas/akses publik diatur di level Bucket Policy
+            //    pada dashboard MinIO, bukan di sini (MinIO tidak mendukung per-object ACL).
+            Storage::disk($disk)->put(
+                $webpStoragePath,
+                (string) $encoded
+            );
 
             return $webpStoragePath;
+
         } catch (\Throwable $e) {
-            // Log error tanpa menghentikan proses simpan data
-            \Illuminate\Support\Facades\Log::warning("ConvertsImagesToWebp: Gagal mengkonversi gambar.", [
+            // Log error tanpa menghentikan proses simpan data utama
+            Log::warning('ConvertsImagesToWebp: Gagal mengkonversi gambar.', [
                 'model' => static::class,
+                'disk'  => $disk,
                 'path'  => $storagePath,
                 'error' => $e->getMessage(),
             ]);
