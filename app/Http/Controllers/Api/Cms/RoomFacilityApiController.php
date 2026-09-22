@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Cms;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\Cms\RoomFacilityResource;
 use App\Models\RoomFacility;
+use Illuminate\Support\Facades\Cache;
 
 class RoomFacilityApiController extends Controller
 {
@@ -14,11 +15,13 @@ class RoomFacilityApiController extends Controller
      */
     public function index()
     {
-        $rooms = RoomFacility::query()
-            ->where('is_active', true)
-            ->orderBy('sort_order')
-            ->orderBy('name')
-            ->get();
+        $rooms = Cache::remember('rs_web_cms_api_room_facilities', now()->addHours(6), function () {
+            return RoomFacility::query()
+                ->where('is_active', true)
+                ->orderBy('sort_order')
+                ->orderBy('name')
+                ->get();
+        });
 
         return RoomFacilityResource::collection($rooms);
     }

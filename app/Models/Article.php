@@ -67,12 +67,12 @@ class Article extends Model
 
         // Hapus cache API ketika data diubah atau ditambah
         static::saved(function ($model) {
-            \Illuminate\Support\Facades\Cache::forget('local_cms_articles_');
+            \Illuminate\Support\Facades\Cache::put('rs_web_cms_api_articles_version', time());
         });
 
         // Hapus cache API ketika data dihapus
         static::deleted(function ($model) {
-            \Illuminate\Support\Facades\Cache::forget('local_cms_articles_');
+            \Illuminate\Support\Facades\Cache::put('rs_web_cms_api_articles_version', time());
         });
     }
 }

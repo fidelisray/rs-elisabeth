@@ -13,11 +13,11 @@ class ArticleResource extends BaseCmsResource
     {
         return [
             'id'            => $this->id,
-            'judul'         => $this->judul,
+            'title'         => $this->judul,
             'slug'          => $this->slug,
             'image_path'    => $this->image_path,
             'image_url'     => $this->generateImageUrl($this->image_path),
-            'shorts'        => $this->shorts,
+            'excerpt'       => $this->shorts,
             'content'       => $this->content,
             'tags'          => $this->tags,
             'author'        => $this->author,

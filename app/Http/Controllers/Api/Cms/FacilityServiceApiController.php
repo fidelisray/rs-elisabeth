@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Cms;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\Cms\FacilityServiceResource;
 use App\Models\FacilityService;
+use Illuminate\Support\Facades\Cache;
 
 class FacilityServiceApiController extends Controller
 {
@@ -14,11 +15,13 @@ class FacilityServiceApiController extends Controller
      */
     public function index()
     {
-        $facilities = FacilityService::query()
-            ->where('is_active', true)
-            ->orderBy('sort_order')
-            ->orderBy('name')
-            ->get();
+        $facilities = Cache::remember('rs_web_cms_api_facility_services', now()->addHours(6), function () {
+            return FacilityService::query()
+                ->where('is_active', true)
+                ->orderBy('sort_order')
+                ->orderBy('name')
+                ->get();
+        });
 
         return FacilityServiceResource::collection($facilities);
     }

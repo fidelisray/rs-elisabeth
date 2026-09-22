@@ -34,11 +34,11 @@ class News extends Model
     protected static function booted(): void
     {
         static::saved(function ($model) {
-            \Illuminate\Support\Facades\Cache::forget('local_cms_news_');
+            \Illuminate\Support\Facades\Cache::put('rs_web_cms_api_news_version', time());
         });
 
         static::deleted(function ($model) {
-            \Illuminate\Support\Facades\Cache::forget('local_cms_news_');
+            \Illuminate\Support\Facades\Cache::put('rs_web_cms_api_news_version', time());
         });
     }
 }

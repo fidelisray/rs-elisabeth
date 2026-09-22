@@ -63,12 +63,12 @@ class BannerPromotion extends Model
 
         // Hapus cache API setiap ada perubahan data (create / update)
         static::saved(function () {
-            Cache::forget('local_cms_banner_promotions_');
+            Cache::forget('rs_web_cms_api_banner_promotions');
         });
 
         // Hapus cache API setiap ada penghapusan data
         static::deleted(function () {
-            Cache::forget('local_cms_banner_promotions_');
+            Cache::forget('rs_web_cms_api_banner_promotions');
         });
     }
 }

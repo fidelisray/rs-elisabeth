@@ -84,7 +84,7 @@ class RoomFacilityForm
                         FileUpload::make('image_path')
                             ->label('Foto Ruangan')
                             ->disk('s3')
-                            ->directory('room-facilities')
+                            ->directory('room_facilities')
                             ->image()
                             ->imageEditor()
                             ->imageEditorAspectRatioOptions(['16:9'])

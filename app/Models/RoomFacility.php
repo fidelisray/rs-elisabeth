@@ -65,11 +65,11 @@ class RoomFacility extends Model
         });
 
         static::saved(function ($model) {
-            \Illuminate\Support\Facades\Cache::forget('local_cms_room_facilities_');
+            \Illuminate\Support\Facades\Cache::forget('rs_web_cms_api_room_facilities');
         });
 
         static::deleted(function ($model) {
-            \Illuminate\Support\Facades\Cache::forget('local_cms_room_facilities_');
+            \Illuminate\Support\Facades\Cache::forget('rs_web_cms_api_room_facilities');
         });
     }
 }

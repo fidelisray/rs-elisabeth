@@ -54,11 +54,11 @@ class FacilityService extends Model
 
         // Flush cache lokal agar perubahan dari CMS langsung terekspos ke frontend.
         static::saved(function () {
-            Cache::forget('local_cms_facility_services_');
+            Cache::forget('rs_web_cms_api_facility_services');
         });
 
         static::deleted(function () {
-            Cache::forget('local_cms_facility_services_');
+            Cache::forget('rs_web_cms_api_facility_services');
         });
     }
 
