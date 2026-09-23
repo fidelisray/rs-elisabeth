@@ -25,27 +25,38 @@ return Application::configure(basePath: dirname(__DIR__))
             if ($request->is('api/*')) {
                 if ($e instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
                     return response()->json([
-                        'success' => false,
-                        'message' => 'Data yang diminta tidak ditemukan.',
-                        'errors'  => null,
+                        'success'     => false,
+                        'status_code' => 404,
+                        'message'     => 'Resource not found.',
+                        'errors'      => null,
                     ], 404);
                 }
 
                 if ($e instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
                     return response()->json([
-                        'success' => false,
-                        'message' => 'Endpoint tidak ditemukan.',
-                        'errors'  => null,
+                        'success'     => false,
+                        'status_code' => 404,
+                        'message'     => 'Endpoint not found.',
+                        'errors'      => null,
                     ], 404);
                 }
 
                 if ($e instanceof \Illuminate\Validation\ValidationException) {
                     return response()->json([
-                        'success' => false,
-                        'message' => 'Data yang dikirimkan tidak valid.',
-                        'errors'  => $e->errors(),
+                        'success'     => false,
+                        'status_code' => 422,
+                        'message'     => 'The given data was invalid.',
+                        'errors'      => $e->errors(),
                     ], 422);
                 }
+
+                // Catch-all handler for 500 Internal Server Error
+                return response()->json([
+                    'success'     => false,
+                    'status_code' => 500,
+                    'message'     => 'Internal server error.',
+                    'errors'      => env('APP_DEBUG') ? $e->getMessage() : 'An unexpected error occurred.',
+                ], 500);
             }
         });
     })

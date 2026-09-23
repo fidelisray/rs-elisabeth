@@ -20,13 +20,13 @@ class VerifyCmsHmacSignature
 
         // 1. Cek keberadaan semua header wajib
         if (empty($consId) || empty($timestamp) || empty($signature)) {
-            return $this->unauthorizedResponse('Kredensial tidak lengkap (X-Cons-ID, X-Timestamp, X-Signature wajib disertakan).');
+            return $this->unauthorizedResponse('Missing required headers: X-Cons-ID, X-Timestamp, X-Signature.');
         }
 
         // 2. Cek apakah Cons-ID terdaftar di config
         $clients = config('cms_api.clients', []);
         if (!array_key_exists($consId, $clients) || empty($clients[$consId])) {
-            return $this->unauthorizedResponse('Client ID tidak dikenali.');
+            return $this->unauthorizedResponse('Unknown Client ID.');
         }
 
         $secretKey = $clients[$consId];
@@ -39,7 +39,7 @@ class VerifyCmsHmacSignature
         $diffMinutes = abs($serverTime - $clientTime) / 60;
         
         if ($diffMinutes > $toleranceMinutes) {
-            return $this->unauthorizedResponse('Request ditolak (Timestamp kedaluwarsa atau tidak sinkron).');
+            return $this->unauthorizedResponse('Timestamp expired or drifted beyond tolerance.');
         }
 
         // 4. Hitung dan verifikasi Signature
@@ -49,7 +49,7 @@ class VerifyCmsHmacSignature
 
         // Gunakan hash_equals untuk mencegah Timing Attack
         if (!hash_equals($expectedSignature, $signature)) {
-            return $this->unauthorizedResponse('Signature tidak valid.');
+            return $this->unauthorizedResponse('Invalid signature.');
         }
 
         return $next($request);
@@ -61,9 +61,10 @@ class VerifyCmsHmacSignature
     private function unauthorizedResponse(string $message): Response
     {
         return response()->json([
-            'success' => false,
-            'message' => 'Unauthorized: ' . $message,
-            'errors'  => null,
+            'success'     => false,
+            'status_code' => 401,
+            'message'     => 'Unauthorized access.',
+            'errors'      => $message,
         ], Response::HTTP_UNAUTHORIZED);
     }
 }

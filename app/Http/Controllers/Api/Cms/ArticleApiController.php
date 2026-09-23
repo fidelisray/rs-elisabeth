@@ -6,9 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\Cms\ArticleResource;
 use App\Models\Article;
 use Illuminate\Support\Facades\Cache;
+use OpenApi\Attributes as OA;
 
 class ArticleApiController extends Controller
 {
+    #[OA\Get(
+        path: "/api/v1/cms/articles",
+        summary: "Get list of articles",
+        security: [["HmacAuth" => []]],
+        tags: ["Articles"],
+        description: "Returns list of active articles with pagination."
+    )]
+    #[OA\Response(response: 200, description: "Successful operation")]
     public function index()
     {
         $page = request('page', 1);
@@ -24,6 +33,16 @@ class ArticleApiController extends Controller
         return ArticleResource::collection($articles);
     }
 
+    #[OA\Get(
+        path: "/api/v1/cms/articles/{id}",
+        summary: "Get article detail",
+        security: [["HmacAuth" => []]],
+        tags: ["Articles"],
+        description: "Returns a single article data."
+    )]
+    #[OA\Parameter(name: "id", description: "Article ID", in: "path", required: true)]
+    #[OA\Response(response: 200, description: "Successful operation")]
+    #[OA\Response(response: 404, description: "Resource Not Found")]
     public function show($id)
     {
         $article = Article::query()

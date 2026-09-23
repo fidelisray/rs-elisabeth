@@ -23,4 +23,13 @@ class PromotionApiController extends Controller
 
         return PromotionResource::collection($promotions);
     }
+
+    public function show($id)
+    {
+        $promotion = Promotion::query()
+            ->where('is_active', true)
+            ->findOrFail($id);
+
+        return new PromotionResource($promotion);
+    }
 }

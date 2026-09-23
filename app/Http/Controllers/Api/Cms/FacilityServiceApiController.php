@@ -25,4 +25,14 @@ class FacilityServiceApiController extends Controller
 
         return FacilityServiceResource::collection($facilities);
     }
+
+    public function show($slug)
+    {
+        $facility = FacilityService::query()
+            ->where('is_active', true)
+            ->where('slug', $slug)
+            ->firstOrFail();
+
+        return new FacilityServiceResource($facility);
+    }
 }

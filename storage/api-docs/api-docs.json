@@ -1,0 +1,76 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "RS Elisabeth CMS API",
+        "description": "API documentation for RS Elisabeth CMS endpoints.",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/cms/articles": {
+            "get": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Get list of articles",
+                "description": "Returns list of active articles with pagination.",
+                "operationId": "9f8496e404284781234c7c68a358bc59",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "HmacAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/cms/articles/{id}": {
+            "get": {
+                "tags": [
+                    "Articles"
+                ],
+                "summary": "Get article detail",
+                "description": "Returns a single article data.",
+                "operationId": "a8c75355bcea5207544facd7f4e0a4d1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Article ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "HmacAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "HmacAuth": {
+                "type": "apiKey",
+                "name": "X-Signature",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Articles",
+            "description": "Articles"
+        }
+    ]
+}

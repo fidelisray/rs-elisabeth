@@ -25,4 +25,14 @@ class RoomFacilityApiController extends Controller
 
         return RoomFacilityResource::collection($rooms);
     }
+
+    public function show($slug)
+    {
+        $room = RoomFacility::query()
+            ->where('is_active', true)
+            ->where('slug', $slug)
+            ->firstOrFail();
+
+        return new RoomFacilityResource($room);
+    }
 }
