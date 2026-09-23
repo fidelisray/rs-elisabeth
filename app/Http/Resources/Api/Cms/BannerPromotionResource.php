@@ -4,6 +4,9 @@ namespace App\Http\Resources\Api\Cms;
 
 use Illuminate\Http\Request;
 
+/**
+ * @mixin \App\Models\BannerPromotion
+ */
 class BannerPromotionResource extends BaseCmsResource
 {
     /**

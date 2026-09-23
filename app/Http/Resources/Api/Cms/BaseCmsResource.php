@@ -14,7 +14,14 @@ abstract class BaseCmsResource extends JsonResource
      */
     protected function generateImageUrl(?string $path): ?string
     {
-        return $path ? Storage::disk(config('filesystems.default', 's3'))->url($path) : null;
+        if (! $path) {
+            return null;
+        }
+
+        /** @var \Illuminate\Filesystem\FilesystemAdapter $disk */
+        $disk = Storage::disk(config('filesystems.default', 's3'));
+
+        return $disk->url($path);
     }
 
     /**
