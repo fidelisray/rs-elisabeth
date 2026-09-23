@@ -17,9 +17,9 @@ class HospitalApiService
 
     public function __construct()
     {
-        $this->baseUrl = config('rsapi.base_url');
-        $this->apiKey  = config('rsapi.api_key');
-        $this->timeout = config('rsapi.timeout');
+        $this->baseUrl = config('rsapi.base_url') ?? '';
+        $this->apiKey  = config('rsapi.api_key') ?? '';
+        $this->timeout = (int) config('rsapi.timeout', 5);
     }
 
     /**

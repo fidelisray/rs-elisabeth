@@ -23,12 +23,12 @@ class DoctorApiService
 
     public function __construct()
     {
-        $this->baseUrl = config('rsapi.base_url');
-        $this->medinEndpoint = config('rsapi.medin_endpoint');
+        $this->baseUrl = config('rsapi.base_url') ?? '';
+        $this->medinEndpoint = config('rsapi.medin_endpoint') ?? '';
         // $this->apiKey = config('rsapi.api_key');
-        $this->consId = config('rsapi.medin_consid');
-        $this->secretKey = config('rsapi.medin_secretkey');
-        $this->timeout = config('rsapi.timeout');
+        $this->consId = config('rsapi.medin_consid') ?? '';
+        $this->secretKey = config('rsapi.medin_secretkey') ?? '';
+        $this->timeout = (int) config('rsapi.timeout', 5);
     }
 
     protected function apiRequest(): \Illuminate\Http\Client\PendingRequest
