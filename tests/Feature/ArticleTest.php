@@ -65,14 +65,14 @@ class ArticleTest extends TestCase
     public function test_article_clears_cache_on_saved(): void
     {
         // 1. Arrange
-        Cache::put('local_cms_articles_', 'data-lama');
-        $this->assertTrue(Cache::has('local_cms_articles_'));
+        Cache::put('rs_web_cms_api_articles_version', 'data-lama');
+        $this->assertTrue(Cache::has('rs_web_cms_api_articles_version'));
 
         // 2. Act
         Article::create(['judul' => 'Artikel Baru', 'content' => 'Konten.']);
 
         // 3. Assert
-        $this->assertFalse(Cache::has('local_cms_articles_'), 'Cache harus terhapus setelah artikel disimpan!');
+        $this->assertNotEquals('data-lama', Cache::get('rs_web_cms_api_articles_version'), 'Cache version harus diperbarui!');
     }
 
     /**
@@ -82,14 +82,14 @@ class ArticleTest extends TestCase
     {
         // 1. Arrange
         $article = Article::create(['judul' => 'Artikel Lama', 'content' => 'Konten.']);
-        Cache::put('local_cms_articles_', 'data-lama');
-        $this->assertTrue(Cache::has('local_cms_articles_'));
+        Cache::put('rs_web_cms_api_articles_version', 'data-lama');
+        $this->assertTrue(Cache::has('rs_web_cms_api_articles_version'));
 
         // 2. Act
         $article->delete();
 
         // 3. Assert
-        $this->assertFalse(Cache::has('local_cms_articles_'), 'Cache harus terhapus setelah artikel dihapus!');
+        $this->assertNotEquals('data-lama', Cache::get('rs_web_cms_api_articles_version'), 'Cache version harus diperbarui!');
     }
 
     /**

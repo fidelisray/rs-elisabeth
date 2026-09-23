@@ -61,8 +61,8 @@ class FacilityServiceTest extends TestCase
     public function test_facility_service_clears_cache_on_saved(): void
     {
         // 1. Arrange: Masukkan data usang ke cache
-        Cache::put('local_cms_facility_services_', 'data-lama-yang-tersimpan');
-        $this->assertTrue(Cache::has('local_cms_facility_services_'));
+        Cache::put('rs_web_cms_api_facility_services', 'data-lama-yang-tersimpan');
+        $this->assertTrue(Cache::has('rs_web_cms_api_facility_services'));
 
         // 2. Act: Simpan fasilitas baru
         FacilityService::create([
@@ -72,7 +72,7 @@ class FacilityServiceTest extends TestCase
 
         // 3. Assert: Cache harus terhapus
         $this->assertFalse(
-            Cache::has('local_cms_facility_services_'),
+            Cache::has('rs_web_cms_api_facility_services'),
             'Cache seharusnya terhapus setelah data disimpan!'
         );
     }
@@ -87,15 +87,15 @@ class FacilityServiceTest extends TestCase
             'name'        => 'Radiologi',
             'description' => 'Deskripsi.',
         ]);
-        Cache::put('local_cms_facility_services_', 'data-lama');
-        $this->assertTrue(Cache::has('local_cms_facility_services_'));
+        Cache::put('rs_web_cms_api_facility_services', 'data-lama');
+        $this->assertTrue(Cache::has('rs_web_cms_api_facility_services'));
 
         // 2. Act: Hapus fasilitas
         $facility->delete();
 
         // 3. Assert: Cache harus terhapus
         $this->assertFalse(
-            Cache::has('local_cms_facility_services_'),
+            Cache::has('rs_web_cms_api_facility_services'),
             'Cache seharusnya terhapus setelah data dihapus!'
         );
     }

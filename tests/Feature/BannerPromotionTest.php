@@ -74,15 +74,15 @@ class BannerPromotionTest extends TestCase
     public function test_banner_clears_cache_on_saved(): void
     {
         // 1. Arrange
-        Cache::put('local_cms_banner_promotions_', 'data-lama');
-        $this->assertTrue(Cache::has('local_cms_banner_promotions_'));
+        Cache::put('rs_web_cms_api_banner_promotions', 'data-lama');
+        $this->assertTrue(Cache::has('rs_web_cms_api_banner_promotions'));
 
         // 2. Act
         BannerPromotion::create(['title' => 'Banner Baru', 'image_path' => 'banners/baru.jpg']);
 
         // 3. Assert
         $this->assertFalse(
-            Cache::has('local_cms_banner_promotions_'),
+            Cache::has('rs_web_cms_api_banner_promotions'),
             'Cache harus terhapus setelah banner disimpan!'
         );
     }
@@ -94,15 +94,15 @@ class BannerPromotionTest extends TestCase
     {
         // 1. Arrange
         $banner = BannerPromotion::create(['title' => 'Banner Lama', 'image_path' => 'banners/lama.jpg']);
-        Cache::put('local_cms_banner_promotions_', 'data-lama');
-        $this->assertTrue(Cache::has('local_cms_banner_promotions_'));
+        Cache::put('rs_web_cms_api_banner_promotions', 'data-lama');
+        $this->assertTrue(Cache::has('rs_web_cms_api_banner_promotions'));
 
         // 2. Act
         $banner->delete();
 
         // 3. Assert
         $this->assertFalse(
-            Cache::has('local_cms_banner_promotions_'),
+            Cache::has('rs_web_cms_api_banner_promotions'),
             'Cache harus terhapus setelah banner dihapus!'
         );
     }

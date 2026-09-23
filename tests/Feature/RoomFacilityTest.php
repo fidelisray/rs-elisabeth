@@ -98,15 +98,15 @@ class RoomFacilityTest extends TestCase
     public function test_room_facility_clears_cache_on_saved(): void
     {
         // 1. Arrange
-        Cache::put('local_cms_room_facilities_', 'data-lama');
-        $this->assertTrue(Cache::has('local_cms_room_facilities_'));
+        Cache::put('rs_web_cms_api_room_facilities', 'data-lama');
+        $this->assertTrue(Cache::has('rs_web_cms_api_room_facilities'));
 
         // 2. Act
         RoomFacility::create(['name' => 'Kamar Baru', 'category' => 'standard', 'description' => 'Deskripsi.']);
 
         // 3. Assert
         $this->assertFalse(
-            Cache::has('local_cms_room_facilities_'),
+            Cache::has('rs_web_cms_api_room_facilities'),
             'Cache harus terhapus setelah data kamar disimpan!'
         );
     }
@@ -118,15 +118,15 @@ class RoomFacilityTest extends TestCase
     {
         // 1. Arrange
         $room = RoomFacility::create(['name' => 'Kamar Lama', 'category' => 'standard', 'description' => 'Deskripsi.']);
-        Cache::put('local_cms_room_facilities_', 'data-lama');
-        $this->assertTrue(Cache::has('local_cms_room_facilities_'));
+        Cache::put('rs_web_cms_api_room_facilities', 'data-lama');
+        $this->assertTrue(Cache::has('rs_web_cms_api_room_facilities'));
 
         // 2. Act
         $room->delete();
 
         // 3. Assert
         $this->assertFalse(
-            Cache::has('local_cms_room_facilities_'),
+            Cache::has('rs_web_cms_api_room_facilities'),
             'Cache harus terhapus setelah data kamar dihapus!'
         );
     }

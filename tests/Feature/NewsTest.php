@@ -44,8 +44,8 @@ class NewsTest extends TestCase
     public function test_news_clears_cache_on_saved(): void
     {
         // 1. Arrange
-        Cache::put('local_cms_news_', 'data-lama');
-        $this->assertTrue(Cache::has('local_cms_news_'));
+        Cache::put('rs_web_cms_api_news_version', 'data-lama');
+        $this->assertTrue(Cache::has('rs_web_cms_api_news_version'));
 
         // 2. Act
         News::create([
@@ -55,7 +55,7 @@ class NewsTest extends TestCase
         ]);
 
         // 3. Assert
-        $this->assertFalse(Cache::has('local_cms_news_'), 'Cache harus terhapus setelah berita disimpan!');
+        $this->assertNotEquals('data-lama', Cache::get('rs_web_cms_api_news_version'), 'Cache version harus diperbarui!');
     }
 
     /**
@@ -65,14 +65,14 @@ class NewsTest extends TestCase
     {
         // 1. Arrange
         $news = News::create(['title' => 'Berita Lama', 'slug' => 'berita-lama', 'content' => 'Isi.']);
-        Cache::put('local_cms_news_', 'data-lama');
-        $this->assertTrue(Cache::has('local_cms_news_'));
+        Cache::put('rs_web_cms_api_news_version', 'data-lama');
+        $this->assertTrue(Cache::has('rs_web_cms_api_news_version'));
 
         // 2. Act
         $news->delete();
 
         // 3. Assert
-        $this->assertFalse(Cache::has('local_cms_news_'), 'Cache harus terhapus setelah berita dihapus!');
+        $this->assertNotEquals('data-lama', Cache::get('rs_web_cms_api_news_version'), 'Cache version harus diperbarui!');
     }
 
     // =========================================================================

@@ -44,8 +44,8 @@ class PromotionTest extends TestCase
     public function test_promotion_clears_cache_on_saved(): void
     {
         // 1. Arrange
-        Cache::put('local_cms_promotions_', 'data-lama');
-        $this->assertTrue(Cache::has('local_cms_promotions_'));
+        Cache::put('rs_web_cms_api_promotions_version', 'data-lama');
+        $this->assertTrue(Cache::has('rs_web_cms_api_promotions_version'));
 
         // 2. Act
         Promotion::create([
@@ -55,7 +55,7 @@ class PromotionTest extends TestCase
         ]);
 
         // 3. Assert
-        $this->assertFalse(Cache::has('local_cms_promotions_'), 'Cache harus terhapus setelah promosi disimpan!');
+        $this->assertNotEquals('data-lama', Cache::get('rs_web_cms_api_promotions_version'), 'Cache version harus diperbarui!');
     }
 
     /**
@@ -65,14 +65,14 @@ class PromotionTest extends TestCase
     {
         // 1. Arrange
         $promotion = Promotion::create(['title' => 'Promo Lama', 'slug' => 'promo-lama', 'description' => 'Desc.']);
-        Cache::put('local_cms_promotions_', 'data-lama');
-        $this->assertTrue(Cache::has('local_cms_promotions_'));
+        Cache::put('rs_web_cms_api_promotions_version', 'data-lama');
+        $this->assertTrue(Cache::has('rs_web_cms_api_promotions_version'));
 
         // 2. Act
         $promotion->delete();
 
         // 3. Assert
-        $this->assertFalse(Cache::has('local_cms_promotions_'), 'Cache harus terhapus setelah promosi dihapus!');
+        $this->assertNotEquals('data-lama', Cache::get('rs_web_cms_api_promotions_version'), 'Cache version harus diperbarui!');
     }
 
     // =========================================================================
