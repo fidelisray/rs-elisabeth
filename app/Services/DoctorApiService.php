@@ -23,12 +23,12 @@ class DoctorApiService
 
     public function __construct()
     {
-        $this->baseUrl = config('rsapi.base_url');
-        $this->medinEndpoint = config('rsapi.medin_endpoint');
+        $this->baseUrl = config('rsapi.base_url') ?? '';
+        $this->medinEndpoint = config('rsapi.medin_endpoint') ?? '';
         // $this->apiKey = config('rsapi.api_key');
-        $this->consId = config('rsapi.medin_consid');
-        $this->secretKey = config('rsapi.medin_secretkey');
-        $this->timeout = config('rsapi.timeout');
+        $this->consId = config('rsapi.medin_consid') ?? '';
+        $this->secretKey = config('rsapi.medin_secretkey') ?? '';
+        $this->timeout = (int) config('rsapi.timeout', 5);
     }
 
     protected function apiRequest(): \Illuminate\Http\Client\PendingRequest
@@ -281,30 +281,16 @@ class DoctorApiService
     $specialityLength = count($spesialisasiList);
 
     foreach ($spesialisasiList as $code) {
-        // Sesuaikan property name dengan struktur response API kamu
-        // $code = $spesialisasi ?? null;
-
-        // if (!$code) {
-        //     continue;
-        // }
 
         try {
-            // echo " [" . $i . "/" . $specialityLength . "]" . "Mengambil data dengan speciality id => " . $code;
-            // echo "\n\n";
             $data = $this->getDokterBySpesialisasi($code);
             
             
             if (!$data['Success']) {
-                // echo " [" . $i . "/" . $specialityLength . "]" . "Data => " . $code . " Gagal di ambil / kosong";
-                
-                echo "" . "-> Data {$code} Gagal diambil";
-                echo "\n\n";
                 $i++;
                 continue;
             }
-                
-            // echo "\t". "-> Data Berhasil diambil";
-            // echo "\n\n";
+            
             $i++;
 
             if (!empty($data['ScheduleRoutine']) && is_array($data['ScheduleRoutine'])) {

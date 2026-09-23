@@ -209,9 +209,94 @@
                     <p class="premium-subtitle">Rasakan pengalaman perawatan setara hotel bintang lima dengan privasi penuh, desain interior elegan, dan layanan personal yang tak tertandingi.</p>
                 </div>
 
-                {{-- Grid: 3 premium cards --}}
+                {{-- Grid: Dynamic Premium Cards --}}
                 <div class="row g-4 pb-5">
+                    @forelse($premiumRooms as $room)
+                        <div class="col-12 col-lg-4 reveal-on-scroll">
+                            <div class="premium-room-card {{ $loop->first ? 'card-featured' : '' }} h-100">
+                                @if($loop->first)
+                                    <div class="premium-ribbon"></div>
+                                @endif
+                                <div class="premium-img-wrapper">
+                                    <a href="{{ route('ruang-perawatan.show', $room->slug) }}" class="d-block w-100 h-100">
+                                        <img src="{{ !empty($room->image_path) ? asset('storage/' . $room->image_path) : ($room->image_url ?? asset('images/feature.jpg')) }}" alt="{{ $room->name }} RS St. Elisabeth Semarang">
+                                    </a>
+                                    <span class="room-category-label">{{ $room->name }}</span>
+                                </div>
+                                <div class="premium-card-body">
+                                    <div class="d-flex align-items-center gap-2 mb-3">
+                                        @if($room->room_size || $room->bed_count)
+                                        <span class="room-size-chip">
+                                            <i class="fa-solid fa-vector-square"></i> {{ $room->room_size }} m² @if($room->room_size && $room->bed_count) • @endif {{ $room->bed_count }} Bed
+                                        </span>
+                                        @endif
+                                        @if($room->max_companion)
+                                        <span class="room-size-chip">
+                                            <i class="fa-solid fa-user-group"></i> Maks. {{ $room->max_companion }} Penunggu
+                                        </span>
+                                        @endif
+                                    </div>
+                                    <h3 class="room-title">{{ $room->name }}</h3>
+                                    <p class="room-tagline">{{ $room->tagline ?? $room->description }}</p>
+                                    <hr class="gold-divider">
+                                    
+                                    @if($room->amenities && is_array($room->amenities))
+                                        <div class="premium-amenities">
+                                            @foreach($room->amenities as $amenityGroup)
+                                                <div class="premium-amenity-group">
+                                                    <h6>{{ $amenityGroup['group'] ?? $amenityGroup['group_name'] ?? 'Fasilitas' }}</h6>
+                                                    @php
+                                                        $items = $amenityGroup['items'] ?? [];
+                                                    @endphp
+                                                    @if(!empty($items))
+                                                        <ul>
+                                                            @foreach($items as $item)
+                                                                <li>{{ is_array($item) ? $item['name'] : trim($item) }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    @endif
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @endif
 
+                                    @if($room->highlight_tags && is_array($room->highlight_tags))
+                                        <div class="premium-highlight-tags">
+                                            @foreach($room->highlight_tags as $tag)
+                                                <span class="htag">
+                                                    @if(isset($tag['icon'])) <i class="{{ $tag['icon'] }}"></i> @endif
+                                                    {{ $tag['label'] ?? '' }}
+                                                </span>
+                                            @endforeach
+                                        </div>
+                                    @endif
+
+                                    <div class="premium-card-cta">
+                                        <a href="{{ route('ruang-perawatan.show', $room->slug) }}" class="btn-gold-outline w-100 mb-2 d-flex align-items-center justify-content-center gap-2">
+                                            <i class="fa-solid fa-circle-info"></i> Lihat Detail Lengkap
+                                        </a>
+                                        <div class="d-flex w-100 gap-2">
+                                            @php
+                                                $waText = $room->whatsapp_text ?? 'Halo, saya ingin informasi ruangan ' . $room->name;
+                                            @endphp
+                                            <a href="https://wa.me/6285600600870?text={{ urlencode($waText) }}" target="_blank" class="btn-gold flex-grow-1 d-flex align-items-center justify-content-center gap-1">
+                                                <i class="fa-brands fa-whatsapp"></i> Tanya
+                                            </a>
+                                            <a href="https://regonline.rs-elisabeth.com" target="_blank" class="btn-gold-outline d-flex align-items-center justify-content-center">
+                                                <i class="fa-regular fa-calendar-check"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="col-12">
+                            <div class="alert alert-info border-0 shadow-sm">Belum ada data Ruangan Premium.</div>
+                        </div>
+                    @endforelse
+
+                    @if(false) {{-- OLD HARDCODED PREMIUM ROOMS --}}
                     {{-- 1. PRESIDENT SUITE --}}
                     <div class="col-12 col-lg-4 reveal-on-scroll">
                         <div class="premium-room-card card-featured h-100">
@@ -392,6 +477,7 @@
                         </div>
                     </div>
 
+                    @endif {{-- END OLD HARDCODED PREMIUM ROOMS --}}
                 </div>{{-- end row premium --}}
             </div>{{-- end container --}}
         </section>
@@ -406,7 +492,61 @@
                 </div>
 
                 <div class="row g-4">
+                    @forelse($standardRooms as $room)
+                        <div class="col-12 col-md-6 col-xl-3 reveal-on-scroll">
+                            <div class="standard-room-card room-{{ strtolower(str_replace(' ', '', $room->name)) }}">
+                                <div class="card-top-bar"></div>
+                                <div class="std-img-wrapper">
+                                    <a href="{{ route('ruang-perawatan.show', $room->slug) }}" class="d-block w-100 h-100">
+                                        <img src="{{ !empty($room->image_path) ? asset('storage/' . $room->image_path) : ($room->image_url ?? asset('images/placeholder.jpg')) }}" alt="{{ $room->name }} RS St. Elisabeth Semarang">
+                                    </a>
+                                </div>
+                                <div class="std-card-body">
+                                    <span class="std-class-label">
+                                        <i class="fa-solid fa-bed"></i> {{ $room->name }}
+                                    </span>
+                                    <h3 class="std-room-name">{{ $room->name }}</h3>
+                                    
+                                    @if($room->room_size || $room->bed_count)
+                                    <p class="std-room-size">
+                                        <i class="fa-solid fa-vector-square"></i> {{ $room->room_size }} @if($room->room_size && $room->bed_count) · @endif {{ $room->bed_count }} Bed
+                                    </p>
+                                    @endif
+                                    
+                                    <p class="std-desc">{{ Str::limit(strip_tags($room->description), 180) }}</p>
+                                    
+                                    @if($room->highlight_tags && is_array($room->highlight_tags))
+                                    <div class="std-amenity-chips">
+                                        @foreach($room->highlight_tags as $tag)
+                                            <span class="chip">
+                                                @if(isset($tag['icon'])) <i class="{{ $tag['icon'] }}"></i> @endif
+                                                {{ $tag['label'] ?? '' }}
+                                            </span>
+                                        @endforeach
+                                    </div>
+                                    @endif
 
+                                    <div class="std-card-cta d-flex flex-column gap-2 mt-auto">
+                                        <a href="{{ route('ruang-perawatan.show', $room->slug) }}" class="btn btn-outline-primary w-100 rounded-pill d-flex align-items-center justify-content-center gap-2">
+                                            <i class="fa-solid fa-circle-info"></i> Lihat Detail
+                                        </a>
+                                        @php
+                                            $waText = $room->whatsapp_text ?? 'Halo, saya ingin informasi ruangan ' . $room->name;
+                                        @endphp
+                                        <a href="https://wa.me/6285600600870?text={{ urlencode($waText) }}" target="_blank" class="btn-blue w-100 d-flex align-items-center justify-content-center gap-2">
+                                            <i class="fa-brands fa-whatsapp"></i> Tanya Ketersediaan
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="col-12">
+                            <div class="alert alert-info border-0 shadow-sm">Belum ada data Ruangan Standar.</div>
+                        </div>
+                    @endforelse
+
+                    @if(false) {{-- OLD HARDCODED STANDARD ROOMS --}}
                     {{-- VIP --}}
                     <div class="col-12 col-md-6 col-xl-3 reveal-on-scroll">
                         <div class="standard-room-card room-vip">
@@ -545,11 +685,112 @@
                         </div>
                     </div>
 
+                    @endif {{-- END OLD HARDCODED STANDARD ROOMS --}}
                 </div>{{-- end row standard --}}
             </div>{{-- end container --}}
         </section>
 
-        {{-- ===== COMPARISON TABLE ===== --}}
+        {{-- ===== COMPARISON TABLE (DYNAMIC) ===== --}}
+        @php
+            // Menggabungkan Premium dan Standar agar Premium selalu di depan.
+            // Masing-masing kelompok sudah diurutkan berdasarkan sort_order dari controller.
+            $allRooms = $premiumRooms->merge($standardRooms);
+            
+            // Mengumpulkan semua fitur unik yang ditandai "show_in_comparison" dari seluruh ruangan
+            $allFeatures = collect();
+            foreach($allRooms as $room) {
+                $amenities = $room->amenities;
+                if(is_array($amenities)) {
+                    foreach($amenities as $group) {
+                        foreach($group['items'] ?? [] as $item) {
+                            if(is_array($item) && ($item['show_in_comparison'] ?? false)) {
+                                $allFeatures->push($item['name']);
+                            }
+                        }
+                    }
+                }
+            }
+            $uniqueFeatures = $allFeatures->unique()->values();
+        @endphp
+
+        @if($allRooms->isNotEmpty() && $uniqueFeatures->isNotEmpty())
+        <section id="room-comparison">
+            <div class="container">
+                <div class="comparison-header">
+                    <h2 class="comparison-title">Perbandingan Fasilitas Ruangan</h2>
+                    <p class="comparison-desc">Bandingkan semua fasilitas di setiap kelas ruang perawatan kami secara mudah.</p>
+                </div>
+                <div class="table-responsive">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th style="text-align:left; padding-left:1.25rem;">Fasilitas</th>
+                                @foreach($allRooms as $room)
+                                    <th class="{{ $room->category === 'premium' ? 'col-premium' : '' }}">
+                                        {{ $room->name }}
+                                    </th>
+                                @endforeach
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($uniqueFeatures as $featureName)
+                            <tr>
+                                <td>{{ $featureName }}</td>
+                                @foreach($allRooms as $room)
+                                    @php
+                                        $val = 'no';
+                                        $displayValue = '';
+                                        $isPremium = $room->category === 'premium';
+                                        
+                                        // Cari item yang cocok di dalam amenities ruangan ini
+                                        $amenities = $room->amenities;
+                                        if(is_array($amenities)) {
+                                            foreach($amenities as $group) {
+                                                foreach($group['items'] ?? [] as $item) {
+                                                    if(is_array($item) && ($item['name'] ?? '') === $featureName) {
+                                                        if(empty($item['value'])) {
+                                                            $val = $isPremium ? 'premium' : 'yes';
+                                                        } else {
+                                                            $val = 'text';
+                                                            $displayValue = $item['value'];
+                                                        }
+                                                        break 2;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        
+                                        $tdClass = $isPremium ? 'cell-premium' : '';
+                                    @endphp
+                                    <td class="{{ $tdClass }}">
+                                        @if($val === 'yes')
+                                            <i class="fa-solid fa-check check-yes"></i>
+                                        @elseif($val === 'no')
+                                            <i class="fa-solid fa-minus check-no"></i>
+                                        @elseif($val === 'premium')
+                                            <i class="fa-solid fa-check check-gold"></i>
+                                        @elseif($val === 'text')
+                                            <small {!! $isPremium ? 'style="color:#c9a84c"' : 'class="text-muted"' !!}>
+                                                {{ $displayValue }}
+                                            </small>
+                                        @endif
+                                    </td>
+                                @endforeach
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-center text-muted mt-3" style="font-size:0.8rem;">
+                    <i class="fa-solid fa-circle-info me-1"></i>
+                    Fasilitas dapat berubah. Hubungi kami untuk informasi terkini dan ketersediaan kamar.
+                </p>
+            </div>
+        </section>
+        @endif
+
+        {{-- OLD ROOM-COMPARISON SECTION FOR BACKUP --}}
+        @if(false)
         <section id="room-comparison">
             <div class="container">
                 <div class="comparison-header">
@@ -680,6 +921,7 @@
                 </p>
             </div>
         </section>
+        @endif
 
         {{-- ===== CTA BANNER ===== --}}
         <section id="room-cta-banner">

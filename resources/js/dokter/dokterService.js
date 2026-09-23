@@ -3,7 +3,7 @@ export const state = {
     fullDoctorList: [],
     filteredDoctorList: [],
     currentPage: 1,
-    days: [1, 2, 3, 4, 5, 6, 7]
+    days: [1, 2, 3, 4, 5, 6, 7],
 };
 
 export function preprocessingApiData(doctorData, knownSpecialtyCode = null) {
@@ -23,7 +23,7 @@ export function preprocessingApiData(doctorData, knownSpecialtyCode = null) {
                 specialtyCode: item.SpecialityCode || knownSpecialtyCode,
                 specialtyName: item.SpecialtyName || "",
                 serviceUnitName: item.ServiceUnitName || "",
-                schedule
+                schedule,
             });
         }
 
@@ -51,9 +51,10 @@ export function filterDoctors(keyword, type = "nama") {
         const lowerKeyword = keyword.toLowerCase();
         state.filteredDoctorList = state.fullDoctorList.filter((dokter) => {
             if (type === "klinik") {
-                const specName = dokter.specialtyName?.toLowerCase() || "";
+                // const specName = dokter.specialtyName?.toLowerCase() || "";
                 const unitName = dokter.serviceUnitName?.toLowerCase() || "";
-                return specName.includes(lowerKeyword) || unitName.includes(lowerKeyword);
+                // return specName.includes(lowerKeyword) || unitName.includes(lowerKeyword);
+                return unitName.includes(lowerKeyword);
             } else {
                 const nama = dokter.paramedicName?.toLowerCase() || "";
                 return nama.includes(lowerKeyword);
@@ -65,18 +66,26 @@ export function filterDoctors(keyword, type = "nama") {
 
 export async function fetchAllDokter() {
     try {
-        const csrfTokenElement = document.querySelector('meta[name="csrf-token"]');
-        const csrfToken = csrfTokenElement ? csrfTokenElement.getAttribute("content") : "";
+        const csrfTokenElement = document.querySelector(
+            'meta[name="csrf-token"]',
+        );
+        const csrfToken = csrfTokenElement
+            ? csrfTokenElement.getAttribute("content")
+            : "";
 
-        const response = await fetch(`/dokter/all-dokter?_t=${new Date().getTime()}`, {
-            headers: {
-                "X-Requested-With": "XMLHttpRequest",
-                "X-CSRF-TOKEN": csrfToken,
-                "Cache-Control": "no-cache",
+        const response = await fetch(
+            `/dokter/all-dokter?_t=${new Date().getTime()}`,
+            {
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRF-TOKEN": csrfToken,
+                    "Cache-Control": "no-cache",
+                },
             },
-        });
+        );
 
-        if (!response.ok) throw new Error(`${response.status}: Data tidak tersedia`);
+        if (!response.ok)
+            throw new Error(`${response.status}: Data tidak tersedia`);
 
         const data = await response.json();
         if (!data || data.length === 0) return false;
@@ -94,7 +103,7 @@ export async function fetchDokterBySpecialtyCode(specialtyCode) {
     try {
         const response = await fetch(`/dokter/${specialtyCode}`);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        
+
         const data = await response.json();
         const { ScheduleRoutine } = data;
 

@@ -28,7 +28,16 @@ class HomeController extends Controller
         // 3. Ambil data Berita (ElisaNews)
         $rawNews = $this->hospitalApiService->getNews();
         $latestNews = $this->formatApiData($rawNews)->take(7)->toArray();
+        
+        // 4. Ambil data Promo
+        $promotions = \App\Models\Promotion::where('is_active', true)->latest()->take(6)->get();
 
-        return view('home.index', compact('spesialisasi', 'latestArticles', 'latestNews'));
+        // 5. Ambil data Banner Promotions (Carousel Halaman Utama dari CMS)
+        $banners = $this->hospitalApiService->getBannerPromotions();
+        
+        // 6. Ambil data Facility Services
+        $facilities = collect($this->hospitalApiService->getFacilityServices())->take(6)->toArray();
+
+        return view('home.index', compact('spesialisasi', 'latestArticles', 'latestNews', 'promotions', 'banners', 'facilities'));
     }
 }

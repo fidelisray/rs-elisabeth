@@ -161,9 +161,12 @@
                                 </a>
                             </div>
                             <div class="news-card-body">
-                                <div class="news-date">
-                                    <i class="fa-regular fa-calendar"></i>
-                                    {{ \Carbon\Carbon::parse($item['date'])->translatedFormat('d F Y') }}
+                                <div class="news-date d-flex justify-content-between align-items-center mb-3">
+                                    <span>
+                                        <i class="fa-regular fa-calendar"></i>
+                                        {{ \Carbon\Carbon::parse($item['date'])->translatedFormat('d F Y') }}
+                                    </span>
+                                    <span class="badge bg-primary rounded-pill" style="font-size: 0.75rem;">{{ $item['category'] ?? 'Berita Umum' }}</span>
                                 </div>
                                 <a href="{{{ route('news.show', ['slug' => $item['slug']]) }}}">
                                     <h3 class="news-title">{{ $item['title'] }}</h3>

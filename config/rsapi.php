@@ -18,16 +18,22 @@ return [
     'token_ttl_buffer' => env('RS_API_TOKEN_BUFFER', 60),
 
     'cache_ttl' => [
-        'dokter' => 3600,
-        'units' => 3600,
-        'specialty' => 3600,
+        // External RS API
+        'dokter'               => 3600,
+        'units'                => 3600,
+        'specialty'            => 3600,
         'dokter_by_speciality' => 3600,
-        'staff' => 3600,
-        'jadwal' => 1800,
-        'klinik' => 1800,
-        'promotions' => 1800,
-        'glosarium' => 86400,
-        'articles' => 1800,
-        'elisanews' => 1800
+        'staff'                => 3600,
+        'jadwal'               => 1800,
+        'klinik'               => 1800,
+        'promotions'           => 1800,
+        'glosarium'            => 86400,
+        'articles'             => 1800,
+        'elisanews'            => 1800,
+
+        // Local CMS API (data dikelola dari Filament Admin Panel)
+        'room_facilities'      => 300,   // 5 menit — data jarang berubah
+        'banner_promotions'    => 300,   // 5 menit — data jarang berubah
+        'facility_services'    => 300,   // 5 menit — data jarang berubah
     ],
 ];

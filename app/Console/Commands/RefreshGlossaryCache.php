@@ -12,9 +12,10 @@ class RefreshGlossaryCache extends Command
 
     public function handle(HospitalApiService $apiService): void
     {
+        $this->info($this->description);
         $this->info('Menghapus cache lama...');
         $items = $apiService->refreshGlossaryCache();
 
-        $this->info("✅ Cache berhasil diperbarui. Total istilah: " . count($items));
+        $this->info("Selesai. " . count($items) . " istilah medis berhasil diambil dan disimpan kedalam cache");
     }
 }

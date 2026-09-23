@@ -19,6 +19,7 @@
 /public/storage
 /storage/*.key
 /storage/pail
+/storage/framework/lsp-*.php
 /vendor
 Homestead.json
 Homestead.yaml
@@ -30,3 +31,11 @@ task.md
 walkthrough.md
 SOP-GIT-REBASE.md
 20250727_laporan_analisis_ui
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+.pnpm-debug.log
+_ide_helper.php
+_ide_helper_models.php
+.phpstorm.meta.php
+/coverage

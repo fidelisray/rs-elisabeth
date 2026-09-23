@@ -139,38 +139,42 @@
         <!-- Modern Promo Banner Section (Hero Baru) -->
         <section id="promo-banner-section">
             <div id="promo-banner-carousel" class="carousel slide" data-bs-ride="carousel">
+
+                {{-- ===== INDIKATOR SLIDE (Dinamis dari CMS) ===== --}}
+                @if(count($banners) > 1)
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                    <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
-                    <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
-                    <button type="button" data-bs-target="#promo-banner-carousel" data-bs-slide-to="6" aria-label="Slide 7"></button>
+                    @foreach($banners as $index => $banner)
+                    <button type="button"
+                        data-bs-target="#promo-banner-carousel"
+                        data-bs-slide-to="{{ $index }}"
+                        class="{{ $index === 0 ? 'active' : '' }}"
+                        {{ $index === 0 ? 'aria-current="true"' : '' }}
+                        aria-label="Slide {{ $index + 1 }}">
+                    </button>
+                    @endforeach
                 </div>
+                @endif
+
+                {{-- ===== KONTEN GAMBAR BANNER (Dinamis dari CMS) ===== --}}
                 <div class="carousel-inner">
+                    @forelse($banners as $index => $banner)
+                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                        <img src="{{ $banner['image_url'] }}"
+                             class="d-block w-100"
+                             alt="{{ $banner['title'] }}">
+                    </div>
+                    @empty
+                    {{-- Fallback: tampilkan pesan jika belum ada banner di CMS --}}
                     <div class="carousel-item active">
-                        <img src="{{ asset('images/lp-web-01.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 1">
+                        <div class="d-flex align-items-center justify-content-center bg-light" style="height: 400px;">
+                            <p class="text-muted">Belum ada banner promosi. Tambahkan di CMS Admin Panel.</p>
+                        </div>
                     </div>
-                    <div class="carousel-item">
-                        <img src="{{ asset('images/lp-web-02.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 2">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="{{ asset('images/lp-web-03.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 3">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="{{ asset('images/lp-web-04.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 4">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="{{ asset('images/lp-web-05.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 5">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="{{ asset('images/lp-web-06.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 6">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="{{ asset('images/lp-web-07.jpg') }}" class="d-block w-100" alt="Banner Promo RS St. Elisabeth 7">
-                    </div>
+                    @endforelse
                 </div>
+
+                {{-- ===== TOMBOL NAVIGASI (hanya tampil jika ada lebih dari 1 banner) ===== --}}
+                @if(count($banners) > 1)
                 <button class="carousel-control-prev" type="button" data-bs-target="#promo-banner-carousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
@@ -179,6 +183,8 @@
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
+                @endif
+
             </div>
         </section>
 
@@ -376,111 +382,35 @@
                 </div>
 
                 <div id="carouselExampleCaptions" class="carousel slide shadow rounded-4 overflow-hidden bg-white" data-bs-ride="carousel">
+                    @if(count($facilities) > 0)
                     <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active bg-dark" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" class="bg-dark" aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" class="bg-dark" aria-label="Slide 3"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" class="bg-dark" aria-label="Slide 4"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" class="bg-dark" aria-label="Slide 5"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="5" class="bg-dark" aria-label="Slide 6"></button>
+                        @foreach ($facilities as $index => $facility)
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }} bg-dark" aria-current="{{ $index === 0 ? 'true' : 'false' }}" aria-label="Slide {{ $index + 1 }}"></button>
+                        @endforeach
                     </div>
+                    @endif
                     <div class="carousel-inner" id="carousel-facilities-and-services">
-                        <!-- Item 1 -->
-                        <div class="carousel-item active">
+                        @forelse ($facilities as $index => $facility)
+                        <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                             <div class="row align-items-center g-0">
                                 <div class="col-md-6 text-center facility-img-wrapper">
-                                    <img src="{{ asset('images/F1670220299.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Pelayanan Stroke Terpadu">
+                                    <img src="{{ $facility['image_url'] ?? asset('images/placeholder.jpg') }}" class="w-100 h-100 object-fit-cover" alt="{{ $facility['name'] }}">
                                 </div>
                                 <div class="col-md-6 p-4 p-md-5">
-                                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">Featured</span>
-                                    <h3 class="fw-bold" style="color: var(--secondary-color);">Pelayanan Stroke Terpadu</h3>
-                                    <p class="text-muted fs-5 mt-3">Pelayanan Stroke Terpadu RS St. Elisabeth Semarang menyediakan layanan komprehensif bagi pasien stroke, mulai dari penanganan akut hingga rehabilitasi.</p>
+                                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">{{ $facility['category'] ?? 'Featured' }}</span>
+                                    <h3 class="fw-bold" style="color: var(--secondary-color);">{{ $facility['name'] }}</h3>
+                                    <p class="text-muted fs-5 mt-3">{{ $facility['short_description'] ?? \Illuminate\Support\Str::limit(strip_tags($facility['description'] ?? ''), 150) }}</p>
                                     <div class="mt-4">
-                                        <a href="{{{ route('facilities.index') }}}#facility-stroke" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Learn More <i class="fas fa-arrow-right ms-2"></i></a>
+                                        <a href="{{ route('facilities.index') }}#facility-{{ $facility['slug'] ?? $facility['id'] }}" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Learn More <i class="fas fa-arrow-right ms-2"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- Item 2 -->
-                        <div class="carousel-item">
-                            <div class="row align-items-center g-0">
-                                <div class="col-md-6 text-center facility-img-wrapper">
-                                    <img src="{{ asset('images/F1670914854.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Klinik Nyeri">
-                                </div>
-                                <div class="col-md-6 p-4 p-md-5">
-                                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">Featured</span>
-                                    <h3 class="fw-bold" style="color: var(--secondary-color);">Klinik Nyeri</h3>
-                                    <p class="text-muted fs-5 mt-3">Klinik Nyeri RS St. Elisabeth menyediakan layanan penanganan nyeri kronis maupun akut secara komprehensif untuk membantu mengelola nyeri secara efektif.</p>
-                                    <div class="mt-4">
-                                        <a href="{{{ route('facilities.index') }}}#facility-nyeri" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Learn More <i class="fas fa-arrow-right ms-2"></i></a>
-                                    </div>
-                                </div>
-                            </div>
+                        @empty
+                        <div class="carousel-item active p-5 text-center">
+                            <p class="text-muted">Belum ada data fasilitas unggulan.</p>
                         </div>
-                        <!-- Item 3 -->
-                        <div class="carousel-item">
-                            <div class="row align-items-center g-0">
-                                <div class="col-md-6 text-center facility-img-wrapper">
-                                    <img src="{{ asset('images/F1670914872.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Pelayanan Neurofisiologi">
-                                </div>
-                                <div class="col-md-6 p-4 p-md-5">
-                                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">Featured</span>
-                                    <h3 class="fw-bold" style="color: var(--secondary-color);">Pelayanan Neurofisiologi</h3>
-                                    <p class="text-muted fs-5 mt-3">Layanan Neurofisiologi kami menyediakan pemeriksaan dan evaluasi fungsi sistem saraf secara komprehensif menggunakan teknologi terkini (EEG, EMG).</p>
-                                    <div class="mt-4">
-                                        <a href="{{{ route('facilities.index') }}}#facility-neuro" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Learn More <i class="fas fa-arrow-right ms-2"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Item 4 -->
-                        <div class="carousel-item">
-                            <div class="row align-items-center g-0">
-                                <div class="col-md-6 text-center facility-img-wrapper">
-                                    <img src="{{ asset('images/F1671680565.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Pelayanan Gawat Darurat">
-                                </div>
-                                <div class="col-md-6 p-4 p-md-5">
-                                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">Featured</span>
-                                    <h3 class="fw-bold" style="color: var(--secondary-color);">Pelayanan Gawat Darurat</h3>
-                                    <p class="text-muted fs-5 mt-3">Instalasi Gawat Darurat (IGD) RS St. Elisabeth Semarang menyediakan layanan gawat darurat 24 jam, yang dilayani oleh tenaga medis andal dan berpengalaman.</p>
-                                    <div class="mt-4">
-                                        <a href="{{{ route('facilities.index') }}}#facility-igd" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Learn More <i class="fas fa-arrow-right ms-2"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Item 5 -->
-                        <div class="carousel-item">
-                            <div class="row align-items-center g-0">
-                                <div class="col-md-6 text-center facility-img-wrapper">
-                                    <img src="{{ asset('images/F1671680579.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Ruang Rawat Intensif">
-                                </div>
-                                <div class="col-md-6 p-4 p-md-5">
-                                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">Featured</span>
-                                    <h3 class="fw-bold" style="color: var(--secondary-color);">Ruang Rawat Intensif</h3>
-                                    <p class="text-muted fs-5 mt-3">Ruang Rawat Intensif (ICU/ICCU) dilengkapi dengan peralatan canggih dan tenaga medis khusus untuk menangani dan memantau pasien kritis 24 jam.</p>
-                                    <div class="mt-4">
-                                        <a href="{{{ route('facilities.index') }}}#facility-icu" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Learn More <i class="fas fa-arrow-right ms-2"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Item 6 -->
-                        <div class="carousel-item">
-                            <div class="row align-items-center g-0">
-                                <div class="col-md-6 text-center facility-img-wrapper">
-                                    <img src="{{ asset('images/F1671680659.jpg') }}" class="w-100 h-100 object-fit-cover" alt="Klinik Spesialis dan Gigi">
-                                </div>
-                                <div class="col-md-6 p-4 p-md-5">
-                                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">Featured</span>
-                                    <h3 class="fw-bold" style="color: var(--secondary-color);">Klinik Spesialis dan Gigi</h3>
-                                    <p class="text-muted fs-5 mt-3">Klinik spesialis yang ditangani oleh dokter-dokter ahli berpengalaman, serta klinik gigi dan mulut untuk perawatan kesehatan gigi komprehensif.</p>
-                                    <div class="mt-4">
-                                        <a href="{{{ route('facilities.index') }}}#facility-klinik" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Learn More <i class="fas fa-arrow-right ms-2"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforelse
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon bg-dark p-3 rounded-circle" aria-hidden="true" style="background-size: 50%;"></span>
@@ -503,92 +433,29 @@
             </div>
             <div class="container pb-5">
                 <div class="row g-4 justify-content-center" id="promoTrack">
-                    <div class="col-md-6 col-lg-3 position-relative">
-                        <div class="promo-card" data-bs-toggle="modal" data-bs-target="#promoModal" data-title="Promo MCU Jantung" data-desc="Medical Check Up khusus Jantung dengan fasilitas lengkap dan ditangani oleh spesialis terbaik. Promo berlaku hingga akhir bulan ini." data-img="{{ asset('images/ADS1749518930.jpg') }}">
-                            <div class="card h-100">
-                                <img src="{{ asset('images/ADS1749518930.jpg') }}" class="card-img-top" alt="Paket MCU Jantung">
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title fw-bold text-primary mb-2">Promo MCU Jantung</h5>
-                                    <p class="card-text text-muted small flex-grow-1">Pemeriksaan fungsi jantung secara komprehensif dengan harga spesial.</p>
-                                    <div class="mt-3 text-end">
-                                        <span class="text-secondary fw-semibold small">Lihat Detail <i class="fa-solid fa-arrow-right ms-1"></i></span>
+                    @forelse($promotions as $promo)
+                        <div class="col-md-6 col-lg-3 {{ $loop->iteration > 4 ? '' : 'position-relative' }}">
+                            <div class="promo-card" {!! $loop->iteration <= 4 ? 'data-bs-toggle="modal" data-bs-target="#promoModal" data-title="'.e($promo->title ?? 'Promo').'" data-desc="'.e($promo->description ?? 'Penawaran spesial dari RS St. Elisabeth Semarang.').'" data-img="'.(!empty($promo->image_path) ? asset('storage/'.$promo->image_path) : asset('images/placeholder.jpg')).'"' : '' !!}>
+                                <div class="card {{ $loop->iteration > 4 ? 'position-relative teased-card' : 'h-100' }}">
+                                    <img src="{{ !empty($promo->image_path) ? asset('storage/'.$promo->image_path) : asset('images/placeholder.jpg') }}" class="card-img-top" alt="{{ $promo->title ?? 'Promo' }}">
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title fw-bold text-primary mb-2" style="text-transform: capitalize;">{{ $promo->title ?? 'Promo' }}</h5>
+                                        <p class="card-text text-muted small flex-grow-1">{{ Str::limit($promo->shorts ?? strip_tags($promo->description ?? 'Penawaran spesial dari RS St. Elisabeth Semarang.'), 60) }}</p>
+                                        <div class="mt-3 text-end">
+                                            <span class="text-secondary fw-semibold small">Lihat Detail <i class="fa-solid fa-arrow-right ms-1"></i></span>
+                                        </div>
                                     </div>
+                                    @if($loop->iteration > 4)
+                                    <div class="tease-overlay position-absolute top-0 bottom-0 start-0 end-0" style="background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.95) 35%, rgba(255,255,255,1) 100%); z-index: 5; pointer-events: none;"></div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
+                    @empty
+                    <div class="col-12">
+                        <div class="alert alert-info">Belum ada promo saat ini.</div>
                     </div>
-                    <div class="col-md-6 col-lg-3 position-relative">
-                        <div class="promo-card" data-bs-toggle="modal" data-bs-target="#promoModal" data-title="Screening Gula Darah" data-desc="Pemeriksaan gula darah rutin untuk deteksi dini diabetes. Jangan abaikan kesehatan Anda." data-img="{{ asset('images/ADS1749518080.jpeg') }}">
-                            <div class="card h-100">
-                                <img src="{{ asset('images/ADS1749518080.jpeg') }}" class="card-img-top" alt="Screening Gula Darah">
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title fw-bold text-primary mb-2">Screening Gula Darah</h5>
-                                    <p class="card-text text-muted small flex-grow-1">Deteksi dini risiko diabetes dengan paket screening terjangkau.</p>
-                                    <div class="mt-3 text-end">
-                                        <span class="text-secondary fw-semibold small">Lihat Detail <i class="fa-solid fa-arrow-right ms-1"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 position-relative">
-                        <div class="promo-card" data-bs-toggle="modal" data-bs-target="#promoModal" data-title="Paket Persalinan Nyaman" data-desc="Sambut kelahiran buah hati dengan tenang bersama paket persalinan eksklusif dari RS St. Elisabeth." data-img="{{ asset('images/ADS1758074522.jpeg') }}">
-                            <div class="card h-100">
-                                <img src="{{ asset('images/ADS1758074522.jpeg') }}" class="card-img-top" alt="Paket Persalinan">
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title fw-bold text-primary mb-2">Paket Persalinan Nyaman</h5>
-                                    <p class="card-text text-muted small flex-grow-1">Layanan persalinan VIP dengan fasilitas terbaik untuk ibu dan anak.</p>
-                                    <div class="mt-3 text-end">
-                                        <span class="text-secondary fw-semibold small">Lihat Detail <i class="fa-solid fa-arrow-right ms-1"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 position-relative">
-                        <div class="promo-card" data-bs-toggle="modal" data-bs-target="#promoModal" data-title="Promo Vaksinasi Influenza" data-desc="Lindungi diri dan keluarga dari virus influenza dengan vaksin berstandar internasional." data-img="{{ asset('images/ADS1758075145.jpeg') }}">
-                            <div class="card h-100">
-                                <img src="{{ asset('images/ADS1758075145.jpeg') }}" class="card-img-top" alt="Vaksinasi Influenza">
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title fw-bold text-primary mb-2">Vaksinasi Influenza</h5>
-                                    <p class="card-text text-muted small flex-grow-1">Dapatkan perlindungan maksimal dari influenza musim ini.</p>
-                                    <div class="mt-3 text-end">
-                                        <span class="text-secondary fw-semibold small">Lihat Detail <i class="fa-solid fa-arrow-right ms-1"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="promo-card">
-                            <div class="card position-relative teased-card">
-                                <img src="{{ asset('images/ADS1761805772.jpeg') }}" class="card-img-top" alt="Screening Kanker Serviks">
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title fw-bold text-primary mb-2">Screening Kanker Serviks</h5>
-                                    <p class="card-text text-muted small flex-grow-1">Lakukan papsmear berkala demi kesehatan reproduksi Anda.</p>
-                                    <div class="mt-3 text-end">
-                                        <span class="text-secondary fw-semibold small">Lihat Detail <i class="fa-solid fa-arrow-right ms-1"></i></span>
-                                    </div>
-                                </div>
-                                <div class="tease-overlay position-absolute top-0 bottom-0 start-0 end-0" style="background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.95) 35%, rgba(255,255,255,1) 100%); z-index: 5; pointer-events: none;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="promo-card">
-                            <div class="card position-relative teased-card">
-                                <img src="{{ asset('images/ADS1761805889.jpeg') }}" class="card-img-top" alt="Promo Fisioterapi">
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title fw-bold text-primary mb-2">Promo Fisioterapi</h5>
-                                    <p class="card-text text-muted small flex-grow-1">Paket 5x sesi fisioterapi untuk pemulihan cedera olahraga.</p>
-                                    <div class="mt-3 text-end">
-                                        <span class="text-secondary fw-semibold small">Lihat Detail <i class="fa-solid fa-arrow-right ms-1"></i></span>
-                                    </div>
-                                </div>
-                                <div class="tease-overlay position-absolute top-0 bottom-0 start-0 end-0" style="background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.95) 35%, rgba(255,255,255,1) 100%); z-index: 5; pointer-events: none;"></div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforelse
                 </div>
             </div>
 
@@ -697,9 +564,12 @@
                                 </a>
                             </div>
                             <div class="news-card-body p-3">
-                                <div class="news-date small">
-                                    <i class="fa-regular fa-calendar"></i>
-                                    {{ \Carbon\Carbon::parse($item['date'])->translatedFormat('d M Y') }}
+                                <div class="news-date small d-flex justify-content-between align-items-center mb-2">
+                                    <span>
+                                        <i class="fa-regular fa-calendar"></i>
+                                        {{ \Carbon\Carbon::parse($item['date'])->translatedFormat('d M Y') }}
+                                    </span>
+                                    <span class="badge bg-primary rounded-pill">{{ $item['category'] ?? 'Berita Umum' }}</span>
                                 </div>
                                 <a href="{{{ route('news.show', ['slug' => $item['slug']]) }}}">
                                     <h3 class="news-title fs-6">{{ $item['title'] }}</h3>

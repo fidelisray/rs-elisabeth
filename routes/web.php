@@ -40,14 +40,11 @@ Route::prefix('promotions')->name('promotions.')->group(function () {
 });
 
 // Halaman Fasilitas dan Layanan
-Route::get('/fasilitas', function () {
-    return view('facilities-and-services.index');
-})->name('facilities.index');
+Route::get('/fasilitas', [\App\Http\Controllers\FacilityController::class, 'index'])->name('facilities.index');
 
 // Halaman Ruang Perawatan
-Route::get('/ruang-perawatan', function () {
-    return view('ruang-perawatan.index');
-})->name('ruang-perawatan.index');
+Route::get('/ruang-perawatan', [\App\Http\Controllers\RoomController::class, 'index'])->name('ruang-perawatan.index');
+Route::get('/ruang-perawatan/{slug}', [\App\Http\Controllers\RoomController::class, 'show'])->name('ruang-perawatan.show');
 
 // Halaman Tentang Kami
 Route::get('/tentang-kami', function () {

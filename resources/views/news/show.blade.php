@@ -155,7 +155,7 @@
                         <div class="article-header text-center">
                             <div class="article-meta justify-content-center">
                                 <span><i class="fa-regular fa-calendar me-2"></i> {{ \Carbon\Carbon::parse($news['date'])->translatedFormat('d F Y') }}</span>
-                                <span><i class="fa-regular fa-folder-open me-2"></i> Rumah Sakit St. Elisabeth</span>
+                                <span><i class="fa-regular fa-folder-open me-2"></i> {{ $news['category'] ?? 'Berita Umum' }}</span>
                             </div>
                         </div>
                         

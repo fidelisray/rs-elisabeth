@@ -17,9 +17,9 @@ class HospitalApiService
 
     public function __construct()
     {
-        $this->baseUrl = config('rsapi.base_url');
-        $this->apiKey  = config('rsapi.api_key');
-        $this->timeout = config('rsapi.timeout');
+        $this->baseUrl = config('rsapi.base_url') ?? '';
+        $this->apiKey  = config('rsapi.api_key') ?? '';
+        $this->timeout = (int) config('rsapi.timeout', 5);
     }
 
     /**
@@ -211,8 +211,10 @@ class HospitalApiService
      * Ambil daftar promoitions, 
      * setup cache 
      */
-    public function getPromotionsList(string $category): array
+    public function getPromotionsList(string $category = ''): array
     {
+        /*
+        // ----- MASTER API LAMA (JANGAN DIHAPUS, UNCOMMENT JIKA INGIN KEMBALI) -----
         $cacheKey = 'promotions_' . md5(serialize($category));
         $ttl      = config('rsapi.cache_ttl.promotions');
 
@@ -239,6 +241,26 @@ class HospitalApiService
 
             } catch (\Exception $e) {
                 Log::error('Gagal connect ke API RS', ['error' => $e->getMessage()]);
+                return [];
+            }
+        });
+        */
+
+        // ----- LOCAL CMS API BARU -----
+        $cacheKey = "local_cms_promotions_";
+        $ttl      = config('rsapi.cache_ttl.promotions', 60);
+
+        return Cache::remember($cacheKey, $ttl, function () {
+            try {
+                $response = Http::get(url('/api/cms/promotions'));
+
+                return $response->successful()
+                    ? $response->json('data', [])
+                    : [];
+            } catch (\Exception $e) {
+                Log::error('Gagal ambil data promotions dari lokal CMS API', [
+                    'error' => $e->getMessage(),
+                ]);
                 return [];
             }
         });
@@ -340,6 +362,8 @@ class HospitalApiService
      */
     public function getArticles(): array
     {
+        /*
+        // ----- MASTER API LAMA (JANGAN DIHAPUS, UNCOMMENT JIKA INGIN KEMBALI) -----
         $cacheKey = "articles_";
         $ttl      = config('rsapi.cache_ttl.articles');
 
@@ -361,6 +385,29 @@ class HospitalApiService
                 return [];
             }
         });
+        */
+
+        // ----- LOCAL CMS API BARU -----
+        $cacheKey = "local_cms_articles_";
+        $ttl      = config('rsapi.cache_ttl.articles', 60);
+
+        return Cache::remember($cacheKey, $ttl, function () {
+            try {
+                // Fetch dari lokal API CMS yang baru kita buat
+                $response = Http::get(url('/api/cms/articles'));
+
+                // dd($response->json());
+
+                return $response->successful()
+                    ? $response->json('data', [])
+                    : [];
+            } catch (\Exception $e) {
+                Log::error('Gagal ambil data artikel dari lokal CMS API', [
+                    'error' => $e->getMessage(),
+                ]);
+                return [];
+            }
+        });
     }
 
     /**
@@ -368,6 +415,8 @@ class HospitalApiService
      */
     public function getNews(): array
     {
+        /*
+        // ----- MASTER API LAMA (JANGAN DIHAPUS, UNCOMMENT JIKA INGIN KEMBALI) -----
         $cacheKey = "elisanews_";
         $ttl      = config('rsapi.cache_ttl.elisanews');
 
@@ -384,6 +433,100 @@ class HospitalApiService
                     : [];
             } catch (\Exception $e) {
                 Log::error('Gagal ambil data berita', [
+                    'error' => $e->getMessage(),
+                ]);
+                return [];
+            }
+        });
+        */
+
+        // ----- LOCAL CMS API BARU -----
+        $cacheKey = "local_cms_news_";
+        $ttl      = config('rsapi.cache_ttl.elisanews', 60);
+
+        return Cache::remember($cacheKey, $ttl, function () {
+            try {
+                $response = Http::get(url('/api/cms/news'));
+
+                return $response->successful()
+                    ? $response->json('data', [])
+                    : [];
+            } catch (\Exception $e) {
+                Log::error('Gagal ambil data berita dari lokal CMS API', [
+                    'error' => $e->getMessage(),
+                ]);
+                return [];
+            }
+        });
+    }
+
+    /**
+     * Ambil Data Ruang Perawatan dari Local CMS API.
+     * Menggunakan pola yang sama dengan getArticles().
+     */
+    public function getRoomFacilities(): array
+    {
+        $cacheKey = "local_cms_room_facilities_";
+        $ttl      = config('rsapi.cache_ttl.room_facilities', 60);
+
+        return Cache::remember($cacheKey, $ttl, function () {
+            try {
+                $response = Http::get(url('/api/cms/room-facilities'));
+
+                return $response->successful()
+                    ? $response->json('data', [])
+                    : [];
+            } catch (\Exception $e) {
+                Log::error('Gagal ambil data room facilities dari lokal CMS API', [
+                    'error' => $e->getMessage(),
+                ]);
+                return [];
+            }
+        });
+    }
+
+    /**
+     * Ambil Data Banner Promotions (Carousel Halaman Utama) dari Local CMS API.
+     * Hanya mengambil banner yang is_active = true, diurutkan berdasarkan sort_order.
+     */
+    public function getBannerPromotions(): array
+    {
+        $cacheKey = 'local_cms_banner_promotions_';
+        $ttl      = config('rsapi.cache_ttl.banner_promotions', 60);
+
+        return Cache::remember($cacheKey, $ttl, function () {
+            try {
+                $response = Http::get(url('/api/cms/banner-promotions'));
+
+                return $response->successful()
+                    ? $response->json('data', [])
+                    : [];
+            } catch (\Exception $e) {
+                Log::error('Gagal ambil data banner promotions dari lokal CMS API', [
+                    'error' => $e->getMessage(),
+                ]);
+                return [];
+            }
+        });
+    }
+
+    /**
+     * Ambil Data Facility Services dari Local CMS API.
+     */
+    public function getFacilityServices(): array
+    {
+        $cacheKey = 'local_cms_facility_services_';
+        $ttl      = config('rsapi.cache_ttl.facility_services', 60);
+
+        return Cache::remember($cacheKey, $ttl, function () {
+            try {
+                $response = Http::get(url('/api/cms/facilities'));
+
+                return $response->successful()
+                    ? $response->json('data', [])
+                    : [];
+            } catch (\Exception $e) {
+                Log::error('Gagal ambil data facility services dari lokal CMS API', [
                     'error' => $e->getMessage(),
                 ]);
                 return [];
