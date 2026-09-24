@@ -56,6 +56,230 @@
                     }
                 ]
             }
+        },
+        "/api/v1/cms/banner-promotions": {
+            "get": {
+                "tags": [
+                    "Banner Promotions"
+                ],
+                "summary": "Get list of banner promotions",
+                "description": "Returns list of active banner promotions without pagination.",
+                "operationId": "d7e2865f39aabf867454fa5e3e8052aa",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "HmacAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/cms/facilities": {
+            "get": {
+                "tags": [
+                    "Facilities"
+                ],
+                "summary": "Get list of facilities and services",
+                "description": "Returns list of active facilities and services without pagination.",
+                "operationId": "89109c1ac2845a29ce485f89d97f9c1f",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "HmacAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/cms/facilities/{slug}": {
+            "get": {
+                "tags": [
+                    "Facilities"
+                ],
+                "summary": "Get facility or service detail",
+                "description": "Returns a single facility or service data.",
+                "operationId": "2a917b78db176bb12ece3269056b5d1b",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Facility slug",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "HmacAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/cms/news": {
+            "get": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Get list of news",
+                "description": "Returns list of published news with pagination.",
+                "operationId": "467e4e02142db57fec31bda53013aefc",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "HmacAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/cms/news/{slug}": {
+            "get": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Get news detail",
+                "description": "Returns a single news data.",
+                "operationId": "30ee2d58fbc129112785e92a25afcbd7",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "News slug",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "HmacAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/cms/promotions": {
+            "get": {
+                "tags": [
+                    "Promotions"
+                ],
+                "summary": "Get list of promotions",
+                "description": "Returns list of active promotions with pagination.",
+                "operationId": "bd1b3077d837fa6188920bef20e86585",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "HmacAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/cms/promotions/{id}": {
+            "get": {
+                "tags": [
+                    "Promotions"
+                ],
+                "summary": "Get promotion detail",
+                "description": "Returns a single promotion data.",
+                "operationId": "b77c3adef10775f8f1de876301df8b3d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Promotion ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "HmacAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/cms/room-facilities": {
+            "get": {
+                "tags": [
+                    "Room Facilities"
+                ],
+                "summary": "Get list of room facilities",
+                "description": "Returns list of active room facilities without pagination.",
+                "operationId": "9550b84c603ed535c615566283f49f03",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "HmacAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/cms/room-facilities/{slug}": {
+            "get": {
+                "tags": [
+                    "Room Facilities"
+                ],
+                "summary": "Get room facility detail",
+                "description": "Returns a single room facility data.",
+                "operationId": "a739d2406279f4a60a1b5f6b01247a4e",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Room Facility slug",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "HmacAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -71,6 +295,26 @@
         {
             "name": "Articles",
             "description": "Articles"
+        },
+        {
+            "name": "Banner Promotions",
+            "description": "Banner Promotions"
+        },
+        {
+            "name": "Facilities",
+            "description": "Facilities"
+        },
+        {
+            "name": "News",
+            "description": "News"
+        },
+        {
+            "name": "Promotions",
+            "description": "Promotions"
+        },
+        {
+            "name": "Room Facilities",
+            "description": "Room Facilities"
         }
     ]
 }

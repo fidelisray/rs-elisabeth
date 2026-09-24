@@ -6,9 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\Cms\PromotionResource;
 use App\Models\Promotion;
 use Illuminate\Support\Facades\Cache;
+use OpenApi\Attributes as OA;
 
 class PromotionApiController extends Controller
 {
+    #[OA\Get(
+        path: "/api/v1/cms/promotions",
+        summary: "Get list of promotions",
+        security: [["HmacAuth" => []]],
+        tags: ["Promotions"],
+        description: "Returns list of active promotions with pagination."
+    )]
+    #[OA\Response(response: 200, description: "Successful operation")]
     public function index()
     {
         $page = request('page', 1);
@@ -24,6 +33,16 @@ class PromotionApiController extends Controller
         return PromotionResource::collection($promotions);
     }
 
+    #[OA\Get(
+        path: "/api/v1/cms/promotions/{id}",
+        summary: "Get promotion detail",
+        security: [["HmacAuth" => []]],
+        tags: ["Promotions"],
+        description: "Returns a single promotion data."
+    )]
+    #[OA\Parameter(name: "id", description: "Promotion ID", in: "path", required: true)]
+    #[OA\Response(response: 200, description: "Successful operation")]
+    #[OA\Response(response: 404, description: "Resource Not Found")]
     public function show($id)
     {
         $promotion = Promotion::query()

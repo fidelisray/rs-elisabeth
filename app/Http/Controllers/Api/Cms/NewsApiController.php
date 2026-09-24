@@ -6,9 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\Cms\NewsResource;
 use App\Models\News;
 use Illuminate\Support\Facades\Cache;
+use OpenApi\Attributes as OA;
 
 class NewsApiController extends Controller
 {
+    #[OA\Get(
+        path: "/api/v1/cms/news",
+        summary: "Get list of news",
+        security: [["HmacAuth" => []]],
+        tags: ["News"],
+        description: "Returns list of published news with pagination."
+    )]
+    #[OA\Response(response: 200, description: "Successful operation")]
     public function index()
     {
         $page = request('page', 1);
@@ -24,6 +33,16 @@ class NewsApiController extends Controller
         return NewsResource::collection($news);
     }
 
+    #[OA\Get(
+        path: "/api/v1/cms/news/{slug}",
+        summary: "Get news detail",
+        security: [["HmacAuth" => []]],
+        tags: ["News"],
+        description: "Returns a single news data."
+    )]
+    #[OA\Parameter(name: "slug", description: "News slug", in: "path", required: true)]
+    #[OA\Response(response: 200, description: "Successful operation")]
+    #[OA\Response(response: 404, description: "Resource Not Found")]
     public function show($slug)
     {
         $news = News::query()
