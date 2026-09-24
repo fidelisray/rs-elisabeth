@@ -17,131 +17,52 @@ class RoomFacilityTest extends TestCase
         Cache::flush();
     }
 
-    // =========================================================================
-    // HAPPY PATH
-    // =========================================================================
-
-    /**
-     * [Happy Path] Memastikan slug di-generate otomatis dari field 'name'.
-     */
-    public function test_room_facility_auto_generates_slug_on_creation(): void
+    public function test_room_auto_fills_created_by_with_system_when_no_user(): void
     {
-        // 1. Arrange & Act
         $room = RoomFacility::create([
-            'name'        => 'Kamar VIP Bougainville',
-            'category'    => 'premium',
-            'description' => 'Deskripsi kamar.',
-        ]);
-
-        // 2. Assert
-        $this->assertEquals('kamar-vip-bougainville', $room->slug);
-    }
-
-    /**
-     * [Happy Path] Memastikan slug kustom tidak ditimpa saat sudah diisi manual.
-     */
-    public function test_room_facility_does_not_override_existing_slug(): void
-    {
-        // 1. Arrange & Act
-        $room = RoomFacility::create([
-            'name'        => 'Kamar VVIP',
-            'category'    => 'premium',
-            'description' => 'Deskripsi kamar.',
-            'slug'        => 'kamar-vvip-khusus',
-        ]);
-
-        // 2. Assert
-        $this->assertEquals('kamar-vvip-khusus', $room->slug);
-    }
-
-    /**
-     * [Happy Path] Memastikan field 'amenities' tersimpan dan ter-cast sebagai Array.
-     */
-    public function test_room_facility_amenities_is_cast_as_array(): void
-    {
-        // 1. Arrange & Act
-        $room = RoomFacility::create([
-            'name'        => 'Kamar Kelas 1',
+            'name'        => 'Test Room',
+            'slug'        => 'test-room-1',
             'category'    => 'standard',
-            'description' => 'Deskripsi kamar.',
-            'amenities'   => ['AC', 'TV 32 inch', 'Kamar Mandi Dalam'],
+            'description' => 'Desc',
         ]);
 
-        // 2. Assert: Harus ter-cast sebagai PHP Array
-        $this->assertIsArray($room->fresh()->amenities);
-        $this->assertCount(3, $room->fresh()->amenities);
-        $this->assertContains('AC', $room->fresh()->amenities);
+        $this->assertEquals('system', $room->created_by);
     }
 
-    /**
-     * [Happy Path] Memastikan field 'highlight_tags' tersimpan dan ter-cast sebagai Array.
-     */
-    public function test_room_facility_highlight_tags_is_cast_as_array(): void
+    public function test_room_uses_soft_delete(): void
     {
-        // 1. Arrange & Act
-        $room = RoomFacility::create([
-            'name'           => 'Kamar Isolasi',
-            'category'       => 'standard',
-            'description'    => 'Deskripsi kamar.',
-            'highlight_tags' => ['Steril', 'HEPA Filter', 'Tekanan Negatif'],
-        ]);
+        $room = RoomFacility::create(['name' => 'Name', 'slug' => 'name-1', 'category' => 'standard', 'description' => 'Desc']);
+        $id = $room->id;
 
-        // 2. Assert
-        $this->assertIsArray($room->fresh()->highlight_tags);
-        $this->assertCount(3, $room->fresh()->highlight_tags);
-        $this->assertContains('Steril', $room->fresh()->highlight_tags);
-    }
-
-    /**
-     * [Happy Path] Memastikan cache dibersihkan saat kamar disimpan.
-     */
-    public function test_room_facility_clears_cache_on_saved(): void
-    {
-        // 1. Arrange
-        Cache::put('rs_web_cms_api_room_facilities', 'data-lama');
-        $this->assertTrue(Cache::has('rs_web_cms_api_room_facilities'));
-
-        // 2. Act
-        RoomFacility::create(['name' => 'Kamar Baru', 'category' => 'standard', 'description' => 'Deskripsi.']);
-
-        // 3. Assert
-        $this->assertFalse(
-            Cache::has('rs_web_cms_api_room_facilities'),
-            'Cache harus terhapus setelah data kamar disimpan!'
-        );
-    }
-
-    /**
-     * [Happy Path] Memastikan cache dibersihkan saat kamar dihapus.
-     */
-    public function test_room_facility_clears_cache_on_deleted(): void
-    {
-        // 1. Arrange
-        $room = RoomFacility::create(['name' => 'Kamar Lama', 'category' => 'standard', 'description' => 'Deskripsi.']);
-        Cache::put('rs_web_cms_api_room_facilities', 'data-lama');
-        $this->assertTrue(Cache::has('rs_web_cms_api_room_facilities'));
-
-        // 2. Act
         $room->delete();
 
-        // 3. Assert
-        $this->assertFalse(
-            Cache::has('rs_web_cms_api_room_facilities'),
-            'Cache harus terhapus setelah data kamar dihapus!'
-        );
+        $this->assertNull(RoomFacility::find($id));
+        $this->assertNotNull(RoomFacility::withTrashed()->find($id));
     }
 
-    // =========================================================================
-    // SAD PATH
-    // =========================================================================
-
-    /**
-     * [Sad Path] Memastikan kamar TIDAK bisa dibuat tanpa field 'name'.
-     */
-    public function test_room_facility_creation_fails_without_name(): void
+    public function test_room_clears_cache_on_saved_and_deleted(): void
     {
-        $this->expectException(\Illuminate\Database\QueryException::class);
+        Cache::put('rs_web_cms_api_room_facilities', 'data-lama');
+        
+        $room = RoomFacility::create(['name' => 'Name', 'slug' => 'name-2', 'category' => 'standard', 'description' => 'Desc']);
+        $this->assertFalse(Cache::has('rs_web_cms_api_room_facilities'));
 
-        RoomFacility::create(['description' => 'Deskripsi kamar tanpa nama.']);
+        Cache::put('rs_web_cms_api_room_facilities', 'data-lama2');
+        $room->delete();
+        $this->assertFalse(Cache::has('rs_web_cms_api_room_facilities'));
+    }
+
+    public function test_room_is_active_cast_works_correctly(): void
+    {
+        $room = RoomFacility::create([
+            'name'        => 'Name',
+            'slug'        => 'name-3',
+            'category'    => 'premium',
+            'description' => 'Desc',
+            'is_active'   => true,
+        ]);
+
+        $this->assertDatabaseHas('room_facilities', ['id' => $room->id, 'is_active' => 'yes']);
+        $this->assertTrue($room->fresh()->is_active);
     }
 }

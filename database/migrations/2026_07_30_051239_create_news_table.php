@@ -22,6 +22,10 @@ return new class extends Migration
             $table->string('image_path')->nullable();
             $table->boolean('is_published')->default(false);
             $table->timestamps();
+            $table->softDeletes();
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
+            $table->string('deleted_by')->nullable();
         });
     }
 

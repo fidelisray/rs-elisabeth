@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class News extends Model
 {
+    use \Illuminate\Database\Eloquent\SoftDeletes;
     use ConvertsImagesToWebp;
 
     /**
@@ -26,6 +27,9 @@ class News extends Model
         'content',
         'image_path',
         'is_published',
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
     /**
@@ -33,6 +37,19 @@ class News extends Model
      */
     protected static function booted(): void
     {
+        static::creating(function ($model) {
+            $model->created_by = \Illuminate\Support\Facades\Auth::user()?->email ?? 'system';
+        });
+
+        static::updating(function ($model) {
+            $model->updated_by = \Illuminate\Support\Facades\Auth::user()?->email ?? 'system';
+        });
+
+        static::deleting(function ($model) {
+            $model->deleted_by = \Illuminate\Support\Facades\Auth::user()?->email ?? 'system';
+            $model->saveQuietly();
+        });
+
         static::saved(function ($model) {
             \Illuminate\Support\Facades\Cache::put('rs_web_cms_api_news_version', time());
         });

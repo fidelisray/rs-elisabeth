@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 
 class RoomFacility extends Model
 {
+    use \Illuminate\Database\Eloquent\SoftDeletes;
     use ConvertsImagesToWebp;
 
     /**
@@ -33,6 +34,9 @@ class RoomFacility extends Model
         'whatsapp_text',
         'sort_order',
         'is_active',
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
     /**
@@ -56,12 +60,19 @@ class RoomFacility extends Model
             if (empty($model->slug)) {
                 $model->slug = Str::slug($model->name);
             }
+            $model->created_by = \Illuminate\Support\Facades\Auth::user()?->email ?? 'system';
         });
 
         static::updating(function (self $model) {
             if (empty($model->slug)) {
                 $model->slug = Str::slug($model->name);
             }
+            $model->updated_by = \Illuminate\Support\Facades\Auth::user()?->email ?? 'system';
+        });
+
+        static::deleting(function (self $model) {
+            $model->deleted_by = \Illuminate\Support\Facades\Auth::user()?->email ?? 'system';
+            $model->saveQuietly();
         });
 
         static::saved(function ($model) {

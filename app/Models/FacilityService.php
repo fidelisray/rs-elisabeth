@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 
 class FacilityService extends Model
 {
+    use \Illuminate\Database\Eloquent\SoftDeletes;
     use \App\Traits\ConvertsImagesToWebp;
 
     protected $fillable = [
@@ -24,6 +25,9 @@ class FacilityService extends Model
         'has_appointment_cta',
         'sort_order',
         'is_active',
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
     protected $casts = [
@@ -44,12 +48,19 @@ class FacilityService extends Model
             if (empty($model->slug)) {
                 $model->slug = Str::slug($model->name);
             }
+            $model->created_by = \Illuminate\Support\Facades\Auth::user()?->email ?? 'system';
         });
 
         static::updating(function (self $model) {
             if (empty($model->slug)) {
                 $model->slug = Str::slug($model->name);
             }
+            $model->updated_by = \Illuminate\Support\Facades\Auth::user()?->email ?? 'system';
+        });
+
+        static::deleting(function (self $model) {
+            $model->deleted_by = \Illuminate\Support\Facades\Auth::user()?->email ?? 'system';
+            $model->saveQuietly();
         });
 
         // Flush cache lokal agar perubahan dari CMS langsung terekspos ke frontend.

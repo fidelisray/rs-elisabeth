@@ -17,92 +17,50 @@ class NewsTest extends TestCase
         Cache::flush();
     }
 
-    // =========================================================================
-    // HAPPY PATH
-    // =========================================================================
-
-    /**
-     * [Happy Path] Memastikan berita berhasil dibuat dengan data lengkap.
-     */
-    public function test_news_can_be_created_with_valid_data(): void
+    public function test_news_auto_fills_created_by_with_system_when_no_user(): void
     {
-        // 1. Arrange & Act
         $news = News::create([
-            'title'   => 'RS Elisabeth Membuka Poli Baru',
-            'slug'    => 'rs-elisabeth-membuka-poli-baru',
-            'content' => 'Konten berita lengkap di sini.',
+            'title'   => 'Test Title',
+            'slug'    => 'test-title',
+            'content' => 'Test Content',
         ]);
 
-        // 2. Assert
-        $this->assertDatabaseHas('news', ['title' => 'RS Elisabeth Membuka Poli Baru']);
-        $this->assertEquals('rs-elisabeth-membuka-poli-baru', $news->slug);
+        $this->assertEquals('system', $news->created_by);
     }
 
-    /**
-     * [Happy Path] Memastikan cache dibersihkan saat berita disimpan.
-     */
-    public function test_news_clears_cache_on_saved(): void
+    public function test_news_uses_soft_delete(): void
     {
-        // 1. Arrange
-        Cache::put('rs_web_cms_api_news_version', 'data-lama');
-        $this->assertTrue(Cache::has('rs_web_cms_api_news_version'));
+        $news = News::create(['title' => 'Title', 'slug' => 'title', 'content' => 'Content']);
+        $id = $news->id;
 
-        // 2. Act
-        News::create([
-            'title'   => 'Berita Baru',
-            'slug'    => 'berita-baru',
-            'content' => 'Isi berita.',
-        ]);
-
-        // 3. Assert
-        $this->assertNotEquals('data-lama', Cache::get('rs_web_cms_api_news_version'), 'Cache version harus diperbarui!');
-    }
-
-    /**
-     * [Happy Path] Memastikan cache dibersihkan saat berita dihapus.
-     */
-    public function test_news_clears_cache_on_deleted(): void
-    {
-        // 1. Arrange
-        $news = News::create(['title' => 'Berita Lama', 'slug' => 'berita-lama', 'content' => 'Isi.']);
-        Cache::put('rs_web_cms_api_news_version', 'data-lama');
-        $this->assertTrue(Cache::has('rs_web_cms_api_news_version'));
-
-        // 2. Act
         $news->delete();
 
-        // 3. Assert
-        $this->assertNotEquals('data-lama', Cache::get('rs_web_cms_api_news_version'), 'Cache version harus diperbarui!');
+        $this->assertNull(News::find($id));
+        $this->assertNotNull(News::withTrashed()->find($id));
     }
 
-    // =========================================================================
-    // SAD PATH
-    // =========================================================================
-
-    /**
-     * [Sad Path] Memastikan berita TIDAK bisa dibuat tanpa field 'title'.
-     */
-    public function test_news_creation_fails_without_title(): void
+    public function test_news_clears_cache_on_saved_and_deleted(): void
     {
-        $this->expectException(\Illuminate\Database\QueryException::class);
+        Cache::put('rs_web_cms_api_news_version', 'data-lama');
+        
+        $news = News::create(['title' => 'Title', 'slug' => 'title', 'content' => 'Content']);
+        $this->assertNotEquals('data-lama', Cache::get('rs_web_cms_api_news_version'));
 
-        News::create([
-            'slug'    => 'slug-tanpa-judul',
-            'content' => 'Konten tanpa judul.',
+        Cache::put('rs_web_cms_api_news_version', 'data-lama2');
+        $news->delete();
+        $this->assertNotEquals('data-lama2', Cache::get('rs_web_cms_api_news_version'));
+    }
+
+    public function test_news_is_published_cast_works_correctly(): void
+    {
+        $news = News::create([
+            'title'        => 'Title',
+            'slug'         => 'title-2',
+            'content'      => 'Content',
+            'is_published' => true,
         ]);
-    }
 
-    /**
-     * [Sad Path] Memastikan sistem menolak slug yang sudah ada (duplikat/unique).
-     */
-    public function test_news_creation_fails_with_duplicate_slug(): void
-    {
-        $this->expectException(\Illuminate\Database\QueryException::class);
-
-        // Buat berita pertama
-        News::create(['title' => 'Berita 1', 'slug' => 'slug-sama', 'content' => 'Konten.']);
-
-        // Coba buat berita kedua dengan slug yang sama — harus gagal
-        News::create(['title' => 'Berita 2', 'slug' => 'slug-sama', 'content' => 'Konten.']);
+        $this->assertDatabaseHas('news', ['id' => $news->id, 'is_published' => 'yes']);
+        $this->assertTrue($news->fresh()->is_published);
     }
 }

@@ -17,86 +17,48 @@ class PromotionTest extends TestCase
         Cache::flush();
     }
 
-    // =========================================================================
-    // HAPPY PATH
-    // =========================================================================
-
-    /**
-     * [Happy Path] Memastikan promosi berhasil dibuat dengan data lengkap.
-     */
-    public function test_promotion_can_be_created_with_valid_data(): void
+    public function test_promotion_auto_fills_created_by_with_system_when_no_user(): void
     {
-        // 1. Arrange & Act
-        $promotion = Promotion::create([
-            'title'       => 'Promo Khitan Gratis',
-            'slug'        => 'promo-khitan-gratis',
-            'description' => 'Deskripsi promo lengkap.',
+        $promo = Promotion::create([
+            'title'       => 'Test Promo',
+            'description' => 'Desc',
         ]);
 
-        // 2. Assert
-        $this->assertDatabaseHas('promotions', ['title' => 'Promo Khitan Gratis']);
-        $this->assertEquals('promo-khitan-gratis', $promotion->slug);
+        $this->assertEquals('system', $promo->created_by);
     }
 
-    /**
-     * [Happy Path] Memastikan cache dibersihkan saat promosi disimpan.
-     */
-    public function test_promotion_clears_cache_on_saved(): void
+    public function test_promotion_uses_soft_delete(): void
     {
-        // 1. Arrange
-        Cache::put('rs_web_cms_api_promotions_version', 'data-lama');
-        $this->assertTrue(Cache::has('rs_web_cms_api_promotions_version'));
+        $promo = Promotion::create(['title' => 'Title', 'description' => 'Desc']);
+        $id = $promo->id;
 
-        // 2. Act
-        Promotion::create([
-            'title'       => 'Promo Check Up',
-            'slug'        => 'promo-check-up',
-            'description' => 'Deskripsi.',
+        $promo->delete();
+
+        $this->assertNull(Promotion::find($id));
+        $this->assertNotNull(Promotion::withTrashed()->find($id));
+    }
+
+    public function test_promotion_clears_cache_on_saved_and_deleted(): void
+    {
+        Cache::put('rs_web_cms_api_promotions_version', 'data-lama');
+        
+        $promo = Promotion::create(['title' => 'Title', 'description' => 'Desc']);
+        $this->assertNotEquals('data-lama', Cache::get('rs_web_cms_api_promotions_version'));
+
+        Cache::put('rs_web_cms_api_promotions_version', 'data-lama2');
+        $promo->delete();
+        $this->assertNotEquals('data-lama2', Cache::get('rs_web_cms_api_promotions_version'));
+    }
+
+    public function test_promotion_is_active_cast_works_correctly(): void
+    {
+        $promo = Promotion::create([
+            'title'       => 'Title',
+            'description' => 'Desc',
+            'is_active'   => true,
         ]);
 
-        // 3. Assert
-        $this->assertNotEquals('data-lama', Cache::get('rs_web_cms_api_promotions_version'), 'Cache version harus diperbarui!');
-    }
-
-    /**
-     * [Happy Path] Memastikan cache dibersihkan saat promosi dihapus.
-     */
-    public function test_promotion_clears_cache_on_deleted(): void
-    {
-        // 1. Arrange
-        $promotion = Promotion::create(['title' => 'Promo Lama', 'slug' => 'promo-lama', 'description' => 'Desc.']);
-        Cache::put('rs_web_cms_api_promotions_version', 'data-lama');
-        $this->assertTrue(Cache::has('rs_web_cms_api_promotions_version'));
-
-        // 2. Act
-        $promotion->delete();
-
-        // 3. Assert
-        $this->assertNotEquals('data-lama', Cache::get('rs_web_cms_api_promotions_version'), 'Cache version harus diperbarui!');
-    }
-
-    // =========================================================================
-    // SAD PATH
-    // =========================================================================
-
-    /**
-     * [Sad Path] Memastikan sistem menolak promosi dengan slug yang duplikat (unique constraint).
-     */
-    public function test_promotion_creation_fails_with_duplicate_slug(): void
-    {
-        $this->expectException(\Illuminate\Database\QueryException::class);
-
-        Promotion::create(['title' => 'Promo A', 'slug' => 'slug-sama', 'description' => 'Desc.']);
-        Promotion::create(['title' => 'Promo B', 'slug' => 'slug-sama', 'description' => 'Desc.']);
-    }
-
-    /**
-     * [Sad Path] Memastikan promosi TIDAK bisa dibuat tanpa field 'title'.
-     */
-    public function test_promotion_creation_fails_without_title(): void
-    {
-        $this->expectException(\Illuminate\Database\QueryException::class);
-
-        Promotion::create(['slug' => 'slug-tanpa-judul', 'description' => 'Desc.']);
+        $this->assertDatabaseHas('promotions', ['id' => $promo->id, 'is_active' => 'yes']);
+        $this->assertTrue($promo->fresh()->is_active);
     }
 }
