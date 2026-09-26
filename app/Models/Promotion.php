@@ -33,6 +33,15 @@ class Promotion extends Model
     ];
 
     /**
+     * Tipe data konversi (Casting).
+     */
+    protected $casts = [
+        'is_active' => 'boolean',
+        'start_date' => 'date',
+        'end_date' => 'date',
+    ];
+
+    /**
      * The "booted" method of the model.
      */
     protected static function booted(): void

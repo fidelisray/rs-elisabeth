@@ -33,6 +33,13 @@ class News extends Model
     ];
 
     /**
+     * Tipe data konversi (Casting).
+     */
+    protected $casts = [
+        'is_published' => 'boolean',
+    ];
+
+    /**
      * The "booted" method of the model.
      */
     protected static function booted(): void
