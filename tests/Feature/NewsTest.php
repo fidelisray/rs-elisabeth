@@ -60,7 +60,7 @@ class NewsTest extends TestCase
             'is_published' => true,
         ]);
 
-        $this->assertDatabaseHas('news', ['id' => $news->id, 'is_published' => 'yes']);
+        $this->assertDatabaseHas('news', ['id' => $news->id, 'is_published' => 1]);
         $this->assertTrue($news->fresh()->is_published);
     }
 }

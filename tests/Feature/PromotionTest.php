@@ -58,7 +58,7 @@ class PromotionTest extends TestCase
             'is_active'   => true,
         ]);
 
-        $this->assertDatabaseHas('promotions', ['id' => $promo->id, 'is_active' => 'yes']);
+        $this->assertDatabaseHas('promotions', ['id' => $promo->id, 'is_active' => 1]);
         $this->assertTrue($promo->fresh()->is_active);
     }
 }

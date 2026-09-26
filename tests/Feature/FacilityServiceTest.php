@@ -58,7 +58,7 @@ class FacilityServiceTest extends TestCase
             'is_active'   => true,
         ]);
 
-        $this->assertDatabaseHas('facility_services', ['id' => $fac->id, 'is_active' => 'yes']);
+        $this->assertDatabaseHas('facility_services', ['id' => $fac->id, 'is_active' => 1]);
         $this->assertTrue($fac->fresh()->is_active);
     }
 }

@@ -62,7 +62,7 @@ class RoomFacilityTest extends TestCase
             'is_active'   => true,
         ]);
 
-        $this->assertDatabaseHas('room_facilities', ['id' => $room->id, 'is_active' => 'yes']);
+        $this->assertDatabaseHas('room_facilities', ['id' => $room->id, 'is_active' => 1]);
         $this->assertTrue($room->fresh()->is_active);
     }
 }
